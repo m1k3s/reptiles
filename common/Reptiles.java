@@ -72,7 +72,6 @@ public class Reptiles {
 	private int tortoiseSpawnProb;
 	private int gatorSpawnProb;
 	private int chameleonSpawnProb;
-//	private int megalaniaSpawnProb;
 	
 	@SidedProxy(
 		clientSide = "reptiles.client.ClientProxyReptiles",
@@ -190,11 +189,11 @@ public class Reptiles {
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
-		int trackingRange = 80;
-		int updateFreq = 3;
-		boolean sendsVelUpdates = true;
+//		int trackingRange = 80;
+//		int updateFreq = 3;
+//		boolean sendsVelUpdates = true;
 
-		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
+//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
 	}
 
