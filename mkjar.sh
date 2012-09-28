@@ -33,8 +33,8 @@ cd $REOBF
 
 RDIR="/home/mike/projects/reptiles-src-1.3.2"
 
-rm -f $RDIR/reptiles/common/*
-rm -f $RDIR/reptiles/client/*
+rm -f $RDIR/reptiles/common/*.class
+rm -f $RDIR/reptiles/client/*.class
 
 cp -R reptiles/ $RDIR
 echo -e $MCMODDATA > $RDIR/mcmod.info
@@ -47,7 +47,7 @@ JAR="reptiles-1.3.2-fml-251.jar"
 
 rm -f $JAR
 jar -cf $JAR reptiles/  mcmod.info mob/ sound/ logo/
-mv $JAR ../
+#mv $JAR ../
 
 echo " - Mod build complete"
 
