@@ -31,7 +31,7 @@ echo "> copying files"
 REOBF="reobf/minecraft/"
 cd $REOBF
 
-RDIR="/home/mike/projects/reptiles-src-1.3.2"
+RDIR="$HOME/projects/reptiles-src-1.3.2"
 
 rm -f $RDIR/reptiles/common/*.class
 rm -f $RDIR/reptiles/client/*.class
