@@ -13,7 +13,7 @@ public class EntityGriseus extends EntityVaranus {
 	public EntityGriseus(World world) {
 		super(world);
 		setSize(0.6F, 0.6F);
-		texture = "/mob/griseus.png";
+		texture = "/mob/griseus32.png";
 	}
 
 	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {

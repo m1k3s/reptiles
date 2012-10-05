@@ -13,7 +13,7 @@ MCMODDATA="
   \"version\": \"$DATE\",\n
   \"mcversion\": \"1.3.2\",\n
   \"url\": \"http://www.minecraftforum.net/topic/585469-132modloader-crackedeggs-mods-reptiles-parachute-updated-08272012/\",\n
-  \"updateUrl\": \"http://www.minecraftforum.net/topic/585469-132modloader-crackedeggs-mods-reptiles-parachute-updated-08272012/\",\n
+  \"updateUrl\": \"\",\n
   \"authors\": [\n
     \"crackedEgg\"\n
   ],\n
@@ -26,7 +26,6 @@ MCMODDATA="
 ]"
 
 echo "> copying files"
-#MODINFO="../../mcmod.info"
 
 REOBF="reobf/minecraft/"
 cd $REOBF
@@ -43,11 +42,10 @@ echo "> making mod jar file"
 
 cd $RDIR
 
-JAR="reptiles-1.3.2-fml-251.jar"
+JAR="reptiles-1.3.2-fml-298.jar"
 
 rm -f $JAR
 jar -cf $JAR reptiles/  mcmod.info mob/ sound/ logo/
-#mv $JAR ../
 
 echo " - Mod build complete"
 

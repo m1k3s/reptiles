@@ -37,7 +37,7 @@ public class EntityKomodo extends EntityVaranus {
 	// is not attacked by a tame komodo
 	protected void updateAITasks() {
 		if (playerAttack && isTamed()) { // don't attack players when tame
-			targetTasks.field_75782_a.remove(attackPlayer);
+			targetTasks.taskEntries.remove(attackPlayer);
 			playerAttack = false;
 		}
 		super.updateAITasks();

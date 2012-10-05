@@ -23,6 +23,7 @@ import java.net.URL;
 import java.lang.reflect.Field;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
+import net.minecraftforge.common.ForgeVersion;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -85,6 +86,7 @@ public class Reptiles {
 
 	@PreInit
 	public void preLoad(FMLPreInitializationEvent event) {
+//		checkFMLVersion();
 		File configFile = event.getSuggestedConfigurationFile();
 		try {
 			init(configFile);
@@ -202,6 +204,22 @@ public class Reptiles {
 			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.creature, biomes);
 		}
 	}
+	
+//	public void checkFMLVersion() {
+//		String FMLVersion = "4.1.4.297";
+//		String runningVersion = ForgeVersion.getVersion();
+//		if (!compareVersions()) {
+//			System.err.println("WARNING: The reptile mod was built with ForgeModLoader version " + FMLVersion +
+//					" and may not work correctly with ForgeModLoader version " + runningVersion);
+//		} else {
+//			System.err.println("INFO: FMLVersion requirements for the reptile mod have been satisfied.");
+//		}
+//	}
+//	
+//	public boolean compareVersions() {
+//		return (ForgeVersion.getMajorVersion() == 4 && ForgeVersion.getMinorVersion() == 1 &&
+//				 ForgeVersion.getRevisionVersion() == 4 && ForgeVersion.getBuildVersion() == 297); 
+//	}
 
 	public void loadConfig(File cfgFile) throws IOException {
 		try {
