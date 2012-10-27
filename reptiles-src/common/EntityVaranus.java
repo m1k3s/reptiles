@@ -14,7 +14,7 @@ import net.minecraft.src.*;
 public class EntityVaranus extends EntityTameable
 {
 	protected final float attackDistance;
-	private final int maxHealth = 8;
+	private final int maxHealth = 20;
 	protected final int targetChance = 200;
 	private EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
 
@@ -123,6 +123,8 @@ public class EntityVaranus extends EntityTameable
 	    if (isTamed()) {
 	        if (entityplayer.username.equalsIgnoreCase(getOwnerName()) && !worldObj.isRemote && !isWheat(itemstack)) {
 	            aiSit.setSitting(!isSitting());
+	            isJumping = false;
+                setPathToEntity((PathEntity)null);
 	        }
 	    } else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 	        if (!entityplayer.capabilities.isCreativeMode) {
@@ -136,9 +138,12 @@ public class EntityVaranus extends EntityTameable
 	        if (!this.worldObj.isRemote) {
 	            if (rand.nextInt(3) == 0) {
 	                setTamed(true);
+	                setPathToEntity((PathEntity)null);
+                    setAttackTarget((EntityLiving)null);
+                    aiSit.setSitting(true);
+                    setEntityHealth(maxHealth);
 	                setOwner(entityplayer.username);
 	                playTameEffect(true);
-	                aiSit.setSitting(true);
 	                worldObj.setEntityState(this, (byte)7);
 	            } else {
 	                playTameEffect(false);

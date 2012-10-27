@@ -51,7 +51,7 @@ public class ModelKomodo extends ModelBase {
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
-		setRotationAngles(f, f1, f2, f3, f4, f5);
+		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		// EntityKomodo entitykomodo = (EntityKomodo)entity;
 
@@ -87,8 +87,8 @@ public class ModelKomodo extends ModelBase {
 		}
 	}
 
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-		super.setRotationAngles(f, f1, f2, f3, f4, f5);
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		komodoHead.rotateAngleX = f4 / 57.29578F;
 		komodoHead.rotateAngleY = f3 / 57.29578F;

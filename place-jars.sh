@@ -1,9 +1,12 @@
 #!/bin/bash
 
-MCCLIENTDIR="$HOME/minecraft-1.3.2-fml-298/mods"
-MCSERVERDIR="$HOME/mc-server-fml-298/mods"
-JARDIR="$HOME/projects/reptiles-src-1.3.2"
-JAR="reptiles-1.3.2-fml-298.jar"
+MCVER=1.4.2
+FMLVER=337
+
+MCCLIENTDIR="$HOME/minecraft-$MCVER-fml-$FMLVER/mods"
+MCSERVERDIR="$HOME/mc-server-fml-$FMLVER/mods"
+JARDIR="$HOME/projects/reptiles-src-1.4.x"
+JAR="reptiles-$MCVER-fml-$FMLVER.jar"
 
 cp -f "$JARDIR/$JAR" $MCCLIENTDIR
 cp -f "$JARDIR/$JAR" $MCSERVERDIR
