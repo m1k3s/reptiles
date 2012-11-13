@@ -17,7 +17,7 @@ public class EntityPerentie extends EntityVaranus
     return Item.egg.shiftedIndex; 
   }
   
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityPerentie e = new EntityPerentie(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

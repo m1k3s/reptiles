@@ -15,7 +15,7 @@ public class EntityGator extends EntityCroc
     texture = "/mob/gator32.png";
   }
   
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 	  System.out.printf("Spawned entity of type %s", getClass().toString());
     return new EntityGator(this.worldObj);
   }

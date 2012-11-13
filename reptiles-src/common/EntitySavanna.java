@@ -15,7 +15,7 @@ public class EntitySavanna extends EntityVaranus
     texture = "/mob/savanna.png";
   }
   
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntitySavanna e = new EntitySavanna(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

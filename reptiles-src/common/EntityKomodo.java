@@ -22,7 +22,7 @@ public class EntityKomodo extends EntityVaranus {
 		targetTasks.addTask(5, attackPlayer);
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityKomodo e = new EntityKomodo(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

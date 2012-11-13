@@ -19,7 +19,7 @@ public class EntityLittleTurtle extends EntityTurtle
 //  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
 //  	return new EntityLittleTurtle(this.worldObj);
 //  }
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityLittleTurtle t = new EntityLittleTurtle(worldObj);
 		if (isTamed()) {
           t.setOwner(getOwnerName());

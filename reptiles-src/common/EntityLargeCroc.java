@@ -22,7 +22,7 @@ public class EntityLargeCroc extends EntityCroc {
 		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, attackDistance, 400, false));
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return new EntityLargeCroc(this.worldObj);
 	}

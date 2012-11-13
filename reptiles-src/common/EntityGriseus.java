@@ -16,7 +16,7 @@ public class EntityGriseus extends EntityVaranus {
 		texture = "/mob/griseus32.png";
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityGriseus e = new EntityGriseus(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

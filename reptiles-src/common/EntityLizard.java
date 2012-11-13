@@ -36,7 +36,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	}
 	
 	// This MUST be overridden in the derived class
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		System.err.println("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
@@ -129,5 +129,10 @@ public class EntityLizard extends EntityTameable//EntityAnimal
             return !l.isTamed() ? false : isInLove() && l.isInLove();
         }
     }
+
+	@Override
+	public EntityAgeable func_90011_a(EntityAgeable var1) {
+		return this.spawnBabyAnimal(var1);
+	}
 
 }

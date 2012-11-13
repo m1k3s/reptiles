@@ -47,7 +47,7 @@ public class EntityCroc extends EntityAnimal {
 		return true;
 	}
 	
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return new EntityCroc(worldObj);
 	}
@@ -99,6 +99,11 @@ public class EntityCroc extends EntityAnimal {
 
 	public boolean attackEntityAsMob(Entity par1Entity) {
 		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
+	}
+
+	@Override
+	public EntityAgeable func_90011_a(EntityAgeable var1) {
+		return this.spawnBabyAnimal(var1);
 	}
 
 }

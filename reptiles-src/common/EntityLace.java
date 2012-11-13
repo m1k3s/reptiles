@@ -13,7 +13,7 @@ public class EntityLace extends EntityVaranus
     texture = "/mob/lace.png";
   }
   
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityLace e = new EntityLace(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

@@ -15,7 +15,7 @@ public class EntityChameleon extends EntityLizard {
 		moveSpeed = 0.5F;
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityChameleon c = new EntityChameleon(worldObj);
 		if (isTamed()) {
 			c.setOwner(getOwnerName());

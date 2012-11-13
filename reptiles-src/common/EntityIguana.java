@@ -15,7 +15,7 @@ public class EntityIguana extends EntityLizard
     texture = "/mob/iguana.png";
   }
   
-  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityIguana i = new EntityIguana(worldObj);
 		if (isTamed()) {
 			i.setOwner(getOwnerName());

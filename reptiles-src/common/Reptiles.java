@@ -41,7 +41,7 @@ import cpw.mods.fml.common.SidedProxy;
 @Mod(
 	modid = "ReptileMod", 
 	name = "Reptile Mod", 
-	version = "1.4.2"
+	version = "1.4.4"
 )
 
 @NetworkMod(
@@ -52,7 +52,7 @@ import cpw.mods.fml.common.SidedProxy;
 public class Reptiles {
 	
 	public String getVersion() {
-		return "1.4.2";
+		return "1.4.4";
 	}
 	
 	public final Properties props = new Properties();
@@ -195,7 +195,7 @@ public class Reptiles {
 //		int trackingRange = 80;
 //		int updateFreq = 3;
 //		boolean sendsVelUpdates = true;
-
+//		
 //		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
 	}

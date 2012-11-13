@@ -16,7 +16,7 @@ public class EntityTortoise extends EntityTurtle {
 		moveSpeed = 0.4F;
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityTortoise t = new EntityTortoise(worldObj);
 		if (isTamed()) {
             t.setOwner(getOwnerName());
