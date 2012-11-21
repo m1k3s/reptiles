@@ -41,7 +41,7 @@ import cpw.mods.fml.common.SidedProxy;
 @Mod(
 	modid = "ReptileMod", 
 	name = "Reptile Mod", 
-	version = "1.4.4"
+	version = "1.4.5"
 )
 
 @NetworkMod(
@@ -52,7 +52,7 @@ import cpw.mods.fml.common.SidedProxy;
 public class Reptiles {
 	
 	public String getVersion() {
-		return "1.4.4";
+		return "1.4.5";
 	}
 	
 	public final Properties props = new Properties();
