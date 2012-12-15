@@ -1,6 +1,10 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.MathHelper;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)

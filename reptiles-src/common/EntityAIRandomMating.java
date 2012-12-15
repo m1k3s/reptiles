@@ -2,7 +2,11 @@ package reptiles.common;
 
 import java.util.List;
 
-import net.minecraft.src.*;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.world.World;
+
 
 public class EntityAIRandomMating extends EntityAIBase {
 

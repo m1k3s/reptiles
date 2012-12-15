@@ -6,7 +6,13 @@ package reptiles.common;
 
 import java.util.*;
 
-import net.minecraft.src.*;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+
 
 public class EntityKomodo extends EntityVaranus {
 	

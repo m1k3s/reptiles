@@ -1,12 +1,28 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
 import java.util.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIPanic;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class EntityLizard extends EntityTameable//EntityAnimal
 {

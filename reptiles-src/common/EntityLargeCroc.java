@@ -1,12 +1,19 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
 import java.util.*;
+
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.world.World;
 
 public class EntityLargeCroc extends EntityCroc {
 	public EntityLargeCroc(World world) {

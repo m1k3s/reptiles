@@ -1,10 +1,9 @@
 package reptiles.common;
 
-import net.minecraft.src.BiomeGenBase;
-import net.minecraft.src.EntityAgeable;
-import net.minecraft.src.EntityAnimal;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.World;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.world.World;
+
 
 public class EntityDesertTortoise extends EntityTurtle {
 

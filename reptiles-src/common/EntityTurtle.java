@@ -1,12 +1,21 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
 import java.util.*;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;

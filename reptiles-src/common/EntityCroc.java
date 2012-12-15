@@ -1,12 +1,20 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
 import java.util.*;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
 
 public class EntityCroc extends EntityAnimal {
 	final float attackDistance;

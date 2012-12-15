@@ -4,26 +4,11 @@ package reptiles.common;
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
-import java.util.Map;
-import java.util.Properties;
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.net.URI;
-import java.net.URL;
-import java.lang.reflect.Field;
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.*;
-import net.minecraftforge.common.ForgeVersion;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.Configuration;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -55,8 +40,6 @@ public class Reptiles {
 		return "1.4.5";
 	}
 	
-	public final Properties props = new Properties();
-
 	@Instance
 	public static Reptiles instance;
 
@@ -86,13 +69,30 @@ public class Reptiles {
 
 	@PreInit
 	public void preLoad(FMLPreInitializationEvent event) {
-//		checkFMLVersion();
-		File configFile = event.getSuggestedConfigurationFile();
-		try {
-			init(configFile);
-		} catch (IOException e) {
-			System.err.println("Doh! Reptiles::init() crashed.");
-		}
+		String comments = " Reptile Mod Config\n Michael Sheppard (crackedEgg)\n"
+										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
+		
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config.load();
+		
+		komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", 10).getInt();
+		griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", 12).getInt();
+		laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", 12).getInt();
+		perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", 12).getInt();
+		savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", 12).getInt();
+		crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 5).getInt();
+		largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 4).getInt();
+		desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", 12).getInt();
+		littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", 10).getInt();
+		iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", 12).getInt();
+		tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12).getInt();
+		gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5).getInt();
+		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
+		
+		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
+		
+		config.save();
+		
 		proxy.registerRenderers();
 		proxy.registerSounds();
 	}
@@ -206,136 +206,4 @@ public class Reptiles {
 		}
 	}
 	
-//	public void checkFMLVersion() {
-//		String FMLVersion = "4.1.4.297";
-//		String runningVersion = ForgeVersion.getVersion();
-//		if (!compareVersions()) {
-//			System.err.println("WARNING: The reptile mod was built with ForgeModLoader version " + FMLVersion +
-//					" and may not work correctly with ForgeModLoader version " + runningVersion);
-//		} else {
-//			System.err.println("INFO: FMLVersion requirements for the reptile mod have been satisfied.");
-//		}
-//	}
-//	
-//	public boolean compareVersions() {
-//		return (ForgeVersion.getMajorVersion() == 4 && ForgeVersion.getMinorVersion() == 1 &&
-//				 ForgeVersion.getRevisionVersion() == 4 && ForgeVersion.getBuildVersion() == 297); 
-//	}
-
-	public void loadConfig(File cfgFile) throws IOException {
-		try {
-			if (!cfgFile.exists() && !cfgFile.createNewFile()) {
-				return;
-			}
-
-			if (cfgFile.canRead()) {
-				FileInputStream fileinputstream = new FileInputStream(cfgFile);
-				props.load(fileinputstream);
-				fileinputstream.close();
-			}
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		}
-	}
-
-	public void saveConfig(File cfgFile) throws IOException {
-		String comments = " Reptile Mod Config\n\n" + " Michael Sheppard (crackedEgg)\n";
-
-		try {
-			if (!cfgFile.exists() && !cfgFile.createNewFile()) {
-				return;
-			}
-			if (cfgFile.canWrite()) {
-				FileOutputStream fileoutputstream = new FileOutputStream(cfgFile);
-				props.store(fileoutputstream, comments);
-				fileoutputstream.close();
-			}
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		}
-	}
-
-	private void init(File cfgFile) throws IOException {
-		// initialize to default values
-		initDefaults();
-
-		try {
-			loadConfig(cfgFile);
-
-			if (props.containsKey("komodoSpawnProb")) {
-				komodoSpawnProb = Integer.parseInt(props.getProperty("komodoSpawnProb"));
-			}
-			if (props.containsKey("griseusSpawnProb")) {
-				griseusSpawnProb = Integer.parseInt(props.getProperty("griseusSpawnProb"));
-			}
-			if (props.containsKey("laceSpawnProb")) {
-				laceSpawnProb = Integer.parseInt(props.getProperty("laceSpawnProb"));
-			}
-			if (props.containsKey("perentieSpawnProb")) {
-				perentieSpawnProb = Integer.parseInt(props.getProperty("perentieSpawnProb"));
-			}
-			if (props.containsKey("savannaSpawnProb")) {
-				savannaSpawnProb = Integer.parseInt(props.getProperty("savannaSpawnProb"));
-			}
-			if (props.containsKey("crocSpawnProb")) {
-				crocSpawnProb = Integer.parseInt(props.getProperty("crocSpawnProb"));
-			}
-			if (props.containsKey("largeCrocSpawnProb")) {
-				largeCrocSpawnProb = Integer.parseInt(props.getProperty("largeCrocSpawnProb"));
-			}
-			if (props.containsKey("desertTortoiseSpawnProb")) {
-				desertTortoiseSpawnProb = Integer.parseInt(props.getProperty("desertTortoiseSpawnProb"));
-			}
-			if (props.containsKey("littleTurtleSpawnProb")) {
-				littleTurtleSpawnProb = Integer.parseInt(props.getProperty("littleTurtleSpawnProb"));
-			}
-			if (props.containsKey("iguanaSpawnProb")) {
-				iguanaSpawnProb = Integer.parseInt(props.getProperty("iguanaSpawnProb"));
-			}
-			if (props.containsKey("tortoiseSpawnProb")) {
-				tortoiseSpawnProb = Integer.parseInt(props.getProperty("tortoiseSpawnProb"));
-			}
-			if (props.containsKey("gatorSpawnProb")) {
-				gatorSpawnProb = Integer.parseInt(props.getProperty("gatorSpawnProb"));
-			}
-			if (props.containsKey("chameleonSpawnProb")) {
-				chameleonSpawnProb = Integer.parseInt(props.getProperty("chameleonSpawnProb"));
-			}
-
-			props.setProperty("komodoSpawnProb", Integer.toString(komodoSpawnProb));
-			props.setProperty("griseusSpawnProb", Integer.toString(griseusSpawnProb));
-			props.setProperty("laceSpawnProb", Integer.toString(laceSpawnProb));
-			props.setProperty("perentieSpawnProb", Integer.toString(perentieSpawnProb));
-			props.setProperty("savannaSpawnProb", Integer.toString(savannaSpawnProb));
-			props.setProperty("crocSpawnProb", Integer.toString(crocSpawnProb));
-			props.setProperty("largeCrocSpawnProb", Integer.toString(largeCrocSpawnProb));
-			props.setProperty("desertTortoiseSpawnProb", Integer.toString(desertTortoiseSpawnProb));
-			props.setProperty("littleTurtleSpawnProb", Integer.toString(littleTurtleSpawnProb));
-			props.setProperty("iguanaSpawnProb", Integer.toString(iguanaSpawnProb));
-			props.setProperty("tortoiseSpawnProb", Integer.toString(tortoiseSpawnProb));
-			props.setProperty("gatorSpawnProb", Integer.toString(gatorSpawnProb));
-			props.setProperty("chameleonSpawnProb", Integer.toString(chameleonSpawnProb));
-		} catch (IOException e) {
-			throw new IOException(e.getMessage());
-		} finally {
-			saveConfig(cfgFile);
-		}
-	}
-
-	protected void initDefaults() {
-		komodoSpawnProb = 10;
-		griseusSpawnProb = 12;
-		laceSpawnProb = 12;
-		perentieSpawnProb = 12;
-		savannaSpawnProb = 12;
-		crocSpawnProb = 5;
-		largeCrocSpawnProb = 4;
-		desertTortoiseSpawnProb = 12;
-		littleTurtleSpawnProb = 10;
-		iguanaSpawnProb = 12;
-		tortoiseSpawnProb = 12;
-		gatorSpawnProb = 5;
-		chameleonSpawnProb = 12;
-	}
-
 }

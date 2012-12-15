@@ -1,6 +1,11 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+
 
 public class EntityAIEatPlants extends EntityAIBase {
 	private EntityLiving creature;

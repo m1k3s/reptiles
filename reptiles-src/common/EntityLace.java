@@ -1,8 +1,12 @@
 package reptiles.common;
 
-import net.minecraft.src.*;
 
 import java.util.*;
+
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.item.Item;
+import net.minecraft.world.World;
 
 public class EntityLace extends EntityVaranus
 {
