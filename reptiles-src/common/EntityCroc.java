@@ -81,18 +81,18 @@ public class EntityCroc extends EntityAnimal {
 	}
 
 	protected int getDropItemId() {
-		return Item.leather.shiftedIndex;
+		return Item.leather.itemID;
 	}
 
 	protected void dropFewItems(boolean flag, int add) {
 		int count = rand.nextInt(3) + rand.nextInt(1 + add);
-		dropItem(Item.leather.shiftedIndex, count);
+		dropItem(Item.leather.itemID, count);
 
 		count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
 		if (isBurning()) {
-			dropItem(Item.beefCooked.shiftedIndex, count);
+			dropItem(Item.beefCooked.itemID, count);
 		} else {
-			dropItem(Item.beefRaw.shiftedIndex, count);
+			dropItem(Item.beefRaw.itemID, count);
 		}
 	}
 	
@@ -110,7 +110,7 @@ public class EntityCroc extends EntityAnimal {
 	}
 
 	@Override
-	public EntityAgeable func_90011_a(EntityAgeable var1) {
+	public EntityAgeable createChild(EntityAgeable var1) {
 		return this.spawnBabyAnimal(var1);
 	}
 

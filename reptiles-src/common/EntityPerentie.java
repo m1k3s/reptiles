@@ -18,7 +18,7 @@ public class EntityPerentie extends EntityVaranus
   }
   
   protected int getDropItemId() {
-    return Item.egg.shiftedIndex; 
+    return Item.egg.itemID; 
   }
   
   public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {

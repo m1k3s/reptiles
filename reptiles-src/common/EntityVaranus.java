@@ -40,7 +40,7 @@ public class EntityVaranus extends EntityTameable
 		tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
-		tasks.addTask(5, new EntityAITempt(this, 0.25F, Item.porkRaw.shiftedIndex, false));
+		tasks.addTask(5, new EntityAITempt(this, 0.25F, Item.porkRaw.itemID, false));
 		tasks.addTask(6, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(7, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(8, randomMating);
@@ -89,18 +89,18 @@ public class EntityVaranus extends EntityTameable
 	}
 
 	protected int getDropItemId() {
-		return Item.leather.shiftedIndex;
+		return Item.leather.itemID;
 	}
 
 	protected void dropFewItems(boolean flag, int add) {
 		int count = rand.nextInt(3) + rand.nextInt(1 + add);
-		dropItem(Item.leather.shiftedIndex, count);
+		dropItem(Item.leather.itemID, count);
 
 		count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
 		if (isBurning()) {
-			dropItem(Item.beefCooked.shiftedIndex, count);
+			dropItem(Item.beefCooked.itemID, count);
 		} else {
-			dropItem(Item.beefRaw.shiftedIndex, count);
+			dropItem(Item.beefRaw.itemID, count);
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class EntityVaranus extends EntityTameable
     }
 	
 	public boolean isFavoriteFood(ItemStack itemstack) {
-		return (itemstack != null && itemstack.itemID == Item.porkRaw.shiftedIndex);
+		return (itemstack != null && itemstack.itemID == Item.porkRaw.itemID);
 	}
 	
 	public boolean isWheat(ItemStack itemstack) {
@@ -179,7 +179,7 @@ public class EntityVaranus extends EntityTameable
     }
 
 	@Override
-	public EntityAgeable func_90011_a(EntityAgeable var1) {
+	public EntityAgeable createChild(EntityAgeable var1) {
 		return this.spawnBabyAnimal(var1);
 	}
 	

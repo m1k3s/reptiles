@@ -28,7 +28,7 @@ public class EntityLace extends EntityVaranus
 	}
   
   protected int getDropItemId() {
-    return Item.egg.shiftedIndex; 
+    return Item.egg.itemID; 
   }
   
 }

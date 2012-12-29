@@ -1,12 +1,12 @@
 #!/bin/bash
 
-MCVER=1.4.2
-FMLVER=337
+MCVER=1.4.6
+FMLVER=471
 
-MCCLIENTDIR="$HOME/minecraft-$MCVER-fml-$FMLVER/mods"
-MCSERVERDIR="$HOME/mc-server-fml-$FMLVER/mods"
+MCCLIENTDIR="$HOME/minecraft-$MCVER-forge-$FMLVER/mods"
+MCSERVERDIR="$HOME/mc-server-forge-$FMLVER/mods"
 JARDIR="$HOME/projects/reptiles-src-1.4.x"
-JAR="reptiles-$MCVER-fml-$FMLVER.jar"
+JAR="reptiles-$MCVER-forge-$FMLVER.jar"
 
 cp -f "$JARDIR/$JAR" $MCCLIENTDIR
 cp -f "$JARDIR/$JAR" $MCSERVERDIR

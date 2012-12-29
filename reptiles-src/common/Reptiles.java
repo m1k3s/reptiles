@@ -4,10 +4,14 @@ package reptiles.common;
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.*;
 import net.minecraftforge.common.Configuration;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -24,9 +28,9 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.SidedProxy;
 
 @Mod(
-	modid = "ReptileMod", 
-	name = "Reptile Mod", 
-	version = "1.4.6"
+	modid = Reptiles.modid, 
+	name = Reptiles.name, 
+	version = Reptiles.version
 )
 
 @NetworkMod(
@@ -37,11 +41,15 @@ import cpw.mods.fml.common.SidedProxy;
 public class Reptiles {
 	
 	public String getVersion() {
-		return "1.4.6";
+		return Reptiles.version;
 	}
 	
 	@Instance
 	public static Reptiles instance;
+	
+	public static final String modid = "ReptileMod";
+	public static final String name = "Reptile Mod";
+	public static final String version = "1.4.7";
 
 	private int komodoSpawnProb;
 	private int griseusSpawnProb;
@@ -69,7 +77,7 @@ public class Reptiles {
 
 	@PreInit
 	public void preLoad(FMLPreInitializationEvent event) {
-		String comments = " Reptile Mod Config\n Michael Sheppard (crackedEgg)\n"
+		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -137,6 +145,7 @@ public class Reptiles {
 			BiomeGenBase.plains,
 			BiomeGenBase.extremeHillsEdge
 		};
+//		BiomeGenBase[] monitorBiomes = getBiomes();
 
 		BiomeGenBase[] tortoiseBiomes = {
 			BiomeGenBase.desert,
@@ -155,6 +164,7 @@ public class Reptiles {
 			BiomeGenBase.plains,
 			BiomeGenBase.swampland 
 		};
+//		BiomeGenBase[] turtleBiomes = getBiomes();
 
 		BiomeGenBase[] lizardBiomes = { 
 			BiomeGenBase.forest, 
@@ -205,5 +215,31 @@ public class Reptiles {
 			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.creature, biomes);
 		}
 	}
+	
+//	public BiomeGenBase[] getBiomes() {
+//		LinkedList linkedlist = new LinkedList();
+//		for (BiomeGenBase biomegenbase : BiomeGenBase.biomeList) {
+//			if (biomegenbase == null) {
+//				continue;
+//			}
+//			if (!forbiddenBiome(biomegenbase)) {
+//				linkedlist.add(biomegenbase);
+//			}
+//		}
+//		return (BiomeGenBase[]) linkedlist.toArray(new BiomeGenBase[0]);
+//	}
+//	
+//	public boolean forbiddenBiome(BiomeGenBase biome) {
+//		// exclude Hell and the End 
+//		if ((biome instanceof BiomeGenHell) || (biome instanceof BiomeGenEnd)) {
+//			return true;
+//		}
+//		// exclude all cold biomes
+//		if ((biome.biomeID == 0) || (biome.biomeID == 5) ||	(biome.biomeID >=10 && biome.biomeID <= 13) || (biome.biomeID == 19)) {
+//			return true;
+//		}
+//		
+//		return false;
+//	}
 	
 }

@@ -78,7 +78,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	}
 
 	protected int getDropItemId() {
-		return Item.porkRaw.shiftedIndex;
+		return Item.porkRaw.itemID;
 	}
 
 	protected boolean isFavoriteFood(ItemStack itemstack) {
@@ -147,7 +147,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
     }
 
 	@Override
-	public EntityAgeable func_90011_a(EntityAgeable var1) {
+	public EntityAgeable createChild(EntityAgeable var1) {
 		return this.spawnBabyAnimal(var1);
 	}
 

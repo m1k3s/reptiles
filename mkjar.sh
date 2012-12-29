@@ -2,8 +2,11 @@
 
 echo "== Creating jars =="
 
-MCVER=1.4.2
-FMLVER=337
+KEYPASS=ds1b8zs
+STOREPASS=ds1b8zs
+
+MCVER=1.4.6
+FMLVER=471
 
 DATE=`date +%Y%m%d`
 
@@ -45,10 +48,15 @@ echo "> making mod jar file"
 
 cd $RDIR
 
-JAR="reptiles-$MCVER-fml-$FMLVER.jar"
+JAR="reptiles-$MCVER-forge-$FMLVER.jar"
+
+echo -e "Main-Class: reptiles.common.Reptiles\nClass-Path: $JAR\n" > $RDIR/manifest.txt
 
 rm -f $JAR
-jar -cf $JAR reptiles/  mcmod.info mob/ sound/ logo/
+jar -cfm $JAR manifest.txt reptiles/ mcmod.info mob/ sound/ logo/
 
-echo " - Mod build complete"
+echo "> signing $JAR"
+jarsigner -storetype pkcs12 -keystore $HOME/.keystore -keypass $KEYPASS -storepass $STOREPASS $JAR cracked
+
+echo " - Mod build complete - `date "+%H:%M:%S"`"
 

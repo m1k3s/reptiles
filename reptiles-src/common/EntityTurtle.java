@@ -190,7 +190,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
     }
 
 	@Override
-	public EntityAgeable func_90011_a(EntityAgeable var1) {
+	public EntityAgeable createChild(EntityAgeable var1) {
 		return this.spawnBabyAnimal(var1);
 	}
 
