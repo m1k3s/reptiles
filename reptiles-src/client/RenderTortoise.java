@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,27 +11,29 @@ import net.minecraft.util.MathHelper;
 //
 import org.lwjgl.opengl.GL11;
 
-public class RenderLittleTurtle extends RenderLiving
+import reptiles.common.EntityTortoise;
+
+public class RenderTortoise extends RenderLiving
 {
-  public RenderLittleTurtle(ModelBase modelbase, float shadowSize) {
+  public RenderTortoise(ModelBase modelbase, float shadowSize) {
     super(modelbase, shadowSize);
   }
   
-  public void renderLittleTurtle(EntityLittleTurtle entitytortoise, double d, double d1, double d2, float f, float f1) {
+  public void renderTortoise(EntityTortoise entitytortoise, double d, double d1, double d2, float f, float f1) {
     super.doRenderLiving(entitytortoise, d, d1, d2, f, f1);
   }
 
   public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
-    renderLittleTurtle((EntityLittleTurtle)entity, d, d1, d2, f, f1);
+    renderTortoise((EntityTortoise)entity, d, d1, d2, f, f1);
   }
   
-  protected void scaleEntity(EntityLittleTurtle entityturtle, float f) {
+  protected void scaleEntity(EntityTortoise entityturtle, float f) {
     GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
   }
   
   protected void preRenderCallback(EntityLiving entityliving, float f) {
-  	scaleEntity((EntityLittleTurtle)entityliving, f);
+  	scaleEntity((EntityTortoise)entityliving, f);
   }
   
-  private final float scaleFactor = 0.5F;
+  private final float scaleFactor = 2.0F;
 }

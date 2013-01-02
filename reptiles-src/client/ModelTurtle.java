@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -10,6 +10,8 @@ import org.lwjgl.opengl.GL11;
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
+
+import reptiles.common.EntityTurtle;
 
 public class ModelTurtle extends ModelBase {
 	public ModelRenderer carapace;

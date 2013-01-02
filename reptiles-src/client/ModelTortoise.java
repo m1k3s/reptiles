@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -8,11 +8,13 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import reptiles.common.EntityTortoise;
+
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
-public class ModelLittleTurtle extends ModelBase {
+public class ModelTortoise extends ModelBase {
 	public ModelRenderer carapace;
 	public ModelRenderer head;
 	public ModelRenderer leg1;
@@ -21,45 +23,41 @@ public class ModelLittleTurtle extends ModelBase {
 	public ModelRenderer leg4;
 	public ModelRenderer plastron;
 	public ModelRenderer tail;
+	
+	public ModelTortoise() {
+		float yPos = 19F;
 
-	public ModelLittleTurtle() {
-		float yPos = 22F;
-
-		carapace = new ModelRenderer(this, 0, 23);
-		carapace.addBox(-3F, 0F, -3F, 6, 3, 6);
-		carapace.setRotationPoint(0F, yPos - 4, 0F);
+		carapace = new ModelRenderer(this, 0, 18);
+		carapace.addBox(-4F, 0F, -3F, 8, 6, 8);
+		carapace.setRotationPoint(0F, yPos - 3F, 0F);
 
 		head = new ModelRenderer(this, 0, 0);
 		head.addBox(-2F, 0F, -4F, 4, 3, 4);
-		head.setRotationPoint(0F, yPos - 3, -4F);
+		head.setRotationPoint(0F, yPos, -3F);
 
-		leg1 = new ModelRenderer(this, 60, 0);
-		leg1.addBox(0F, 0F, 0F, 1, 3, 1);
-		leg1.setRotationPoint(2F, yPos, -3F);
-		leg1.rotateAngleZ = 5.497787143782138F;
+		leg1 = new ModelRenderer(this, 56, 0);
+		leg1.addBox(-2F, 0F, 0F, 2, 3, 2);
+		leg1.setRotationPoint(4F, yPos + 2, -3F);
 
-		leg2 = new ModelRenderer(this, 60, 0);
-		leg2.addBox(0F, 0F, 0F, 1, 3, 1);
-		leg2.setRotationPoint(2F, yPos, 2F);
-		leg2.rotateAngleZ = 5.497787143782138F;
+		leg2 = new ModelRenderer(this, 56, 0);
+		leg2.addBox(-2F, 0F, 0F, 2, 3, 2);
+		leg2.setRotationPoint(4F, yPos + 2, 3F);
 
-		leg3 = new ModelRenderer(this, 60, 0);
-		leg3.addBox(-1F, 0F, 0F, 1, 3, 1);
-		leg3.setRotationPoint(-2F, yPos, -3F);
-		leg3.rotateAngleZ = 0.7853981633974483F;
+		leg3 = new ModelRenderer(this, 56, 0);
+		leg3.addBox(0F, 0F, 0F, 2, 3, 2);
+		leg3.setRotationPoint(-4F, yPos + 2, -3F);
 
-		leg4 = new ModelRenderer(this, 60, 0);
-		leg4.addBox(-1F, 0F, 0F, 1, 3, 1);
-		leg4.setRotationPoint(-2F, yPos, 2F);
-		leg4.rotateAngleZ = 0.7853981633974483F;
+		leg4 = new ModelRenderer(this, 56, 0);
+		leg4.addBox(0F, 0F, 0F, 2, 3, 2);
+		leg4.setRotationPoint(-4F, yPos + 2, 3F);
 
-		plastron = new ModelRenderer(this, 24, 23);
-		plastron.addBox(-4F, -1F, -4F, 8, 1, 8);
-		plastron.setRotationPoint(0F, yPos, 0F);
+		plastron = new ModelRenderer(this, 16, 0);
+		plastron.addBox(-5F, -1F, -4F, 10, 1, 10);
+		plastron.setRotationPoint(0F, yPos + 4F, 0F);
 
 		tail = new ModelRenderer(this, 58, 29);
 		tail.addBox(0F, 0F, 0F, 1, 1, 2);
-		tail.setRotationPoint(-0.5F, yPos - 1, 4F);
+		tail.setRotationPoint(0F, yPos + 1F, 5F);
 		tail.rotateAngleX = 5.934119456780721F;
 	}
 
@@ -111,41 +109,41 @@ public class ModelLittleTurtle extends ModelBase {
 	}
 
 	public void setLivingAnimations(EntityLiving entityliving, float f, float f1, float f2) {
-		EntityLittleTurtle entityLittleTurtle = (EntityLittleTurtle) entityliving;
+		EntityTortoise entitytortoise = (EntityTortoise) entityliving;
 
-		 if (entityLittleTurtle.isSitting()) {
-			 float yPos = 24F;
-			 carapace.setRotationPoint(0F, yPos-4, 0F);
-			 plastron.setRotationPoint(0F, yPos, 0F);
-			 tail.setRotationPoint(-0.5F, yPos-1, 1F);
-			 head.setRotationPoint(0F, yPos-3, -2F);
-			
-			 leg1.setRotationPoint(2F, yPos, -3F);
-			 leg2.setRotationPoint(-2F, yPos, 2F);
-			 leg3.setRotationPoint(2F, yPos, -3F);
-			 leg4.setRotationPoint(-2F, yPos, 2F);
-			
-			 leg1.rotateAngleZ = 1.570799F;
-			 leg2.rotateAngleZ = 4.712389F;
-			 leg3.rotateAngleZ = 1.570799F;
-			 leg4.rotateAngleZ = 4.712389F;
-		 } else {
-			float yPos = 22F;
+		if (entitytortoise.isSitting()) {
+			float yPos = 21F;
 			carapace.setRotationPoint(0F, yPos - 4, 0F);
-			plastron.setRotationPoint(0F, yPos, 0F);
-			head.setRotationPoint(0F, yPos - 3, -4F);
-			tail.setRotationPoint(-0.5F, yPos - 1, 4F);
-	
-			leg1.setRotationPoint(2F, yPos, -3F);
-			leg2.setRotationPoint(2F, yPos, 2F);
-			leg3.setRotationPoint(-2F, yPos, -3F);
-			leg4.setRotationPoint(-2F, yPos, 2F);
-	
-			leg1.rotateAngleZ = 5.497787143782138F;
-			leg2.rotateAngleZ = 5.497787143782138F;
-			leg3.rotateAngleZ = 0.7853981633974483F;
-			leg4.rotateAngleZ = 0.7853981633974483F;
-		 }
+			plastron.setRotationPoint(0F, yPos + 3, 0F);
+			tail.setRotationPoint(-0.5F, yPos + 2, 4F);
+			head.setRotationPoint(0F, yPos - 1, -2F);
+
+			leg1.setRotationPoint(1F, yPos + 2, -3F);
+			leg2.setRotationPoint(1F, yPos + 2, 3F);
+			leg3.setRotationPoint(-1F, yPos + 2, -3F);
+			leg4.setRotationPoint(-1F, yPos + 2, 3F);
+
+			leg1.rotateAngleZ = 1.570799F;
+			leg2.rotateAngleZ = 4.712389F;
+			leg3.rotateAngleZ = 1.570799F;
+			leg4.rotateAngleZ = 4.712389F;
+		} else {
+			float yPos = 19F;
+			carapace.setRotationPoint(0F, yPos - 4F, 0F);
+			plastron.setRotationPoint(0F, yPos + 3F, 0F);
+			head.setRotationPoint(0F, yPos - 1, -3F);
+			tail.setRotationPoint(-0.5F, yPos + 2, 5F);
+
+			leg1.setRotationPoint(4F, yPos + 2, -3F);
+			leg2.setRotationPoint(4F, yPos + 2, 3F);
+			leg3.setRotationPoint(-4F, yPos + 2, -3F);
+			leg4.setRotationPoint(-4F, yPos + 2, 3F);
+
+			leg1.rotateAngleZ = 0F;
+			leg2.rotateAngleZ = 0F;
+			leg3.rotateAngleZ = 0F;
+			leg4.rotateAngleZ = 0F;
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import org.lwjgl.opengl.GL11;
 

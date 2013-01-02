@@ -1,5 +1,6 @@
-package reptiles.common;
+package reptiles.client;
 
+import reptiles.common.EntityTurtle;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;

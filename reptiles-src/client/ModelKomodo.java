@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -11,6 +11,8 @@ import net.minecraft.util.MathHelper;
 //
 
 import org.lwjgl.opengl.GL11;
+
+import reptiles.common.EntityKomodo;
 
 public class ModelKomodo extends ModelBase {
 	public ModelKomodo() {

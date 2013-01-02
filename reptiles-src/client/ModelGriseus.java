@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 
 import net.minecraft.client.model.ModelBase;
@@ -11,6 +11,8 @@ import net.minecraft.util.MathHelper;
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 import org.lwjgl.opengl.GL11;
+
+import reptiles.common.EntityGriseus;
 
 public class ModelGriseus extends ModelBase
 {

@@ -1,4 +1,4 @@
-package reptiles.common;
+package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -12,6 +12,8 @@ import net.minecraft.util.MathHelper;
 //
 
 import org.lwjgl.opengl.GL11;
+
+import reptiles.common.EntityLargeCroc;
 
 public class RenderLargeCroc extends RenderLiving {
 	private final float scaleFactor = 1.5F;
