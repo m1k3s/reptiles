@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityEggInfo;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
@@ -201,13 +203,13 @@ public class Reptiles {
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
-//		System.out.println(entityClass.toString() + " ID: " + id);
-//		int trackingRange = 80;
-//		int updateFreq = 3;
-//		boolean sendsVelUpdates = true;
-//		
-//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
+		int trackingRange = 80;
+		int updateFreq = 3;
+		boolean sendsVelUpdates = true;
+		
+		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
+		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
+		EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
