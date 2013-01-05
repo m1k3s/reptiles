@@ -1,3 +1,9 @@
+//
+// This work is licensed under the Creative Commons
+// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
+// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+//
+
 package reptiles.client;
 
 import reptiles.common.EntityTurtle;
@@ -6,11 +12,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
-//import org.lwjgl.opengl.GL11;
 
 public class RenderTurtle extends RenderLiving
 {

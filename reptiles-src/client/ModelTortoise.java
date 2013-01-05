@@ -1,3 +1,9 @@
+//
+// This work is licensed under the Creative Commons
+// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
+// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+//
+
 package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -9,10 +15,6 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import reptiles.common.EntityTortoise;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
 
 public class ModelTortoise extends ModelBase {
 	public ModelRenderer carapace;

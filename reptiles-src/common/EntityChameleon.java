@@ -1,12 +1,14 @@
+//
+// This work is licensed under the Creative Commons
+// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
+// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+//
+
 package reptiles.common;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
 
 public class EntityChameleon extends EntityLizard {
 
