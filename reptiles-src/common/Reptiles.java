@@ -7,6 +7,8 @@ package reptiles.common;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
@@ -17,6 +19,7 @@ import net.minecraft.world.biome.*;
 import net.minecraftforge.common.Configuration;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -67,6 +70,8 @@ public class Reptiles {
 	private int gatorSpawnProb;
 	private int chameleonSpawnProb;
 	
+	private Logger logger;
+	
 	@SidedProxy(
 		clientSide = "reptiles.client.ClientProxyReptiles",
 		serverSide = "reptiles.common.CommonProxyReptiles"
@@ -79,6 +84,9 @@ public class Reptiles {
 
 	@PreInit
 	public void preLoad(FMLPreInitializationEvent event) {
+		logger = Logger.getLogger(Reptiles.modid);
+		logger.setParent(FMLLog.getLogger());
+		
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
 		
@@ -138,50 +146,20 @@ public class Reptiles {
 		LanguageRegistry.instance().addStringLocalization("entity.Alligator.name", "Alligator");
 		LanguageRegistry.instance().addStringLocalization("entity.Tortoise.name", "Tortoise");
 
-		BiomeGenBase[] monitorBiomes = {
-			BiomeGenBase.beach,
-			BiomeGenBase.forest, 
-			BiomeGenBase.forestHills,
-			BiomeGenBase.jungle,
-			BiomeGenBase.jungleHills,
-			BiomeGenBase.plains,
-			BiomeGenBase.extremeHillsEdge
-		};
-//		BiomeGenBase[] monitorBiomes = getBiomes();
+		logger.info("*** Scanning for monitor biomes");
+		BiomeGenBase[] monitorBiomes = getBiomes(false, false);
 
-		BiomeGenBase[] tortoiseBiomes = {
-			BiomeGenBase.desert,
-			BiomeGenBase.desertHills,
-			BiomeGenBase.plains
-		};
+		logger.info("*** Scanning for tortoise biomes");
+		BiomeGenBase[] tortoiseBiomes = getBiomes(true, false);
 
-		BiomeGenBase[] turtleBiomes = { 
-			BiomeGenBase.beach, 
-			BiomeGenBase.forest, 
-			BiomeGenBase.forestHills, 
-			BiomeGenBase.jungle,
-			BiomeGenBase.jungleHills, 
-			BiomeGenBase.mushroomIsland, 
-			BiomeGenBase.mushroomIslandShore, 
-			BiomeGenBase.plains,
-			BiomeGenBase.swampland 
-		};
-//		BiomeGenBase[] turtleBiomes = getBiomes();
+		logger.info("*** Scanning for turtle biomes");
+		BiomeGenBase[] turtleBiomes = getBiomes(false, false);
 
-		BiomeGenBase[] lizardBiomes = { 
-			BiomeGenBase.forest, 
-			BiomeGenBase.forestHills, 
-			BiomeGenBase.jungle,
-			BiomeGenBase.jungleHills 
-		};
+		logger.info("*** Scanning for lizard biomes");
+		BiomeGenBase[] lizardBiomes = getBiomes(false, true);
 
-		BiomeGenBase[] crocBiomes = { 
-			BiomeGenBase.beach, 
-			BiomeGenBase.jungle, 
-			BiomeGenBase.mushroomIsland,
-			BiomeGenBase.mushroomIslandShore, 
-			BiomeGenBase.swampland 
-		};
+		logger.info("*** Scanning for crocodilian biomes");
+		BiomeGenBase[] crocBiomes = getBiomes(false, true);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
@@ -218,30 +196,43 @@ public class Reptiles {
 		}
 	}
 	
-//	public BiomeGenBase[] getBiomes() {
-//		LinkedList linkedlist = new LinkedList();
-//		for (BiomeGenBase biomegenbase : BiomeGenBase.biomeList) {
-//			if (biomegenbase == null) {
-//				continue;
-//			}
-//			if (!forbiddenBiome(biomegenbase)) {
-//				linkedlist.add(biomegenbase);
-//			}
-//		}
-//		return (BiomeGenBase[]) linkedlist.toArray(new BiomeGenBase[0]);
-//	}
-//	
-//	public boolean forbiddenBiome(BiomeGenBase biome) {
-//		// exclude Hell and the End 
-//		if ((biome instanceof BiomeGenHell) || (biome instanceof BiomeGenEnd)) {
-//			return true;
-//		}
-//		// exclude all cold biomes
-//		if ((biome.biomeID == 0) || (biome.biomeID == 5) ||	(biome.biomeID >=10 && biome.biomeID <= 13) || (biome.biomeID == 19)) {
-//			return true;
-//		}
-//		
-//		return false;
-//	}
+	public BiomeGenBase[] getBiomes(boolean onlyDry, boolean onlyWet) {
+		LinkedList linkedlist = new LinkedList();
+		for (BiomeGenBase biomegenbase : BiomeGenBase.biomeList) {
+			if (biomegenbase == null) {
+				continue;
+			}
+			if (!excludedBiome(biomegenbase, onlyDry, onlyWet)) {
+				linkedlist.add(biomegenbase);
+				logger.info(" >>> Adding " + biomegenbase.biomeName + " for spawning");
+			}
+		}
+		return (BiomeGenBase[]) linkedlist.toArray(new BiomeGenBase[0]);
+	}
+	
+	public boolean excludedBiome(BiomeGenBase biome, boolean onlyDry, boolean onlyWet) {
+		// always exclude Hell and the End 
+		if ((biome instanceof BiomeGenHell) || (biome instanceof BiomeGenEnd)) {
+			return true;
+		}
+		// always exclude ocean and all cold biomes
+		if ((biome.biomeID == 0) || biome.getEnableSnow() || biome.getFloatTemperature() < 0.2) {
+			return true;
+		}
+		// this should exclude desert-like biomes when the onlyDry flag is false
+		if (!onlyDry && (biome.getFloatTemperature() > 1.5)) {
+			return true;
+		}
+		// This should exclude all biomes that are not desert-like
+		if (onlyDry && (biome.getFloatTemperature() < 1.5)) {
+			return true;
+		}
+		// this should exclude all biomes that have a low humidity
+		if (onlyWet && !biome.isHighHumidity()) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 }
