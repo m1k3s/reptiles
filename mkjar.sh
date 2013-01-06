@@ -2,8 +2,8 @@
 
 echo "== Creating jars =="
 
-KEYPASS=ds1b8zs
-STOREPASS=ds1b8zs
+KEYPASS=
+STOREPASS=
 
 MCVER=1.4.6
 FMLVER=471
@@ -18,7 +18,7 @@ MCMODDATA="
   \"description\": \"Reptile mod adds monitor lizards, turtles, iguanas, chameleons, and crocodiles. Komodo Dragons! Man-eating Crocodiles! And cute little turtles.\",\n
   \"version\": \"$DATE\",\n
   \"mcversion\": \"$MCVER\",\n
-  \"url\": \"http://www.minecraftforum.net/topic/585469-132modloader-crackedeggs-mods-reptiles-parachute-updated-08272012/\",\n
+  \"url\": \"\",\n
   \"updateUrl\": \"\",\n
   \"authors\": [\n
     \"crackedEgg\"\n
