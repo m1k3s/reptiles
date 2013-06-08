@@ -66,7 +66,8 @@ public class EntityVaranus extends EntityTameable
 
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-		System.err.println("[ERROR] Do NOT call this base class method directly!");
+//		System.err.println("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 

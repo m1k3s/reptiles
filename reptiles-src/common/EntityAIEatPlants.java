@@ -74,13 +74,13 @@ public class EntityAIEatPlants extends EntityAIBase {
 			int z = MathHelper.floor_double(creature.posZ);
 
 			if (isFlower(x, y, z)) {
-				theWorld.playAuxSFX(2001, x, y, z, Block.tallGrass.blockID + 4096);
-				theWorld.setBlockWithNotify(x, y, z, 0);
-				creature.eatGrassBonus();
+				theWorld.playAuxSFX(2001, x, y, z, Block.tallGrass.blockID);
+				theWorld.setBlock(x, y - 1, z, Block.dirt.blockID, 0, 2);
+                creature.eatGrassBonus();
 			} else if (isTallgrass(x, y, z)) {
 				theWorld.playAuxSFX(2001, x, y, z, Block.tallGrass.blockID);
-				theWorld.setBlockWithNotify(x, y, z, 0);
-				creature.eatGrassBonus();
+				theWorld.setBlock(x, y - 1, z, Block.dirt.blockID, 0, 2);
+                creature.eatGrassBonus();
 			}
 		}
 	}

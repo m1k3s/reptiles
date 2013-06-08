@@ -6,6 +6,7 @@
 
 package reptiles.client;
 
+import reptiles.common.Reptiles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -30,6 +31,7 @@ public class ClientSoundEvents {
 			String soundName = soundFiles[i].substring(7);
 			manager.soundPoolSounds.addSound(soundName, this.getClass().getResource(soundFiles[i]));
 		}
+		Reptiles.proxy.print("Loaded sound files");
 	}
 
 }

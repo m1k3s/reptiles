@@ -9,8 +9,8 @@ package reptiles.common;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
@@ -56,7 +56,7 @@ public class Reptiles {
 	
 	public static final String modid = "ReptileMod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "1.4.7";
+	public static final String version = "1.5.2";
 
 	private int komodoSpawnProb;
 	private int griseusSpawnProb;
@@ -71,8 +71,9 @@ public class Reptiles {
 	private int tortoiseSpawnProb;
 	private int gatorSpawnProb;
 	private int chameleonSpawnProb;
+	private int salvadoriiSpawnProb;
 	
-	private Logger logger;
+//	private Logger logger;
 	
 	@SidedProxy(
 		clientSide = "reptiles.client.ClientProxyReptiles",
@@ -86,8 +87,8 @@ public class Reptiles {
 
 	@PreInit
 	public void preLoad(FMLPreInitializationEvent event) {
-		logger = Logger.getLogger(Reptiles.modid);
-		logger.setParent(FMLLog.getLogger());
+//		logger = Logger.getLogger(Reptiles.modid);
+//		logger.setParent(FMLLog.getLogger());
 		
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
@@ -108,6 +109,7 @@ public class Reptiles {
 		tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12).getInt();
 		gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5).getInt();
 		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
+		salvadoriiSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "salvadoriiSpawnProb", 12).getInt();
 		
 		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
 		
@@ -115,6 +117,7 @@ public class Reptiles {
 		
 		proxy.registerRenderers();
 		proxy.registerSounds();
+		proxy.registerLogger();
 	}
 
 	@Init
@@ -132,6 +135,7 @@ public class Reptiles {
 		registerEntity(EntityTortoise.class, "Tortoise", 0x008B45, 0xC0FF3E);
 		registerEntity(EntityGator.class, "Alligator", 0x008B45, 0xC0FF3E);
 		registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
+		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
 
 		// add language localization
 		LanguageRegistry.instance().addStringLocalization("entity.Komodo.name", "Komodo");
@@ -147,20 +151,21 @@ public class Reptiles {
 		LanguageRegistry.instance().addStringLocalization("entity.LargeCroc.name", "Large Crocodile");
 		LanguageRegistry.instance().addStringLocalization("entity.Alligator.name", "Alligator");
 		LanguageRegistry.instance().addStringLocalization("entity.Tortoise.name", "Tortoise");
+		LanguageRegistry.instance().addStringLocalization("entity.CrocMonitor.name", "Crocodile Monitor");
 
-		logger.info("*** Scanning for monitor biomes");
+		proxy.print("*** Scanning for monitor biomes");
 		BiomeGenBase[] monitorBiomes = getBiomes(false, false);
 
-		logger.info("*** Scanning for tortoise biomes");
+		proxy.print("*** Scanning for tortoise biomes");
 		BiomeGenBase[] tortoiseBiomes = getBiomes(true, false);
 
-		logger.info("*** Scanning for turtle biomes");
+		proxy.print("*** Scanning for turtle biomes");
 		BiomeGenBase[] turtleBiomes = getBiomes(false, false);
 
-		logger.info("*** Scanning for lizard biomes");
+		proxy.print("*** Scanning for lizard biomes");
 		BiomeGenBase[] lizardBiomes = getBiomes(false, true);
 
-		logger.info("*** Scanning for crocodilian biomes");
+		proxy.print("*** Scanning for crocodilian biomes");
 		BiomeGenBase[] crocBiomes = getBiomes(false, true);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
@@ -168,6 +173,7 @@ public class Reptiles {
 		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, tortoiseBiomes);
 		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
+		addSpawn(EntitySalvadorii.class, salvadoriiSpawnProb, 1, 4, monitorBiomes);
 
 		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
 		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, crocBiomes);
@@ -183,12 +189,12 @@ public class Reptiles {
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
-		int trackingRange = 80;
-		int updateFreq = 3;
-		boolean sendsVelUpdates = true;
+//		int trackingRange = 80;
+//		int updateFreq = 3;
+//		boolean sendsVelUpdates = true;
 		
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
-		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
+//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
 		EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
 	}
 
@@ -206,7 +212,7 @@ public class Reptiles {
 			}
 			if (!excludedBiome(biomegenbase, onlyDry, onlyWet)) {
 				linkedlist.add(biomegenbase);
-				logger.info(" >>> Adding " + biomegenbase.biomeName + " for spawning");
+				proxy.print(" >>> Adding " + biomegenbase.biomeName + " for spawning");
 			}
 		}
 		return (BiomeGenBase[]) linkedlist.toArray(new BiomeGenBase[0]);

@@ -57,7 +57,7 @@ public class EntityCroc extends EntityAnimal {
 	}
 	
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-		System.out.printf("Spawned entity of type %s", getClass().toString());
+		Reptiles.proxy.print("Spawned entity of type " + getClass().toString());
 		return new EntityCroc(worldObj);
 	}
 	

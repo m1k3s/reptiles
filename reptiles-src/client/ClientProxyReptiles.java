@@ -6,20 +6,23 @@
 
 package reptiles.client;
 
+import java.util.logging.Logger;
+
 import reptiles.common.*;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class ClientProxyReptiles extends CommonProxyReptiles
-{
+public class ClientProxyReptiles extends CommonProxyReptiles {
+	
     @Override
     public void registerRenderers() {
     	float shadowSize = 0.8F;
 		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, new RenderKomodo(new ModelKomodo(), shadowSize));   
 		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, new RenderSavanna(new ModelSavanna(), shadowSize - 0.3F));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(new ModelGriseus(), shadowSize - 0.3F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPerentie.class, new RenderPerentie(new ModelPerentie(), shadowSize - 0.3F));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(new ModelGriseus(), shadowSize - 0.3F));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, new RenderSalvadorii(new ModelSalvadorii(), shadowSize - 0.3F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, new RenderLace(new ModelLace(), shadowSize - 0.3F));
 //		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, new RenderMegalania(new ModelMegalania(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, new RenderCroc(new ModelCroc(), shadowSize));

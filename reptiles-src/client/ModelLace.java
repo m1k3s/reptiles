@@ -99,10 +99,8 @@ public class ModelLace extends ModelBase {
 		laceHead.rotateAngleY = f3 / 57.29578F;
 
 		// laceLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		// laceLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) *
-		// 1.4F * f1;
-		// laceLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) *
-		// 1.4F * f1;
+		// laceLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		// laceLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
 		// laceLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 		// laceTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 		// wag the tail

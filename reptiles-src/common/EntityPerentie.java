@@ -20,7 +20,7 @@ public class EntityPerentie extends EntityVaranus
   public EntityPerentie(World world) {
     super(world);
     setSize(0.6F, 0.6F);
-    texture = "/mob/perentie.png";
+    texture = "/mob/perentie32.png";
   }
   
   protected int getDropItemId() {
