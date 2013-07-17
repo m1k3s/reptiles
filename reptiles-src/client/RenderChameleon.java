@@ -1,16 +1,33 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
-//
+
 
 package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+//import net.minecraft.client.resources.ResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.util.MathHelper;
+
+
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
@@ -21,6 +38,8 @@ import reptiles.common.EntityChameleon;
 
 public class RenderChameleon extends RenderLiving {
 	private final float scaleFactor = 0.25F;
+	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon.png");
+	private static final ResourceLocation pattern = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon_pattern.png");
 
 	public RenderChameleon(ModelBase modelbase, float shadowSize) {
 		super(modelbase, shadowSize);
@@ -30,7 +49,7 @@ public class RenderChameleon extends RenderLiving {
 	public void renderChameleon(EntityChameleon entitychameleon, double d, double d1, double d2, float f, float f1) {
 		super.doRenderLiving(entitychameleon, d, d1, d2, f, f1);
 	}
-
+	
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderChameleon((EntityChameleon) entity, d, d1, d2, f, f1);
 	}
@@ -48,7 +67,7 @@ public class RenderChameleon extends RenderLiving {
 		if (i != 0) {
 			return -1;
 		} else {
-			loadTexture("/mob/chameleon_pattern.png");
+			func_110776_a(pattern);
 			// float alpha = (1.0F - entitychameleon.getEntityBrightness(1.0F)) * 0.5F;
 			float alpha = entitychameleon.getBrightness(1.0F);// * 0.5F;
 			GL11.glEnable(GL11.GL_BLEND);
@@ -61,6 +80,11 @@ public class RenderChameleon extends RenderLiving {
 
 	protected int shouldRenderPass(EntityLiving entityliving, int i, float f) {
 		return setChameleonSkin((EntityChameleon) entityliving, i, f);
+	}
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity entity) {
+		return skin;
 	}
 
 }

@@ -1,10 +1,27 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.client;
+
+
+import java.net.URL;
 
 import reptiles.common.Reptiles;
 import net.minecraft.client.Minecraft;
@@ -16,22 +33,24 @@ public class ClientSoundEvents {
 
 	@ForgeSubscribe
 	public void onSoundsLoaded(SoundLoadEvent event) {
-		SoundManager manager = event.manager;
 		String[] soundFiles = {
-			"/sound/monitor/hiss1.ogg", 
-			"/sound/monitor/hurt1.ogg", 
-			"/sound/croc/growl1.ogg",
-			"/sound/croc/growl2.ogg", 
-			"/sound/croc/growl3.ogg", 
-			"/sound/croc/growl4.ogg", 
+			"hiss1", 
+			"hurt1", 
+			"growl1",
+			"growl2", 
+			"growl3", 
+			"growl4", 
 		};
 
-		for (int i = 0; i < soundFiles.length; i++) {
-			// remove '/sound/' portion for the name
-			String soundName = soundFiles[i].substring(7);
-			manager.soundPoolSounds.addSound(soundName, this.getClass().getResource(soundFiles[i]));
+		for (String sound : soundFiles) {
+			String soundStr = "reptilemod:" + sound + ".ogg";
+			event.manager.soundPoolSounds.addSound(soundStr);
+			Reptiles.proxy.print("Loaded sound file: " + soundStr);
 		}
-		Reptiles.proxy.print("Loaded sound files");
 	}
-
+	
+//	private URL getSound(String sound) {
+//        return this.getClass().getResource("reptilemod:/sound/mob/" + sound + ".ogg");
+//    }
+	
 }

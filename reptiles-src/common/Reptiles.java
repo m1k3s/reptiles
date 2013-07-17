@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -12,24 +26,24 @@ import java.util.List;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
+//import net.minecraftforge.common.BiomeDictionary;
+//import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.Configuration;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.SidedProxy;
@@ -56,7 +70,7 @@ public class Reptiles {
 	
 	public static final String modid = "ReptileMod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "1.5.2";
+	public static final String version = "1.6.2";
 
 	private int komodoSpawnProb;
 	private int griseusSpawnProb;
@@ -85,7 +99,7 @@ public class Reptiles {
 	public Reptiles() {
 	}
 
-	@PreInit
+	@EventHandler
 	public void preLoad(FMLPreInitializationEvent event) {
 //		logger = Logger.getLogger(Reptiles.modid);
 //		logger.setParent(FMLLog.getLogger());
@@ -120,7 +134,7 @@ public class Reptiles {
 		proxy.registerLogger();
 	}
 
-	@Init
+	@EventHandler
 	public void load(FMLInitializationEvent evt) {
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
@@ -186,6 +200,12 @@ public class Reptiles {
 		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, lizardBiomes);
 		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
 	}
+	
+//	@EventHandler
+//	public void PostInit(FMLPostInitializationEvent event) {
+//		BiomeDictionary.registerAllBiomes();
+//	}
+	
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
@@ -206,6 +226,7 @@ public class Reptiles {
 	
 	public BiomeGenBase[] getBiomes(boolean onlyDry, boolean onlyWet) {
 		LinkedList linkedlist = new LinkedList();
+//		BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.FROZEN);
 		for (BiomeGenBase biomegenbase : BiomeGenBase.biomeList) {
 			if (biomegenbase == null) {
 				continue;
@@ -228,7 +249,7 @@ public class Reptiles {
 			return true;
 		}
 		// this should exclude desert-like biomes when the onlyDry flag is false
-		if (!onlyDry && (biome.getFloatTemperature() > 1.5)) {
+		if (!onlyDry && (biome.getFloatTemperature() > 1.5) && !biome.isHighHumidity()) {
 			return true;
 		}
 		// This should exclude all biomes that are not desert-like

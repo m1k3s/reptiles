@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -19,15 +33,14 @@ import net.minecraft.world.World;
 public class EntityLargeCroc extends EntityCroc {
 	public EntityLargeCroc(World world) {
 		super(world);
-		texture = "/mob/largeCroc32.png";
 		setSize(1.08F, 1.75F);
 		attackStrength = 3; // they're bigger, duh!
 		
-		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntitySquid.class, moveSpeed, true));
-		tasks.addTask(6, new EntityAIAttackOnCollide(this, EntitySpider.class, moveSpeed, true));
+		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntitySquid.class, 1.0, true));
+		tasks.addTask(6, new EntityAIAttackOnCollide(this, EntitySpider.class, 1.0, true));
 
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class, attackDistance, 0, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, attackDistance, 400, false));
+		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class,  0, false));
+		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, 400, false));
 	}
 
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {

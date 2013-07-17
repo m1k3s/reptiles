@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -10,6 +24,7 @@ import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,17 +35,15 @@ import net.minecraft.world.World;
 public class EntityCroc extends EntityAnimal {
 	final float attackDistance;
 	protected int attackStrength;
-	private int maxHealth = 20;
+//	private int maxHealth = 20;
 
 	public EntityCroc(World world) {
 		super(world);
-		texture = "/mob/croc32.png";
 		setSize(0.8F, 1.5F);
 
 		attackStrength = 2;
-		moveSpeed = 0.25F;
+		double moveSpeed = 0.25;
 		attackDistance = 16F;
-		health = maxHealth;
 
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -46,35 +59,41 @@ public class EntityCroc extends EntityAnimal {
 		tasks.addTask(5, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, attackDistance, 0, true));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCow.class, attackDistance, 0, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, attackDistance, 0, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, attackDistance, 0, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCow.class, 0, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, 0, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, 0, false));
 	}
 
 	public boolean isAIEnabled() {
 		return true;
 	}
 	
+	protected void func_110147_ax() {
+        super.func_110147_ax();
+        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
+        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.2); // move speed
+    }
+	
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		Reptiles.proxy.print("Spawned entity of type " + getClass().toString());
 		return new EntityCroc(worldObj);
 	}
 	
-	public int getMaxHealth() {
-		return maxHealth;
-	}
+//	public int getMaxHealth() {
+//		return maxHealth;
+//	}
 
 	protected String getLivingSound() {
-		return "croc.growl";
+		return "reptilemod:growl";
 	}
 
 	protected String getHurtSound() {
-		return "croc.growl";
+		return "reptilemod:growl";
 	}
 
 	protected String getDeathSound() {
-		return "croc.growl";
+		return "reptilemod:growl";
 	}
 
 	protected float getSoundVolume() {

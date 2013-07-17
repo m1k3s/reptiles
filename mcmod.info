@@ -3,15 +3,15 @@
  "modid": "ReptileMod",
  "name": "Reptile Mod",
  "description": "Reptile mod adds monitor lizards, turtles, iguanas, chameleons, and crocodiles. Komodo Dragons! Man-eating Crocodiles! And cute little turtles.",
- "version": "20130607",
- "mcversion": "1.5.2",
+ "version": "20130716",
+ "mcversion": "1.6.2",
  "url": "",
  "updateUrl": "",
  "authors": [
- "crackedEgg"
- ],
+"crackedEgg"
+],
  "credits": "Authored by crackedEgg",
- "logoFile": "/logo/reptileLogo.png",
+ "logoFile": "pack.png",
  "screenshots": [],
  "parent": "",
  "dependencies": []

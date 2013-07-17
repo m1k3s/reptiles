@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -11,10 +25,12 @@ import java.util.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
@@ -23,21 +39,21 @@ import net.minecraft.world.World;
 
 public class EntityVaranus extends EntityTameable
 {
-	protected final float attackDistance;
+//	protected final float attackDistance;
 	private final int maxHealth = 20;
 	protected final int targetChance = 200;
 	private EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
 
 	public EntityVaranus(World world) {
 		super(world);
-		setSize(1.0F, 1.0F);
-		moveSpeed = 0.3F;
-		attackDistance = 16F;
-		health = maxHealth;
+		setSize(0.6F, 0.8F);
+		double moveSpeed = 0.3;
+//		attackDistance = 16F;
+//		health = maxHealth;
 
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
+		tasks.addTask(1, new EntityAIPanic(this, 0.38));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
@@ -52,9 +68,15 @@ public class EntityVaranus extends EntityTameable
 		
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChicken.class, attackDistance, targetChance, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class, attackDistance, targetChance, false));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChicken.class, targetChance, false));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class, targetChance, false));
 	}
+	
+	protected void func_110147_ax() {
+        super.func_110147_ax();
+        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(maxHealth); // health
+        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.3); // move speed
+    }
 
 	public boolean isAIEnabled() {
 		return true;
@@ -66,7 +88,6 @@ public class EntityVaranus extends EntityTameable
 
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-//		System.err.println("[ERROR] Do NOT call this base class method directly!");
 		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
@@ -80,16 +101,20 @@ public class EntityVaranus extends EntityTameable
 	}
 
 	protected String getLivingSound() {
-		return "monitor.hiss";
+		return "reptilemod:hiss";
 	}
 
 	protected String getHurtSound() {
-		return "monitor.hurt";
+		return "reptilemod:hurt";
 	}
 
 	protected String getDeathSound() {
-		return "monitor.hurt";
+		return "reptilemod:hurt";
 	}
+	
+	protected void playStepSound(int x, int y, int z, int blockID) {
+        playSound("mob.cow.step", 0.15F, 1.0F);
+    }
 
 	protected int getDropItemId() {
 		return Item.leather.itemID;
@@ -118,6 +143,10 @@ public class EntityVaranus extends EntityTameable
 	public boolean isWheat(ItemStack itemstack) {
 		return (itemstack != null && isFavoriteFood(itemstack));
 	}
+	
+	public boolean isBreedingItem(ItemStack itemStack) {
+        return itemStack != null && itemStack.getItem().itemID == Item.porkRaw.itemID;
+    }
 	
 	// taming stuff //////////////////
 	

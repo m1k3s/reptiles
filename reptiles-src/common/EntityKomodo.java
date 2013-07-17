@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -18,15 +32,14 @@ import net.minecraft.world.World;
 
 public class EntityKomodo extends EntityVaranus {
 	
-	private EntityAINearestAttackableTarget attackPlayer = new EntityAINearestAttackableTarget(this, EntityPlayer.class, attackDistance, targetChance * 2, true);
+	private EntityAINearestAttackableTarget attackPlayer = new EntityAINearestAttackableTarget(this, EntityPlayer.class, targetChance * 2, true);
 	private boolean playerAttack = true;
 
 	public EntityKomodo(World world) {
 
 		super(world);
-		texture = "/mob/komodo32.png";
-		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntitySheep.class, this.moveSpeed, true));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, attackDistance, targetChance, false));
+		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, targetChance, false));
 		targetTasks.addTask(5, attackPlayer);
 	}
 

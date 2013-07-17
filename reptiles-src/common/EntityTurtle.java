@@ -1,7 +1,21 @@
+//  
+//  =====GPL=============================================================
+//  This program is free software; you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation; version 2 dated June, 1991.
+// 
+//  This program is distributed in the hope that it will be useful, 
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+// 
+//  You should have received a copy of the GNU General Public License
+//  along with this program;  if not, write to the Free Software
+//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
+//  =====================================================================
 //
-// This work is licensed under the Creative Commons
-// Attribution-ShareAlike 3.0 Unported License. To view a copy of this
-// license, visit http://creativecommons.org/licenses/by-sa/3.0/
+
+//
 //
 
 package reptiles.common;
@@ -10,9 +24,9 @@ import java.util.*;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -31,7 +45,6 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	public EntityTurtle(World world) {
 		super(world);
 		setSize(0.5F, 0.5F);
-		moveSpeed = 0.25F;
 
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -40,13 +53,19 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		tasks.addTask(3, new EntityAIMate(this, 0.2F));
 		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantRed.blockID, false));
 		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantYellow.blockID, false));
-		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		tasks.addTask(5, new EntityAIFollowOwner(this, 0.25, 10.0F, 2.0F));
 		tasks.addTask(6, plantEating);
 		tasks.addTask(7, randomMating);
-		tasks.addTask(7, new EntityAIWander(this, 0.2F));
+		tasks.addTask(7, new EntityAIWander(this, 0.25F));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 	}
+	
+	protected void func_110147_ax() {
+        super.func_110147_ax();
+        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
+        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.2); // move speed
+    }
 
 	public boolean isAIEnabled() {
 		return true;
