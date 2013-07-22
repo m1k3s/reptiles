@@ -33,6 +33,7 @@ public class EntityChameleon extends EntityLizard {
 //		moveSpeed = 0.5F;
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityChameleon c = new EntityChameleon(worldObj);
 		if (isTamed()) {

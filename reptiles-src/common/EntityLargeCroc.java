@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
@@ -43,6 +42,7 @@ public class EntityLargeCroc extends EntityCroc {
 		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, 400, false));
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return new EntityLargeCroc(this.worldObj);

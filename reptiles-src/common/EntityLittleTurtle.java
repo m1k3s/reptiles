@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -36,6 +35,7 @@ public class EntityLittleTurtle extends EntityTurtle
 //  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
 //  	return new EntityLittleTurtle(this.worldObj);
 //  }
+  @Override
   public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityLittleTurtle t = new EntityLittleTurtle(worldObj);
 		if (isTamed()) {

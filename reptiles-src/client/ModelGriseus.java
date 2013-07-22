@@ -75,6 +75,7 @@ public class ModelGriseus extends ModelBase
 
   }
 
+  @Override
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
     super.render(entity, f, f1, f2, f3, f4, f5);
     
@@ -107,6 +108,7 @@ public class ModelGriseus extends ModelBase
     }
   }
 
+  @Override
   public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
     super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     
@@ -117,7 +119,8 @@ public class ModelGriseus extends ModelBase
     griseusTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
   }
   
-public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+  @Override
+  public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
     EntityGriseus entitygriseus = (EntityGriseus)entityliving;
     
     if (entitygriseus.isSitting()) {

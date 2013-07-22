@@ -23,8 +23,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 //import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
 
 public class RenderTurtle extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
@@ -38,6 +36,7 @@ public class RenderTurtle extends RenderLiving {
 		super.doRenderLiving(entityturtle, d, d1, d2, f, f1);
 	}
 
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderTurtle((EntityTurtle) entity, d, d1, d2, f, f1);
 	}

@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -31,6 +30,7 @@ public class EntityGator extends EntityCroc {
 		super(world);
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return new EntityGator(this.worldObj);

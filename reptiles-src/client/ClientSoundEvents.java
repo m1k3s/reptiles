@@ -21,11 +21,8 @@
 package reptiles.client;
 
 
-import java.net.URL;
 
 import reptiles.common.Reptiles;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundManager;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 

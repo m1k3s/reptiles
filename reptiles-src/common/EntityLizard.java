@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
@@ -63,10 +62,12 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
 
+    @Override
 	public boolean isAIEnabled() {
 		return true;
 	}
 	
+    @Override
 	protected void func_110147_ax() {
         super.func_110147_ax();
         func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
@@ -83,22 +84,27 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 		return 8;
 	}
 
+    @Override
 	protected float getSoundVolume() {
 		return 0.4F;
 	}
 
+    @Override
 	protected String getLivingSound() {
 		return null;
 	}
 
+    @Override
 	protected String getHurtSound() {
 		return "reptilemod:hurt";
 	}
 
+    @Override
 	protected String getDeathSound() {
 		return "reptilemod:hurt";
 	}
 
+    @Override
 	protected int getDropItemId() {
 		return Item.porkRaw.itemID;
 	}
@@ -111,6 +117,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
         return itemstack != null && isFavoriteFood(itemstack);
     }
 	
+    @Override
 	protected void updateAITasks() {
 		if (isTamed()) { // no random mating when tame
 			randomMating.resetTask();
@@ -120,6 +127,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	
 	// taming stuff //////////////////
 	
+    @Override
 	public boolean interact(EntityPlayer entityplayer) {
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 	
@@ -155,6 +163,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	    return super.interact(entityplayer);
     }
 	
+    @Override
 	public boolean canMateWith(EntityAnimal entityAnimal) {
         if (entityAnimal == this) {
             return false;

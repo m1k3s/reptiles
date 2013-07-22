@@ -21,11 +21,9 @@ package reptiles.client;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
@@ -60,6 +58,7 @@ public class RenderLargeCroc extends RenderLiving {
 		renderLargeCroc((EntityLargeCroc) entityliving, d, d1, d2, f, f1);
 	}
 
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderLargeCroc((EntityLargeCroc) entity, d, d1, d2, f, f1);
 	}
@@ -92,6 +91,7 @@ public class RenderLargeCroc extends RenderLiving {
 		}
 	}
 
+    @Override
 	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f) {
 		return setCrocEyeBrightness((EntityLargeCroc) entityliving, i, f);
 	}
@@ -100,6 +100,7 @@ public class RenderLargeCroc extends RenderLiving {
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 
+    @Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
 		scaleEntity((EntityLargeCroc) entityliving, f);
 	}

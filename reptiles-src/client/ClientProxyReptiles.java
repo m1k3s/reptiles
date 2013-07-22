@@ -18,10 +18,8 @@
 
 package reptiles.client;
 
-import java.util.logging.Logger;
 
 import reptiles.common.*;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

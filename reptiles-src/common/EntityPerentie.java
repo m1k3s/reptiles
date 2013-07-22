@@ -21,7 +21,6 @@
 package reptiles.common;
 
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -36,10 +35,12 @@ public class EntityPerentie extends EntityVaranus
     setSize(0.6F, 0.6F);
   }
   
+  @Override
   protected int getDropItemId() {
     return Item.egg.itemID; 
   }
   
+  @Override
   public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityPerentie e = new EntityPerentie(worldObj);
 		if (isTamed()) {

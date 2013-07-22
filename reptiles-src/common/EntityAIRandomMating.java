@@ -40,6 +40,7 @@ public class EntityAIRandomMating extends EntityAIBase {
 		setMutexBits(7);
 	}
 
+    @Override
 	public boolean shouldExecute() {
 		if (creature.getRNG().nextInt(8192) != 0 || creature.isChild()) {
 //			System.err.println("shouldExecute is returning false. (RND != 0 || isChild)");
@@ -55,14 +56,17 @@ public class EntityAIRandomMating extends EntityAIBase {
 		return true;
 	}
 
+    @Override
 	public void startExecuting() {
 		matingTick = 40;
 	}
 
+    @Override
 	public void resetTask() {
 		matingTick = 0;
 	}
 	
+    @Override
 	public boolean continueExecuting() {
 		return matingTick > 0;
 	}
@@ -71,6 +75,7 @@ public class EntityAIRandomMating extends EntityAIBase {
 		return matingTick;
 	}
 
+    @Override
 	public void updateTask() {
 		matingTick = Math.max(0, matingTick - 1); // decrement matingTick
 

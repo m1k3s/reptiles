@@ -31,6 +31,7 @@ public class EntityGriseus extends EntityVaranus {
 		setSize(0.6F, 0.6F);
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityGriseus e = new EntityGriseus(worldObj);
 		if (isTamed()) {

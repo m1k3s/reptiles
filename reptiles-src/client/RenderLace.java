@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
 
 public class RenderLace extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/lace.png");
@@ -43,6 +42,7 @@ public class RenderLace extends RenderLiving {
 		func_177_a((EntityLace) entityliving, d, d1, d2, f, f1);
 	}
 
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2,
 			float f, float f1) {
 		func_177_a((EntityLace) entity, d, d1, d2, f, f1);

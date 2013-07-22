@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -65,10 +64,12 @@ public class EntityCroc extends EntityAnimal {
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, 0, false));
 	}
 
+    @Override
 	public boolean isAIEnabled() {
 		return true;
 	}
 	
+    @Override
 	protected void func_110147_ax() {
         super.func_110147_ax();
         func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
@@ -84,26 +85,32 @@ public class EntityCroc extends EntityAnimal {
 //		return maxHealth;
 //	}
 
+    @Override
 	protected String getLivingSound() {
 		return "reptilemod:growl";
 	}
 
+    @Override
 	protected String getHurtSound() {
 		return "reptilemod:growl";
 	}
 
+    @Override
 	protected String getDeathSound() {
 		return "reptilemod:growl";
 	}
 
+    @Override
 	protected float getSoundVolume() {
 		return 0.4F;
 	}
 
+    @Override
 	protected int getDropItemId() {
 		return Item.leather.itemID;
 	}
 
+    @Override
 	protected void dropFewItems(boolean flag, int add) {
 		int count = rand.nextInt(3) + rand.nextInt(1 + add);
 		dropItem(Item.leather.itemID, count);
@@ -116,15 +123,18 @@ public class EntityCroc extends EntityAnimal {
 		}
 	}
 	
+    @Override
 	protected int getExperiencePoints(EntityPlayer par1EntityPlayer) {
 		return 1 + worldObj.rand.nextInt(4);
 	}
 
+    @Override
 	public boolean interact(EntityPlayer entityplayer) {
 		// don't allow any interaction, especially breeding
 		return false;
 	}
 
+    @Override
 	public boolean attackEntityAsMob(Entity par1Entity) {
 		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 	}

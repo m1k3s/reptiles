@@ -32,6 +32,7 @@ public class EntityIguana extends EntityLizard
     setSize(0.4F, 0.4F);
   }
   
+  @Override
   public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityIguana i = new EntityIguana(worldObj);
 		if (isTamed()) {

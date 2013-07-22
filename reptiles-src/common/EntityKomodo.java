@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
@@ -43,6 +42,7 @@ public class EntityKomodo extends EntityVaranus {
 		targetTasks.addTask(5, attackPlayer);
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityKomodo e = new EntityKomodo(worldObj);
 		if (isTamed()) {
@@ -56,6 +56,7 @@ public class EntityKomodo extends EntityVaranus {
 	// the idea is that if the entity is tame to remove the 
 	// targetTask entry for the List so the player
 	// is not attacked by a tame komodo
+    @Override
 	protected void updateAITasks() {
 		if (playerAttack && isTamed()) { // don't attack players when tame
 			targetTasks.taskEntries.remove(attackPlayer);

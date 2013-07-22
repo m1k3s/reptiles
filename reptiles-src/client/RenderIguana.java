@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
 
 
 //
@@ -44,6 +43,7 @@ public class RenderIguana extends RenderLiving {
 		super.doRenderLiving(entityiguana, d, d1, d2, f, f1);
 	}
 
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderIguana((EntityIguana) entity, d, d1, d2, f, f1);
 	}
@@ -53,6 +53,7 @@ public class RenderIguana extends RenderLiving {
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 
+    @Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
 		scaleEntity((EntityIguana) entityliving, f);
 	}

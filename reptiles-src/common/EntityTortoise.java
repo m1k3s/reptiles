@@ -21,7 +21,6 @@
 package reptiles.common;
 
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;

@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MathHelper;
 
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
@@ -57,6 +56,7 @@ public class RenderGator extends RenderLiving {
 		renderGator((EntityGator) entityliving, d, d1, d2, f, f1);
 	}
 
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderGator((EntityGator) entity, d, d1, d2, f, f1);
 	}
@@ -89,6 +89,7 @@ public class RenderGator extends RenderLiving {
 		}
 	}
 
+    @Override
 	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f) {
 		return setGatorEyeBrightness((EntityGator) entityliving, i, f);
 	}
@@ -97,6 +98,7 @@ public class RenderGator extends RenderLiving {
 		GL11.glScalef(0.8F, 1.2F, 1.2F);
 	}
 
+    @Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
 		scaleEntity((EntityGator) entityliving, f);
 	}

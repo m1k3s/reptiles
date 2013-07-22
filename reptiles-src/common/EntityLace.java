@@ -20,7 +20,6 @@
 
 package reptiles.common;
 
-import java.util.*;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -34,6 +33,7 @@ public class EntityLace extends EntityVaranus {
 		setSize(0.6F, 0.6F);
 	}
 
+    @Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityLace e = new EntityLace(worldObj);
 		if (isTamed()) {
@@ -44,6 +44,7 @@ public class EntityLace extends EntityVaranus {
 		return e;
 	}
 
+    @Override
 	protected int getDropItemId() {
 		return Item.egg.itemID;
 	}

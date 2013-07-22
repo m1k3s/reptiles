@@ -24,8 +24,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.util.MathHelper;
 
 
 
@@ -50,6 +48,7 @@ public class RenderChameleon extends RenderLiving {
 		super.doRenderLiving(entitychameleon, d, d1, d2, f, f1);
 	}
 	
+    @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderChameleon((EntityChameleon) entity, d, d1, d2, f, f1);
 	}

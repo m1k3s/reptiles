@@ -39,6 +39,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
+    @Override
 	public boolean shouldExecute() {
 		if (creature.getRNG().nextInt(creature.isChild() ? 50 : 1000) != 0) {
 			return false;
@@ -50,6 +51,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 		}
 	}
 
+    @Override
 	public void startExecuting() {
 		eatPlantTick = 40;
 		theWorld.setEntityState(creature, (byte) 10);
@@ -59,6 +61,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Resets the task
 	 */
+    @Override
 	public void resetTask() {
 		eatPlantTick = 0;
 	}
@@ -66,6 +69,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
+    @Override
 	public boolean continueExecuting() {
 		return eatPlantTick > 0;
 	}
@@ -77,6 +81,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Updates the task
 	 */
+    @Override
 	public void updateTask() {
 		eatPlantTick = Math.max(0, eatPlantTick - 1);
 

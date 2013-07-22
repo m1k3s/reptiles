@@ -79,6 +79,7 @@ public class ModelLittleTurtle extends ModelBase {
 		tail.rotateAngleX = 5.934119456780721F;
 	}
 
+    @Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -112,6 +113,7 @@ public class ModelLittleTurtle extends ModelBase {
 		}
 	}
 
+    @Override
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
@@ -126,6 +128,7 @@ public class ModelLittleTurtle extends ModelBase {
 		tail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
+    @Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
 		EntityLittleTurtle entityLittleTurtle = (EntityLittleTurtle) entityliving;
 
