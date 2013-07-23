@@ -25,14 +25,13 @@ import java.util.logging.Logger;
 import cpw.mods.fml.common.FMLLog;
 
 public class CommonProxyReptiles {
-	private Logger logger;
+	private static final Logger logger  = Logger.getLogger(Reptiles.modid);;
 	
 	public void registerRenderers() {}
 	
 	public void registerSounds() {}
 	
 	public void registerLogger() {
-		logger = Logger.getLogger(Reptiles.modid);
 		logger.setParent(FMLLog.getLogger());
 	}
 	

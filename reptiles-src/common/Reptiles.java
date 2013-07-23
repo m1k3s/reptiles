@@ -15,15 +15,10 @@
 //  =====================================================================
 //
 
-//
-//
 
 package reptiles.common;
 
 import java.util.LinkedList;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
@@ -31,8 +26,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
-//import net.minecraftforge.common.BiomeDictionary;
-//import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -42,6 +35,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.common.BiomeDictionary;
 
 @Mod(
 	modid = Reptiles.modid, 
@@ -82,8 +78,6 @@ public class Reptiles {
 	private int chameleonSpawnProb;
 	private int salvadoriiSpawnProb;
 	
-//	private Logger logger;
-	
 	@SidedProxy(
 		clientSide = "reptiles.client.ClientProxyReptiles",
 		serverSide = "reptiles.common.CommonProxyReptiles"
@@ -91,13 +85,11 @@ public class Reptiles {
 	
 	public static CommonProxyReptiles proxy;
 
-	public Reptiles() {
-	}
+//	public Reptiles() {
+//	}
 
 	@EventHandler
 	public void preLoad(FMLPreInitializationEvent event) {
-//		logger = Logger.getLogger(Reptiles.modid);
-//		logger.setParent(FMLLog.getLogger());
 		
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
@@ -163,19 +155,19 @@ public class Reptiles {
 		LanguageRegistry.instance().addStringLocalization("entity.CrocMonitor.name", "Crocodile Monitor");
 
 		proxy.print("*** Scanning for monitor biomes");
-		BiomeGenBase[] monitorBiomes = getBiomes(false, false);
+		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
 		proxy.print("*** Scanning for tortoise biomes");
-		BiomeGenBase[] tortoiseBiomes = getBiomes(true, false);
+		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
 
 		proxy.print("*** Scanning for turtle biomes");
-		BiomeGenBase[] turtleBiomes = getBiomes(false, false);
+		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
 
 		proxy.print("*** Scanning for lizard biomes");
-		BiomeGenBase[] lizardBiomes = getBiomes(false, true);
+		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS);
 
 		proxy.print("*** Scanning for crocodilian biomes");
-		BiomeGenBase[] crocBiomes = getBiomes(false, true);
+		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
@@ -196,20 +188,16 @@ public class Reptiles {
 		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
 	}
 	
-//	@EventHandler
-//	public void PostInit(FMLPostInitializationEvent event) {
-//		BiomeDictionary.registerAllBiomes();
-//	}
+	@EventHandler
+	public void PostInit(FMLPostInitializationEvent event) {
+		BiomeDictionary.registerAllBiomes();
+	}
 	
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
-//		int trackingRange = 80;
-//		int updateFreq = 3;
-//		boolean sendsVelUpdates = true;
 		
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
-//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, trackingRange, updateFreq, sendsVelUpdates);
 		EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
 	}
 
@@ -218,45 +206,23 @@ public class Reptiles {
 			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.creature, biomes);
 		}
 	}
-	
-	public BiomeGenBase[] getBiomes(boolean onlyDry, boolean onlyWet) {
-		LinkedList linkedlist = new LinkedList();
-//		BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(Type.FROZEN);
-		for (BiomeGenBase biomegenbase : BiomeGenBase.biomeList) {
-			if (biomegenbase == null) {
-				continue;
-			}
-			if (!excludedBiome(biomegenbase, onlyDry, onlyWet)) {
-				linkedlist.add(biomegenbase);
-				proxy.print(" >>> Adding " + biomegenbase.biomeName + " for spawning");
-			}
-		}
-		return (BiomeGenBase[]) linkedlist.toArray(new BiomeGenBase[0]);
-	}
-	
-	public boolean excludedBiome(BiomeGenBase biome, boolean onlyDry, boolean onlyWet) {
-		// always exclude Hell and the End 
-		if ((biome instanceof BiomeGenHell) || (biome instanceof BiomeGenEnd)) {
-			return true;
-		}
-		// always exclude ocean and all cold biomes
-		if ((biome.biomeID == 0) || biome.getEnableSnow() || biome.getFloatTemperature() < 0.2) {
-			return true;
-		}
-		// this should exclude desert-like biomes when the onlyDry flag is false
-		if (!onlyDry && (biome.getFloatTemperature() > 1.5) && !biome.isHighHumidity()) {
-			return true;
-		}
-		// This should exclude all biomes that are not desert-like
-		if (onlyDry && (biome.getFloatTemperature() < 1.5)) {
-			return true;
-		}
-		// this should exclude all biomes that have a low humidity
-		if (onlyWet && !biome.isHighHumidity()) {
-			return true;
-		}
-		
-		return false;
-	}
+    
+    public BiomeGenBase[] getBiomes(Type ... types) {
+        LinkedList list = new LinkedList();
+        
+        for (Type t : types) {
+            BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
+            for (BiomeGenBase bgb : biomes) {
+                if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN)) { // exclude cold climates
+                    continue;
+                }
+                if (!list.contains(bgb)) {
+                    list.add(bgb);
+                    proxy.print(" >>> Adding " + bgb.biomeName + " for spawning");
+                }
+            }
+        }
+        return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
+    }
 	
 }
