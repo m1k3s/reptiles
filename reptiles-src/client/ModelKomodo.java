@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011 Michael Sheppard (crackedEgg)
+//
 
 
 package reptiles.client;
@@ -23,11 +26,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
-
 import org.lwjgl.opengl.GL11;
 
 import reptiles.common.EntityKomodo;

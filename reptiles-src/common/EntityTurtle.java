@@ -44,32 +44,36 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	public EntityTurtle(World world) {
 		super(world);
 		setSize(0.5F, 0.5F);
+        double moveSpeed = 0.75;
 
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(2, aiSit);
-		tasks.addTask(3, new EntityAIMate(this, 0.2F));
-		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantRed.blockID, false));
-		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantYellow.blockID, false));
-		tasks.addTask(5, new EntityAIFollowOwner(this, 0.25, 10.0F, 2.0F));
+		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
+		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Block.plantRed.blockID, false));
+		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Block.plantYellow.blockID, false));
+		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(6, plantEating);
 		tasks.addTask(7, randomMating);
-		tasks.addTask(7, new EntityAIWander(this, 0.25F));
+		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
 	}
 	
+    @Override
 	protected void func_110147_ax() {
         super.func_110147_ax();
         func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
         func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.2); // move speed
     }
 
+    @Override
 	public boolean isAIEnabled() {
 		return true;
 	}
 
+    @Override
 	protected void updateAITasks() {
 		turtleTimer = plantEating.getEatPlantTick();
 		if (isTamed()) { // no random mating when tame
@@ -115,6 +119,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		}
 	}
 
+    @Override
 	public void eatGrassBonus() {
 		if (isChild()) {
 			int time = getGrowingAge() + 1200;
@@ -128,6 +133,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	// end AI plant eating functions
 	// ////////////////////////////////////////////////
 
+    @Override
 	public void onLivingUpdate() {
 		if (worldObj.isRemote) {
 			turtleTimer = Math.max(0, turtleTimer - 1);
@@ -143,24 +149,29 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
         return itemstack != null && isFavoriteFood(itemstack);
     }
 
+    @Override
 	protected String getLivingSound() {
 		return null;
 	}
 
+    @Override
 	protected String getHurtSound() {
 		return null;
 	}
 
+    @Override
 	protected String getDeathSound() {
 		return null;
 	}
 
+    @Override
 	protected int getDropItemId() {
 		return -1;
 	}
 	
 	// taming stuff //////////////////
 	
+    @Override
 	public boolean interact(EntityPlayer entityplayer) {
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 	
@@ -196,6 +207,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	    return super.interact(entityplayer);
     }
 	
+    @Override
 	public boolean canMateWith(EntityAnimal entityAnimal) {
         if (entityAnimal == this) {
             return false;

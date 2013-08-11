@@ -31,15 +31,15 @@ import net.minecraft.world.World;
 
 public class EntityKomodo extends EntityVaranus {
 	
-	private EntityAINearestAttackableTarget attackPlayer = new EntityAINearestAttackableTarget(this, EntityPlayer.class, targetChance * 2, true);
-	private boolean playerAttack = true;
+//	private EntityAITargetNonTamed attackPlayer = new EntityAITargetNonTamed(this, EntityPlayer.class, targetChance * 2, true);
+//	private boolean playerAttack = true;
 
 	public EntityKomodo(World world) {
 
 		super(world);
 		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, targetChance, false));
-		targetTasks.addTask(5, attackPlayer);
+		targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, targetChance + 100, false));
 	}
 
     @Override
@@ -54,15 +54,15 @@ public class EntityKomodo extends EntityVaranus {
 	}
 	
 	// the idea is that if the entity is tame to remove the 
-	// targetTask entry for the List so the player
+	// targetTask entry from the list so the player
 	// is not attacked by a tame komodo
-    @Override
-	protected void updateAITasks() {
-		if (playerAttack && isTamed()) { // don't attack players when tame
-			targetTasks.taskEntries.remove(attackPlayer);
-			playerAttack = false;
-		}
-		super.updateAITasks();
-	}
+//    @Override
+//	protected void updateAITasks() {
+//		if (playerAttack && isTamed()) { // don't attack players when tame
+//			targetTasks.taskEntries.remove(attackPlayer);
+//			playerAttack = false;
+//		}
+//		super.updateAITasks();
+//	}
 
 }

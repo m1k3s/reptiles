@@ -29,8 +29,6 @@ public class EntityChameleon extends EntityLizard {
 	public EntityChameleon(World world) {
 		super(world);
 		setSize(0.25F, 0.25F);
-//		texture = "/mob/chameleon.png";
-//		moveSpeed = 0.5F;
 	}
 
     @Override

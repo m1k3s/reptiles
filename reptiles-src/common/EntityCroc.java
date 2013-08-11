@@ -41,10 +41,10 @@ public class EntityCroc extends EntityAnimal {
 		setSize(0.8F, 1.5F);
 
 		attackStrength = 2;
-		double moveSpeed = 0.25;
+		double moveSpeed = 1.0;
 		attackDistance = 16F;
 
-		getNavigator().setAvoidsWater(true);
+//		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
 		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, moveSpeed, true));

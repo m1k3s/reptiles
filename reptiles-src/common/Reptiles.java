@@ -47,7 +47,8 @@ import net.minecraftforge.common.BiomeDictionary;
 
 @NetworkMod(
 	clientSideRequired = true, 
-	serverSideRequired = false
+	serverSideRequired = false,
+    versionBounds = "[" + Reptiles.version + "]"
 )
 
 public class Reptiles {
@@ -77,6 +78,7 @@ public class Reptiles {
 	private int gatorSpawnProb;
 	private int chameleonSpawnProb;
 	private int salvadoriiSpawnProb;
+    private int megalaniaSpawnProb;
 	
 	@SidedProxy(
 		clientSide = "reptiles.client.ClientProxyReptiles",
@@ -89,7 +91,7 @@ public class Reptiles {
 //	}
 
 	@EventHandler
-	public void preLoad(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) {
 		
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 										+ "Set xxxSpawnProb to zero to disable spawn of that entity\n";
@@ -111,6 +113,7 @@ public class Reptiles {
 		gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5).getInt();
 		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
 		salvadoriiSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "salvadoriiSpawnProb", 12).getInt();
+        megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12).getInt();
 		
 		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
 		
@@ -122,7 +125,7 @@ public class Reptiles {
 	}
 
 	@EventHandler
-	public void load(FMLInitializationEvent evt) {
+	public void Init(FMLInitializationEvent evt) {
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
 		registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
@@ -137,6 +140,7 @@ public class Reptiles {
 		registerEntity(EntityGator.class, "Alligator", 0x008B45, 0xC0FF3E);
 		registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
+        registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
 
 		// add language localization
 		LanguageRegistry.instance().addStringLocalization("entity.Komodo.name", "Komodo");
@@ -153,6 +157,7 @@ public class Reptiles {
 		LanguageRegistry.instance().addStringLocalization("entity.Alligator.name", "Alligator");
 		LanguageRegistry.instance().addStringLocalization("entity.Tortoise.name", "Tortoise");
 		LanguageRegistry.instance().addStringLocalization("entity.CrocMonitor.name", "Crocodile Monitor");
+        LanguageRegistry.instance().addStringLocalization("entity.Megalania.name", "Megalania");
 
 		proxy.print("*** Scanning for monitor biomes");
 		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
@@ -175,6 +180,7 @@ public class Reptiles {
 		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntitySalvadorii.class, salvadoriiSpawnProb, 1, 4, monitorBiomes);
+        addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, monitorBiomes);
 
 		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
 		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, crocBiomes);

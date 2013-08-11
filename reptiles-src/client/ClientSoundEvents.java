@@ -36,7 +36,11 @@ public class ClientSoundEvents {
 			"growl1",
 			"growl2", 
 			"growl3", 
-			"growl4", 
+			"growl4",
+            "megagrowl",
+            "purr1",
+            "purr2",
+            "death1",
 		};
 
 		for (String sound : soundFiles) {

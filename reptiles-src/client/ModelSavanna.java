@@ -40,7 +40,7 @@ public class ModelSavanna extends ModelBase {
 	public ModelSavanna() {
 		float yPos = 19F;
 
-		savannaBody = new ModelRenderer(this, 21, 16);
+		savannaBody = new ModelRenderer(this, 30, 2); // 21 16
 		savannaBody.addBox(-3F, -2F, -5F, 6, 4, 10);
 		savannaBody.setRotationPoint(0.0F, yPos, 0.0F);
 
@@ -66,7 +66,7 @@ public class ModelSavanna extends ModelBase {
 		savannaLeg4.addBox(-1F, 0F, -1F, 2, 5, 2);
 		savannaLeg4.setRotationPoint(-4F, yPos, 4F);
 
-		savannaTail = new ModelRenderer(this, 17, 12);
+		savannaTail = new ModelRenderer(this, 4, 12); // 17 12
 		savannaTail.addBox(-1F, -1F, 0F, 2, 2, 18);
 		savannaTail.setRotationPoint(0F, yPos, 4F);
 		savannaTail.rotateAngleX = 6.021385919380437F;

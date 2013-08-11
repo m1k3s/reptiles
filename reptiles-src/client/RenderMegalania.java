@@ -18,35 +18,55 @@
 
 package reptiles.client;
 
-import reptiles.common.EntityKomodo;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
+//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import org.lwjgl.opengl.GL11;
+import reptiles.common.EntityMegalania;
 
-public class RenderKomodo extends RenderLiving {
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/komodo32.png");
+@SideOnly(Side.CLIENT)
+public class RenderMegalania extends RenderLiving {
+	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
 	
-	public RenderKomodo(ModelBase modelbase, float shadowSize) {
+	public RenderMegalania(ModelBase modelbase, float shadowSize) {
 		super(modelbase, shadowSize);
+//        setRenderPassModel((ModelMegalania) modelbase);
 	}
+    
+//    public RenderMegalania() {
+//		super(new ModelMegalania(), 0.8F);
+//		setRenderPassModel(new ModelMegalania());
+//	}
 
-	public void renderKomodo(EntityKomodo entitykomodo, double d, double d1, double d2, float f, float f1) {
-		super.doRenderLiving(entitykomodo, d, d1, d2, f, f1);
+	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1) {
+		super.doRenderLiving(entitymegalania, d, d1, d2, f, f1);
 	}
 
 	public void doRenderLiving(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
-		super.doRenderLiving((EntityKomodo) entityliving, d, d1, d2, f, f1);
+		super.doRenderLiving((EntityMegalania) entityliving, d, d1, d2, f, f1);
 	}
 
     @Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
-		super.doRenderLiving((EntityKomodo) entity, d, d1, d2, f, f1);
+		super.doRenderLiving((EntityMegalania) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
 	protected ResourceLocation func_110775_a(Entity entity) {
 		return skin;
+	}
+    
+    protected void scaleEntity(EntityMegalania entitymegalania, float f) {
+		GL11.glScalef(2.5F, 2.5F, 3.0F);
+	}
+    
+    @Override
+	protected void preRenderCallback(EntityLivingBase entitylivingbase, float f) {
+		scaleEntity((EntityMegalania) entitylivingbase, f);
 	}
 }

@@ -26,7 +26,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
 public class RenderSavanna extends RenderLiving {
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/savanna.png");
+	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/savanna32.png");
 	
 	public RenderSavanna(ModelBase modelbase, float shadowSize) {
 		super(modelbase, shadowSize);

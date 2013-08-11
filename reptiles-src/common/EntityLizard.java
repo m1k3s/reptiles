@@ -46,18 +46,18 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	public EntityLizard(World world) {
 		super(world);
 		setSize(1.0F, 1.0F);
-		double moveSpeed = 0.35;
+		double moveSpeed = 1.0;
 
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, aiSit);
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
-		tasks.addTask(3, new EntityAIMate(this, 0.2F));
-		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantRed.blockID, false));
-		tasks.addTask(4, new EntityAITempt(this, 0.25F, Block.plantYellow.blockID, false));
+		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
+		tasks.addTask(4, new EntityAITempt(this, 1.2, Block.plantRed.blockID, false));
+		tasks.addTask(4, new EntityAITempt(this, 1.2, Block.plantYellow.blockID, false));
 		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(6, randomMating);
-		tasks.addTask(6, new EntityAIWander(this, 0.2F));
+		tasks.addTask(6, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
