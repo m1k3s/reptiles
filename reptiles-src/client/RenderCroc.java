@@ -60,7 +60,7 @@ public class RenderCroc extends RenderLiving {
 		if (i != 0) {
 			return -1;
 		} else {
-			func_110776_a(eyes);
+			bindTexture(eyes);
 			GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
@@ -85,7 +85,7 @@ public class RenderCroc extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
     

@@ -27,12 +27,13 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class EntitySalvadorii extends EntityVaranus
+public final class EntitySalvadorii extends EntityVaranus
 {
 
   public EntitySalvadorii(World world) {
     super(world);
     setSize(0.6F, 0.6F);
+	setTamed(false);
   }
   
   @Override

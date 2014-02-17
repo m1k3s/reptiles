@@ -20,10 +20,10 @@ package reptiles.client;
 import reptiles.common.EntityLace;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import org.lwjgl.opengl.GL11;
 
 public class RenderLace extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/lace.png");
@@ -32,24 +32,28 @@ public class RenderLace extends RenderLiving {
 		super(modelbase, shadowSize);
 	}
 
-	public void func_177_a(EntityLace entityLace, double d, double d1,
-			double d2, float f, float f1) {
+	public void func_177_a(EntityLace entityLace, double d, double d1, double d2, float f, float f1) {
 		super.doRenderLiving(entityLace, d, d1, d2, f, f1);
 	}
 
-	public void doRenderLiving(EntityLivingBase entityliving, double d, double d1,
-			double d2, float f, float f1) {
+    @Override
+	public void doRenderLiving(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
 		func_177_a((EntityLace) entityliving, d, d1, d2, f, f1);
 	}
 
     @Override
-	public void doRender(Entity entity, double d, double d1, double d2,
-			float f, float f1) {
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		func_177_a((EntityLace) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
+	}
+    
+    @Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+		float scaleFactor = ((EntityLace)entityliving).getScaleFactor();
+        GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 }

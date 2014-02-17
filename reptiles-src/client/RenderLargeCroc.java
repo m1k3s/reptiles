@@ -14,8 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
+//
+// Copyright 2011 Michael Sheppard (crackedEgg)
+//
 package reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -24,15 +25,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
-
-
-
 import org.lwjgl.opengl.GL11;
-
 import reptiles.common.EntityLargeCroc;
 
 public class RenderLargeCroc extends RenderLiving {
@@ -67,7 +60,7 @@ public class RenderLargeCroc extends RenderLiving {
 		if (i != 0) {
 			return -1;
 		} else {
-			func_110776_a(eyes);
+			bindTexture(eyes);
 			// float alpha = (1.0F - entitycroc.getBrightness(1.0F)) * 0.5F;
 			// GL11.glEnable(GL11.GL_BLEND);
 			// GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -106,7 +99,7 @@ public class RenderLargeCroc extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
 

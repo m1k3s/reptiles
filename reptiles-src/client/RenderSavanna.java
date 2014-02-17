@@ -20,10 +20,10 @@ package reptiles.client;
 import reptiles.common.EntitySavanna;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import org.lwjgl.opengl.GL11;
 
 public class RenderSavanna extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/savanna32.png");
@@ -36,6 +36,7 @@ public class RenderSavanna extends RenderLiving {
 		super.doRenderLiving(entitysavanna, d, d1, d2, f, f1);
 	}
 
+	@Override
 	public void doRenderLiving(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
 		super.doRenderLiving((EntitySavanna) entityliving, d, d1, d2, f, f1);
 	}
@@ -46,7 +47,13 @@ public class RenderSavanna extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
+	}
+    
+    @Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+		float scaleFactor = ((EntitySavanna)entityliving).getScaleFactor();
+        GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 }

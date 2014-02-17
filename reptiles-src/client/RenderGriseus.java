@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import org.lwjgl.opengl.GL11;
 
 public class RenderGriseus extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/griseus32.png");
@@ -46,7 +47,13 @@ public class RenderGriseus extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
+	}
+    
+    @Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+		float scaleFactor = ((EntityGriseus)entityliving).getScaleFactor();
+        GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 }

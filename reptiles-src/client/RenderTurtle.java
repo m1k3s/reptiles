@@ -26,7 +26,7 @@ import net.minecraft.entity.Entity;
 
 public class RenderTurtle extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
-	private final float scaleFactor = 2.0F;
+//	private final float scaleFactor = 2.0F;
 	
 	public RenderTurtle(ModelBase modelbase, float shadowSize) {
 		super(modelbase, shadowSize);
@@ -42,7 +42,7 @@ public class RenderTurtle extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
 

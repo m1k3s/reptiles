@@ -62,7 +62,7 @@ public class Reptiles {
 	
 	public static final String modid = "ReptileMod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "1.6.2";
+	public static final String version = "1.6.4";
 
 	private int komodoSpawnProb;
 	private int griseusSpawnProb;
@@ -77,7 +77,7 @@ public class Reptiles {
 	private int tortoiseSpawnProb;
 	private int gatorSpawnProb;
 	private int chameleonSpawnProb;
-	private int salvadoriiSpawnProb;
+	private int crocMonitorSpawnProb;
     private int megalaniaSpawnProb;
 	
 	@SidedProxy(
@@ -86,9 +86,6 @@ public class Reptiles {
 	)
 	
 	public static CommonProxyReptiles proxy;
-
-//	public Reptiles() {
-//	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -112,7 +109,7 @@ public class Reptiles {
 		tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12).getInt();
 		gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5).getInt();
 		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
-		salvadoriiSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "salvadoriiSpawnProb", 12).getInt();
+		crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12).getInt();
         megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12).getInt();
 		
 		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
@@ -160,7 +157,7 @@ public class Reptiles {
         LanguageRegistry.instance().addStringLocalization("entity.Megalania.name", "Megalania");
 
 		proxy.print("*** Scanning for monitor biomes");
-		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
+		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS, Type.MAGICAL);
 
 		proxy.print("*** Scanning for tortoise biomes");
 		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
@@ -169,17 +166,17 @@ public class Reptiles {
 		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
 
 		proxy.print("*** Scanning for lizard biomes");
-		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS);
+		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
 		proxy.print("*** Scanning for crocodilian biomes");
-		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
+		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM, Type.MAGICAL);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, tortoiseBiomes);
 		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntitySalvadorii.class, salvadoriiSpawnProb, 1, 4, monitorBiomes);
+		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, monitorBiomes);
         addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, monitorBiomes);
 
 		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
@@ -199,7 +196,6 @@ public class Reptiles {
 		BiomeDictionary.registerAllBiomes();
 	}
 	
-
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		

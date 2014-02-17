@@ -24,11 +24,12 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityGriseus extends EntityVaranus {
+public final class EntityGriseus extends EntityVaranus {
 
 	public EntityGriseus(World world) {
 		super(world);
 		setSize(0.6F, 0.6F);
+		setTamed(false);
 	}
 
     @Override

@@ -14,13 +14,11 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
+// Copyright 2013 Michael Sheppard (crackedEgg)
 //
 
 package reptiles.client;
-
-
 
 import reptiles.common.Reptiles;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -45,13 +43,9 @@ public class ClientSoundEvents {
 
 		for (String sound : soundFiles) {
 			String soundStr = "reptilemod:" + sound + ".ogg";
-			event.manager.soundPoolSounds.addSound(soundStr);
+			event.manager.addSound(soundStr);
 			Reptiles.proxy.print("Loaded sound file: " + soundStr);
 		}
 	}
-	
-//	private URL getSound(String sound) {
-//        return this.getClass().getResource("reptilemod:/sound/mob/" + sound + ".ogg");
-//    }
 	
 }

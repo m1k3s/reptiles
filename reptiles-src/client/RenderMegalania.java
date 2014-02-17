@@ -47,6 +47,7 @@ public class RenderMegalania extends RenderLiving {
 		super.doRenderLiving(entitymegalania, d, d1, d2, f, f1);
 	}
 
+	@Override
 	public void doRenderLiving(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
 		super.doRenderLiving((EntityMegalania) entityliving, d, d1, d2, f, f1);
 	}
@@ -57,7 +58,7 @@ public class RenderMegalania extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
     

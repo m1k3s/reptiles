@@ -14,10 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
+// Copyright 2011 Michael Sheppard (crackedEgg)
 //
-
 package reptiles.common;
 
 
@@ -29,17 +28,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 
-public class EntityKomodo extends EntityVaranus {
+public final class EntityKomodo extends EntityVaranus {
 	
-//	private EntityAITargetNonTamed attackPlayer = new EntityAITargetNonTamed(this, EntityPlayer.class, targetChance * 2, true);
-//	private boolean playerAttack = true;
-
 	public EntityKomodo(World world) {
 
 		super(world);
-		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
+		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, targetChance, false));
 		targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, targetChance + 100, false));
+		setTamed(false);
+//        tasks.removeTask(avoid); // komodos don't avoid humans
 	}
 
     @Override

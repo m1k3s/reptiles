@@ -22,13 +22,15 @@ package reptiles.common;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityChameleon extends EntityLizard {
+public final class EntityChameleon extends EntityLizard {
 
 	public EntityChameleon(World world) {
 		super(world);
 		setSize(0.25F, 0.25F);
+		setTamed(false);
 	}
 
     @Override
@@ -41,5 +43,19 @@ public class EntityChameleon extends EntityLizard {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return c;
 	}
+    
+    @Override
+    public float getBrightness(float par1) {
+        int i = MathHelper.floor_double(posX);
+        int j = MathHelper.floor_double(posZ);
+
+        if (worldObj.blockExists(i, 0, j)) {
+            double d0 = (boundingBox.maxY - boundingBox.minY) * 0.66D;
+            int k = MathHelper.floor_double(posY - (double)yOffset + d0);
+            return worldObj.getLightBrightness(i, k, j);
+        } else {
+            return 0.25F;
+        }
+    }
 
 }

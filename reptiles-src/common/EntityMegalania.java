@@ -71,10 +71,10 @@ public class EntityMegalania extends EntityAnimal {
 	}
 	
     @Override
-	protected void func_110147_ax() {
-        super.func_110147_ax();
-        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(maxHealth); // health
-        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.3);  // move speed
+	protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(maxHealth); // health
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.3);  // move speed
     }
 	
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {

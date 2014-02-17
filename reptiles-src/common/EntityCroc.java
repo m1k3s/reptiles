@@ -47,10 +47,10 @@ public class EntityCroc extends EntityAnimal {
 //		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, moveSpeed, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityCow.class, moveSpeed, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntitySheep.class, moveSpeed, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
+		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, moveSpeed + 0.2, true));
+		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityCow.class, moveSpeed + 0.2, true));
+		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntitySheep.class, moveSpeed + 0.2, true));
+		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed + 0.2, true));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAIRandomMating(this));
 		tasks.addTask(4, new EntityAIWander(this, moveSpeed));
@@ -70,10 +70,10 @@ public class EntityCroc extends EntityAnimal {
 	}
 	
     @Override
-	protected void func_110147_ax() {
-        super.func_110147_ax();
-        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
-        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.2); // move speed
+	protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(10.0); // health
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.25); // move speed
     }
 	
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {

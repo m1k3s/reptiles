@@ -25,10 +25,11 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 
-public class EntityDesertTortoise extends EntityTurtle {
+public final class EntityDesertTortoise extends EntityTurtle {
 
 	public EntityDesertTortoise(World world) {
 		super(world);
+		setTamed(false);
 	}
 	
     @Override

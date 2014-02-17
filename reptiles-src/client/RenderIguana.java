@@ -33,6 +33,7 @@ import org.lwjgl.opengl.GL11;
 import reptiles.common.EntityIguana;
 
 public class RenderIguana extends RenderLiving {
+    private final float scaleFactor = 0.4F;
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
 	
 	public RenderIguana(ModelBase modelbase, float shadowSize) {
@@ -58,10 +59,8 @@ public class RenderIguana extends RenderLiving {
 		scaleEntity((EntityIguana) entityliving, f);
 	}
 
-	private final float scaleFactor = 0.4F;
-
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
 }

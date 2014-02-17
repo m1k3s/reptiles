@@ -25,11 +25,12 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityLittleTurtle extends EntityTurtle
+public final class EntityLittleTurtle extends EntityTurtle
 {
   public EntityLittleTurtle(World world) {
     super(world);
     setSize(0.2F, 0.2F);
+	setTamed(false);
   }
   
 //  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {

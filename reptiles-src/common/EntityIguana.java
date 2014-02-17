@@ -24,12 +24,13 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityIguana extends EntityLizard
+public final class EntityIguana extends EntityLizard
 {
 
   public EntityIguana(World world) {
     super(world);
     setSize(0.4F, 0.4F);
+	setTamed(false);
   }
   
   @Override

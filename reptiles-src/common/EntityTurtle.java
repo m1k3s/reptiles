@@ -24,13 +24,20 @@ package reptiles.common;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -38,8 +45,9 @@ import net.minecraft.world.World;
 public class EntityTurtle extends EntityTameable//EntityAnimal
 {
 	private int turtleTimer;
-	private EntityAIEatPlants plantEating = new EntityAIEatPlants(this);
-	private EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
+	private final EntityAIEatPlants plantEating = new EntityAIEatPlants(this);
+	private final EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
+	private final int maxHealth = 10;
 
 	public EntityTurtle(World world) {
 		super(world);
@@ -51,8 +59,8 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Block.plantRed.blockID, false));
-		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Block.plantYellow.blockID, false));
+		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Item.carrot.itemID, false));
+		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Item.goldenCarrot.itemID, false));
 		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(6, plantEating);
 		tasks.addTask(7, randomMating);
@@ -62,15 +70,25 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	}
 	
     @Override
-	protected void func_110147_ax() {
-        super.func_110147_ax();
-        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(10.0); // health
-        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.2); // move speed
+	protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        if (isTamed()) {
+            getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(maxHealth); // health
+        } else {
+            getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(8.0); // health
+        }
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.2); // move speed
     }
 
     @Override
 	public boolean isAIEnabled() {
 		return true;
+	}
+	
+	@Override
+	protected void entityInit() {
+        super.entityInit();
+        dataWatcher.addObject(18, new Float(getHealth()));
 	}
 
     @Override
@@ -84,19 +102,19 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-//		System.err.println("[ERROR] Do NOT call this base class method directly!");
 		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 
-	public int getMaxHealth() {
-		return 8;
-	}
-	
 	protected boolean isSandOrGrassBlock(int x, int y, int z) {
 		int blockID = worldObj.getBlockId(x, y, z);
 		return (blockID == Block.sand.blockID || blockID == Block.grass.blockID);
 	}
+	
+	@Override
+	public boolean attackEntityAsMob(Entity entity) {
+        return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
+    }
 
 	// ///////////////////////////////////////////////
 	// AI grass and plant eating functions
@@ -141,12 +159,18 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		super.onLivingUpdate();
 	}
 	
+	@Override
+	protected void updateAITick() {
+        dataWatcher.updateObject(18, Float.valueOf(getHealth()));
+    }
+	
 	protected boolean isFavoriteFood(ItemStack itemstack) {
-		return (itemstack.itemID == Block.plantRed.blockID || itemstack.itemID == Block.plantYellow.blockID);
+		return (itemstack.itemID == Item.carrot.itemID || itemstack.itemID == Item.goldenCarrot.itemID);
 	}
 	
-	public boolean isWheat(ItemStack itemstack) {
-        return itemstack != null && isFavoriteFood(itemstack);
+	@Override
+	public boolean isBreedingItem(ItemStack itemStack) {
+        return itemStack == null ? false : (!(Item.itemsList[itemStack.itemID] instanceof ItemFood) ? false : isFavoriteFood(itemStack));
     }
 
     @Override
@@ -176,9 +200,32 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 	
 	    if (isTamed()) {
-	        if (entityplayer.username.equalsIgnoreCase(getOwnerName()) && !worldObj.isRemote && !isWheat(itemstack)) {
-	            aiSit.setSitting(!isSitting());
-	        }
+			if (itemstack != null) {
+				if (Item.itemsList[itemstack.itemID] instanceof ItemFood) {
+					ItemFood itemfood = (ItemFood)Item.itemsList[itemstack.itemID];
+					if (isFavoriteFood(itemstack) && dataWatcher.getWatchableObjectFloat(18) < maxHealth) {
+						if (!entityplayer.capabilities.isCreativeMode) {
+                            --itemstack.stackSize;
+                        }
+
+                        heal((float)itemfood.getHealAmount());
+
+                        if (itemstack.stackSize <= 0) {
+                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack)null);
+                        }
+
+                        return true;
+					}
+				}
+			}
+		
+			if (entityplayer.getCommandSenderName().equalsIgnoreCase(getOwnerName()) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+				aiSit.setSitting(!isSitting());
+				isJumping = false;
+				setPathToEntity((PathEntity)null);
+				setTarget((Entity)null);
+                setAttackTarget((EntityLivingBase)null);
+			}
 	    } else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 	        if (!entityplayer.capabilities.isCreativeMode) {
 	            --itemstack.stackSize;
@@ -191,9 +238,12 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	        if (!this.worldObj.isRemote) {
 	            if (rand.nextInt(3) == 0) {
 	                setTamed(true);
-	                setOwner(entityplayer.username);
+	                setPathToEntity((PathEntity)null);
+                    setAttackTarget((EntityLiving)null);
+                    aiSit.setSitting(true);
+                    setHealth(maxHealth);
+	                setOwner(entityplayer.getCommandSenderName());
 	                playTameEffect(true);
-	                aiSit.setSitting(true);
 	                worldObj.setEntityState(this, (byte)7);
 	            } else {
 	                playTameEffect(false);
@@ -217,7 +267,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
             return false;
         } else {
             EntityTurtle t = (EntityTurtle)entityAnimal;
-            return !t.isTamed() ? false : isInLove() && t.isInLove();
+            return !t.isTamed() ? false : (t.isSitting() ? false : isInLove() && t.isInLove());
         }
     }
 
@@ -225,5 +275,16 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	public EntityAgeable createChild(EntityAgeable var1) {
 		return this.spawnBabyAnimal(var1);
 	}
+	
+	@Override
+    public void setTamed(boolean tamed) {
+        super.setTamed(tamed);
+
+        if (tamed) {
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(maxHealth);
+        } else {
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(8.0D);
+        }
+    }
 
 }

@@ -26,10 +26,11 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityTortoise extends EntityTurtle {
+public final class EntityTortoise extends EntityTurtle {
 	public EntityTortoise(World world) {
 		super(world);
 		setSize(1.5F, 1.5F);
+		setTamed(false);
 	}
 
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {

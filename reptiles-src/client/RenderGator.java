@@ -65,7 +65,7 @@ public class RenderGator extends RenderLiving {
 		if (i != 0) {
 			return -1;
 		} else {
-			func_110776_a(eyes);
+			bindTexture(eyes);
 			// float alpha = (1.0F - entitygator.getBrightness(1.0F)) * 0.5F;
 			// GL11.glEnable(GL11.GL_BLEND);
 			// GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -104,7 +104,7 @@ public class RenderGator extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
 

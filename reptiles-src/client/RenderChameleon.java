@@ -18,12 +18,16 @@
 
 package reptiles.client;
 
+//import cpw.mods.fml.relauncher.Side;
+//import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+//import net.minecraft.util.MathHelper;
+//import net.minecraft.world.ColorizerGrass;
+//import net.minecraft.world.biome.BiomeGenBase;
 
 
 
@@ -58,7 +62,8 @@ public class RenderChameleon extends RenderLiving {
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 
-	protected void preRenderCallback(EntityLiving entityliving, float f) {
+    @Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
 		scaleEntity((EntityChameleon) entityliving, f);
 	}
 
@@ -66,9 +71,8 @@ public class RenderChameleon extends RenderLiving {
 		if (i != 0) {
 			return -1;
 		} else {
-			func_110776_a(pattern);
-			// float alpha = (1.0F - entitychameleon.getEntityBrightness(1.0F)) * 0.5F;
-			float alpha = entitychameleon.getBrightness(1.0F);// * 0.5F;
+			bindTexture(pattern);
+			float alpha = entitychameleon.getBrightness(1.0F) * 0.5F;
 			GL11.glEnable(GL11.GL_BLEND);
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -77,13 +81,30 @@ public class RenderChameleon extends RenderLiving {
 		}
 	}
 
-	protected int shouldRenderPass(EntityLiving entityliving, int i, float f) {
+    @Override
+	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f) {
 		return setChameleonSkin((EntityChameleon) entityliving, i, f);
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
+    
+//    public static int getSkinColor(double temperature, double humidity)
+//    {
+//        humidity *= temperature;
+//        int i = (int)((1.0D - temperature) * 255.0D);
+//        int j = (int)((1.0D - humidity) * 255.0D);
+//        return backgroundBuffer[j << 8 | i];
+//    }
+    
+//    @SideOnly(Side.CLIENT)
+//    public int getBackgroundRenderColor(EntityLivingBase entity) {
+//        BiomeGenBase biome= entity.worldObj.getBiomeGenForCoords((int)entity.posX, (int)entity.posZ);
+//        double temperature = (double)MathHelper.clamp_float(biome.getFloatTemperature(), 0.0F, 1.0F);
+//        double humidity = (double)MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
+//        return ColorizerGrass.getGrassColor(temperature, humidity);
+//    }
 
 }

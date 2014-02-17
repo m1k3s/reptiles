@@ -27,12 +27,13 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class EntityPerentie extends EntityVaranus
+public final class EntityPerentie extends EntityVaranus
 {
 
   public EntityPerentie(World world) {
     super(world);
     setSize(0.6F, 0.6F);
+	setTamed(false);
   }
   
   @Override
