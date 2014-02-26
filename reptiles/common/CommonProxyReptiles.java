@@ -14,12 +14,19 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
 
 public class CommonProxyReptiles {
-	public void registerRenderers() {}
+
+	public void registerRenderers()
+	{
+	}
+
+	// TODO: figure out logging (again)
+	public void print(String s)
+	{
+		System.out.println("[" + Reptiles.modid + "] " + s);
+	}
 }

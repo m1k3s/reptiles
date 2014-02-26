@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import org.lwjgl.opengl.GL11;
@@ -26,7 +24,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 public class ModelLargeCroc extends ModelBase {
-	
+
 	public ModelRenderer crocBody;
 	public ModelRenderer crocHead;
 	public ModelRenderer crocLeg1;
@@ -40,8 +38,9 @@ public class ModelLargeCroc extends ModelBase {
 	public ModelRenderer cfin;
 	// public ModelRenderer leyefin;
 	// public ModelRenderer reyefin;
-	
-	public ModelLargeCroc() {
+
+	public ModelLargeCroc()
+	{
 		float yPos = 19F;
 
 		crocBody = new ModelRenderer(this, 0, 0);
@@ -71,7 +70,6 @@ public class ModelLargeCroc extends ModelBase {
 		// reyefin = new ModelRenderer(this, 0, 27);
 		// reyefin.addBox(2F, -2F, -1F, 0, 2, 3);
 		// reyefin.setRotationPoint(0F, yPos, -13F);
-
 		crocLeg1 = new ModelRenderer(this, 50, 0);
 		crocLeg1.addBox(0F, 0F, -2F, 3, 6, 4);
 		crocLeg1.setRotationPoint(5F, yPos + 1F, -8F);
@@ -104,8 +102,9 @@ public class ModelLargeCroc extends ModelBase {
 
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
@@ -144,8 +143,9 @@ public class ModelLargeCroc extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		crocHead.rotateAngleX = f4 / 57.29578F;

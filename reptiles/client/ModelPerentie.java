@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -28,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityPerentie;
 
 public class ModelPerentie extends ModelBase {
-	
+
 	public ModelRenderer perentieBody;
 	public ModelRenderer perentieHead;
 	public ModelRenderer perentieLeg1;
@@ -36,8 +34,9 @@ public class ModelPerentie extends ModelBase {
 	public ModelRenderer perentieLeg3;
 	public ModelRenderer perentieLeg4;
 	ModelRenderer perentieTail;
-	
-	public ModelPerentie() {
+
+	public ModelPerentie()
+	{
 		float yPos = 19F;
 
 		perentieBody = new ModelRenderer(this, 21, 16);
@@ -72,8 +71,9 @@ public class ModelPerentie extends ModelBase {
 		perentieTail.rotateAngleX = 6.021385919380437F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -105,8 +105,9 @@ public class ModelPerentie extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		perentieHead.rotateAngleX = f4 / 57.29578F;
@@ -123,9 +124,10 @@ public class ModelPerentie extends ModelBase {
 		perentieTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
-		if (((EntityPerentie)entityliving).isSitting()) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
+		if (((EntityPerentie) entityliving).isSitting()) {
 			float yPos = 21F;
 			perentieBody.setRotationPoint(0.0F, yPos, 0.0F);
 			perentieTail.setRotationPoint(0F, yPos + 1, 4F);

@@ -14,10 +14,8 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.client;
 
 import com.reptiles.common.EntityIguana;
@@ -28,6 +26,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 public class ModelIguana extends ModelBase {
+
 	public ModelRenderer iguanaBody;
 	public ModelRenderer iguanaHead;
 	public ModelRenderer iguanaLeg1;
@@ -36,7 +35,8 @@ public class ModelIguana extends ModelBase {
 	public ModelRenderer iguanaLeg4;
 	ModelRenderer iguanaTail;
 
-	public ModelIguana() {
+	public ModelIguana()
+	{
 		float yPos = 19F;
 
 		iguanaBody = new ModelRenderer(this, 21, 16);
@@ -71,8 +71,9 @@ public class ModelIguana extends ModelBase {
 		iguanaTail.rotateAngleX = 6.021385919380437F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -86,8 +87,9 @@ public class ModelIguana extends ModelBase {
 		iguanaTail.render(f5);
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		iguanaHead.rotateAngleX = f4 / 57.29578F;
@@ -97,8 +99,9 @@ public class ModelIguana extends ModelBase {
 		iguanaTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntityIguana entityiguana = (EntityIguana) entityliving;
 
 		if (entityiguana.isSitting()) {

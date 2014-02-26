@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -28,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntitySavanna;
 
 public class ModelSavanna extends ModelBase {
-	
+
 	public ModelRenderer savannaBody;
 	public ModelRenderer savannaHead;
 	public ModelRenderer savannaLeg1;
@@ -36,8 +34,9 @@ public class ModelSavanna extends ModelBase {
 	public ModelRenderer savannaLeg3;
 	public ModelRenderer savannaLeg4;
 	ModelRenderer savannaTail;
-	
-	public ModelSavanna() {
+
+	public ModelSavanna()
+	{
 		float yPos = 19F;
 
 		savannaBody = new ModelRenderer(this, 30, 2); // 21 16
@@ -72,8 +71,9 @@ public class ModelSavanna extends ModelBase {
 		savannaTail.rotateAngleX = 6.021385919380437F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -105,8 +105,9 @@ public class ModelSavanna extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		savannaHead.rotateAngleX = f4 / 57.29578F;
@@ -116,8 +117,9 @@ public class ModelSavanna extends ModelBase {
 		savannaTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntitySavanna entitysavanna = (EntitySavanna) entityliving;
 
 		if (entitysavanna.isSitting()) {

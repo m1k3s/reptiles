@@ -14,10 +14,8 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
 
 import net.minecraft.entity.EntityAgeable;
@@ -26,14 +24,16 @@ import net.minecraft.world.World;
 
 public final class EntityGriseus extends EntityVaranus {
 
-	public EntityGriseus(World world) {
+	public EntityGriseus(World world)
+	{
 		super(world);
 		setSize(0.6F, 0.6F);
 		setTamed(false);
 	}
 
-    @Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	@Override
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		EntityGriseus e = new EntityGriseus(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());

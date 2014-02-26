@@ -14,10 +14,8 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -28,7 +26,7 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class ModelGator extends ModelBase {
-	
+
 	public ModelRenderer gatorBody;
 	public ModelRenderer gatorHead;
 	public ModelRenderer gatorLeg1;
@@ -42,8 +40,9 @@ public class ModelGator extends ModelBase {
 	public ModelRenderer cfin;
 	// public ModelRenderer leyefin;
 	// public ModelRenderer reyefin;
-	
-	public ModelGator() {
+
+	public ModelGator()
+	{
 		float yPos = 19F;
 
 		gatorBody = new ModelRenderer(this, 0, 0);
@@ -73,7 +72,6 @@ public class ModelGator extends ModelBase {
 		// reyefin = new ModelRenderer(this, 0, 27);
 		// reyefin.addBox(2F, -2F, -1F, 0, 2, 3);
 		// reyefin.setRotationPoint(0F, yPos, -13F);
-
 		gatorLeg1 = new ModelRenderer(this, 50, 0);
 		gatorLeg1.addBox(0F, 0F, -2F, 3, 6, 4);
 		gatorLeg1.setRotationPoint(5F, yPos + 1F, -8F);
@@ -106,8 +104,9 @@ public class ModelGator extends ModelBase {
 
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
@@ -146,8 +145,9 @@ public class ModelGator extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		gatorHead.rotateAngleX = f4 / 57.29578F;

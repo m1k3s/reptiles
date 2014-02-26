@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -29,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityTortoise;
 
 public class ModelTortoise extends ModelBase {
+
 	public ModelRenderer carapace;
 	public ModelRenderer head;
 	public ModelRenderer leg1;
@@ -37,8 +36,9 @@ public class ModelTortoise extends ModelBase {
 	public ModelRenderer leg4;
 	public ModelRenderer plastron;
 	public ModelRenderer tail;
-	
-	public ModelTortoise() {
+
+	public ModelTortoise()
+	{
 		float yPos = 19F;
 
 		carapace = new ModelRenderer(this, 0, 18);
@@ -75,8 +75,9 @@ public class ModelTortoise extends ModelBase {
 		tail.rotateAngleX = 5.934119456780721F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
@@ -109,8 +110,9 @@ public class ModelTortoise extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		head.rotateAngleX = f4 / 57.29578F;
@@ -124,8 +126,9 @@ public class ModelTortoise extends ModelBase {
 		tail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntityTortoise entitytortoise = (EntityTortoise) entityliving;
 
 		if (entitytortoise.isSitting()) {

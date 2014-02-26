@@ -14,7 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 package com.reptiles.client;
 
 import com.reptiles.common.EntityGriseus;
@@ -27,33 +26,40 @@ import net.minecraft.entity.EntityLivingBase;
 import org.lwjgl.opengl.GL11;
 
 public class RenderGriseus extends RenderLiving {
+
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/griseus32.png");
-	
-	public RenderGriseus(ModelBase modelbase, float shadowSize) {
+
+	public RenderGriseus(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 	}
 
-	public void renderGriseus(EntityGriseus entitygriseus, double d, double d1, double d2, float f, float f1) {
+	public void renderGriseus(EntityGriseus entitygriseus, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entitygriseus, d, d1, d2, f, f1);
 	}
 
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
+	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender((EntityGriseus) entityliving, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender((EntityGriseus) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
-    
-    @Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
-		float scaleFactor = ((EntityGriseus)entityliving).getScaleFactor();
-        GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	{
+		float scaleFactor = ((EntityGriseus) entityliving).getScaleFactor();
+		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 }

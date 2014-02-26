@@ -14,7 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 package com.reptiles.client;
 
 import com.reptiles.common.EntityTurtle;
@@ -25,24 +24,29 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 
 public class RenderTurtle extends RenderLiving {
+
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
 //	private final float scaleFactor = 2.0F;
-	
-	public RenderTurtle(ModelBase modelbase, float shadowSize) {
+
+	public RenderTurtle(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 	}
 
-	public void renderTurtle(EntityTurtle entityturtle, double d, double d1, double d2, float f, float f1) {
+	public void renderTurtle(EntityTurtle entityturtle, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entityturtle, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		renderTurtle((EntityTurtle) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
 

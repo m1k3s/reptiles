@@ -14,7 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -24,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
-
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
@@ -33,34 +31,41 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityIguana;
 
 public class RenderIguana extends RenderLiving {
-    private final float scaleFactor = 0.4F;
+
+	private final float scaleFactor = 0.4F;
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
-	
-	public RenderIguana(ModelBase modelbase, float shadowSize) {
+
+	public RenderIguana(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 	}
 
-	public void renderIguana(EntityIguana entityiguana, double d, double d1, double d2, float f, float f1) {
+	public void renderIguana(EntityIguana entityiguana, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entityiguana, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		renderIguana((EntityIguana) entity, d, d1, d2, f, f1);
 	}
 
 	// we are using a generic model so we scale to suit our needs
-	protected void scaleEntity(EntityIguana entityiguana, float f) {
+	protected void scaleEntity(EntityIguana entityiguana, float f)
+	{
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 
-    @Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	{
 		scaleEntity((EntityIguana) entityliving, f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
 }

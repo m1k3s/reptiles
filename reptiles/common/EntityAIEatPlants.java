@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.common;
 
 import net.minecraft.block.Block;
@@ -25,13 +23,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-
 public class EntityAIEatPlants extends EntityAIBase {
+
 	private final EntityLiving creature;
 	private final World theWorld;
 	int eatPlantTick = 0;
 
-	public EntityAIEatPlants(EntityLiving entityLiving) {
+	public EntityAIEatPlants(EntityLiving entityLiving)
+	{
 		creature = entityLiving;
 		theWorld = entityLiving.worldObj;
 		setMutexBits(7);
@@ -40,8 +39,9 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
-    @Override
-	public boolean shouldExecute() {
+	@Override
+	public boolean shouldExecute()
+	{
 		if (creature.getRNG().nextInt(creature.isChild() ? 50 : 1000) != 0) {
 			return false;
 		} else {
@@ -52,8 +52,9 @@ public class EntityAIEatPlants extends EntityAIBase {
 		}
 	}
 
-    @Override
-	public void startExecuting() {
+	@Override
+	public void startExecuting()
+	{
 		eatPlantTick = 40;
 		theWorld.setEntityState(creature, (byte) 10);
 		creature.getNavigator().clearPathEntity();
@@ -62,28 +63,32 @@ public class EntityAIEatPlants extends EntityAIBase {
 	/**
 	 * Resets the task
 	 */
-    @Override
-	public void resetTask() {
+	@Override
+	public void resetTask()
+	{
 		eatPlantTick = 0;
 	}
 
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
-    @Override
-	public boolean continueExecuting() {
+	@Override
+	public boolean continueExecuting()
+	{
 		return eatPlantTick > 0;
 	}
 
-	public int getEatPlantTick() {
+	public int getEatPlantTick()
+	{
 		return eatPlantTick;
 	}
 
 	/**
 	 * Updates the task
 	 */
-    @Override
-	public void updateTask() {
+	@Override
+	public void updateTask()
+	{
 		eatPlantTick = Math.max(0, eatPlantTick - 1);
 
 //		if (eatPlantTick == 4) {
@@ -103,17 +108,19 @@ public class EntityAIEatPlants extends EntityAIBase {
 //		}
 	}
 
-	public boolean isFlower(int x, int y, int z) {
+	public boolean isFlower(int x, int y, int z)
+	{
 		boolean result = false;
 		Block block = theWorld.getBlock(x, y, z); //.getBlockId(x, y, z);
-		
+
 		if (block == Blocks.red_flower || block == Blocks.yellow_flower) {
 			result = true;
 		}
 		return result;
 	}
 
-	public boolean isTallgrass(int x, int y, int z) {
+	public boolean isTallgrass(int x, int y, int z)
+	{
 		boolean result = false;
 		if (theWorld.getBlock(x, y, z) == Blocks.tallgrass) {
 			result = true;

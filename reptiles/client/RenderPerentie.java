@@ -14,7 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 package com.reptiles.client;
 
 import com.reptiles.common.EntityPerentie;
@@ -26,27 +25,33 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
 public class RenderPerentie extends RenderLiving {
+
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/perentie32.png");
-	
-	public RenderPerentie(ModelBase modelbase, float shadowSize) {
+
+	public RenderPerentie(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 	}
 
-	public void func_177_a(EntityPerentie entityPerentie, double d, double d1, double d2, float f, float f1) {
+	public void func_177_a(EntityPerentie entityPerentie, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entityPerentie, d, d1, d2, f, f1);
 	}
 
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
+	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	{
 		func_177_a((EntityPerentie) entityliving, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		func_177_a((EntityPerentie) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
 }

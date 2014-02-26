@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import cpw.mods.fml.relauncher.Side;
@@ -31,43 +29,50 @@ import com.reptiles.common.EntityMegalania;
 
 @SideOnly(Side.CLIENT)
 public class RenderMegalania extends RenderLiving {
+
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
-	
-	public RenderMegalania(ModelBase modelbase, float shadowSize) {
+
+	public RenderMegalania(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 //        setRenderPassModel((ModelMegalania) modelbase);
 	}
-    
+
 //    public RenderMegalania() {
 //		super(new ModelMegalania(), 0.8F);
 //		setRenderPassModel(new ModelMegalania());
 //	}
-
-	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1) {
+	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entitymegalania, d, d1, d2, f, f1);
 	}
 
 	@Override
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
+	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender((EntityMegalania) entityliving, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender((EntityMegalania) entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
-    
-    protected void scaleEntity(EntityMegalania entitymegalania, float f) {
+
+	protected void scaleEntity(EntityMegalania entitymegalania, float f)
+	{
 		GL11.glScalef(2.5F, 2.5F, 3.0F);
 	}
-    
-    @Override
-	protected void preRenderCallback(EntityLivingBase entitylivingbase, float f) {
+
+	@Override
+	protected void preRenderCallback(EntityLivingBase entitylivingbase, float f)
+	{
 		scaleEntity((EntityMegalania) entitylivingbase, f);
 	}
 }

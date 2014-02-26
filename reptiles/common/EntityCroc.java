@@ -14,12 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
-
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -33,11 +30,13 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class EntityCroc extends EntityAnimal {
+
 	final float attackDistance;
 	protected int attackStrength;
 //	private int maxHealth = 20;
 
-	public EntityCroc(World world) {
+	public EntityCroc(World world)
+	{
 		super(world);
 		setSize(0.8F, 1.5F);
 
@@ -65,50 +64,59 @@ public class EntityCroc extends EntityAnimal {
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, 0, false));
 	}
 
-    @Override
-	public boolean isAIEnabled() {
+	@Override
+	public boolean isAIEnabled()
+	{
 		return true;
 	}
-	
-    @Override
-	protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0); // health
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25); // move speed
-    }
-	
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+
+	@Override
+	protected void applyEntityAttributes()
+	{
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0); // health
+		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25); // move speed
+	}
+
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 //		Reptiles.proxy.print("Spawned entity of type " + getClass().toString());
 		return new EntityCroc(worldObj);
 	}
-	
-    @Override
-	protected String getLivingSound() {
+
+	@Override
+	protected String getLivingSound()
+	{
 		return "reptilemod:growl";
 	}
 
-    @Override
-	protected String getHurtSound() {
+	@Override
+	protected String getHurtSound()
+	{
 		return "reptilemod:growl";
 	}
 
-    @Override
-	protected String getDeathSound() {
+	@Override
+	protected String getDeathSound()
+	{
 		return "reptilemod:growl";
 	}
 
-    @Override
-	protected float getSoundVolume() {
+	@Override
+	protected float getSoundVolume()
+	{
 		return 0.4F;
 	}
 
-    @Override
-	protected Item getDropItem() {
+	@Override
+	protected Item getDropItem()
+	{
 		return Items.leather;
 	}
 
-    @Override
-	protected void dropFewItems(boolean flag, int add) {
+	@Override
+	protected void dropFewItems(boolean flag, int add)
+	{
 		int count = rand.nextInt(3) + rand.nextInt(1 + add);
 		dropItem(Items.leather, count);
 
@@ -119,25 +127,29 @@ public class EntityCroc extends EntityAnimal {
 			dropItem(Items.beef, count);
 		}
 	}
-	
-    @Override
-	protected int getExperiencePoints(EntityPlayer par1EntityPlayer) {
+
+	@Override
+	protected int getExperiencePoints(EntityPlayer par1EntityPlayer)
+	{
 		return 1 + worldObj.rand.nextInt(4);
 	}
 
-    @Override
-	public boolean interact(EntityPlayer entityplayer) {
+	@Override
+	public boolean interact(EntityPlayer entityplayer)
+	{
 		// don't allow any interaction, especially breeding
 		return false;
 	}
 
-    @Override
-	public boolean attackEntityAsMob(Entity par1Entity) {
+	@Override
+	public boolean attackEntityAsMob(Entity par1Entity)
+	{
 		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable var1) {
+	public EntityAgeable createChild(EntityAgeable var1)
+	{
 		return this.spawnBabyAnimal(var1);
 	}
 

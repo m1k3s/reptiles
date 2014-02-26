@@ -14,12 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
-
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -29,14 +26,16 @@ import net.minecraft.world.World;
 
 public final class EntityLace extends EntityVaranus {
 
-	public EntityLace(World world) {
+	public EntityLace(World world)
+	{
 		super(world);
 		setSize(0.6F, 0.6F);
 		setTamed(false);
 	}
 
-    @Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	@Override
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		EntityLace e = new EntityLace(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());
@@ -46,8 +45,9 @@ public final class EntityLace extends EntityVaranus {
 		return e;
 	}
 
-    @Override
-	protected Item getDropItem() {
+	@Override
+	protected Item getDropItem()
+	{
 		return Items.egg;
 	}
 

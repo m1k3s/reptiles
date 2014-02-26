@@ -14,13 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
-
-
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -28,22 +24,24 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public final class EntitySalvadorii extends EntityVaranus
-{
+public final class EntitySalvadorii extends EntityVaranus {
 
-  public EntitySalvadorii(World world) {
-    super(world);
-    setSize(0.6F, 0.6F);
-	setTamed(false);
-  }
-  
-  @Override
-  protected Item getDropItem() {
-    return Items.egg; 
-  }
-  
-  @Override
-  public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	public EntitySalvadorii(World world)
+	{
+		super(world);
+		setSize(0.6F, 0.6F);
+		setTamed(false);
+	}
+
+	@Override
+	protected Item getDropItem()
+	{
+		return Items.egg;
+	}
+
+	@Override
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		EntitySalvadorii e = new EntitySalvadorii(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());
@@ -52,5 +50,5 @@ public final class EntitySalvadorii extends EntityVaranus
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return e;
 	}
-  
+
 }

@@ -14,10 +14,8 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.client;
 
 import com.reptiles.common.EntityChameleon;
@@ -28,7 +26,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 public class ModelChameleon extends ModelBase {
-	
+
 	public ModelRenderer chameleonBody;
 	public ModelRenderer chameleonHead;
 	public ModelRenderer chameleonLeg1;
@@ -36,8 +34,9 @@ public class ModelChameleon extends ModelBase {
 	public ModelRenderer chameleonLeg3;
 	public ModelRenderer chameleonLeg4;
 	ModelRenderer chameleonTail;
-	
-	public ModelChameleon() {
+
+	public ModelChameleon()
+	{
 		float yPos = 19F;
 
 		chameleonBody = new ModelRenderer(this, 21, 16);
@@ -72,8 +71,9 @@ public class ModelChameleon extends ModelBase {
 		chameleonTail.rotateAngleX = 6.021385919380437F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -87,8 +87,9 @@ public class ModelChameleon extends ModelBase {
 		chameleonTail.render(f5);
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		chameleonHead.rotateAngleX = f4 / 57.29578F;
@@ -98,8 +99,9 @@ public class ModelChameleon extends ModelBase {
 		chameleonTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntityChameleon entitychameleon = (EntityChameleon) entityliving;
 
 		if (entitychameleon.isSitting()) {

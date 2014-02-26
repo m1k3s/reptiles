@@ -14,33 +14,32 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
-
-
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 public final class EntityTortoise extends EntityTurtle {
-	public EntityTortoise(World world) {
+
+	public EntityTortoise(World world)
+	{
 		super(world);
 		setSize(1.5F, 1.5F);
 		setTamed(false);
 	}
 
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		EntityTortoise t = new EntityTortoise(worldObj);
 		if (isTamed()) {
-            t.setOwner(getOwnerName());
-            t.setTamed(true);
+			t.setOwner(getOwnerName());
+			t.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return t;
 	}
-	
+
 }

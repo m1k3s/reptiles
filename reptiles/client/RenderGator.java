@@ -14,7 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -28,40 +27,45 @@ import net.minecraft.entity.EntityLivingBase;
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
-
-
 import org.lwjgl.opengl.GL11;
 
 import com.reptiles.common.EntityGator;
 
 public class RenderGator extends RenderLiving {
+
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/gator32.png");
 	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/gator_eyes32.png");
 
-	public RenderGator(ModelBase modelbase, float f) {
+	public RenderGator(ModelBase modelbase, float f)
+	{
 		super(modelbase, f);
 		setRenderPassModel((ModelGator) modelbase);
 	}
 
-	public RenderGator() {
+	public RenderGator()
+	{
 		super(new ModelGator(), 0.8F);
 		setRenderPassModel(new ModelGator());
 	}
 
-	public void renderGator(EntityGator entitygator, double d, double d1, double d2, float f, float f1) {
+	public void renderGator(EntityGator entitygator, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entitygator, d, d1, d2, f, f1);
 	}
 
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1) {
+	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	{
 		renderGator((EntityGator) entityliving, d, d1, d2, f, f1);
 	}
 
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		renderGator((EntityGator) entity, d, d1, d2, f, f1);
 	}
 
-	protected int setGatorEyeBrightness(EntityGator entitygator, int i, float f) {
+	protected int setGatorEyeBrightness(EntityGator entitygator, int i, float f)
+	{
 		if (i != 0) {
 			return -1;
 		} else {
@@ -72,14 +76,14 @@ public class RenderGator extends RenderLiving {
 			// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			// GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
 			GL11.glEnable(GL11.GL_BLEND);
-            GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-			
+
 			if (entitygator.isInvisible()) {
-                GL11.glDepthMask(false);
-            } else {
-                GL11.glDepthMask(true);
-            }
+				GL11.glDepthMask(false);
+			} else {
+				GL11.glDepthMask(true);
+			}
 			char color = 61680;
 			int u = color % 65536;
 			int v = color / 65536;
@@ -89,22 +93,26 @@ public class RenderGator extends RenderLiving {
 		}
 	}
 
-    @Override
-	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f) {
+	@Override
+	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+	{
 		return setGatorEyeBrightness((EntityGator) entityliving, i, f);
 	}
 
-	protected void scaleEntity(EntityGator entitygator, float f) {
+	protected void scaleEntity(EntityGator entitygator, float f)
+	{
 		GL11.glScalef(0.8F, 1.2F, 1.2F);
 	}
 
-    @Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	{
 		scaleEntity((EntityGator) entityliving, f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
 

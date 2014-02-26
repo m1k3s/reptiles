@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 //import cpw.mods.fml.relauncher.Side;
@@ -29,8 +27,6 @@ import net.minecraft.entity.EntityLivingBase;
 //import net.minecraft.world.ColorizerGrass;
 //import net.minecraft.world.biome.BiomeGenBase;
 
-
-
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
@@ -39,35 +35,42 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityChameleon;
 
 public class RenderChameleon extends RenderLiving {
+
 	private final float scaleFactor = 0.25F;
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon.png");
 	private static final ResourceLocation pattern = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon_pattern.png");
 
-	public RenderChameleon(ModelBase modelbase, float shadowSize) {
+	public RenderChameleon(ModelBase modelbase, float shadowSize)
+	{
 		super(modelbase, shadowSize);
 		setRenderPassModel((ModelChameleon) modelbase);
 	}
 
-	public void renderChameleon(EntityChameleon entitychameleon, double d, double d1, double d2, float f, float f1) {
+	public void renderChameleon(EntityChameleon entitychameleon, double d, double d1, double d2, float f, float f1)
+	{
 		super.doRender(entitychameleon, d, d1, d2, f, f1);
 	}
-	
-    @Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	{
 		renderChameleon((EntityChameleon) entity, d, d1, d2, f, f1);
 	}
 
 	// we are using a generic model so we scale to suit our needs
-	protected void scaleEntity(EntityChameleon entitychameleon, float f) {
+	protected void scaleEntity(EntityChameleon entitychameleon, float f)
+	{
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 
-    @Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	{
 		scaleEntity((EntityChameleon) entityliving, f);
 	}
 
-	protected int setChameleonSkin(EntityChameleon entitychameleon, int i, float f) {
+	protected int setChameleonSkin(EntityChameleon entitychameleon, int i, float f)
+	{
 		if (i != 0) {
 			return -1;
 		} else {
@@ -81,16 +84,18 @@ public class RenderChameleon extends RenderLiving {
 		}
 	}
 
-    @Override
-	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f) {
+	@Override
+	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+	{
 		return setChameleonSkin((EntityChameleon) entityliving, i, f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity)
+	{
 		return skin;
 	}
-    
+
 //    public static int getSkinColor(double temperature, double humidity)
 //    {
 //        humidity *= temperature;
@@ -98,7 +103,6 @@ public class RenderChameleon extends RenderLiving {
 //        int j = (int)((1.0D - humidity) * 255.0D);
 //        return backgroundBuffer[j << 8 | i];
 //    }
-    
 //    @SideOnly(Side.CLIENT)
 //    public int getBackgroundRenderColor(EntityLivingBase entity) {
 //        BiomeGenBase biome= entity.worldObj.getBiomeGenForCoords((int)entity.posX, (int)entity.posZ);
@@ -106,5 +110,4 @@ public class RenderChameleon extends RenderLiving {
 //        double humidity = (double)MathHelper.clamp_float(biome.getFloatRainfall(), 0.0F, 1.0F);
 //        return ColorizerGrass.getGrassColor(temperature, humidity);
 //    }
-
 }

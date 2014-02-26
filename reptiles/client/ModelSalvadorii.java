@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -28,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntitySalvadorii;
 
 public class ModelSalvadorii extends ModelBase {
-	
+
 	public ModelRenderer salvadoriiBody;
 	public ModelRenderer salvadoriiHead;
 	public ModelRenderer salvadoriiLeg1;
@@ -36,8 +34,9 @@ public class ModelSalvadorii extends ModelBase {
 	public ModelRenderer salvadoriiLeg3;
 	public ModelRenderer salvadoriiLeg4;
 	ModelRenderer salvadoriiTail;
-	
-	public ModelSalvadorii() {
+
+	public ModelSalvadorii()
+	{
 		float yPos = 19F;
 
 		salvadoriiBody = new ModelRenderer(this, 21, 16);
@@ -72,8 +71,9 @@ public class ModelSalvadorii extends ModelBase {
 		salvadoriiTail.rotateAngleX = 6.021385919380437F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
@@ -105,8 +105,9 @@ public class ModelSalvadorii extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		salvadoriiHead.rotateAngleX = f4 / 57.29578F;
@@ -123,9 +124,10 @@ public class ModelSalvadorii extends ModelBase {
 		salvadoriiTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
-		if (((EntitySalvadorii)entityliving).isSitting()) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
+		if (((EntitySalvadorii) entityliving).isSitting()) {
 			float yPos = 21F;
 			salvadoriiBody.setRotationPoint(0.0F, yPos, 0.0F);
 			salvadoriiTail.setRotationPoint(0F, yPos + 1, 4F);

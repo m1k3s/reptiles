@@ -14,24 +14,24 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
 //
 //
-
 package com.reptiles.common;
-
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 public class EntityGator extends EntityCroc {
-	public EntityGator(World world) {
+
+	public EntityGator(World world)
+	{
 		super(world);
 	}
 
-    @Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	@Override
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return new EntityGator(this.worldObj);
 	}

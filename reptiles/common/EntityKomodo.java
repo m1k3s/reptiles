@@ -19,7 +19,6 @@
 //
 package com.reptiles.common;
 
-
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -27,10 +26,10 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-
 public final class EntityKomodo extends EntityVaranus {
-	
-	public EntityKomodo(World world) {
+
+	public EntityKomodo(World world)
+	{
 
 		super(world);
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
@@ -40,8 +39,9 @@ public final class EntityKomodo extends EntityVaranus {
 //        tasks.removeTask(avoid); // komodos don't avoid humans
 	}
 
-    @Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+	@Override
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
+	{
 		EntityKomodo e = new EntityKomodo(worldObj);
 		if (isTamed()) {
 			e.setOwner(getOwnerName());
@@ -50,7 +50,7 @@ public final class EntityKomodo extends EntityVaranus {
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return e;
 	}
-	
+
 	// the idea is that if the entity is tame to remove the 
 	// targetTask entry from the list so the player
 	// is not attacked by a tame komodo
@@ -62,5 +62,4 @@ public final class EntityKomodo extends EntityVaranus {
 //		}
 //		super.updateAITasks();
 //	}
-
 }

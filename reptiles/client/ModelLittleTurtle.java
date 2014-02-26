@@ -14,8 +14,6 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -29,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityLittleTurtle;
 
 public class ModelLittleTurtle extends ModelBase {
+
 	public ModelRenderer carapace;
 	public ModelRenderer head;
 	public ModelRenderer leg1;
@@ -38,7 +37,8 @@ public class ModelLittleTurtle extends ModelBase {
 	public ModelRenderer plastron;
 	public ModelRenderer tail;
 
-	public ModelLittleTurtle() {
+	public ModelLittleTurtle()
+	{
 		float yPos = 22F;
 
 		carapace = new ModelRenderer(this, 0, 23);
@@ -79,8 +79,9 @@ public class ModelLittleTurtle extends ModelBase {
 		tail.rotateAngleX = 5.934119456780721F;
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
@@ -113,8 +114,9 @@ public class ModelLittleTurtle extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		head.rotateAngleX = f4 / 57.29578F;
@@ -128,43 +130,44 @@ public class ModelLittleTurtle extends ModelBase {
 		tail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntityLittleTurtle entityLittleTurtle = (EntityLittleTurtle) entityliving;
 
-		 if (entityLittleTurtle.isSitting()) {
-			 float yPos = 24F;
-			 carapace.setRotationPoint(0F, yPos-4, 0F);
-			 plastron.setRotationPoint(0F, yPos, 0F);
-			 tail.setRotationPoint(-0.5F, yPos-1, 1F);
-			 head.setRotationPoint(0F, yPos-3, -2F);
-			
-			 leg1.setRotationPoint(2F, yPos, -3F);
-			 leg2.setRotationPoint(-2F, yPos, 2F);
-			 leg3.setRotationPoint(2F, yPos, -3F);
-			 leg4.setRotationPoint(-2F, yPos, 2F);
-			
-			 leg1.rotateAngleZ = 1.570799F;
-			 leg2.rotateAngleZ = 4.712389F;
-			 leg3.rotateAngleZ = 1.570799F;
-			 leg4.rotateAngleZ = 4.712389F;
-		 } else {
+		if (entityLittleTurtle.isSitting()) {
+			float yPos = 24F;
+			carapace.setRotationPoint(0F, yPos - 4, 0F);
+			plastron.setRotationPoint(0F, yPos, 0F);
+			tail.setRotationPoint(-0.5F, yPos - 1, 1F);
+			head.setRotationPoint(0F, yPos - 3, -2F);
+
+			leg1.setRotationPoint(2F, yPos, -3F);
+			leg2.setRotationPoint(-2F, yPos, 2F);
+			leg3.setRotationPoint(2F, yPos, -3F);
+			leg4.setRotationPoint(-2F, yPos, 2F);
+
+			leg1.rotateAngleZ = 1.570799F;
+			leg2.rotateAngleZ = 4.712389F;
+			leg3.rotateAngleZ = 1.570799F;
+			leg4.rotateAngleZ = 4.712389F;
+		} else {
 			float yPos = 22F;
 			carapace.setRotationPoint(0F, yPos - 4, 0F);
 			plastron.setRotationPoint(0F, yPos, 0F);
 			head.setRotationPoint(0F, yPos - 3, -4F);
 			tail.setRotationPoint(-0.5F, yPos - 1, 4F);
-	
+
 			leg1.setRotationPoint(2F, yPos, -3F);
 			leg2.setRotationPoint(2F, yPos, 2F);
 			leg3.setRotationPoint(-2F, yPos, -3F);
 			leg4.setRotationPoint(-2F, yPos, 2F);
-	
+
 			leg1.rotateAngleZ = 5.497787143782138F;
 			leg2.rotateAngleZ = 5.497787143782138F;
 			leg3.rotateAngleZ = 0.7853981633974483F;
 			leg4.rotateAngleZ = 0.7853981633974483F;
-		 }
+		}
 	}
 
 }

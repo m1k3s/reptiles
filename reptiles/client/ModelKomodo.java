@@ -17,8 +17,6 @@
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
-
-
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -31,7 +29,9 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityKomodo;
 
 public class ModelKomodo extends ModelBase {
-	public ModelKomodo() {
+
+	public ModelKomodo()
+	{
 		float yPos = 16F;
 
 		komodoBody = new ModelRenderer(this, 12, 8);
@@ -70,14 +70,14 @@ public class ModelKomodo extends ModelBase {
 		// komodoTongue.setRotationPoint(0.0F, yPos+2, -16F);
 	}
 
-    @Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
 		super.render(entity, f, f1, f2, f3, f4, f5);
 
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		// EntityKomodo entitykomodo = (EntityKomodo)entity;
-
 		if (this.isChild) {
 			GL11.glPushMatrix();
 			// GL11.glTranslatef(0.0F, field_40331_g * f5, field_40332_n * f5);
@@ -110,8 +110,9 @@ public class ModelKomodo extends ModelBase {
 		}
 	}
 
-    @Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	@Override
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		komodoHead.rotateAngleX = f4 / 57.29578F;
@@ -119,15 +120,15 @@ public class ModelKomodo extends ModelBase {
 
 		// komodoTongue.rotateAngleX = f4 / 57.29578F;
 		// komodoTongue.rotateAngleY = f3 / 57.29578F;
-
 		// wag the tail
 		komodoTail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 		// tongue moves up and down when out
 		// komodoTongue.rotateAngleX = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
 	}
 
-    @Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
+	@Override
+	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	{
 		EntityKomodo entitykomodo = (EntityKomodo) entityliving;
 
 		if (entitykomodo.isSitting()) {
