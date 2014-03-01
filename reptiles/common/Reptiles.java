@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011-2014 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.common;
 
 import java.util.LinkedList;
@@ -82,7 +85,7 @@ public class Reptiles {
 	{
 
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
-				+ " For Minecraft Version 1.7.2\n"
+				+ " For Minecraft Version " + Reptiles.version + "\n"
 				+ " Set xxxSpawnProb to zero to disable spawn of that entity\n";
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -169,6 +172,7 @@ public class Reptiles {
 //	public void PostInit(FMLPostInitializationEvent event) {
 //		BiomeDictionary.registerAllBiomes();
 //	}
+	
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
