@@ -45,7 +45,6 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 
 	private int turtleTimer;
 	private final EntityAIEatPlants plantEating = new EntityAIEatPlants(this);
-//	private final EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
 	private final int maxHealth = 10;
 
 	public EntityTurtle(World world)
@@ -63,7 +62,6 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
 		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(6, plantEating);
-//		tasks.addTask(7, randomMating);
 		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
@@ -98,16 +96,13 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	protected void updateAITasks()
 	{
 		turtleTimer = plantEating.getEatPlantTick();
-//		if (isTamed()) { // no random mating when tame
-//			randomMating.resetTask();
-//		}
 		super.updateAITasks();
 	}
 
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-//		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 

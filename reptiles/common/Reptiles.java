@@ -32,7 +32,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.SidedProxy;
-//import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.Configuration;
@@ -168,11 +167,6 @@ public class Reptiles {
 		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
 	}
 
-//	@EventHandler
-//	public void PostInit(FMLPostInitializationEvent event) {
-//		BiomeDictionary.registerAllBiomes();
-//	}
-	
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();

@@ -41,8 +41,6 @@ public class EntityVaranus extends EntityTameable {
 
 	private final int maxHealth = 20;
 	protected final int targetChance = 200;
-//	private final EntityAIRandomMating randomMating;
-//    private final EntityAITempt aiTempt;
 	private final float scaleFactor;
 
 	public EntityVaranus(World world)
@@ -55,14 +53,12 @@ public class EntityVaranus extends EntityTameable {
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 0.38));
 		tasks.addTask(2, aiSit);
-//        tasks.addTask(3, aiTempt = new EntityAITempt(this, 1.2D, Item.porkRaw.itemID, true));
 		tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(6, new EntityAIAvoidEntity(this, EntityCreeper.class, 6.0F, 0.8D, 1.2D));
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
 		tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		tasks.addTask(10, new EntityAIMate(this, moveSpeed));
-//		tasks.addTask(11, randomMating = new EntityAIRandomMating(this));
 		tasks.addTask(12, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 		tasks.addTask(14, new EntityAILookIdle(this));
@@ -108,7 +104,7 @@ public class EntityVaranus extends EntityTameable {
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-//		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 
@@ -185,14 +181,6 @@ public class EntityVaranus extends EntityTameable {
 		return itemStack == null ? false : (!(itemStack.getItem() instanceof ItemFood) ? false : isFavoriteFood(itemStack));
 	}
 
-	// taming stuff //////////////////
-//    @Override
-//	protected void updateAITasks() {
-//		if (isTamed()) { // no random mating when tame
-//			randomMating.resetTask();
-//		}
-//		super.updateAITasks();
-//	}
 	@Override
 	protected void updateAITick()
 	{

@@ -18,15 +18,19 @@
 //
 package com.reptiles.common;
 
+import cpw.mods.fml.common.FMLLog;
+import org.apache.logging.log4j.Logger;
+
 public class CommonProxyReptiles {
+	
+	private static final Logger logger = FMLLog.getLogger();
 
 	public void registerRenderers()
 	{
 	}
 
-	// TODO: figure out logging (again)
 	public void print(String s)
 	{
-		System.out.println("[" + Reptiles.modid + "] " + s);
+		logger.info(s);
 	}
 }

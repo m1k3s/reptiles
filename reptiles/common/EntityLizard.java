@@ -42,10 +42,8 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityLizard extends EntityTameable//EntityAnimal
+public class EntityLizard extends EntityTameable
 {
-//	private final EntityAIRandomMating randomMating = new EntityAIRandomMating(this);
-
 	private final int maxHealth = 10;
 
 	public EntityLizard(World world)
@@ -57,13 +55,11 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, aiSit);
-//        tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 0.8D, 1.33D));
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.carrot, false));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.golden_carrot, false));
 		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
-//		tasks.addTask(6, randomMating);
 		tasks.addTask(6, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(7, new EntityAILookIdle(this));
@@ -97,7 +93,7 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-//		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 
@@ -142,13 +138,6 @@ public class EntityLizard extends EntityTameable//EntityAnimal
 		return itemStack == null ? false : (!(itemStack.getItem() instanceof ItemFood) ? false : isFavoriteFood(itemStack));
 	}
 
-//    @Override
-//	protected void updateAITasks() {
-//		if (isTamed()) { // no random mating when tame
-//			randomMating.resetTask();
-//		}
-//		super.updateAITasks();
-//	}
 	@Override
 	protected void updateAITick()
 	{
