@@ -1,19 +1,17 @@
 [
- {
- "modid": "ReptileMod",
- "name": "Reptile Mod",
- "description": "Reptile mod adds monitor lizards, turtles, iguanas, chameleons, and crocodiles. Komodo Dragons! Man-eating Crocodiles! And cute little turtles.",
- "version": "20140219",
- "mcversion": "1.6.4",
- "url": "",
- "updateUrl": "",
- "authors": [
-"crackedEgg"
-],
- "credits": "Authored by crackedEgg",
- "logoFile": "pack.png",
- "screenshots": [],
- "parent": "",
- "dependencies": []
- }
- ]
+	{
+		"modid": "reptilemod",
+		"name": "Reptile Mod",
+		"description": "Reptile mod adds monitor lizards, turtles, iguanas, chameleons, and crocodiles. Komodo Dragons! Man-eating Crocodiles! And cute little turtles.",
+		"version": $version,
+		"mcversion": $mcversion,
+		"url": "",
+		"updateUrl": "",
+		"authors": [ "crackedEgg" ],
+		"credits": "Created by crackedEgg",
+		"logoFile": "pack.png",
+		"screenshots": [],
+		"parent": "",
+		"dependencies": [ "mod_MinecraftForge" ]
+	}
+]
