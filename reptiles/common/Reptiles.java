@@ -228,9 +228,11 @@ public class Reptiles {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN) || bgb.temperature < 0.32F) { // exclude cold climates
+					proxy.print("<<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
+					proxy.print("<<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (!list.contains(bgb)) {
