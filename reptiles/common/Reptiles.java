@@ -183,6 +183,17 @@ public class Reptiles {
 	public BiomeGenBase[] getBiomes(Type... types)
 	{
 		LinkedList<BiomeGenBase> list = new LinkedList<BiomeGenBase>();
+		
+		// Add some new (1.7) biomes that are not added in Forge BiomeDictionary
+		BiomeDictionary.registerBiomeType(BiomeGenBase.mesa, Type.DESERT);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.mesaPlateau, Type.DESERT);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.mesaPlateau_F, Type.DESERT);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.savanna, Type.PLAINS);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.savannaPlateau, Type.PLAINS);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.birchForest, Type.FOREST);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.birchForestHills, Type.FOREST, Type.HILLS);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.roofedForest, Type.FOREST);
+		BiomeDictionary.registerBiomeType(BiomeGenBase.stoneBeach, Type.BEACH);
 
 		for (Type t : types) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
