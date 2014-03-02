@@ -32,6 +32,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.Configuration;
@@ -132,6 +133,45 @@ public class Reptiles {
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
 		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
 
+//		proxy.print("*** Scanning for monitor biomes");
+//		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS, Type.MAGICAL);
+//
+//		proxy.print("*** Scanning for tortoise biomes");
+//		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
+//
+//		proxy.print("*** Scanning for turtle biomes");
+//		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
+//
+//		proxy.print("*** Scanning for lizard biomes");
+//		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
+//
+//		proxy.print("*** Scanning for crocodilian biomes");
+//		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM, Type.MAGICAL);
+//
+//		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
+//		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
+//		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, tortoiseBiomes);
+//		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
+//		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
+//		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, monitorBiomes);
+//		addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, monitorBiomes);
+//
+//		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
+//		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, crocBiomes);
+//		addSpawn(EntityGator.class, gatorSpawnProb, 1, 2, crocBiomes);
+//
+//		addSpawn(EntityDesertTortoise.class, desertTortoiseSpawnProb, 1, 4, tortoiseBiomes);
+//		addSpawn(EntityLittleTurtle.class, littleTurtleSpawnProb, 1, 4, turtleBiomes);
+//		addSpawn(EntityTortoise.class, tortoiseSpawnProb, 1, 4, turtleBiomes);
+//
+//		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, lizardBiomes);
+//		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
+	}
+	
+	@EventHandler
+	public void PostInit(FMLPostInitializationEvent event) {
+		BiomeDictionary.registerAllBiomesAndGenerateEvents();
+		
 		proxy.print("*** Scanning for monitor biomes");
 		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS, Type.MAGICAL);
 
@@ -184,26 +224,18 @@ public class Reptiles {
 	{
 		LinkedList<BiomeGenBase> list = new LinkedList<BiomeGenBase>();
 		
-		// Add some new (1.7) biomes that are not added in Forge BiomeDictionary
-		BiomeDictionary.registerBiomeType(BiomeGenBase.mesa, Type.DESERT);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.mesaPlateau, Type.DESERT);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.mesaPlateau_F, Type.DESERT);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.savanna, Type.PLAINS);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.savannaPlateau, Type.PLAINS);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.birchForest, Type.FOREST);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.birchForestHills, Type.FOREST, Type.HILLS);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.roofedForest, Type.FOREST);
-		BiomeDictionary.registerBiomeType(BiomeGenBase.stoneBeach, Type.BEACH);
-
 		for (Type t : types) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
-				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN)) { // exclude cold climates
+				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN) || bgb.temperature < 0.32F) { // exclude cold climates
+					continue;
+				}
+				if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
 					continue;
 				}
 				if (!list.contains(bgb)) {
 					list.add(bgb);
-					proxy.print(" >>> Adding " + bgb.biomeName + " for spawning");
+					proxy.print(">>> Adding " + bgb.biomeName + " for spawning");
 				}
 			}
 		}
