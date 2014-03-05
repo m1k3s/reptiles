@@ -25,6 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -32,7 +33,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
+//import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+//import java.util.List;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.Configuration;
@@ -83,7 +87,7 @@ public class Reptiles {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-
+		proxy.print("Got FMLPreInitializationEvent");
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 				+ " For Minecraft Version " + Reptiles.version + "\n"
 				+ " Set xxxSpawnProb to zero to disable spawn of that entity\n";
@@ -117,6 +121,7 @@ public class Reptiles {
 	@EventHandler
 	public void Init(FMLInitializationEvent evt)
 	{
+		proxy.print("Got FMLInitializationEvent");
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
 		registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
@@ -132,48 +137,19 @@ public class Reptiles {
 		registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
 		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
-
-//		proxy.print("*** Scanning for monitor biomes");
-//		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS, Type.MAGICAL);
-//
-//		proxy.print("*** Scanning for tortoise biomes");
-//		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
-//
-//		proxy.print("*** Scanning for turtle biomes");
-//		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
-//
-//		proxy.print("*** Scanning for lizard biomes");
-//		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
-//
-//		proxy.print("*** Scanning for crocodilian biomes");
-//		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM, Type.MAGICAL);
-//
-//		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
-//		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
-//		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, tortoiseBiomes);
-//		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
-//		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
-//		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, monitorBiomes);
-//		addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, monitorBiomes);
-//
-//		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
-//		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, crocBiomes);
-//		addSpawn(EntityGator.class, gatorSpawnProb, 1, 2, crocBiomes);
-//
-//		addSpawn(EntityDesertTortoise.class, desertTortoiseSpawnProb, 1, 4, tortoiseBiomes);
-//		addSpawn(EntityLittleTurtle.class, littleTurtleSpawnProb, 1, 4, turtleBiomes);
-//		addSpawn(EntityTortoise.class, tortoiseSpawnProb, 1, 4, turtleBiomes);
-//
-//		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, lizardBiomes);
-//		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
+		
+		// allow this mod to load if there are missing mappings
+		FMLClientHandler.instance().setDefaultMissingAction(FMLMissingMappingsEvent.Action.IGNORE);
 	}
 	
 	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event) {
+	public void PostInit(FMLPostInitializationEvent event)
+	{
+		proxy.print("Got FMLPostInitializationEvent");
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 		
 		proxy.print("*** Scanning for monitor biomes");
-		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS, Type.MAGICAL);
+		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
 		proxy.print("*** Scanning for tortoise biomes");
 		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
@@ -185,7 +161,7 @@ public class Reptiles {
 		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
 		proxy.print("*** Scanning for crocodilian biomes");
-		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM, Type.MAGICAL);
+		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
 		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
@@ -206,6 +182,23 @@ public class Reptiles {
 		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, lizardBiomes);
 		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
 	}
+	
+//	@EventHandler
+//	public void missingMappingsHandler(FMLMissingMappingsEvent event)
+//	{
+//		proxy.print("Got FMLMissingMappingsEvent");
+//		List<FMLMissingMappingsEvent.MissingMapping> list = event.get();
+//		
+//		for (FMLMissingMappingsEvent.MissingMapping mapping : list) {
+//			proxy.print("Missing Mapping: " + mapping.name);
+//			if (mapping.type.equals(GameRegistry.Type.ITEM)) {
+//				mapping.setAction(FMLMissingMappingsEvent.Action.WARN);
+//			}
+//			if (mapping.type.equals(GameRegistry.Type.BLOCK)) {
+//				mapping.setAction(FMLMissingMappingsEvent.Action.IGNORE);
+//			}
+//		}
+//	}
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
@@ -228,16 +221,16 @@ public class Reptiles {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN) || bgb.temperature < 0.32F) { // exclude cold climates
-					proxy.print("<<< Excluding " + bgb.biomeName + " for spawning");
+					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
-					proxy.print("<<< Excluding " + bgb.biomeName + " for spawning");
+					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (!list.contains(bgb)) {
 					list.add(bgb);
-					proxy.print(">>> Adding " + bgb.biomeName + " for spawning");
+					proxy.print("  >>> Adding " + bgb.biomeName + " for spawning");
 				}
 			}
 		}
