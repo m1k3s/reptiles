@@ -67,8 +67,14 @@ public class EntityVaranus extends EntityTameable {
 		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityChicken.class, targetChance, false));
 		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityPig.class, targetChance, false));
-		float scale = rand.nextFloat();
-		scaleFactor = scale < 0.55F ? 1.0F : scale;
+		
+		if (Reptiles.instance.useRandomScaling()) {
+			float scale = rand.nextFloat();
+			scaleFactor = scale < 0.55F ? 1.0F : scale;
+		} else {
+			scaleFactor = 1.0F;
+		}
+		
 	}
 
 	public float getScaleFactor()
@@ -92,7 +98,7 @@ public class EntityVaranus extends EntityTameable {
 	protected void entityInit()
 	{
 		super.entityInit();
-		dataWatcher.addObject(18, new Float(getHealth()));
+		dataWatcher.addObject(18, getHealth());
 	}
 
 	@Override
@@ -107,6 +113,12 @@ public class EntityVaranus extends EntityTameable {
 		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
+	
+	@Override
+	protected boolean canDespawn()
+    {
+        return !isTamed() && ticksExisted > 2400;
+    }
 
 	@Override
 	public int getTalkInterval()
@@ -184,7 +196,7 @@ public class EntityVaranus extends EntityTameable {
 	@Override
 	protected void updateAITick()
 	{
-		dataWatcher.updateObject(18, Float.valueOf(getHealth()));
+		dataWatcher.updateObject(18, getHealth());
 	}
 
 	@Override

@@ -78,6 +78,12 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		}
 		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2); // move speed
 	}
+	
+	@Override
+	protected boolean canDespawn()
+    {
+        return !isTamed() && ticksExisted > 2400;
+    }
 
 	@Override
 	public boolean isAIEnabled()
@@ -89,7 +95,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	protected void entityInit()
 	{
 		super.entityInit();
-		dataWatcher.addObject(18, new Float(getHealth()));
+		dataWatcher.addObject(18, getHealth());
 	}
 
 	@Override
@@ -166,7 +172,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	@Override
 	protected void updateAITick()
 	{
-		dataWatcher.updateObject(18, Float.valueOf(getHealth()));
+		dataWatcher.updateObject(18, getHealth());
 	}
 
 	protected boolean isFavoriteFood(ItemStack itemstack)

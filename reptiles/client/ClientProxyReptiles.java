@@ -17,7 +17,9 @@
 package com.reptiles.client;
 
 import com.reptiles.common.*;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 
 public class ClientProxyReptiles extends CommonProxyReptiles {
 
@@ -40,6 +42,13 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, new RenderTortoise(new ModelTortoise(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, new RenderGator(new ModelGator(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, new RenderChameleon(new ModelChameleon(), shadowSize - 0.7F));
+	}
+	
+	@Override
+	public void registerHandlers()
+	{
+		// allow this mod to load if there are missing mappings
+		FMLClientHandler.instance().setDefaultMissingAction(FMLMissingMappingsEvent.Action.IGNORE);
 	}
 
 }

@@ -19,26 +19,21 @@
 //
 package com.reptiles.common;
 
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.*;
 import java.util.LinkedList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
-//import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-//import java.util.List;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
 
 @Mod(
@@ -76,7 +71,8 @@ public class Reptiles {
 	private int chameleonSpawnProb;
 	private int crocMonitorSpawnProb;
 	private int megalaniaSpawnProb;
-
+	private boolean randomScale;
+	
 	@SidedProxy(
 			clientSide = "com.reptiles.client.ClientProxyReptiles",
 			serverSide = "com.reptiles.common.CommonProxyReptiles"
@@ -87,10 +83,10 @@ public class Reptiles {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		proxy.print("Got FMLPreInitializationEvent");
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 				+ " For Minecraft Version " + Reptiles.version + "\n"
 				+ " Set xxxSpawnProb to zero to disable spawn of that entity\n";
+		String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
@@ -110,18 +106,19 @@ public class Reptiles {
 		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
 		crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12).getInt();
 		megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12).getInt();
+		randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 
 		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
 
 		config.save();
 
 		proxy.registerRenderers();
+		proxy.registerHandlers();
 	}
 
 	@EventHandler
 	public void Init(FMLInitializationEvent evt)
 	{
-		proxy.print("Got FMLInitializationEvent");
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
 		registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
@@ -137,15 +134,11 @@ public class Reptiles {
 		registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
 		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
-		
-		// allow this mod to load if there are missing mappings
-		FMLClientHandler.instance().setDefaultMissingAction(FMLMissingMappingsEvent.Action.IGNORE);
 	}
 	
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
-		proxy.print("Got FMLPostInitializationEvent");
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 		
 		proxy.print("*** Scanning for monitor biomes");
@@ -183,23 +176,6 @@ public class Reptiles {
 		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
 	}
 	
-//	@EventHandler
-//	public void missingMappingsHandler(FMLMissingMappingsEvent event)
-//	{
-//		proxy.print("Got FMLMissingMappingsEvent");
-//		List<FMLMissingMappingsEvent.MissingMapping> list = event.get();
-//		
-//		for (FMLMissingMappingsEvent.MissingMapping mapping : list) {
-//			proxy.print("Missing Mapping: " + mapping.name);
-//			if (mapping.type.equals(GameRegistry.Type.ITEM)) {
-//				mapping.setAction(FMLMissingMappingsEvent.Action.WARN);
-//			}
-//			if (mapping.type.equals(GameRegistry.Type.BLOCK)) {
-//				mapping.setAction(FMLMissingMappingsEvent.Action.IGNORE);
-//			}
-//		}
-//	}
-
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
@@ -216,7 +192,6 @@ public class Reptiles {
 	public BiomeGenBase[] getBiomes(Type... types)
 	{
 		LinkedList<BiomeGenBase> list = new LinkedList<BiomeGenBase>();
-		
 		for (Type t : types) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
@@ -236,5 +211,10 @@ public class Reptiles {
 		}
 		return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
 	}
-
+	
+	public boolean useRandomScaling()
+	{
+		return randomScale;
+	}
+	
 }

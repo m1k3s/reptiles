@@ -70,6 +70,12 @@ public class EntityLizard extends EntityTameable
 	{
 		return true;
 	}
+	
+	@Override
+	protected boolean canDespawn()
+    {
+        return !isTamed() && ticksExisted > 2400;
+    }
 
 	@Override
 	protected void applyEntityAttributes()
@@ -87,7 +93,7 @@ public class EntityLizard extends EntityTameable
 	protected void entityInit()
 	{
 		super.entityInit();
-		dataWatcher.addObject(18, new Float(getHealth()));
+		dataWatcher.addObject(18, getHealth());
 	}
 
 	// This MUST be overridden in the derived class
@@ -141,7 +147,7 @@ public class EntityLizard extends EntityTameable
 	@Override
 	protected void updateAITick()
 	{
-		dataWatcher.updateObject(18, Float.valueOf(getHealth()));
+		dataWatcher.updateObject(18, getHealth());
 	}
 
 	@Override

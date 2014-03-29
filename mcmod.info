@@ -7,7 +7,7 @@
 		"mcversion": $mcversion,
 		"url": "",
 		"updateUrl": "",
-		"authors": [ "crackedEgg" ],
+		"authorList": [ "crackedEgg" ],
 		"credits": "Created by crackedEgg",
 		"logoFile": "pack.png",
 		"screenshots": [],

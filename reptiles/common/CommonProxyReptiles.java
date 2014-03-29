@@ -28,6 +28,11 @@ public class CommonProxyReptiles {
 	public void registerRenderers()
 	{
 	}
+	
+	public void registerHandlers()
+	{
+		
+	}
 
 	public void print(String s)
 	{

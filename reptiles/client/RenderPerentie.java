@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import org.lwjgl.opengl.GL11;
 
 public class RenderPerentie extends RenderLiving {
 
@@ -38,6 +39,7 @@ public class RenderPerentie extends RenderLiving {
 		super.doRender(entityPerentie, d, d1, d2, f, f1);
 	}
 
+	@Override
 	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
 	{
 		func_177_a((EntityPerentie) entityliving, d, d1, d2, f, f1);
@@ -53,5 +55,12 @@ public class RenderPerentie extends RenderLiving {
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
 		return skin;
+	}
+	
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	{
+		float scaleFactor = ((EntityPerentie) entityliving).getScaleFactor();
+		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
 	}
 }
