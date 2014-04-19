@@ -15,7 +15,7 @@
 //  =====================================================================
 //
 //
-// Copyright 2011 Michael Sheppard (crackedEgg)
+// Copyright 2011-2014 Michael Sheppard (crackedEgg)
 //
 package com.reptiles.client;
 
@@ -29,6 +29,7 @@ import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityCroc;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.EntityLiving;
 
 @SideOnly(Side.CLIENT)
 public class RenderCroc extends RenderLiving {
@@ -65,16 +66,16 @@ public class RenderCroc extends RenderLiving {
 	}
 
 	@Override
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
-	{
-		renderCroc((EntityCroc) entityliving, d, d1, d2, f, f1);
-	}
-
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
 	{
 		renderCroc((EntityCroc) entity, d, d1, d2, f, f1);
 	}
+
+//	@Override
+//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+//	{
+//		renderCroc((EntityCroc) entity, d, d1, d2, f, f1);
+//	}
 
 	protected int setCrocEyeBrightness(EntityCroc entitycroc, int i, float f)
 	{

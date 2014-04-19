@@ -21,7 +21,6 @@ package com.reptiles.common;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -49,12 +48,12 @@ public class Reptiles {
 		return Reptiles.version;
 	}
 
-	@Instance
-	public static Reptiles instance;
-
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
 	public static final String version = "1.7.2";
+	
+	@Mod.Instance(modid)
+	public static Reptiles instance;
 
 	private int komodoSpawnProb;
 	private int griseusSpawnProb;
@@ -141,19 +140,19 @@ public class Reptiles {
 	{
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 		
-		proxy.print("*** Scanning for monitor biomes");
+		proxy.print("*** Checking for monitor biomes");
 		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
-		proxy.print("*** Scanning for tortoise biomes");
+		proxy.print("*** Checking for tortoise biomes");
 		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
 
-		proxy.print("*** Scanning for turtle biomes");
+		proxy.print("*** Checking for turtle biomes");
 		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
 
-		proxy.print("*** Scanning for lizard biomes");
+		proxy.print("*** Checking for lizard biomes");
 		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
-		proxy.print("*** Scanning for crocodilian biomes");
+		proxy.print("*** Checking for crocodilian biomes");
 		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
 		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
@@ -180,6 +179,7 @@ public class Reptiles {
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
+		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
@@ -196,11 +196,11 @@ public class Reptiles {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN) || bgb.temperature < 0.32F) { // exclude cold climates
-					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
+//					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
-					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
+//					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (!list.contains(bgb)) {

@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011-2014 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.client;
 
 //import cpw.mods.fml.relauncher.Side;
@@ -26,13 +29,9 @@ import net.minecraft.entity.EntityLivingBase;
 //import net.minecraft.util.MathHelper;
 //import net.minecraft.world.ColorizerGrass;
 //import net.minecraft.world.biome.BiomeGenBase;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
 import org.lwjgl.opengl.GL11;
-
 import com.reptiles.common.EntityChameleon;
+import net.minecraft.entity.EntityLiving;
 
 public class RenderChameleon extends RenderLiving {
 
@@ -45,22 +44,30 @@ public class RenderChameleon extends RenderLiving {
 		super(modelbase, shadowSize);
 		setRenderPassModel((ModelChameleon) modelbase);
 	}
+	
+	@Override
+	public void doRender(EntityLiving entity, double x, double y, double z, float par8, float par9)
+	{
+		renderChameleon((EntityChameleon) entity, x, y, z, par8, par9);
+	}
 
 	public void renderChameleon(EntityChameleon entitychameleon, double d, double d1, double d2, float f, float f1)
 	{
 		super.doRender(entitychameleon, d, d1, d2, f, f1);
 	}
 
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-	{
-		renderChameleon((EntityChameleon) entity, d, d1, d2, f, f1);
-	}
+//	@Override
+//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+//	{
+//		renderChameleon((EntityChameleon) entity, d, d1, d2, f, f1);
+//	}
 
 	// we are using a generic model so we scale to suit our needs
 	protected void scaleEntity(EntityChameleon entitychameleon, float f)
 	{
+		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GL11.glPopMatrix();
 	}
 
 	@Override

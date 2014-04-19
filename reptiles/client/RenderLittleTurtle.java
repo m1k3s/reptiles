@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
@@ -22,12 +25,8 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
+import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
-
 import com.reptiles.common.EntityLittleTurtle;
 
 public class RenderLittleTurtle extends RenderLiving {
@@ -46,14 +45,16 @@ public class RenderLittleTurtle extends RenderLiving {
 	}
 
 	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
 	{
 		renderLittleTurtle((EntityLittleTurtle) entity, d, d1, d2, f, f1);
 	}
 
 	protected void scaleEntity(EntityLittleTurtle entityturtle, float f)
 	{
+		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GL11.glPopMatrix();
 	}
 
 	@Override

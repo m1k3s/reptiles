@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 //import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 
 public class RenderTurtle extends RenderLiving {
 
@@ -39,7 +40,7 @@ public class RenderTurtle extends RenderLiving {
 	}
 
 	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
 	{
 		renderTurtle((EntityTurtle) entity, d, d1, d2, f, f1);
 	}

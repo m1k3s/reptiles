@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 
 public class RenderSalvadorii extends RenderLiving {
@@ -34,22 +35,22 @@ public class RenderSalvadorii extends RenderLiving {
 		super(modelbase, shadowSize);
 	}
 
-	public void func_177_a(EntitySalvadorii entitySalvadorii, double d, double d1, double d2, float f, float f1)
+	public void renderSavadorii(EntitySalvadorii entitySalvadorii, double d, double d1, double d2, float f, float f1)
 	{
 		super.doRender(entitySalvadorii, d, d1, d2, f, f1);
 	}
 
 	@Override
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
 	{
-		func_177_a((EntitySalvadorii) entityliving, d, d1, d2, f, f1);
+		renderSavadorii((EntitySalvadorii) entityliving, d, d1, d2, f, f1);
 	}
 
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-	{
-		func_177_a((EntitySalvadorii) entity, d, d1, d2, f, f1);
-	}
+//	@Override
+//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+//	{
+//		renderSavadorii((EntitySalvadorii) entity, d, d1, d2, f, f1);
+//	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
@@ -61,6 +62,8 @@ public class RenderSalvadorii extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntitySalvadorii) entityliving).getScaleFactor();
+		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GL11.glPopMatrix();
 	}
 }

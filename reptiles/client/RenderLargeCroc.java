@@ -15,7 +15,7 @@
 //  =====================================================================
 //
 //
-// Copyright 2011 Michael Sheppard (crackedEgg)
+// Copyright 2011-2014 Michael Sheppard (crackedEgg)
 //
 package com.reptiles.client;
 
@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityLargeCroc;
 
@@ -51,16 +52,17 @@ public class RenderLargeCroc extends RenderLiving {
 		super.doRender(entitycroc, d, d1, d2, f, f1);
 	}
 
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	@Override
+	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
 	{
 		renderLargeCroc((EntityLargeCroc) entityliving, d, d1, d2, f, f1);
 	}
 
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-	{
-		renderLargeCroc((EntityLargeCroc) entity, d, d1, d2, f, f1);
-	}
+//	@Override
+//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+//	{
+//		renderLargeCroc((EntityLargeCroc) entity, d, d1, d2, f, f1);
+//	}
 
 	protected int setCrocEyeBrightness(EntityLargeCroc entitycroc, int i, float f)
 	{
@@ -99,7 +101,9 @@ public class RenderLargeCroc extends RenderLiving {
 
 	protected void scaleEntity(EntityLargeCroc entitycroc, float f)
 	{
+		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GL11.glPopMatrix();
 	}
 
 	@Override

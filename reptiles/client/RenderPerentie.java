@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011-2014 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.client;
 
 import com.reptiles.common.EntityPerentie;
@@ -23,6 +26,7 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 
 public class RenderPerentie extends RenderLiving {
@@ -34,22 +38,22 @@ public class RenderPerentie extends RenderLiving {
 		super(modelbase, shadowSize);
 	}
 
-	public void func_177_a(EntityPerentie entityPerentie, double d, double d1, double d2, float f, float f1)
+	public void renderPerentie(EntityPerentie entityPerentie, double d, double d1, double d2, float f, float f1)
 	{
 		super.doRender(entityPerentie, d, d1, d2, f, f1);
 	}
 
 	@Override
-	public void doRender(EntityLivingBase entityliving, double d, double d1, double d2, float f, float f1)
+	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
 	{
-		func_177_a((EntityPerentie) entityliving, d, d1, d2, f, f1);
+		renderPerentie((EntityPerentie) entityliving, d, d1, d2, f, f1);
 	}
 
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-	{
-		func_177_a((EntityPerentie) entity, d, d1, d2, f, f1);
-	}
+//	@Override
+//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
+//	{
+//		renderPerentie((EntityPerentie) entity, d, d1, d2, f, f1);
+//	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
@@ -61,6 +65,8 @@ public class RenderPerentie extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntityPerentie) entityliving).getScaleFactor();
+		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GL11.glPopMatrix();
 	}
 }
