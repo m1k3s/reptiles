@@ -53,9 +53,7 @@ public class RenderTortoise extends RenderLiving {
 
 	protected void scaleEntity(EntityTortoise entityturtle, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 
 	@Override

@@ -41,10 +41,6 @@ public class RenderMegalania extends RenderLiving {
 //        setRenderPassModel((ModelMegalania) modelbase);
 	}
 
-//    public RenderMegalania() {
-//		super(new ModelMegalania(), 0.8F);
-//		setRenderPassModel(new ModelMegalania());
-//	}
 	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1)
 	{
 		super.doRender(entitymegalania, d, d1, d2, f, f1);
@@ -56,12 +52,6 @@ public class RenderMegalania extends RenderLiving {
 		renderMegalania((EntityMegalania) entityliving, d, d1, d2, f, f1);
 	}
 
-//	@Override
-//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-//	{
-//		super.doRender((EntityMegalania) entity, d, d1, d2, f, f1);
-//	}
-
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
@@ -70,9 +60,7 @@ public class RenderMegalania extends RenderLiving {
 
 	protected void scaleEntity(EntityMegalania entitymegalania, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(2.5F, 2.5F, 3.0F);
-		GL11.glPopMatrix();
 	}
 
 	@Override

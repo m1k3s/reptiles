@@ -102,9 +102,7 @@ public class RenderGator extends RenderLiving {
 
 	protected void scaleEntity(EntityGator entitygator, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(0.8F, 1.2F, 1.2F);
-		GL11.glPopMatrix();
 	}
 
 	@Override

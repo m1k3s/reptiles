@@ -19,7 +19,6 @@ package com.reptiles.client;
 import com.reptiles.common.EntityTurtle;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -27,7 +26,6 @@ import net.minecraft.entity.EntityLiving;
 public class RenderTurtle extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
-//	private final float scaleFactor = 2.0F;
 
 	public RenderTurtle(ModelBase modelbase, float shadowSize)
 	{

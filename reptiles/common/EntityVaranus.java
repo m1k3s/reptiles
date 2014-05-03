@@ -57,14 +57,16 @@ public class EntityVaranus extends EntityTameable {
 		tasks.addTask(6, new EntityAIAvoidEntity(this, EntityCreeper.class, 6.0F, 0.8D, 1.2D));
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
-		tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		if (Reptiles.instance.getFollowOwner()) {
+			tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+			targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
+		}
 		tasks.addTask(10, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(12, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 		tasks.addTask(14, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityChicken.class, targetChance, false));
 		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityPig.class, targetChance, false));
 		
@@ -117,7 +119,11 @@ public class EntityVaranus extends EntityTameable {
 	@Override
 	protected boolean canDespawn()
     {
-        return !isTamed() && ticksExisted > 2400;
+		if (Reptiles.instance.shouldDespawn()) {
+			return !isTamed() && ticksExisted > 2400;
+		} else {
+			return false;
+		}
     }
 
 	@Override

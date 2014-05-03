@@ -59,7 +59,9 @@ public class EntityLizard extends EntityTameable
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.carrot, false));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.golden_carrot, false));
-		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		if (Reptiles.instance.getFollowOwner()) {
+			tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		}
 		tasks.addTask(6, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(7, new EntityAILookIdle(this));
@@ -74,7 +76,11 @@ public class EntityLizard extends EntityTameable
 	@Override
 	protected boolean canDespawn()
     {
-        return !isTamed() && ticksExisted > 2400;
+        if (Reptiles.instance.shouldDespawn()) {
+			return !isTamed() && ticksExisted > 2400;
+		} else {
+			return false;
+		}
     }
 
 	@Override

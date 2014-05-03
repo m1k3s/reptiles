@@ -52,9 +52,7 @@ public class RenderLittleTurtle extends RenderLiving {
 
 	protected void scaleEntity(EntityLittleTurtle entityturtle, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 
 	@Override

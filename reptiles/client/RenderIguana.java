@@ -54,9 +54,7 @@ public class RenderIguana extends RenderLiving {
 	// we are using a generic model so we scale to suit our needs
 	protected void scaleEntity(EntityIguana entityiguana, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 
 	@Override

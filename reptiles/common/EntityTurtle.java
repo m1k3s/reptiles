@@ -60,7 +60,9 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
 		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
-		tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		if (Reptiles.instance.getFollowOwner()) {
+			tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+		}
 		tasks.addTask(6, plantEating);
 		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -82,7 +84,11 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	@Override
 	protected boolean canDespawn()
     {
-        return !isTamed() && ticksExisted > 2400;
+        if (Reptiles.instance.shouldDespawn()) {
+			return !isTamed() && ticksExisted > 2400;
+		} else {
+			return false;
+		}
     }
 
 	@Override
@@ -111,11 +117,39 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
+	
+	protected boolean isHardenedClay(int x, int y, int z)
+	{
+		Block block = worldObj.getBlock(x, y, z);
+		return block == Blocks.hardened_clay;
+	}
 
 	protected boolean isSandOrGrassBlock(int x, int y, int z)
 	{
 		Block block = worldObj.getBlock(x, y, z);
 		return (block == Blocks.sand || block == Blocks.grass);
+	}
+	
+	@Override
+	public boolean getCanSpawnHere()
+	{
+		if (worldObj.checkNoEntityCollision(boundingBox)) {
+			if (worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty()) {
+				if (!worldObj.isAnyLiquid(boundingBox)) {
+					int x = MathHelper.floor_double(posX);
+					int y = MathHelper.floor_double(boundingBox.minY);
+					int z = MathHelper.floor_double(posZ);
+					if (getBlockPathWeight(x, y, z) >= 0.0F) {
+						if (isHardenedClay(x, y, z) || isSandOrGrassBlock(x, y, z)) {
+							if (worldObj.getFullBlockLightValue(x, y, z) > 8) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override

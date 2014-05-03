@@ -49,12 +49,6 @@ public class RenderPerentie extends RenderLiving {
 		renderPerentie((EntityPerentie) entityliving, d, d1, d2, f, f1);
 	}
 
-//	@Override
-//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-//	{
-//		renderPerentie((EntityPerentie) entity, d, d1, d2, f, f1);
-//	}
-
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
@@ -65,8 +59,6 @@ public class RenderPerentie extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntityPerentie) entityliving).getScaleFactor();
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 }

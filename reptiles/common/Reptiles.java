@@ -70,7 +70,9 @@ public class Reptiles {
 	private int chameleonSpawnProb;
 	private int crocMonitorSpawnProb;
 	private int megalaniaSpawnProb;
+	private boolean despawn;
 	private boolean randomScale;
+	private boolean followOwner;
 	
 	@SidedProxy(
 			clientSide = "com.reptiles.client.ClientProxyReptiles",
@@ -83,31 +85,38 @@ public class Reptiles {
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
-				+ " For Minecraft Version " + Reptiles.version + "\n"
-				+ " Set xxxSpawnProb to zero to disable spawn of that entity\n";
+				+ " For Minecraft Version " + Reptiles.version;
+				
 		String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
+		String despawnComment = "Set to false to not despawn. default is true.";
+		String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
 
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
+		config.addCustomCategoryComment("Spawning", "Spawn Probabilities\nSet xxxSpawnProb to zero to disable spawning of that entity");
+		config.addCustomCategoryComment("Misc", "Miscellaneous Variables");
 
-		komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", 10).getInt();
-		griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", 12).getInt();
-		laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", 12).getInt();
-		perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", 12).getInt();
-		savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", 12).getInt();
-		crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 5).getInt();
-		largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 4).getInt();
-		desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", 12).getInt();
-		littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", 10).getInt();
-		iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", 12).getInt();
-		tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12).getInt();
-		gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5).getInt();
-		chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12).getInt();
-		crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12).getInt();
-		megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12).getInt();
-		randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
+		komodoSpawnProb = config.get("Spawning", "komodoSpawnProb", 10).getInt();
+		griseusSpawnProb = config.get("Spawning", "griseusSpawnProb", 12).getInt();
+		laceSpawnProb = config.get("Spawning", "laceSpawnProb", 12).getInt();
+		perentieSpawnProb = config.get("Spawning", "perentieSpawnProb", 12).getInt();
+		savannaSpawnProb = config.get("Spawning", "savannaSpawnProb", 12).getInt();
+		crocSpawnProb = config.get("Spawning", "crocSpawnProb", 5).getInt();
+		largeCrocSpawnProb = config.get("Spawning", "largeCrocSpawnProb", 4).getInt();
+		desertTortoiseSpawnProb = config.get("Spawning", "desertTortoiseSpawnProb", 12).getInt();
+		littleTurtleSpawnProb = config.get("Spawning", "littleTurtleSpawnProb", 10).getInt();
+		iguanaSpawnProb = config.get("Spawning", "iguanaSpawnProb", 12).getInt();
+		tortoiseSpawnProb = config.get("Spawning", "tortoiseSpawnProb", 12).getInt();
+		gatorSpawnProb = config.get("Spawning", "gatorSpawnProb", 5).getInt();
+		chameleonSpawnProb = config.get("Spawning", "chameleonSpawnProb", 12).getInt();
+		crocMonitorSpawnProb = config.get("Spawning", "crocMonitorSpawnProb", 12).getInt();
+		megalaniaSpawnProb = config.get("Spawning", "megalaniaSpawnProb", 12).getInt();
+		
+		randomScale = config.get("Misc", "randomScale", true, randomScaleComment).getBoolean(true);
+		despawn = config.get("Misc", "despawn", true, despawnComment).getBoolean(true);
+		followOwner = config.get("Misc", "followOwner", true, followOwnerComment).getBoolean(true);
 
-		config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
+		config.addCustomCategoryComment("Information", comments);
 
 		config.save();
 
@@ -179,7 +188,7 @@ public class Reptiles {
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
-		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
+//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
@@ -215,6 +224,16 @@ public class Reptiles {
 	public boolean useRandomScaling()
 	{
 		return randomScale;
+	}
+	
+	public boolean shouldDespawn()
+	{
+		return despawn;
+	}
+	
+	public boolean getFollowOwner()
+	{
+		return followOwner;
 	}
 	
 }

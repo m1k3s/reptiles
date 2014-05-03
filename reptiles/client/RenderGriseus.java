@@ -64,8 +64,6 @@ public class RenderGriseus extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntityGriseus) entityliving).getScaleFactor();
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 }

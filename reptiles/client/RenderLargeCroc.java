@@ -58,12 +58,6 @@ public class RenderLargeCroc extends RenderLiving {
 		renderLargeCroc((EntityLargeCroc) entityliving, d, d1, d2, f, f1);
 	}
 
-//	@Override
-//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-//	{
-//		renderLargeCroc((EntityLargeCroc) entity, d, d1, d2, f, f1);
-//	}
-
 	protected int setCrocEyeBrightness(EntityLargeCroc entitycroc, int i, float f)
 	{
 		if (i != 0) {
@@ -101,9 +95,7 @@ public class RenderLargeCroc extends RenderLiving {
 
 	protected void scaleEntity(EntityLargeCroc entitycroc, float f)
 	{
-		GL11.glPushMatrix();
 		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-		GL11.glPopMatrix();
 	}
 
 	@Override
