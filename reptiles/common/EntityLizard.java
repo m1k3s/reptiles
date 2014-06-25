@@ -188,7 +188,7 @@ public class EntityLizard extends EntityTameable
 				}
 			}
 
-			if (entityplayer.getCommandSenderName().equalsIgnoreCase(getOwnerName()) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+			if (func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				setPathToEntity((PathEntity) null);
@@ -211,7 +211,7 @@ public class EntityLizard extends EntityTameable
 					setAttackTarget((EntityLiving) null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
-					setOwner(entityplayer.getCommandSenderName());
+					func_152115_b(entityplayer.getUniqueID().toString());
 					playTameEffect(true);
 					worldObj.setEntityState(this, (byte) 7);
 				} else {

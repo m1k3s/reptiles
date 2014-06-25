@@ -22,6 +22,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+//import net.minecraft.entity.player.EntityPlayer;
 
 public final class EntityChameleon extends EntityLizard {
 
@@ -36,8 +37,9 @@ public final class EntityChameleon extends EntityLizard {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityChameleon c = new EntityChameleon(worldObj);
-		if (isTamed()) {
-			c.setOwner(getOwnerName());
+		String s = func_152113_b();
+		if (s != null && s.trim().length() > 0) {
+			c.func_152115_b(s);
 			c.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());

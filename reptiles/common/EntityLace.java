@@ -37,8 +37,9 @@ public final class EntityLace extends EntityVaranus {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityLace e = new EntityLace(worldObj);
-		if (isTamed()) {
-			e.setOwner(getOwnerName());
+		String s = func_152113_b();
+		if (s != null && s.trim().length() > 0) {
+			e.func_152115_b(s);
 			e.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());

@@ -34,8 +34,9 @@ public final class EntityDesertTortoise extends EntityTurtle {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityDesertTortoise t = new EntityDesertTortoise(worldObj);
-		if (isTamed()) {
-			t.setOwner(getOwnerName());
+		String s = func_152113_b();
+		if (s != null && s.trim().length() > 0) {
+			t.func_152115_b(s);
 			t.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());

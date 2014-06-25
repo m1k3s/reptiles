@@ -50,7 +50,7 @@ public class Reptiles {
 
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "1.7.2";
+	public static final String version = "1.7.10";
 	
 	@Mod.Instance(modid)
 	public static Reptiles instance;

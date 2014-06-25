@@ -35,8 +35,10 @@ public final class EntityIguana extends EntityLizard {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityIguana i = new EntityIguana(worldObj);
-		if (isTamed()) {
-			i.setOwner(getOwnerName());
+//		if (isTamed()) {
+		String s = func_152113_b();
+		if (s != null && s.trim().length() > 0) {
+			i.func_152115_b(s);
 			i.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());

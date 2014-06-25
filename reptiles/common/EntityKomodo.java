@@ -43,8 +43,10 @@ public final class EntityKomodo extends EntityVaranus {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityKomodo e = new EntityKomodo(worldObj);
-		if (isTamed()) {
-			e.setOwner(getOwnerName());
+		//		if (isTamed()) {
+		String s = func_152113_b();
+		if (s != null && s.trim().length() > 0) {
+			e.func_152115_b(s);
 			e.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());
