@@ -150,45 +150,45 @@ public class Reptiles {
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 		
 		proxy.print("*** Checking for monitor biomes");
-		BiomeGenBase[] monitorBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
+		BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
 		proxy.print("*** Checking for tortoise biomes");
-		BiomeGenBase[] tortoiseBiomes = getBiomes(Type.DESERT, Type.WASTELAND);
+		BiomeGenBase[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE);
 
 		proxy.print("*** Checking for turtle biomes");
-		BiomeGenBase[] turtleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
+		BiomeGenBase[] jungleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
 
 		proxy.print("*** Checking for lizard biomes");
-		BiomeGenBase[] lizardBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
+		BiomeGenBase[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
 		proxy.print("*** Checking for crocodilian biomes");
-		BiomeGenBase[] crocBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
+		BiomeGenBase[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
-		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, tortoiseBiomes);
-		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, monitorBiomes);
-		addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, monitorBiomes);
+		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, forestBiomes);
+		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, forestBiomes);
+		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, desertBiomes);
+		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, forestBiomes);
+		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, forestBiomes);
+		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, forestBiomes);
+		addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, forestBiomes);
 
-		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, crocBiomes);
-		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, crocBiomes);
-		addSpawn(EntityGator.class, gatorSpawnProb, 1, 2, crocBiomes);
+		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, swampyBiomes);
+		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, swampyBiomes);
+		addSpawn(EntityGator.class, gatorSpawnProb, 1, 2, swampyBiomes);
 
-		addSpawn(EntityDesertTortoise.class, desertTortoiseSpawnProb, 1, 4, tortoiseBiomes);
-		addSpawn(EntityLittleTurtle.class, littleTurtleSpawnProb, 1, 4, turtleBiomes);
-		addSpawn(EntityTortoise.class, tortoiseSpawnProb, 1, 4, turtleBiomes);
+		addSpawn(EntityDesertTortoise.class, desertTortoiseSpawnProb, 1, 4, desertBiomes);
+		addSpawn(EntityLittleTurtle.class, littleTurtleSpawnProb, 1, 4, jungleBiomes);
+		addSpawn(EntityTortoise.class, tortoiseSpawnProb, 1, 4, jungleBiomes);
 
-		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, lizardBiomes);
-		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, lizardBiomes);
+		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, variousBiomes);
+		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, variousBiomes);
 	}
 	
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
-//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
+		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
@@ -204,7 +204,10 @@ public class Reptiles {
 		for (Type t : types) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
-				if (BiomeDictionary.isBiomeOfType(bgb, Type.FROZEN) || bgb.temperature < 0.32F) { // exclude cold climates
+				if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) {
+					continue;
+				}
+				if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.temperature < 0.32F) { // exclude cold climates
 //					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
