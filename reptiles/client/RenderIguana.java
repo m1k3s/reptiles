@@ -29,15 +29,16 @@ import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 
 import com.reptiles.common.EntityIguana;
+import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderIguana extends RenderLiving {
 
 	private final float scaleFactor = 0.4F;
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
 
-	public RenderIguana(ModelBase modelbase, float shadowSize)
+	public RenderIguana(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderIguana(EntityIguana entityiguana, double d, double d1, double d2, float f, float f1)

@@ -22,6 +22,7 @@ package com.reptiles.client;
 import com.reptiles.common.EntityLace;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,9 +33,9 @@ public class RenderLace extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/lace.png");
 
-	public RenderLace(ModelBase modelbase, float shadowSize)
+	public RenderLace(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderLace(EntityLace entityLace, double d, double d1, double d2, float f, float f1)

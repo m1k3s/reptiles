@@ -28,15 +28,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityLittleTurtle;
+import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderLittleTurtle extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/littleturtle.png");
 	private final float scaleFactor = 0.5F;
 
-	public RenderLittleTurtle(ModelBase modelbase, float shadowSize)
+	public RenderLittleTurtle(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderLittleTurtle(EntityLittleTurtle entitytortoise, double d, double d1, double d2, float f, float f1)

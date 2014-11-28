@@ -19,6 +19,7 @@ package com.reptiles.client;
 import com.reptiles.common.EntitySalvadorii;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 //import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
@@ -30,9 +31,9 @@ public class RenderSalvadorii extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/salvadorii.png");
 
-	public RenderSalvadorii(ModelBase modelbase, float shadowSize)
+	public RenderSalvadorii(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderSavadorii(EntitySalvadorii entitySalvadorii, double d, double d1, double d2, float f, float f1)

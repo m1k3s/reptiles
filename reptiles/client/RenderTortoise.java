@@ -28,6 +28,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityTortoise;
+import net.minecraft.client.renderer.entity.RenderManager;
 
 
 public class RenderTortoise extends RenderLiving {
@@ -35,9 +36,9 @@ public class RenderTortoise extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/gtortoise2-32.png");
 	private final float scaleFactor = 2.0F;
 
-	public RenderTortoise(ModelBase modelbase, float shadowSize)
+	public RenderTortoise(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderTortoise(EntityTortoise entitytortoise, double d, double d1, double d2, float f, float f1)

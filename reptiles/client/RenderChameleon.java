@@ -31,6 +31,7 @@ import net.minecraft.entity.EntityLivingBase;
 //import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityChameleon;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 
 public class RenderChameleon extends RenderLiving {
@@ -39,10 +40,10 @@ public class RenderChameleon extends RenderLiving {
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon.png");
 	private static final ResourceLocation pattern = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon_pattern.png");
 
-	public RenderChameleon(ModelBase modelbase, float shadowSize)
+	public RenderChameleon(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
-		setRenderPassModel((ModelChameleon) modelbase);
+		super(rm, modelbase, shadowSize);
+//		setRenderPassModel((ModelChameleon) modelbase);
 	}
 	
 	@Override
@@ -89,11 +90,11 @@ public class RenderChameleon extends RenderLiving {
 		}
 	}
 
-	@Override
-	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
-	{
-		return setChameleonSkin((EntityChameleon) entityliving, i, f);
-	}
+//	@Override
+//	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+//	{
+//		return setChameleonSkin((EntityChameleon) entityliving, i, f);
+//	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)

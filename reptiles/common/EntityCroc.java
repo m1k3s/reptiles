@@ -58,17 +58,17 @@ public class EntityCroc extends EntityAnimal {
 		tasks.addTask(5, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCow.class, 0, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, 0, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, 0, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, false));
 	}
 
-	@Override
-	public boolean isAIEnabled()
-	{
-		return true;
-	}
+//	@Override
+//	public boolean isAIEnabled()
+//	{
+//		return true;
+//	}
 	
 	@Override
 	protected boolean canDespawn()

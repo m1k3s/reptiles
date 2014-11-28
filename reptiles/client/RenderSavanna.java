@@ -22,6 +22,7 @@ package com.reptiles.client;
 import com.reptiles.common.EntitySavanna;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,9 +33,9 @@ public class RenderSavanna extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/savanna32.png");
 
-	public RenderSavanna(ModelBase modelbase, float shadowSize)
+	public RenderSavanna(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderSavanna(EntitySavanna entitysavanna, double d, double d1, double d2, float f, float f1)

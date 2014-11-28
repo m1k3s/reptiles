@@ -23,7 +23,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 public final class EntityKomodo extends EntityVaranus {
@@ -33,8 +33,8 @@ public final class EntityKomodo extends EntityVaranus {
 
 		super(world);
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, targetChance, false));
-		targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, targetChance + 100, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
+//		targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, false));
 		setTamed(false);
 //        tasks.removeTask(avoid); // komodos don't avoid humans
 	}

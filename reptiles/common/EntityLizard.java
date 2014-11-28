@@ -20,7 +20,7 @@ package com.reptiles.common;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
+//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
@@ -38,7 +38,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathEntity;
+//import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -52,7 +52,7 @@ public class EntityLizard extends EntityTameable
 		setSize(1.0F, 1.0F);
 		double moveSpeed = 1.0;
 
-		getNavigator().setAvoidsWater(true);
+//		getNavigator()..setAvoidsWater();
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, aiSit);
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
@@ -67,11 +67,11 @@ public class EntityLizard extends EntityTameable
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
 
-	@Override
-	public boolean isAIEnabled()
-	{
-		return true;
-	}
+//	@Override
+//	public boolean isAIEnabled()
+//	{
+//		return true;
+//	}
 	
 	@Override
 	protected boolean canDespawn()
@@ -177,7 +177,7 @@ public class EntityLizard extends EntityTameable
 							--itemstack.stackSize;
 						}
 
-						heal((float) itemfood.func_150905_g(itemstack));
+						heal((float) itemfood.getHealAmount(itemstack));
 
 						if (itemstack.stackSize <= 0) {
 							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
@@ -191,9 +191,8 @@ public class EntityLizard extends EntityTameable
 			if (func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
-				setPathToEntity((PathEntity) null);
-				setTarget((Entity) null);
-				setAttackTarget((EntityLivingBase) null);
+				navigator.clearPathEntity();
+                setAttackTarget((EntityLivingBase)null);
 			}
 		} else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 			if (!entityplayer.capabilities.isCreativeMode) {
@@ -207,8 +206,8 @@ public class EntityLizard extends EntityTameable
 			if (!this.worldObj.isRemote) {
 				if (rand.nextInt(3) == 0) {
 					setTamed(true);
-					setPathToEntity((PathEntity) null);
-					setAttackTarget((EntityLiving) null);
+					navigator.clearPathEntity();
+					setAttackTarget((EntityLivingBase)null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
 					func_152115_b(entityplayer.getUniqueID().toString());

@@ -19,6 +19,7 @@ package com.reptiles.client;
 import com.reptiles.common.EntityKomodo;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,9 +30,9 @@ public class RenderKomodo extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/komodo32.png");
 
-	public RenderKomodo(ModelBase modelbase, float shadowSize)
+	public RenderKomodo(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderKomodo(EntityKomodo entitykomodo, double d, double d1, double d2, float f, float f1)

@@ -19,8 +19,8 @@
 //
 package com.reptiles.client;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+//import cpw.mods.fml.relauncher.Side;
+//import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
@@ -29,15 +29,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityMegalania;
+import net.minecraft.client.renderer.entity.RenderManager;
 
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 public class RenderMegalania extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
 
-	public RenderMegalania(ModelBase modelbase, float shadowSize)
+	public RenderMegalania(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 //        setRenderPassModel((ModelMegalania) modelbase);
 	}
 

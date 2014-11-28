@@ -20,34 +20,36 @@
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.OpenGlHelper;
+//import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import org.lwjgl.opengl.GL11;
+//import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityCroc;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLiving;
 
 @SideOnly(Side.CLIENT)
 public class RenderCroc extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc32.png");
-	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
+//	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 
-	public RenderCroc(ModelBase modelbase, float f)
+	public RenderCroc(RenderManager rm, ModelBase modelbase, float f)
 	{
-		super(modelbase, f);
-		setRenderPassModel((ModelCroc) modelbase);
+		super(rm, modelbase, f);
+		this.addLayer(new LayerCrocEyes(this));
+//		setRenderPassModel((ModelCroc) modelbase);
 	}
 
-	public RenderCroc()
-	{
-		super(new ModelCroc(), 0.8F);
-		setRenderPassModel(new ModelCroc());
-	}
+//	public RenderCroc()
+//	{
+//		super(rm, new ModelCroc(), 0.8F);
+//		setRenderPassModel(new ModelCroc());
+//	}
 
 	protected float getDeathMaxRotation(EntityCroc entitycroc)
 	{
@@ -77,35 +79,35 @@ public class RenderCroc extends RenderLiving {
 //		renderCroc((EntityCroc) entity, d, d1, d2, f, f1);
 //	}
 
-	protected int setCrocEyeBrightness(EntityCroc entitycroc, int i, float f)
-	{
-		if (i != 0) {
-			return -1;
-		} else {
-			bindTexture(eyes);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//	protected int setCrocEyeBrightness(EntityCroc entitycroc, int i, float f)
+//	{
+//		if (i != 0) {
+//			return -1;
+//		} else {
+//			bindTexture(eyes);
+//			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glDisable(GL11.GL_ALPHA_TEST);
+//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//
+//			if (entitycroc.isInvisible()) {
+//				GL11.glDepthMask(false);
+//			} else {
+//				GL11.glDepthMask(true);
+//			}
+////			char color = 61680;
+//			float u = 61680.0F; //int u = color % 65536;
+//			float v = 0.941162109375F; //int v = color / 65536;
+//			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, u, v);
+//			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+//			return 1;
+//		}
+//	}
 
-			if (entitycroc.isInvisible()) {
-				GL11.glDepthMask(false);
-			} else {
-				GL11.glDepthMask(true);
-			}
-//			char color = 61680;
-			float u = 61680.0F; //int u = color % 65536;
-			float v = 0.941162109375F; //int v = color / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, u, v);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			return 1;
-		}
-	}
-
-	@Override
-	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
-	{
-		return setCrocEyeBrightness((EntityCroc) entityliving, i, f);
-	}
+//	@Override
+//	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+//	{
+//		return setCrocEyeBrightness((EntityCroc) entityliving, i, f);
+//	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)

@@ -22,6 +22,7 @@ package com.reptiles.client;
 import com.reptiles.common.EntityPerentie;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
 //import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
@@ -33,9 +34,9 @@ public class RenderPerentie extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/perentie32.png");
 
-	public RenderPerentie(ModelBase modelbase, float shadowSize)
+	public RenderPerentie(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
-		super(modelbase, shadowSize);
+		super(rm, modelbase, shadowSize);
 	}
 
 	public void renderPerentie(EntityPerentie entityPerentie, double d, double d1, double d2, float f, float f1)

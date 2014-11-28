@@ -18,8 +18,8 @@
 //
 package com.reptiles.common;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -35,6 +35,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -53,7 +54,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		setSize(0.5F, 0.5F);
 		double moveSpeed = 0.75;
 
-		getNavigator().setAvoidsWater(true);
+//		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(2, aiSit);
@@ -91,11 +92,11 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		}
     }
 
-	@Override
-	public boolean isAIEnabled()
-	{
-		return true;
-	}
+//	@Override
+//	public boolean isAIEnabled()
+//	{
+//		return true;
+//	}
 
 	@Override
 	protected void entityInit()
@@ -118,32 +119,31 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		return null;
 	}
 	
-	protected boolean isHardenedClay(int x, int y, int z)
+	protected boolean isHardenedClay(BlockPos bp)
 	{
-		Block block = worldObj.getBlock(x, y, z);
+		Block block = worldObj.getBlockState(bp).getBlock();
 		return block == Blocks.hardened_clay;
 	}
 
-	protected boolean isSandOrGrassBlock(int x, int y, int z)
+	protected boolean isSandOrGrassBlock(BlockPos bp)
 	{
-		Block block = worldObj.getBlock(x, y, z);
+		Block block = worldObj.getBlockState(bp).getBlock();
 		return (block == Blocks.sand || block == Blocks.grass);
 	}
 	
 	@Override
 	public boolean getCanSpawnHere()
 	{
-		if (worldObj.checkNoEntityCollision(boundingBox)) {
-			if (worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty()) {
-				if (!worldObj.isAnyLiquid(boundingBox)) {
+		if (worldObj.checkNoEntityCollision(getEntityBoundingBox())) {
+			if (worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty()) {
+				if (!worldObj.isAnyLiquid(getEntityBoundingBox())) {
 					int x = MathHelper.floor_double(posX);
-					int y = MathHelper.floor_double(boundingBox.minY);
+					int y = MathHelper.floor_double(getEntityBoundingBox().minY);
 					int z = MathHelper.floor_double(posZ);
-					if (getBlockPathWeight(x, y, z) >= 0.0F) {
-						if (isHardenedClay(x, y, z) || isSandOrGrassBlock(x, y, z)) {
-							if (worldObj.getFullBlockLightValue(x, y, z) > 8) {
-								return true;
-							}
+					BlockPos bp = new BlockPos(x, y, z);
+					if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
+						if (worldObj.getLight(bp) > 8) {
+							return true;
 						}
 					}
 				}
@@ -253,7 +253,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 							--itemstack.stackSize;
 						}
 
-						heal((float) itemfood.func_150905_g(itemstack));
+						heal((float) itemfood.getHealAmount(itemstack));
 
 						if (itemstack.stackSize <= 0) {
 							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
@@ -267,9 +267,8 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 			if (func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
-				setPathToEntity((PathEntity) null);
-				setTarget((Entity) null);
-				setAttackTarget((EntityLivingBase) null);
+				navigator.clearPathEntity();
+                setAttackTarget((EntityLivingBase)null);
 			}
 		} else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 			if (!entityplayer.capabilities.isCreativeMode) {
@@ -283,8 +282,8 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 			if (!this.worldObj.isRemote) {
 				if (rand.nextInt(3) == 0) {
 					setTamed(true);
-					setPathToEntity((PathEntity) null);
-					setAttackTarget((EntityLiving) null);
+					navigator.clearPathEntity();
+					setAttackTarget((EntityLivingBase)null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
 					func_152115_b(entityplayer.getUniqueID().toString());

@@ -20,7 +20,7 @@
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.OpenGlHelper;
+//import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
@@ -28,24 +28,26 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityLargeCroc;
+import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderLargeCroc extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/largeCroc32.png");
-	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
+//	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 	private final float scaleFactor = 1.5F;
 
-	public RenderLargeCroc(ModelBase modelbase, float f)
+	public RenderLargeCroc(RenderManager rm, ModelBase modelbase, float f)
 	{
-		super(modelbase, f);
-		setRenderPassModel((ModelLargeCroc) modelbase);
+		super(rm, modelbase, f);
+		this.addLayer(new LayerLargeCrocEyes(this));
+//		setRenderPassModel((ModelLargeCroc) modelbase);
 	}
 
-	public RenderLargeCroc()
-	{
-		super(new ModelLargeCroc(), 0.8F);
-		setRenderPassModel(new ModelLargeCroc());
-	}
+//	public RenderLargeCroc()
+//	{
+//		super(new ModelLargeCroc(), 0.8F);
+//		setRenderPassModel(new ModelLargeCroc());
+//	}
 
 	public void renderLargeCroc(EntityLargeCroc entitycroc, double d, double d1, double d2, float f, float f1)
 	{
@@ -58,40 +60,40 @@ public class RenderLargeCroc extends RenderLiving {
 		renderLargeCroc((EntityLargeCroc) entityliving, d, d1, d2, f, f1);
 	}
 
-	protected int setCrocEyeBrightness(EntityLargeCroc entitycroc, int i, float f)
-	{
-		if (i != 0) {
-			return -1;
-		} else {
-			bindTexture(eyes);
-			// float alpha = (1.0F - entitycroc.getBrightness(1.0F)) * 0.5F;
-			// GL11.glEnable(GL11.GL_BLEND);
-			// GL11.glDisable(GL11.GL_ALPHA_TEST);
-			// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			// GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-
-			if (entitycroc.isInvisible()) {
-				GL11.glDepthMask(false);
-			} else {
-				GL11.glDepthMask(true);
-			}
-			char color = 61680;
-			int u = color % 65536;
-			int v = color / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) u / 1.0F, (float) v / 1.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			return 1;
-		}
-	}
-
-	@Override
-	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
-	{
-		return setCrocEyeBrightness((EntityLargeCroc) entityliving, i, f);
-	}
+//	protected int setCrocEyeBrightness(EntityLargeCroc entitycroc, int i, float f)
+//	{
+//		if (i != 0) {
+//			return -1;
+//		} else {
+//			bindTexture(eyes);
+//			// float alpha = (1.0F - entitycroc.getBrightness(1.0F)) * 0.5F;
+//			// GL11.glEnable(GL11.GL_BLEND);
+//			// GL11.glDisable(GL11.GL_ALPHA_TEST);
+//			// GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//			// GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
+//			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glDisable(GL11.GL_ALPHA_TEST);
+//			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+//
+//			if (entitycroc.isInvisible()) {
+//				GL11.glDepthMask(false);
+//			} else {
+//				GL11.glDepthMask(true);
+//			}
+//			char color = 61680;
+//			int u = color % 65536;
+//			int v = color / 65536;
+//			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) u / 1.0F, (float) v / 1.0F);
+//			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+//			return 1;
+//		}
+//	}
+//
+//	@Override
+//	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+//	{
+//		return setCrocEyeBrightness((EntityLargeCroc) entityliving, i, f);
+//	}
 
 	protected void scaleEntity(EntityLargeCroc entitycroc, float f)
 	{

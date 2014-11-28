@@ -29,6 +29,7 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -44,7 +45,7 @@ public class EntityMegalania extends EntityAnimal {
 
 		double moveSpeed = 1.0;
 
-		getNavigator().setAvoidsWater(true);
+//		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
@@ -58,18 +59,18 @@ public class EntityMegalania extends EntityAnimal {
 		tasks.addTask(10, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChicken.class, targetChance, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class, targetChance, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, targetChance, false));
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySheep.class, targetChance, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityCow.class, targetChance, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChicken.class, false));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class,  false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
+		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
 	}
 
-	@Override
-	public boolean isAIEnabled()
-	{
-		return true;
-	}
+//	@Override
+//	public boolean isAIEnabled()
+//	{
+//		return true;
+//	}
 
 	@Override
 	protected void applyEntityAttributes()
@@ -137,10 +138,10 @@ public class EntityMegalania extends EntityAnimal {
 	}
 
 	@Override
-	protected void func_145780_a(int x, int y, int z, Block block)
-	{
-		playSound("mob.pig.step", 0.15F, 1.0F);
-	}
+	protected void func_180429_a(BlockPos blockPos, Block block)
+    {
+        playSound("mob.pig.step", 0.15F, 1.0F);
+    }
 
 //    @Override
 //	protected void playStepSound(int x, int y, int z, int blockID) {

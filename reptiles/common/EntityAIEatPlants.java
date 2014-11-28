@@ -16,15 +16,21 @@
 //
 package com.reptiles.common;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.state.pattern.BlockStateHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIEatPlants extends EntityAIBase {
 
+	private static final Predicate blockstate = BlockStateHelper.forBlock(Blocks.tallgrass).func_177637_a(BlockTallGrass.field_176497_a, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final EntityLiving creature;
 	private final World theWorld;
 	int eatPlantTick = 0;
@@ -38,8 +44,10 @@ public class EntityAIEatPlants extends EntityAIBase {
 
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
+	 * @return 
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean shouldExecute()
 	{
 		if (creature.getRNG().nextInt(creature.isChild() ? 50 : 1000) != 0) {
@@ -48,7 +56,8 @@ public class EntityAIEatPlants extends EntityAIBase {
 			int x = MathHelper.floor_double(creature.posX);
 			int y = MathHelper.floor_double(creature.posY);
 			int z = MathHelper.floor_double(creature.posZ);
-			return isFlower(x, y, z) && theWorld.getBlockMetadata(x, y, z) == 1 ? true : isTallgrass(x, y, z);
+			BlockPos blockPos = new BlockPos(x, y, z);
+			return blockstate.apply(theWorld.getBlockState(blockPos)) ? true : isFlower(blockPos);
 		}
 	}
 
@@ -108,10 +117,11 @@ public class EntityAIEatPlants extends EntityAIBase {
 //		}
 	}
 
-	public boolean isFlower(int x, int y, int z)
+	public boolean isFlower(BlockPos bp)
 	{
 		boolean result = false;
-		Block block = theWorld.getBlock(x, y, z); //.getBlockId(x, y, z);
+//		BlockPos bp = new BlockPos(x, y, z);
+		Block block = theWorld.getBlockState(bp.offsetDown()).getBlock(); //.getBlockId(x, y, z);
 
 		if (block == Blocks.red_flower || block == Blocks.yellow_flower) {
 			result = true;
@@ -119,10 +129,12 @@ public class EntityAIEatPlants extends EntityAIBase {
 		return result;
 	}
 
-	public boolean isTallgrass(int x, int y, int z)
+	public boolean isTallgrass(BlockPos bp)
 	{
 		boolean result = false;
-		if (theWorld.getBlock(x, y, z) == Blocks.tallgrass) {
+//		BlockPos bp = new BlockPos(x, y, z);
+		Block block = theWorld.getBlockState(bp.offsetDown()).getBlock();
+		if (block == Blocks.tallgrass) {
 			result = true;
 		}
 		return result;

@@ -37,8 +37,8 @@ public class EntityLargeCroc extends EntityCroc {
 		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntitySquid.class, 1.0, true));
 		tasks.addTask(6, new EntityAIAttackOnCollide(this, EntitySpider.class, 1.0, true));
 
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class, 0, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, 400, false));
+		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class, false));
+		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, false));
 	}
 
 	@Override

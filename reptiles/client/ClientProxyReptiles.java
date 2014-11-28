@@ -17,8 +17,10 @@
 package com.reptiles.client;
 
 import com.reptiles.common.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderManager;
 //import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 //import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 
 public class ClientProxyReptiles extends CommonProxyReptiles {
@@ -27,21 +29,22 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 	public void registerRenderers()
 	{
 		float shadowSize = 0.0F;
-		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, new RenderKomodo(new ModelKomodo(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, new RenderSavanna(new ModelSavanna(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPerentie.class, new RenderPerentie(new ModelPerentie(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(new ModelGriseus(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, new RenderSalvadorii(new ModelSalvadorii(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, new RenderLace(new ModelLace(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, new RenderMegalania(new ModelMegalania(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, new RenderCroc(new ModelCroc(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLargeCroc.class, new RenderLargeCroc(new ModelLargeCroc(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDesertTortoise.class, new RenderTurtle(new ModelTurtle(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLittleTurtle.class, new RenderLittleTurtle(new ModelLittleTurtle(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityIguana.class, new RenderIguana(new ModelIguana(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, new RenderTortoise(new ModelTortoise(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, new RenderGator(new ModelGator(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, new RenderChameleon(new ModelChameleon(), shadowSize));
+		RenderManager rm = Minecraft.getMinecraft().getRenderManager();
+		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, new RenderKomodo(rm, new ModelKomodo(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, new RenderSavanna(rm, new ModelSavanna(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPerentie.class, new RenderPerentie(rm, new ModelPerentie(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(rm, new ModelGriseus(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, new RenderSalvadorii(rm, new ModelSalvadorii(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, new RenderLace(rm, new ModelLace(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, new RenderMegalania(rm, new ModelMegalania(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, new RenderCroc(rm, new ModelCroc(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityLargeCroc.class, new RenderLargeCroc(rm, new ModelLargeCroc(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDesertTortoise.class, new RenderTurtle(rm, new ModelTurtle(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityLittleTurtle.class, new RenderLittleTurtle(rm, new ModelLittleTurtle(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityIguana.class, new RenderIguana(rm, new ModelIguana(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, new RenderTortoise(rm, new ModelTortoise(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, new RenderGator(rm, new ModelGator(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, new RenderChameleon(rm, new ModelChameleon(), shadowSize));
 	}
 	
 	@Override
