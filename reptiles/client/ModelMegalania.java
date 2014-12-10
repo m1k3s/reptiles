@@ -23,9 +23,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class ModelMegalania extends ModelBase {
@@ -98,9 +98,9 @@ public class ModelMegalania extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		if (this.isChild) {
-			GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 
 			megalaniaHead.render(f5);
 			megalaniaBody.render(f5);
@@ -112,14 +112,14 @@ public class ModelMegalania extends ModelBase {
 			megalaniaTail0.render(f5);
 			megalaniaFin.render(f5);
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			// make the head longer and narrower
-			GL11.glPushMatrix();
-			GL11.glScalef(0.95F, 0.95F, 1.1F);
-			GL11.glTranslatef(0.0F, f5, f5);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.95F, 0.95F, 1.1F);
+			GlStateManager.translate(0.0F, f5, f5);
 			megalaniaHead.render(f5);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 
 			megalaniaBody.render(f5);
 			megalaniaLeg1.render(f5);

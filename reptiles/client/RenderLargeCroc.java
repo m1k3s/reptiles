@@ -19,15 +19,14 @@
 //
 package com.reptiles.client;
 
+import com.reptiles.common.EntityLargeCroc;
 import net.minecraft.client.model.ModelBase;
-//import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
-import com.reptiles.common.EntityLargeCroc;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderLargeCroc extends RenderLiving {
@@ -95,15 +94,16 @@ public class RenderLargeCroc extends RenderLiving {
 //		return setCrocEyeBrightness((EntityLargeCroc) entityliving, i, f);
 //	}
 
-	protected void scaleEntity(EntityLargeCroc entitycroc, float f)
-	{
-		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-	}
+//	protected void scaleEntity(EntityLargeCroc entitycroc, float f)
+//	{
+//		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+//	}
 
 	@Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
-		scaleEntity((EntityLargeCroc) entityliving, f);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+		super.preRenderCallback(entityliving, f);
 	}
 
 	@Override

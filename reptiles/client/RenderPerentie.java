@@ -21,14 +21,13 @@ package com.reptiles.client;
 
 import com.reptiles.common.EntityPerentie;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
 
 public class RenderPerentie extends RenderLiving {
 
@@ -60,6 +59,7 @@ public class RenderPerentie extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntityPerentie) entityliving).getScaleFactor();
-		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+		super.preRenderCallback(entityliving, f);
 	}
 }

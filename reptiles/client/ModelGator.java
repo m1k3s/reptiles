@@ -20,10 +20,10 @@ package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
-import org.lwjgl.opengl.GL11;
 
 public class ModelGator extends ModelBase {
 
@@ -111,9 +111,9 @@ public class ModelGator extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		if (this.isChild) {
-			GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 			gatorBody.render(f5);
 			rfin.render(f5);
 			lfin.render(f5);
@@ -127,7 +127,7 @@ public class ModelGator extends ModelBase {
 			gatorLeg4.render(f5);
 			gatorTail1.render(f5);
 			gatorTail2.render(f5);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			gatorBody.render(f5);
 			rfin.render(f5);

@@ -24,9 +24,9 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 import com.reptiles.common.EntityKomodo;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelKomodo extends ModelBase {
 
@@ -79,13 +79,9 @@ public class ModelKomodo extends ModelBase {
 
 		// EntityKomodo entitykomodo = (EntityKomodo)entity;
 		if (this.isChild) {
-			GL11.glPushMatrix();
-			// GL11.glTranslatef(0.0F, field_40331_g * f5, field_40332_n * f5);
-			// komodoHead.render(f5);
-			// GL11.glPopMatrix();
-			// GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 			komodoHead.render(f5);
 			komodoBody.render(f5);
 			komodoLeg1.render(f5);
@@ -96,7 +92,7 @@ public class ModelKomodo extends ModelBase {
 			// if (entitykomodo.isSmelling())
 			// komodoTongue.render(f5);
 
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			komodoBody.render(f5);
 			komodoHead.render(f5);

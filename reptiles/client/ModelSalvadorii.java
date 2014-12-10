@@ -21,9 +21,9 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 import com.reptiles.common.EntitySalvadorii;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelSalvadorii extends ModelBase {
 
@@ -79,13 +79,9 @@ public class ModelSalvadorii extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		if (this.isChild) {
-			GL11.glPushMatrix();
-			// GL11.glTranslatef(0.0F, field_40331_g * f5, field_40332_n * f5);
-			// salvadoriiHead.render(f5);
-			// GL11.glPopMatrix();
-			// GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 			salvadoriiHead.render(f5);
 			salvadoriiBody.render(f5);
 			salvadoriiLeg1.render(f5);
@@ -93,7 +89,7 @@ public class ModelSalvadorii extends ModelBase {
 			salvadoriiLeg3.render(f5);
 			salvadoriiLeg4.render(f5);
 			salvadoriiTail.render(f5);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			salvadoriiBody.render(f5);
 			salvadoriiHead.render(f5);

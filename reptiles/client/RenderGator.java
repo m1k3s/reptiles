@@ -19,17 +19,14 @@
 //
 package com.reptiles.client;
 
+import com.reptiles.common.EntityGator;
 import net.minecraft.client.model.ModelBase;
-//import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
-
-import com.reptiles.common.EntityGator;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderGator extends RenderLiving {
@@ -102,15 +99,16 @@ public class RenderGator extends RenderLiving {
 //		return setGatorEyeBrightness((EntityGator) entityliving, i, f);
 //	}
 
-	protected void scaleEntity(EntityGator entitygator, float f)
-	{
-		GL11.glScalef(0.8F, 1.2F, 1.2F);
-	}
+//	protected void scaleEntity(EntityGator entitygator, float f)
+//	{
+//		GL11.glScalef(0.8F, 1.2F, 1.2F);
+//	}
 
 	@Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
-		scaleEntity((EntityGator) entityliving, f);
+		GlStateManager.scale(0.8f, 1.2f, 1.2f);
+		super.preRenderCallback(entityliving, f);
 	}
 
 	@Override

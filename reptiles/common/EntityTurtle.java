@@ -18,12 +18,12 @@
 //
 package com.reptiles.common;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
+//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -34,7 +34,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathEntity;
+//import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -68,6 +68,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
+		setTamed(false);
 	}
 
 	@Override
@@ -160,7 +161,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 
 	// ///////////////////////////////////////////////
 	// AI grass and plant eating functions
-	@SideOnly(Side.CLIENT)
+//	@SideOnly(Side.CLIENT)
 	public float func_44003_c(float par1)
 	{
 		return turtleTimer <= 0 ? 0.0F
@@ -169,7 +170,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 				: -((float) (turtleTimer - 40) - par1) / 4.0F));
 	}
 
-	@SideOnly(Side.CLIENT)
+//	@SideOnly(Side.CLIENT)
 	public float func_44002_d(float par1)
 	{
 		if (turtleTimer > 4 && turtleTimer <= 36) {

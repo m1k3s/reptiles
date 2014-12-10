@@ -27,9 +27,9 @@ import net.minecraft.util.MathHelper;
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
-import org.lwjgl.opengl.GL11;
 
 import com.reptiles.common.EntityGriseus;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelGriseus extends ModelBase {
 
@@ -80,13 +80,9 @@ public class ModelGriseus extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		if (this.isChild) {
-			GL11.glPushMatrix();
-//      GL11.glTranslatef(0.0F, field_40331_g * f5, field_40332_n * f5);
-//      griseusHead.render(f5);
-//      GL11.glPopMatrix();
-//      GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 			griseusHead.render(f5);
 			griseusBody.render(f5);
 			griseusLeg1.render(f5);
@@ -94,7 +90,7 @@ public class ModelGriseus extends ModelBase {
 			griseusLeg3.render(f5);
 			griseusLeg4.render(f5);
 			griseusTail.render(f5);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			griseusBody.render(f5);
 			griseusHead.render(f5);

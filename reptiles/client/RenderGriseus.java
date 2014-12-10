@@ -21,13 +21,13 @@ package com.reptiles.client;
 
 import com.reptiles.common.EntityGriseus;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
 
 public class RenderGriseus extends RenderLiving {
 
@@ -49,12 +49,6 @@ public class RenderGriseus extends RenderLiving {
 		renderGriseus((EntityGriseus) entityliving, d, d1, d2, f, f1);
 	}
 
-//	@Override
-//	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
-//	{
-//		super.doRender((EntityGriseus) entity, d, d1, d2, f, f1);
-//	}
-
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity)
 	{
@@ -65,6 +59,7 @@ public class RenderGriseus extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntityGriseus) entityliving).getScaleFactor();
-		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+		super.preRenderCallback(entityliving, f);
 	}
 }

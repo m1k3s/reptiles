@@ -20,19 +20,17 @@
 package com.reptiles.client;
 
 import net.minecraft.client.model.ModelBase;
-//import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-//import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityCroc;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLiving;
 
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 public class RenderCroc extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc32.png");
@@ -41,7 +39,7 @@ public class RenderCroc extends RenderLiving {
 	public RenderCroc(RenderManager rm, ModelBase modelbase, float f)
 	{
 		super(rm, modelbase, f);
-		this.addLayer(new LayerCrocEyes(this));
+		addLayer(new LayerCrocEyes(this));
 //		setRenderPassModel((ModelCroc) modelbase);
 	}
 

@@ -19,17 +19,15 @@
 //
 package com.reptiles.client;
 
+import com.reptiles.common.EntityIguana;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
-
-import com.reptiles.common.EntityIguana;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLiving;
 
 public class RenderIguana extends RenderLiving {
 
@@ -52,16 +50,11 @@ public class RenderIguana extends RenderLiving {
 		renderIguana((EntityIguana) entity, d, d1, d2, f, f1);
 	}
 
-	// we are using a generic model so we scale to suit our needs
-	protected void scaleEntity(EntityIguana entityiguana, float f)
-	{
-		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
-	}
-
 	@Override
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
-		scaleEntity((EntityIguana) entityliving, f);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+		super.preRenderCallback(entityliving, f);
 	}
 
 	@Override

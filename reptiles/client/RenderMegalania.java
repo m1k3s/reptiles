@@ -19,27 +19,24 @@
 //
 package com.reptiles.client;
 
-//import cpw.mods.fml.relauncher.Side;
-//import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
 import com.reptiles.common.EntityMegalania;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
-//@SideOnly(Side.CLIENT)
 public class RenderMegalania extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
+	private final float scaleFactor = 2.5f;
 
 	public RenderMegalania(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{
 		super(rm, modelbase, shadowSize);
-//        setRenderPassModel((ModelMegalania) modelbase);
 	}
 
 	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1)
@@ -61,12 +58,13 @@ public class RenderMegalania extends RenderLiving {
 
 	protected void scaleEntity(EntityMegalania entitymegalania, float f)
 	{
-		GL11.glScalef(2.5F, 2.5F, 3.0F);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor + 0.5F);
 	}
 
 	@Override
 	protected void preRenderCallback(EntityLivingBase entitylivingbase, float f)
 	{
 		scaleEntity((EntityMegalania) entitylivingbase, f);
+		super.preRenderCallback(entitylivingbase, f);
 	}
 }

@@ -151,7 +151,7 @@ public class EntityLizard extends EntityTameable
 	}
 
 	@Override
-	protected void updateAITick()
+	protected void updateAITasks()
 	{
 		dataWatcher.updateObject(18, getHealth());
 	}

@@ -18,14 +18,13 @@ package com.reptiles.client;
 
 import com.reptiles.common.EntitySalvadorii;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-//import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLiving;
-import org.lwjgl.opengl.GL11;
 
 public class RenderSalvadorii extends RenderLiving {
 
@@ -57,6 +56,7 @@ public class RenderSalvadorii extends RenderLiving {
 	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		float scaleFactor = ((EntitySalvadorii) entityliving).getScaleFactor();
-		GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
+		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+		super.preRenderCallback(entityliving, f);
 	}
 }

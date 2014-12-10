@@ -80,6 +80,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
+	 * @return 
 	 */
 	@Override
 	public boolean continueExecuting()

@@ -22,12 +22,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
-import org.lwjgl.opengl.GL11;
 //
 // Copyright 2011 Michael Sheppard (crackedEgg)
 //
 
 import com.reptiles.common.EntityTurtle;
+import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelTurtle extends ModelBase {
 
@@ -89,13 +89,9 @@ public class ModelTurtle extends ModelBase {
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		if (this.isChild) {
-			GL11.glPushMatrix();
-			// GL11.glTranslatef(0.0F, field_40331_g * f5, field_40332_n * f5);
-			// head.render(f5);
-			// GL11.glPopMatrix();
-			// GL11.glPushMatrix();
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GL11.glTranslatef(0.0F, 24F * f5, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0.0F, 24F * f5, 0.0F);
 			carapace.render(f5);
 			head.render(f5);
 			leg1.render(f5);
@@ -104,7 +100,7 @@ public class ModelTurtle extends ModelBase {
 			leg4.render(f5);
 			plastron.render(f5);
 			tail.render(f5);
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
 		} else {
 			carapace.render(f5);
 			head.render(f5);

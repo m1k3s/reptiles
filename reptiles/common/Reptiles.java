@@ -120,13 +120,15 @@ public class Reptiles {
 
 		config.save();
 
-		proxy.registerRenderers();
-		proxy.registerHandlers();
+//		proxy.registerRenderers();
+//		proxy.registerHandlers();
 	}
 
 	@EventHandler
 	public void Init(FMLInitializationEvent evt)
 	{
+		proxy.registerRenderers();
+		
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
 		registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
