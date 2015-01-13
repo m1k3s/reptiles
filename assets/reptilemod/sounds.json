@@ -1,0 +1,42 @@
+{
+	"hiss": {
+		"category": "neutral",
+		"sounds": [
+			"hiss1"
+		]
+	},
+	"hurt": {
+		"category": "neutral",
+		"sounds": [
+			"hurt1"
+		]
+	},
+	"growl": {
+		"category": "hostile",
+		"sounds": [
+			"growl1",
+			"growl2",
+			"growl3",
+			"growl4"
+		]
+	},
+	"megagrowl": {
+		"category": "neutral",
+		"sounds": [
+			"megagrowl"
+		]
+	},
+	"purr": {
+		"category": "hostile",
+		"sounds": [
+			"purr1",
+			"purr2"
+		]
+	},
+	"death": {
+		"category": "neutral",
+		"sounds": [
+			"death1"
+		]
+	}
+}
