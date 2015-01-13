@@ -26,6 +26,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -54,7 +55,18 @@ public class EntityVaranus extends EntityTameable {
 		tasks.addTask(1, new EntityAIPanic(this, 0.38));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-//		tasks.addTask(6, new EntityAIAvoidEntity(this, EntityCreeper.class, 6.0F, 0.8D, 1.2D));
+		tasks.addTask(6, new EntityAIAvoidEntity(this, new Predicate()
+        {
+            public boolean apply(Entity entity)
+            {
+                return entity instanceof EntityCreeper;
+            }
+			@Override
+            public boolean apply(Object object)
+            {
+                return apply((Entity)object);
+            }
+        }, 6.0F, 1.0D, 1.2D));
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
 		if (ConfigHandler.getFollowOwner()) {

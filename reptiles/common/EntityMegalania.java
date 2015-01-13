@@ -21,14 +21,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -45,7 +48,7 @@ public class EntityMegalania extends EntityAnimal {
 
 		double moveSpeed = 1.0;
 
-//		getNavigator().setAvoidsWater(true);
+		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
@@ -64,13 +67,9 @@ public class EntityMegalania extends EntityAnimal {
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
 		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
 		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
+		targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, false));
+		targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityRabbit.class, false));
 	}
-
-//	@Override
-//	public boolean isAIEnabled()
-//	{
-//		return true;
-//	}
 
 	@Override
 	protected void applyEntityAttributes()
@@ -82,7 +81,6 @@ public class EntityMegalania extends EntityAnimal {
 
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-//		Reptiles.proxy.print("Spawned entity of type " + getClass().toString());
 		return new EntityMegalania(worldObj);
 	}
 
@@ -104,9 +102,6 @@ public class EntityMegalania extends EntityAnimal {
 		return false;
 	}
 
-//	public int getMaxHealth() {
-//		return maxHealth;
-//	}
 	@Override
 	public int getTalkInterval()
 	{

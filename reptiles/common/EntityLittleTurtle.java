@@ -31,9 +31,6 @@ public final class EntityLittleTurtle extends EntityTurtle {
 		setTamed(false);
 	}
 
-//  public EntityAnimal spawnBabyAnimal(EntityAnimal entityanimal) {
-//  	return new EntityLittleTurtle(this.worldObj);
-//  }
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
@@ -43,7 +40,7 @@ public final class EntityLittleTurtle extends EntityTurtle {
 			t.setOwnerId(s);
 			t.setTamed(true);
 		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
+		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return t;
 	}
 

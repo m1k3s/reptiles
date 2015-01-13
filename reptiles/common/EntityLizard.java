@@ -66,12 +66,6 @@ public class EntityLizard extends EntityTameable
 		tasks.addTask(7, new EntityAILookIdle(this));
 	}
 
-//	@Override
-//	public boolean isAIEnabled()
-//	{
-//		return true;
-//	}
-	
 	@Override
 	protected boolean canDespawn()
     {

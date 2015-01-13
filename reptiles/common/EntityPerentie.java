@@ -48,7 +48,7 @@ public final class EntityPerentie extends EntityVaranus {
 			e.setOwnerId(s);
 			e.setTamed(true);
 		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
+		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return e;
 	}
 

@@ -41,11 +41,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Reptiles {
 
-	public String getVersion()
-	{
-		return Reptiles.version;
-	}
-
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
 	public static final String version = "3.1.0";

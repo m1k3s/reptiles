@@ -32,7 +32,7 @@ public class EntityGator extends EntityCroc {
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		System.out.printf("Spawned entity of type %s", getClass().toString());
+		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return new EntityGator(this.worldObj);
 	}
 
