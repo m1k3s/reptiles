@@ -20,7 +20,6 @@ package com.reptiles.common;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
@@ -38,7 +37,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-//import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -52,14 +51,14 @@ public class EntityLizard extends EntityTameable
 		setSize(1.0F, 1.0F);
 		double moveSpeed = 1.0;
 
-//		getNavigator()..setAvoidsWater();
+		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, aiSit);
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.carrot, false));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.golden_carrot, false));
-		if (Reptiles.instance.getFollowOwner()) {
+		if (ConfigHandler.getFollowOwner()) {
 			tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		}
 		tasks.addTask(6, new EntityAIWander(this, moveSpeed));
@@ -76,7 +75,7 @@ public class EntityLizard extends EntityTameable
 	@Override
 	protected boolean canDespawn()
     {
-        if (Reptiles.instance.shouldDespawn()) {
+        if (ConfigHandler.shouldDespawn()) {
 			return !isTamed() && ticksExisted > 2400;
 		} else {
 			return false;
@@ -105,7 +104,7 @@ public class EntityLizard extends EntityTameable
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.info("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 
@@ -188,7 +187,7 @@ public class EntityLizard extends EntityTameable
 				}
 			}
 
-			if (func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+			if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				navigator.clearPathEntity();
@@ -210,7 +209,7 @@ public class EntityLizard extends EntityTameable
 					setAttackTarget((EntityLivingBase)null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
-					func_152115_b(entityplayer.getUniqueID().toString());
+					setOwnerId(entityplayer.getUniqueID().toString());
 					playTameEffect(true);
 					worldObj.setEntityState(this, (byte) 7);
 				} else {

@@ -73,7 +73,7 @@ public class EntityCroc extends EntityAnimal {
 	@Override
 	protected boolean canDespawn()
     {
-        if (Reptiles.instance.shouldDespawn()) {
+        if (ConfigHandler.shouldDespawn()) {
 			return ticksExisted > 6000;
 		} else {
 			return false;

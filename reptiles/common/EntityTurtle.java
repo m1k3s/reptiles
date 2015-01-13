@@ -18,12 +18,9 @@
 //
 package com.reptiles.common;
 
-//import net.minecraftforge.fml.relauncher.Side;
-//import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -34,14 +31,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-//import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 // base class for all turtles and tortoises
-public class EntityTurtle extends EntityTameable//EntityAnimal
+public class EntityTurtle extends EntityTameable
 {
 
 	private int turtleTimer;
@@ -54,21 +51,21 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 		setSize(0.5F, 0.5F);
 		double moveSpeed = 0.75;
 
-//		getNavigator().setAvoidsWater(true);
+		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
 		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
-		if (Reptiles.instance.getFollowOwner()) {
+		if (ConfigHandler.getFollowOwner()) {
 			tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 		}
 		tasks.addTask(6, plantEating);
 		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		tasks.addTask(8, new EntityAILookIdle(this));
-		setTamed(false);
+//		setTamed(false);
 	}
 
 	@Override
@@ -86,18 +83,12 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	@Override
 	protected boolean canDespawn()
     {
-        if (Reptiles.instance.shouldDespawn()) {
+        if (ConfigHandler.shouldDespawn()) {
 			return !isTamed() && ticksExisted > 2400;
 		} else {
 			return false;
 		}
     }
-
-//	@Override
-//	public boolean isAIEnabled()
-//	{
-//		return true;
-//	}
 
 	@Override
 	protected void entityInit()
@@ -116,7 +107,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.info("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 	
@@ -265,7 +256,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 				}
 			}
 
-			if (func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+			if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				navigator.clearPathEntity();
@@ -287,7 +278,7 @@ public class EntityTurtle extends EntityTameable//EntityAnimal
 					setAttackTarget((EntityLivingBase)null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
-					func_152115_b(entityplayer.getUniqueID().toString());
+					setOwnerId(entityplayer.getUniqueID().toString());
 					playTameEffect(true);
 					worldObj.setEntityState(this, (byte) 7);
 				} else {

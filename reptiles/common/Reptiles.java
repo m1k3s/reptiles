@@ -15,12 +15,12 @@
 //  =====================================================================
 //
 //
-// Copyright 2011-2014 Michael Sheppard (crackedEgg)
+// Copyright 2011-2015 Michael Sheppard (crackedEgg)
 //
 package com.reptiles.common;
 
+import static com.reptiles.common.ConfigHandler.updateConfigInfo;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -33,13 +33,11 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(
-		modid = Reptiles.modid,
-		name = Reptiles.name,
-		version = Reptiles.version
-)
+@Mod( modid = Reptiles.modid, name = Reptiles.name, version = Reptiles.version, guiFactory = Reptiles.guifactory )
 
 public class Reptiles {
 
@@ -50,30 +48,13 @@ public class Reptiles {
 
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "1.8";
+	public static final String version = "3.1.0";
+	public static final String mcversion = "1.8.0";
+	public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
 	
 	@Mod.Instance(modid)
 	public static Reptiles instance;
 
-	private int komodoSpawnProb;
-	private int griseusSpawnProb;
-	private int laceSpawnProb;
-	private int perentieSpawnProb;
-	private int savannaSpawnProb;
-	private int crocSpawnProb;
-	private int largeCrocSpawnProb;
-	private int desertTortoiseSpawnProb;
-	private int littleTurtleSpawnProb;
-	private int iguanaSpawnProb;
-	private int tortoiseSpawnProb;
-	private int gatorSpawnProb;
-	private int chameleonSpawnProb;
-	private int crocMonitorSpawnProb;
-	private int megalaniaSpawnProb;
-	private boolean despawn;
-	private boolean randomScale;
-	private boolean followOwner;
-	
 	@SidedProxy(
 			clientSide = "com.reptiles.client.ClientProxyReptiles",
 			serverSide = "com.reptiles.common.CommonProxyReptiles"
@@ -81,52 +62,16 @@ public class Reptiles {
 
 	public static CommonProxyReptiles proxy;
 
-	@EventHandler
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
-				+ " For Minecraft Version " + Reptiles.version;
-				
-		String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
-		String despawnComment = "Set to false to not despawn. default is true.";
-		String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
-
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load();
-		config.addCustomCategoryComment("Spawning", "Spawn Probabilities\nSet xxxSpawnProb to zero to disable spawning of that entity");
-		config.addCustomCategoryComment("Misc", "Miscellaneous Variables");
-
-		komodoSpawnProb = config.get("Spawning", "komodoSpawnProb", 10).getInt();
-		griseusSpawnProb = config.get("Spawning", "griseusSpawnProb", 12).getInt();
-		laceSpawnProb = config.get("Spawning", "laceSpawnProb", 12).getInt();
-		perentieSpawnProb = config.get("Spawning", "perentieSpawnProb", 12).getInt();
-		savannaSpawnProb = config.get("Spawning", "savannaSpawnProb", 12).getInt();
-		crocSpawnProb = config.get("Spawning", "crocSpawnProb", 5).getInt();
-		largeCrocSpawnProb = config.get("Spawning", "largeCrocSpawnProb", 4).getInt();
-		desertTortoiseSpawnProb = config.get("Spawning", "desertTortoiseSpawnProb", 12).getInt();
-		littleTurtleSpawnProb = config.get("Spawning", "littleTurtleSpawnProb", 10).getInt();
-		iguanaSpawnProb = config.get("Spawning", "iguanaSpawnProb", 12).getInt();
-		tortoiseSpawnProb = config.get("Spawning", "tortoiseSpawnProb", 12).getInt();
-		gatorSpawnProb = config.get("Spawning", "gatorSpawnProb", 5).getInt();
-		chameleonSpawnProb = config.get("Spawning", "chameleonSpawnProb", 12).getInt();
-		crocMonitorSpawnProb = config.get("Spawning", "crocMonitorSpawnProb", 12).getInt();
-		megalaniaSpawnProb = config.get("Spawning", "megalaniaSpawnProb", 12).getInt();
-		
-		randomScale = config.get("Misc", "randomScale", true, randomScaleComment).getBoolean(true);
-		despawn = config.get("Misc", "despawn", true, despawnComment).getBoolean(true);
-		followOwner = config.get("Misc", "followOwner", true, followOwnerComment).getBoolean(true);
-
-		config.addCustomCategoryComment("Information", comments);
-
-		config.save();
-
-//		proxy.registerRenderers();
-//		proxy.registerHandlers();
+		ConfigHandler.startConfig(event);
 	}
 
-	@EventHandler
+	@Mod.EventHandler
 	public void Init(FMLInitializationEvent evt)
 	{
+		FMLCommonHandler.instance().bus().register(Reptiles.instance);
 		proxy.registerRenderers();
 		
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
@@ -146,44 +91,44 @@ public class Reptiles {
 		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
 	}
 	
-	@EventHandler
+	@Mod.EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 		
-		proxy.print("*** Checking for monitor biomes");
+		proxy.info("*** Checking for monitor biomes");
 		BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
-		proxy.print("*** Checking for tortoise biomes");
+		proxy.info("*** Checking for tortoise biomes");
 		BiomeGenBase[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE);
 
-		proxy.print("*** Checking for turtle biomes");
+		proxy.info("*** Checking for turtle biomes");
 		BiomeGenBase[] jungleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
 
-		proxy.print("*** Checking for lizard biomes");
+		proxy.info("*** Checking for lizard biomes");
 		BiomeGenBase[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
-		proxy.print("*** Checking for crocodilian biomes");
+		proxy.info("*** Checking for crocodilian biomes");
 		BiomeGenBase[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
-		addSpawn(EntityKomodo.class, komodoSpawnProb, 1, 4, forestBiomes);
-		addSpawn(EntitySavanna.class, savannaSpawnProb, 1, 4, forestBiomes);
-		addSpawn(EntityGriseus.class, griseusSpawnProb, 1, 4, desertBiomes);
-		addSpawn(EntityPerentie.class, perentieSpawnProb, 1, 4, forestBiomes);
-		addSpawn(EntityLace.class, laceSpawnProb, 1, 4, forestBiomes);
-		addSpawn(EntitySalvadorii.class, crocMonitorSpawnProb, 1, 4, forestBiomes);
-		addSpawn(EntityMegalania.class, megalaniaSpawnProb, 1, 2, forestBiomes);
+		addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), 1, 4, forestBiomes);
+		addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), 1, 4, forestBiomes);
+		addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), 1, 4, desertBiomes);
+		addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), 1, 4, forestBiomes);
+		addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), 1, 4, forestBiomes);
+		addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), 1, 4, forestBiomes);
+		addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 1, 2, forestBiomes);
 
-		addSpawn(EntityCroc.class, crocSpawnProb, 1, 2, swampyBiomes);
-		addSpawn(EntityLargeCroc.class, largeCrocSpawnProb, 1, 2, swampyBiomes);
-		addSpawn(EntityGator.class, gatorSpawnProb, 1, 2, swampyBiomes);
+		addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), 1, 2, swampyBiomes);
+		addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), 1, 2, swampyBiomes);
+		addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), 1, 2, swampyBiomes);
 
-		addSpawn(EntityDesertTortoise.class, desertTortoiseSpawnProb, 1, 4, desertBiomes);
-		addSpawn(EntityLittleTurtle.class, littleTurtleSpawnProb, 1, 4, jungleBiomes);
-		addSpawn(EntityTortoise.class, tortoiseSpawnProb, 1, 4, jungleBiomes);
+		addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), 1, 4, desertBiomes);
+		addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), 1, 4, jungleBiomes);
+		addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), 1, 4, jungleBiomes);
 
-		addSpawn(EntityIguana.class, iguanaSpawnProb, 1, 4, variousBiomes);
-		addSpawn(EntityChameleon.class, chameleonSpawnProb, 1, 4, variousBiomes);
+		addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), 1, 4, variousBiomes);
+		addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 1, 4, variousBiomes);
 	}
 	
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
@@ -202,7 +147,7 @@ public class Reptiles {
 
 	public BiomeGenBase[] getBiomes(Type... types)
 	{
-		LinkedList<BiomeGenBase> list = new LinkedList<BiomeGenBase>();
+		LinkedList<BiomeGenBase> list = new LinkedList<>();
 		for (Type t : types) {
 			BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
 			for (BiomeGenBase bgb : biomes) {
@@ -210,35 +155,29 @@ public class Reptiles {
 					continue;
 				}
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.temperature < 0.32F) { // exclude cold climates
-//					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
+//					proxy.info("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
-//					proxy.print("  <<< Excluding " + bgb.biomeName + " for spawning");
+//					proxy.info("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
 				if (!list.contains(bgb)) {
 					list.add(bgb);
-					proxy.print("  >>> Adding " + bgb.biomeName + " for spawning");
+					proxy.info("  >>> Adding " + bgb.biomeName + " for spawning");
 				}
 			}
 		}
 		return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
 	}
 	
-	public boolean useRandomScaling()
-	{
-		return randomScale;
-	}
-	
-	public boolean shouldDespawn()
-	{
-		return despawn;
-	}
-	
-	public boolean getFollowOwner()
-	{
-		return followOwner;
-	}
+	// user has changed entries in the GUI config. save the results.
+	@SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.modID.equals(Reptiles.modid)) {
+			Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.name);
+            updateConfigInfo();
+		}
+    }
 	
 }

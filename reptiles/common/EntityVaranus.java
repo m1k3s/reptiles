@@ -23,18 +23,16 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-//import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
-//import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-//import net.minecraft.pathfinding.PathEntity;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -51,7 +49,7 @@ public class EntityVaranus extends EntityTameable {
 		setSize(0.6F, 0.8F);
 		double moveSpeed = 1.0;
 
-//		getNavigator().setAvoidsWater(true);
+		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAIPanic(this, 0.38));
 		tasks.addTask(2, aiSit);
@@ -59,7 +57,7 @@ public class EntityVaranus extends EntityTameable {
 //		tasks.addTask(6, new EntityAIAvoidEntity(this, EntityCreeper.class, 6.0F, 0.8D, 1.2D));
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
-		if (Reptiles.instance.getFollowOwner()) {
+		if (ConfigHandler.getFollowOwner()) {
 			tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
 			targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		}
@@ -82,7 +80,7 @@ public class EntityVaranus extends EntityTameable {
             }
         }));
 		
-		if (Reptiles.instance.useRandomScaling()) {
+		if (ConfigHandler.useRandomScaling()) {
 			float scale = rand.nextFloat();
 			scaleFactor = scale < 0.55F ? 1.0F : scale;
 		} else {
@@ -115,23 +113,17 @@ public class EntityVaranus extends EntityTameable {
 		dataWatcher.addObject(18, getHealth());
 	}
 
-//	@Override
-//	public boolean isAIEnabled()
-//	{
-//		return true;
-//	}
-
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		Reptiles.proxy.print("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.info("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 	
 	@Override
 	protected boolean canDespawn()
     {
-		if (Reptiles.instance.shouldDespawn()) {
+		if (ConfigHandler.shouldDespawn()) {
 			return !isTamed() && ticksExisted > 2400;
 		} else {
 			return false;
@@ -169,7 +161,7 @@ public class EntityVaranus extends EntityTameable {
 	}
 
 	@Override
-	protected void func_180429_a(BlockPos blockPos, Block block)
+	protected void playStepSound(BlockPos blockPos, Block block)
     {
         playSound("mob.pig.step", 0.15F, 1.0F);
     }
@@ -242,7 +234,7 @@ public class EntityVaranus extends EntityTameable {
 				}
 			}
 
-			if (/*entityplayer.getCommandSenderName().equalsIgnoreCase(getOwnerName())*/func_152114_e(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+			if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				navigator.clearPathEntity();
@@ -265,7 +257,7 @@ public class EntityVaranus extends EntityTameable {
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
 //					setOwner(entityplayer.getCommandSenderName());
-					func_152115_b(entityplayer.getUniqueID().toString());
+					setOwnerId(entityplayer.getUniqueID().toString());
 					playTameEffect(true);
 					worldObj.setEntityState(this, (byte) 7);
 				} else {

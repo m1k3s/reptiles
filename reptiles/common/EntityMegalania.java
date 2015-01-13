@@ -138,16 +138,11 @@ public class EntityMegalania extends EntityAnimal {
 	}
 
 	@Override
-	protected void func_180429_a(BlockPos blockPos, Block block)
+	protected void playStepSound(BlockPos blockPos, Block block)
     {
         playSound("mob.pig.step", 0.15F, 1.0F);
     }
 
-//    @Override
-//	protected void playStepSound(int x, int y, int z, int blockID) {
-//        playSound("mob.cow.step", 0.15F, 1.0F);
-//    }
-//
 	@Override
 	protected Item getDropItem()
 	{

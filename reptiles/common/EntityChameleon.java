@@ -20,9 +20,7 @@ package com.reptiles.common;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
-//import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-//import net.minecraft.entity.player.EntityPlayer;
 
 public final class EntityChameleon extends EntityLizard {
 
@@ -37,28 +35,13 @@ public final class EntityChameleon extends EntityLizard {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityChameleon c = new EntityChameleon(worldObj);
-		String s = func_152113_b();
+		String s = getOwnerId();
 		if (s != null && s.trim().length() > 0) {
-			c.func_152115_b(s);
+			c.setOwnerId(s);
 			c.setTamed(true);
 		}
 		System.out.printf("Spawned entity of type %s", getClass().toString());
 		return c;
 	}
-
-//	@Override
-//	public float getBrightness(float par1)
-//	{
-//		int i = MathHelper.floor_double(posX);
-//		int j = MathHelper.floor_double(posZ);
-//
-//		if (worldObj.blockExists(i, 0, j)) {
-//			double d0 = (boundingBox.maxY - boundingBox.minY) * 0.66D;
-//			int k = MathHelper.floor_double(posY - (double) yOffset + d0);
-//			return worldObj.getLightBrightness(i, k, j);
-//		} else {
-//			return 0.25F;
-//		}
-//	}
 
 }

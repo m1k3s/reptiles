@@ -25,12 +25,11 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIEatPlants extends EntityAIBase {
 
-	private static final Predicate blockstate = BlockStateHelper.forBlock(Blocks.tallgrass).func_177637_a(BlockTallGrass.field_176497_a, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	private static final Predicate blockstate = BlockStateHelper.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final EntityLiving creature;
 	private final World theWorld;
 	int eatPlantTick = 0;
@@ -42,10 +41,6 @@ public class EntityAIEatPlants extends EntityAIBase {
 		setMutexBits(7);
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 * @return 
-	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean shouldExecute()
@@ -53,10 +48,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 		if (creature.getRNG().nextInt(creature.isChild() ? 50 : 1000) != 0) {
 			return false;
 		} else {
-			int x = MathHelper.floor_double(creature.posX);
-			int y = MathHelper.floor_double(creature.posY);
-			int z = MathHelper.floor_double(creature.posZ);
-			BlockPos blockPos = new BlockPos(x, y, z);
+			BlockPos blockPos = new BlockPos(creature.posX, creature.posY, creature.posZ);
 			return blockstate.apply(theWorld.getBlockState(blockPos)) ? true : isFlower(blockPos);
 		}
 	}
@@ -69,19 +61,12 @@ public class EntityAIEatPlants extends EntityAIBase {
 		creature.getNavigator().clearPathEntity();
 	}
 
-	/**
-	 * Resets the task
-	 */
 	@Override
 	public void resetTask()
 	{
 		eatPlantTick = 0;
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 * @return 
-	 */
 	@Override
 	public boolean continueExecuting()
 	{
@@ -93,51 +78,45 @@ public class EntityAIEatPlants extends EntityAIBase {
 		return eatPlantTick;
 	}
 
-	/**
-	 * Updates the task
-	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public void updateTask()
 	{
 		eatPlantTick = Math.max(0, eatPlantTick - 1);
 
-//		if (eatPlantTick == 4) {
-//			int x = MathHelper.floor_double(creature.posX);
-//			int y = MathHelper.floor_double(creature.posY);
-//			int z = MathHelper.floor_double(creature.posZ);
-//
-//			if (isFlower(x, y, z)) {
-//				theWorld.playAuxSFX(2001, x, y, z, Blocks.tallgrass);
-//				theWorld.setBlock(x, y - 1, z, Blocks.dirt, 0, 2);
-//                creature.eatGrassBonus();
-//			} else if (isTallgrass(x, y, z)) {
-//				theWorld.playAuxSFX(2001, x, y, z, Blocks.tallgrass);
-//				theWorld.setBlock(x, y - 1, z, Blocks.dirt, 0, 2);
-//                creature.eatGrassBonus();
-//			}
-//		}
-	}
+		if (eatPlantTick == 4) {
+			BlockPos bp0 = new BlockPos(creature.posX, creature.posY, creature.posZ);
 
+			if (blockstate.apply(theWorld.getBlockState(bp0))) {
+				if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
+					theWorld.destroyBlock(bp0, false);
+				}
+
+				creature.eatGrassBonus();
+			} else {
+				BlockPos bpDown = bp0.down();
+
+				if (isFlower(bpDown) || isTallgrass(bpDown)) {
+					if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
+						theWorld.playAuxSFX(2001, bpDown, Block.getIdFromBlock(Blocks.grass));
+						theWorld.setBlockState(bpDown, Blocks.dirt.getDefaultState(), 2);
+					}
+
+					creature.eatGrassBonus();
+				}
+			}
+		}
+	}
 	public boolean isFlower(BlockPos bp)
 	{
-		boolean result = false;
-//		BlockPos bp = new BlockPos(x, y, z);
-		Block block = theWorld.getBlockState(bp.offsetDown()).getBlock(); //.getBlockId(x, y, z);
+		Block block = theWorld.getBlockState(bp.down()).getBlock();
 
-		if (block == Blocks.red_flower || block == Blocks.yellow_flower) {
-			result = true;
-		}
-		return result;
+		return (block == Blocks.red_flower || block == Blocks.yellow_flower);
 	}
 
 	public boolean isTallgrass(BlockPos bp)
 	{
-		boolean result = false;
-//		BlockPos bp = new BlockPos(x, y, z);
-		Block block = theWorld.getBlockState(bp.offsetDown()).getBlock();
-		if (block == Blocks.tallgrass) {
-			result = true;
-		}
-		return result;
+		Block block = theWorld.getBlockState(bp.down()).getBlock();
+		return (block == Blocks.tallgrass);
 	}
 }

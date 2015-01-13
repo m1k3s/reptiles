@@ -34,8 +34,13 @@ public class CommonProxyReptiles {
 		
 	}
 
-	public void print(String s)
+	public void info(String s)
 	{
 		logger.info(s);
+	}
+	
+	public void warn(String s)
+	{
+		logger.warn(s);
 	}
 }
