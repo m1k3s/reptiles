@@ -130,7 +130,7 @@ public class Reptiles {
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
-		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
+//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
