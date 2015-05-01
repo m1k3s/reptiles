@@ -29,7 +29,7 @@ public final class EntitySalvadorii extends EntityVaranus {
 	public EntitySalvadorii(World world)
 	{
 		super(world);
-		setSize(0.6F, 0.6F);
+//		setSize(0.6F, 0.6F);
 		setTamed(false);
 	}
 

@@ -27,11 +27,13 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.world.World;
 
 public class EntityLargeCroc extends EntityCroc {
+	
+	private final float scaleFactor = 1.5f;
 
 	public EntityLargeCroc(World world)
 	{
 		super(world);
-		setSize(1.08F, 1.75F);
+		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 		attackStrength = 3; // they're bigger, duh!
 
 		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntitySquid.class, 1.0, true));

@@ -47,7 +47,7 @@ public class EntityVaranus extends EntityTameable {
 	public EntityVaranus(World world)
 	{
 		super(world);
-		setSize(0.6F, 0.8F);
+		setSize(1.2F, 0.6F);
 		double moveSpeed = 1.0;
 
 		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
@@ -128,7 +128,7 @@ public class EntityVaranus extends EntityTameable {
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		Reptiles.proxy.info("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 	

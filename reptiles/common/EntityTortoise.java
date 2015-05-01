@@ -23,11 +23,13 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 public final class EntityTortoise extends EntityTurtle {
+	
+	private final float scaleFactor = 2.0f;
 
 	public EntityTortoise(World world)
 	{
 		super(world);
-		setSize(1.5F, 1.5F);
+		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 		setTamed(false);
 	}
 

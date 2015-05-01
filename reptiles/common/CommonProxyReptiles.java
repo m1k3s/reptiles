@@ -43,4 +43,9 @@ public class CommonProxyReptiles {
 	{
 		logger.warn(s);
 	}
+	
+	public void error(String s)
+	{
+		logger.error(s);
+	}
 }

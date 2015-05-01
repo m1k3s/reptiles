@@ -107,7 +107,7 @@ public class EntityTurtle extends EntityTameable
 	// This MUST be overridden in the derived class
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		Reptiles.proxy.info("[ERROR] Do NOT call this base class method directly!");
+		Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
 		return null;
 	}
 	

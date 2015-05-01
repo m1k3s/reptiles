@@ -29,7 +29,7 @@ public final class EntityPerentie extends EntityVaranus {
 	public EntityPerentie(World world)
 	{
 		super(world);
-		setSize(0.6F, 0.6F);
+//		setSize(0.6F, 0.6F);
 		setTamed(false);
 	}
 

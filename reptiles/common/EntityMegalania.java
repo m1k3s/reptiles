@@ -38,15 +38,16 @@ import net.minecraft.world.World;
 
 public class EntityMegalania extends EntityAnimal {
 
-	protected final int targetChance = 0;
-	private final int maxHealth = 20;
+//	protected final int targetChance = 0;
+	private final int maxHealth = 60;
+	private final float scaleFactor = 2.5f; // same scalefactor used in rendering
 
 	public EntityMegalania(World world)
 	{
 		super(world);
-		setSize(2.0F, 3.0F);
+		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 
-		double moveSpeed = 1.0;
+		double moveSpeed = 0.9;
 
 		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
@@ -92,8 +93,8 @@ public class EntityMegalania extends EntityAnimal {
 
 	@Override
 	public int getTotalArmorValue()
-	{ // thick hide
-		return 2;
+	{
+		return 4; // thick hide
 	}
 
 	@Override
@@ -161,7 +162,7 @@ public class EntityMegalania extends EntityAnimal {
 	@Override
 	public boolean attackEntityAsMob(Entity entity)
 	{
-		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
+		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 	}
 
 	@Override

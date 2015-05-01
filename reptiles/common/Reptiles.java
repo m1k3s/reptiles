@@ -37,7 +37,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod( modid = Reptiles.modid, name = Reptiles.name, version = Reptiles.version, guiFactory = Reptiles.guifactory )
+@Mod(modid = Reptiles.modid, name = Reptiles.name, version = Reptiles.version, guiFactory = Reptiles.guifactory)
 
 public class Reptiles {
 
@@ -46,7 +46,7 @@ public class Reptiles {
 	public static final String version = "3.1.0";
 	public static final String mcversion = "1.8.0";
 	public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
-	
+
 	@Mod.Instance(modid)
 	public static Reptiles instance;
 
@@ -68,7 +68,7 @@ public class Reptiles {
 	{
 		FMLCommonHandler.instance().bus().register(Reptiles.instance);
 		proxy.registerRenderers();
-		
+
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
 		registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
 		registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
@@ -85,12 +85,12 @@ public class Reptiles {
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
 		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
 	}
-	
+
 	@Mod.EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
-		
+
 		proxy.info("*** Checking for monitor biomes");
 		BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
 
@@ -125,12 +125,12 @@ public class Reptiles {
 		addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), 1, 4, variousBiomes);
 		addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 1, 4, variousBiomes);
 	}
-	
+
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
 		int id = EntityRegistry.findGlobalUniqueEntityId();
+//		proxy.info(entityName + " has been given a GlobalUniqueEntityId of " + id + " by FML");
 		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
-//		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
@@ -165,14 +165,15 @@ public class Reptiles {
 		}
 		return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
 	}
-	
+
 	// user has changed entries in the GUI config. save the results.
 	@SubscribeEvent
-    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(Reptiles.modid)) {
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+	{
+		if (event.modID.equals(Reptiles.modid)) {
 			Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.name);
-            updateConfigInfo();
+			updateConfigInfo();
 		}
-    }
-	
+	}
+
 }

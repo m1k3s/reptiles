@@ -32,7 +32,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 public class RenderMegalania extends RenderLiving {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
-	private final float scaleFactor = 2.5f;
+	private final float scaleFactor = 2.5f; // same scalefactor used in entity ctor
 
 	public RenderMegalania(RenderManager rm, ModelBase modelbase, float shadowSize)
 	{

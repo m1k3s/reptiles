@@ -38,7 +38,7 @@ public class EntityCroc extends EntityAnimal {
 	public EntityCroc(World world)
 	{
 		super(world);
-		setSize(0.8F, 1.5F);
+		setSize(2.0F, 0.6F);
 
 		attackStrength = 2;
 		double moveSpeed = 1.0;
@@ -90,7 +90,7 @@ public class EntityCroc extends EntityAnimal {
 
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-//		Reptiles.proxy.print("Spawned entity of type " + getClass().toString());
+//		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return new EntityCroc(worldObj);
 	}
 

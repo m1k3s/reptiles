@@ -29,11 +29,11 @@ public final class EntityKomodo extends EntityVaranus {
 
 	public EntityKomodo(World world)
 	{
-
 		super(world);
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
 		setTamed(false);
+		setSize(3.0f, 1.5f);
 	}
 
 	@Override
