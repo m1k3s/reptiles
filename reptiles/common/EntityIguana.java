@@ -28,19 +28,12 @@ public final class EntityIguana extends EntityLizard {
 	{
 		super(world);
 		setSize(0.4F, 0.4F);
-		setTamed(false);
 	}
 
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityIguana i = new EntityIguana(worldObj);
-//		if (isTamed()) {
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			i.setOwnerId(s);
-			i.setTamed(true);
-		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return i;
 	}

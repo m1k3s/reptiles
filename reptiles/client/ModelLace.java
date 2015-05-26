@@ -121,41 +121,21 @@ public class ModelLace extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityLace entitylace = (EntityLace) entityliving;
+		float yPos = 19F;
+		laceBody.setRotationPoint(0.0F, yPos, 0.0F);
+		laceHead.setRotationPoint(0F, yPos, -5F);
+		laceTail.setRotationPoint(0F, yPos, 4F);
+		laceTail.rotateAngleX = 6.021385919380437F;
 
-		if (entitylace.isSitting()) {
-			float yPos = 21F;
-			laceBody.setRotationPoint(0.0F, yPos, 0.0F);
-			laceTail.setRotationPoint(0F, yPos + 1, 4F);
-			laceTail.rotateAngleX = 0.0F;
-			laceHead.setRotationPoint(0F, yPos, -5F);
+		laceLeg1.setRotationPoint(4F, yPos, -4F);
+		laceLeg2.setRotationPoint(4F, yPos, 4F);
+		laceLeg3.setRotationPoint(-4F, yPos, -4F);
+		laceLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			laceLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			laceLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			laceLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			laceLeg4.setRotationPoint(-4F, yPos + 1, 4F);
-
-			laceLeg1.rotateAngleX = 4.712389F;
-			laceLeg2.rotateAngleX = 1.570799F;
-			laceLeg3.rotateAngleX = 4.712389F;
-			laceLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			laceBody.setRotationPoint(0.0F, yPos, 0.0F);
-			laceHead.setRotationPoint(0F, yPos, -5F);
-			laceTail.setRotationPoint(0F, yPos, 4F);
-			laceTail.rotateAngleX = 6.021385919380437F;
-
-			laceLeg1.setRotationPoint(4F, yPos, -4F);
-			laceLeg2.setRotationPoint(4F, yPos, 4F);
-			laceLeg3.setRotationPoint(-4F, yPos, -4F);
-			laceLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			laceLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			laceLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			laceLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			laceLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		laceLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		laceLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		laceLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		laceLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }

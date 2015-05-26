@@ -116,41 +116,21 @@ public class ModelSavanna extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntitySavanna entitysavanna = (EntitySavanna) entityliving;
+		float yPos = 19F;
+		savannaBody.setRotationPoint(0.0F, yPos, 0.0F);
+		savannaHead.setRotationPoint(0F, yPos, -5F);
+		savannaTail.setRotationPoint(0F, yPos, 4F);
+		savannaTail.rotateAngleX = 6.021385919380437F;
 
-		if (entitysavanna.isSitting()) {
-			float yPos = 21F;
-			savannaBody.setRotationPoint(0.0F, yPos, 0.0F);
-			savannaTail.setRotationPoint(0F, yPos + 1, 4F);
-			savannaTail.rotateAngleX = 0.0F;
-			savannaHead.setRotationPoint(0F, yPos, -5F);
+		savannaLeg1.setRotationPoint(4F, yPos, -4F);
+		savannaLeg2.setRotationPoint(4F, yPos, 4F);
+		savannaLeg3.setRotationPoint(-4F, yPos, -4F);
+		savannaLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			savannaLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			savannaLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			savannaLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			savannaLeg4.setRotationPoint(-4F, yPos + 1, 4F);
-
-			savannaLeg1.rotateAngleX = 4.712389F;
-			savannaLeg2.rotateAngleX = 1.570799F;
-			savannaLeg3.rotateAngleX = 4.712389F;
-			savannaLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			savannaBody.setRotationPoint(0.0F, yPos, 0.0F);
-			savannaHead.setRotationPoint(0F, yPos, -5F);
-			savannaTail.setRotationPoint(0F, yPos, 4F);
-			savannaTail.rotateAngleX = 6.021385919380437F;
-
-			savannaLeg1.setRotationPoint(4F, yPos, -4F);
-			savannaLeg2.setRotationPoint(4F, yPos, 4F);
-			savannaLeg3.setRotationPoint(-4F, yPos, -4F);
-			savannaLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			savannaLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			savannaLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			savannaLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			savannaLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		savannaLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		savannaLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		savannaLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		savannaLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }

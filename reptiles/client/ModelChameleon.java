@@ -102,41 +102,21 @@ public class ModelChameleon extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityChameleon entitychameleon = (EntityChameleon) entityliving;
+		float yPos = 19F;
+		chameleonBody.setRotationPoint(0.0F, yPos, 0.0F);
+		chameleonHead.setRotationPoint(0F, yPos, -5F);
+		chameleonTail.setRotationPoint(0F, yPos, 4F);
+		chameleonTail.rotateAngleX = 6.021385919380437F;
 
-		if (entitychameleon.isSitting()) {
-			float yPos = 21F;
-			chameleonBody.setRotationPoint(0.0F, yPos, 0.0F);
-			chameleonTail.setRotationPoint(0F, yPos + 1, 4F);
-			chameleonTail.rotateAngleX = 0.0F;
-			chameleonHead.setRotationPoint(0F, yPos, -5F);
+		chameleonLeg1.setRotationPoint(4F, yPos, -4F);
+		chameleonLeg2.setRotationPoint(4F, yPos, 4F);
+		chameleonLeg3.setRotationPoint(-4F, yPos, -4F);
+		chameleonLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			chameleonLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			chameleonLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			chameleonLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			chameleonLeg4.setRotationPoint(-4F, yPos + 1, 4F);
-
-			chameleonLeg1.rotateAngleX = 4.712389F;
-			chameleonLeg2.rotateAngleX = 1.570799F;
-			chameleonLeg3.rotateAngleX = 4.712389F;
-			chameleonLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			chameleonBody.setRotationPoint(0.0F, yPos, 0.0F);
-			chameleonHead.setRotationPoint(0F, yPos, -5F);
-			chameleonTail.setRotationPoint(0F, yPos, 4F);
-			chameleonTail.rotateAngleX = 6.021385919380437F;
-
-			chameleonLeg1.setRotationPoint(4F, yPos, -4F);
-			chameleonLeg2.setRotationPoint(4F, yPos, 4F);
-			chameleonLeg3.setRotationPoint(-4F, yPos, -4F);
-			chameleonLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			chameleonLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			chameleonLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			chameleonLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			chameleonLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		chameleonLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		chameleonLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		chameleonLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		chameleonLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }

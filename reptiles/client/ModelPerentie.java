@@ -123,39 +123,21 @@ public class ModelPerentie extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		if (((EntityPerentie) entityliving).isSitting()) {
-			float yPos = 21F;
-			perentieBody.setRotationPoint(0.0F, yPos, 0.0F);
-			perentieTail.setRotationPoint(0F, yPos + 1, 4F);
-			perentieTail.rotateAngleX = 0.0F;
-			perentieHead.setRotationPoint(0F, yPos, -5F);
+		float yPos = 19F;
+		perentieBody.setRotationPoint(0.0F, yPos, 0.0F);
+		perentieHead.setRotationPoint(0F, yPos, -5F);
+		perentieTail.setRotationPoint(0F, yPos, 4F);
+		perentieTail.rotateAngleX = 6.021385919380437F;
 
-			perentieLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			perentieLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			perentieLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			perentieLeg4.setRotationPoint(-4F, yPos + 1, 4F);
+		perentieLeg1.setRotationPoint(4F, yPos, -4F);
+		perentieLeg2.setRotationPoint(4F, yPos, 4F);
+		perentieLeg3.setRotationPoint(-4F, yPos, -4F);
+		perentieLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			perentieLeg1.rotateAngleX = 4.712389F;
-			perentieLeg2.rotateAngleX = 1.570799F;
-			perentieLeg3.rotateAngleX = 4.712389F;
-			perentieLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			perentieBody.setRotationPoint(0.0F, yPos, 0.0F);
-			perentieHead.setRotationPoint(0F, yPos, -5F);
-			perentieTail.setRotationPoint(0F, yPos, 4F);
-			perentieTail.rotateAngleX = 6.021385919380437F;
-
-			perentieLeg1.setRotationPoint(4F, yPos, -4F);
-			perentieLeg2.setRotationPoint(4F, yPos, 4F);
-			perentieLeg3.setRotationPoint(-4F, yPos, -4F);
-			perentieLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			perentieLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			perentieLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			perentieLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			perentieLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		perentieLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		perentieLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		perentieLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		perentieLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }

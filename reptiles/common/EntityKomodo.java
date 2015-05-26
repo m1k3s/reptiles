@@ -32,7 +32,6 @@ public final class EntityKomodo extends EntityVaranus {
 		super(world);
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
-		setTamed(false);
 		setSize(3.0f, 1.5f);
 	}
 
@@ -40,11 +39,6 @@ public final class EntityKomodo extends EntityVaranus {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityKomodo e = new EntityKomodo(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return e;
 	}

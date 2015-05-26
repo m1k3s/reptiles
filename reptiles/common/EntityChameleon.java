@@ -28,18 +28,12 @@ public final class EntityChameleon extends EntityLizard {
 	{
 		super(world);
 		setSize(0.25F, 0.25F);
-		setTamed(false);
 	}
 
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityChameleon c = new EntityChameleon(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			c.setOwnerId(s);
-			c.setTamed(true);
-		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return c;
 	}

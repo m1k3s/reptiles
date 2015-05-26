@@ -117,41 +117,21 @@ public class ModelGriseus extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityGriseus entitygriseus = (EntityGriseus) entityliving;
+		float yPos = 19F;
+		griseusBody.setRotationPoint(0.0F, yPos, 0.0F);
+		griseusHead.setRotationPoint(0F, yPos, -5F);
+		griseusTail.setRotationPoint(0F, yPos, 4F);
+		griseusTail.rotateAngleX = 6.021385919380437F;
 
-		if (entitygriseus.isSitting()) {
-			float yPos = 21F;
-			griseusBody.setRotationPoint(0.0F, yPos, 0.0F);
-			griseusTail.setRotationPoint(0F, yPos + 1, 4F);
-			griseusTail.rotateAngleX = 0.0F;
-			griseusHead.setRotationPoint(0F, yPos, -5F);
+		griseusLeg1.setRotationPoint(4F, yPos, -4F);
+		griseusLeg2.setRotationPoint(4F, yPos, 4F);
+		griseusLeg3.setRotationPoint(-4F, yPos, -4F);
+		griseusLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			griseusLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			griseusLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			griseusLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			griseusLeg4.setRotationPoint(-4F, yPos + 1, 4F);
-
-			griseusLeg1.rotateAngleX = 4.712389F;
-			griseusLeg2.rotateAngleX = 1.570799F;
-			griseusLeg3.rotateAngleX = 4.712389F;
-			griseusLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			griseusBody.setRotationPoint(0.0F, yPos, 0.0F);
-			griseusHead.setRotationPoint(0F, yPos, -5F);
-			griseusTail.setRotationPoint(0F, yPos, 4F);
-			griseusTail.rotateAngleX = 6.021385919380437F;
-
-			griseusLeg1.setRotationPoint(4F, yPos, -4F);
-			griseusLeg2.setRotationPoint(4F, yPos, 4F);
-			griseusLeg3.setRotationPoint(-4F, yPos, -4F);
-			griseusLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			griseusLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			griseusLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			griseusLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			griseusLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		griseusLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		griseusLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		griseusLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		griseusLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 	public ModelRenderer griseusBody;

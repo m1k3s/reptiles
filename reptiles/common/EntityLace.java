@@ -30,18 +30,12 @@ public final class EntityLace extends EntityVaranus {
 	{
 		super(world);
 //		setSize(0.6F, 0.6F);
-		setTamed(false);
 	}
 
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityLace e = new EntityLace(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return e;
 	}

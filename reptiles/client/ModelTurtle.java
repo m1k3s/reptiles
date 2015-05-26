@@ -132,41 +132,21 @@ public class ModelTurtle extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityTurtle entitytortoise = (EntityTurtle) entityliving;
+		float yPos = 22F;
+		carapace.setRotationPoint(0F, yPos - 4, 0F);
+		plastron.setRotationPoint(0F, yPos, 0F);
+		head.setRotationPoint(0F, yPos - 3, -4F);
+		tail.setRotationPoint(-0.5F, yPos - 1, 4F);
 
-		if (entitytortoise.isSitting()) {
-			float yPos = 24F;
-			carapace.setRotationPoint(0F, yPos - 4, 0F);
-			plastron.setRotationPoint(0F, yPos, 0F);
-			tail.setRotationPoint(-0.5F, yPos - 1, 1F);
-			head.setRotationPoint(0F, yPos - 3, -2F);
+		leg1.setRotationPoint(2F, yPos, -3F);
+		leg2.setRotationPoint(2F, yPos, 2F);
+		leg3.setRotationPoint(-2F, yPos, -3F);
+		leg4.setRotationPoint(-2F, yPos, 2F);
 
-			leg1.setRotationPoint(2F, yPos, -3F);
-			leg2.setRotationPoint(-2F, yPos, 2F);
-			leg3.setRotationPoint(2F, yPos, -3F);
-			leg4.setRotationPoint(-2F, yPos, 2F);
-
-			leg1.rotateAngleZ = 1.570799F;
-			leg2.rotateAngleZ = 4.712389F;
-			leg3.rotateAngleZ = 1.570799F;
-			leg4.rotateAngleZ = 4.712389F;
-		} else {
-			float yPos = 22F;
-			carapace.setRotationPoint(0F, yPos - 4, 0F);
-			plastron.setRotationPoint(0F, yPos, 0F);
-			head.setRotationPoint(0F, yPos - 3, -4F);
-			tail.setRotationPoint(-0.5F, yPos - 1, 4F);
-
-			leg1.setRotationPoint(2F, yPos, -3F);
-			leg2.setRotationPoint(2F, yPos, 2F);
-			leg3.setRotationPoint(-2F, yPos, -3F);
-			leg4.setRotationPoint(-2F, yPos, 2F);
-
-			leg1.rotateAngleZ = 5.497787143782138F;
-			leg2.rotateAngleZ = 5.497787143782138F;
-			leg3.rotateAngleZ = 0.7853981633974483F;
-			leg4.rotateAngleZ = 0.7853981633974483F;
-		}
+		leg1.rotateAngleZ = 5.497787143782138F;
+		leg2.rotateAngleZ = 5.497787143782138F;
+		leg3.rotateAngleZ = 0.7853981633974483F;
+		leg4.rotateAngleZ = 0.7853981633974483F;
 	}
 
 }

@@ -36,7 +36,6 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(rm, new ModelGriseus(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, new RenderSalvadorii(rm, new ModelSalvadorii(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, new RenderLace(rm, new ModelLace(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, new RenderMegalania(rm, new ModelMegalania(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, new RenderCroc(rm, new ModelCroc(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityLargeCroc.class, new RenderLargeCroc(rm, new ModelLargeCroc(), shadowSize));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDesertTortoise.class, new RenderTurtle(rm, new ModelTurtle(), shadowSize));

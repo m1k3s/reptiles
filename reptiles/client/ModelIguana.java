@@ -102,41 +102,21 @@ public class ModelIguana extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityIguana entityiguana = (EntityIguana) entityliving;
+		float yPos = 19F;
+		iguanaBody.setRotationPoint(0.0F, yPos, 0.0F);
+		iguanaHead.setRotationPoint(0F, yPos, -5F);
+		iguanaTail.setRotationPoint(0F, yPos, 4F);
+		iguanaTail.rotateAngleX = 6.021385919380437F;
 
-		if (entityiguana.isSitting()) {
-			float yPos = 21F;
-			iguanaBody.setRotationPoint(0.0F, yPos, 0.0F);
-			iguanaTail.setRotationPoint(0F, yPos + 1, 4F);
-			iguanaTail.rotateAngleX = 0.0F;
-			iguanaHead.setRotationPoint(0F, yPos, -5F);
+		iguanaLeg1.setRotationPoint(4F, yPos, -4F);
+		iguanaLeg2.setRotationPoint(4F, yPos, 4F);
+		iguanaLeg3.setRotationPoint(-4F, yPos, -4F);
+		iguanaLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			iguanaLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			iguanaLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			iguanaLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			iguanaLeg4.setRotationPoint(-4F, yPos + 1, 4F);
-
-			iguanaLeg1.rotateAngleX = 4.712389F;
-			iguanaLeg2.rotateAngleX = 1.570799F;
-			iguanaLeg3.rotateAngleX = 4.712389F;
-			iguanaLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			iguanaBody.setRotationPoint(0.0F, yPos, 0.0F);
-			iguanaHead.setRotationPoint(0F, yPos, -5F);
-			iguanaTail.setRotationPoint(0F, yPos, 4F);
-			iguanaTail.rotateAngleX = 6.021385919380437F;
-
-			iguanaLeg1.setRotationPoint(4F, yPos, -4F);
-			iguanaLeg2.setRotationPoint(4F, yPos, 4F);
-			iguanaLeg3.setRotationPoint(-4F, yPos, -4F);
-			iguanaLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			iguanaLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			iguanaLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			iguanaLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			iguanaLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		iguanaLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		iguanaLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		iguanaLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		iguanaLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }

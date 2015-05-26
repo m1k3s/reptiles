@@ -83,7 +83,6 @@ public class Reptiles {
 		registerEntity(EntityGator.class, "Alligator", 0x008B45, 0xC0FF3E);
 		registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
 		registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
-		registerEntity(EntityMegalania.class, "Megalania", 0x050505, 0x05c505);
 	}
 
 	@Mod.EventHandler
@@ -112,7 +111,6 @@ public class Reptiles {
 		addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), 1, 4, forestBiomes);
 		addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), 1, 4, forestBiomes);
 		addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 1, 2, forestBiomes);
 
 		addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), 1, 2, swampyBiomes);
 		addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), 1, 2, swampyBiomes);

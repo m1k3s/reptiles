@@ -125,43 +125,24 @@ public class ModelKomodo extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		EntityKomodo entitykomodo = (EntityKomodo) entityliving;
+//		EntityKomodo entitykomodo = (EntityKomodo) entityliving;
 
-		if (entitykomodo.isSitting()) {
-			float yPos = 19F;
-			komodoBody.setRotationPoint(0.0F, yPos, 0.0F);
-			komodoTail.setRotationPoint(0F, yPos + 2, 6F);
-			komodoTail.rotateAngleX = 0.0F;
-			komodoHead.setRotationPoint(0F, yPos, -8F);
-			// komodoTongue.setRotationPoint(0F, yPos+2, -16F);
+		float yPos = 16F;
+		komodoBody.setRotationPoint(0.0F, yPos, 0.0F);
+		komodoHead.setRotationPoint(0F, yPos, -8F);
+		komodoTail.setRotationPoint(0F, yPos, 6F);
+		komodoTail.rotateAngleX = 5.934119F;
+		// komodoTongue.setRotationPoint(0F, yPos+2, -16F);
 
-			komodoLeg1.setRotationPoint(5F, yPos + 3, -5F);
-			komodoLeg2.setRotationPoint(5F, yPos + 3, 5F);
-			komodoLeg3.setRotationPoint(-5F, yPos + 3, -5F);
-			komodoLeg4.setRotationPoint(-5F, yPos + 3, 5F);
+		komodoLeg1.setRotationPoint(5F, yPos, -5F);
+		komodoLeg2.setRotationPoint(5F, yPos, 5F);
+		komodoLeg3.setRotationPoint(-5F, yPos, -5F);
+		komodoLeg4.setRotationPoint(-5F, yPos, 5F);
 
-			komodoLeg1.rotateAngleX = 4.712389F;
-			komodoLeg2.rotateAngleX = 1.570799F;
-			komodoLeg3.rotateAngleX = 4.712389F;
-			komodoLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 16F;
-			komodoBody.setRotationPoint(0.0F, yPos, 0.0F);
-			komodoHead.setRotationPoint(0F, yPos, -8F);
-			komodoTail.setRotationPoint(0F, yPos, 6F);
-			komodoTail.rotateAngleX = 5.934119F;
-			// komodoTongue.setRotationPoint(0F, yPos+2, -16F);
-
-			komodoLeg1.setRotationPoint(5F, yPos, -5F);
-			komodoLeg2.setRotationPoint(5F, yPos, 5F);
-			komodoLeg3.setRotationPoint(-5F, yPos, -5F);
-			komodoLeg4.setRotationPoint(-5F, yPos, 5F);
-
-			komodoLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			komodoLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			komodoLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
-			komodoLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		komodoLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		komodoLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		komodoLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float) Math.PI) * 1.4F * f1;
+		komodoLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 		// TODO: stick out tongue occasionally, render tongue inside head and
 		// animate to front of head
 		// moving tongue up and down at the same time.

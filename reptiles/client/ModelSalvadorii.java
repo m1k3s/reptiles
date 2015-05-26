@@ -123,39 +123,21 @@ public class ModelSalvadorii extends ModelBase {
 	@Override
 	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
 	{
-		if (((EntitySalvadorii) entityliving).isSitting()) {
-			float yPos = 21F;
-			salvadoriiBody.setRotationPoint(0.0F, yPos, 0.0F);
-			salvadoriiTail.setRotationPoint(0F, yPos + 1, 4F);
-			salvadoriiTail.rotateAngleX = 0.0F;
-			salvadoriiHead.setRotationPoint(0F, yPos, -5F);
+		float yPos = 19F;
+		salvadoriiBody.setRotationPoint(0.0F, yPos, 0.0F);
+		salvadoriiHead.setRotationPoint(0F, yPos, -5F);
+		salvadoriiTail.setRotationPoint(0F, yPos, 4F);
+		salvadoriiTail.rotateAngleX = 6.021385919380437F;
 
-			salvadoriiLeg1.setRotationPoint(4F, yPos + 1, -4F);
-			salvadoriiLeg2.setRotationPoint(4F, yPos + 1, 4F);
-			salvadoriiLeg3.setRotationPoint(-4F, yPos + 1, -4F);
-			salvadoriiLeg4.setRotationPoint(-4F, yPos + 1, 4F);
+		salvadoriiLeg1.setRotationPoint(4F, yPos, -4F);
+		salvadoriiLeg2.setRotationPoint(4F, yPos, 4F);
+		salvadoriiLeg3.setRotationPoint(-4F, yPos, -4F);
+		salvadoriiLeg4.setRotationPoint(-4F, yPos, 4F);
 
-			salvadoriiLeg1.rotateAngleX = 4.712389F;
-			salvadoriiLeg2.rotateAngleX = 1.570799F;
-			salvadoriiLeg3.rotateAngleX = 4.712389F;
-			salvadoriiLeg4.rotateAngleX = 1.570799F;
-		} else {
-			float yPos = 19F;
-			salvadoriiBody.setRotationPoint(0.0F, yPos, 0.0F);
-			salvadoriiHead.setRotationPoint(0F, yPos, -5F);
-			salvadoriiTail.setRotationPoint(0F, yPos, 4F);
-			salvadoriiTail.rotateAngleX = 6.021385919380437F;
-
-			salvadoriiLeg1.setRotationPoint(4F, yPos, -4F);
-			salvadoriiLeg2.setRotationPoint(4F, yPos, 4F);
-			salvadoriiLeg3.setRotationPoint(-4F, yPos, -4F);
-			salvadoriiLeg4.setRotationPoint(-4F, yPos, 4F);
-
-			salvadoriiLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-			salvadoriiLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			salvadoriiLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
-			salvadoriiLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		}
+		salvadoriiLeg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		salvadoriiLeg2.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		salvadoriiLeg3.rotateAngleX = MathHelper.cos(f * 0.6662F + 3.141593F) * 1.4F * f1;
+		salvadoriiLeg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
 	}
 
 }
