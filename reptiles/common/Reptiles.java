@@ -46,6 +46,7 @@ public class Reptiles {
 	public static final String version = "3.1.0";
 	public static final String mcversion = "1.8.0";
 	public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
+	private static int entityID = 0;
 
 	@Mod.Instance(modid)
 	public static Reptiles instance;
@@ -128,9 +129,10 @@ public class Reptiles {
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
-		int id = EntityRegistry.findGlobalUniqueEntityId();
+//		int id = EntityRegistry.findGlobalUniqueEntityId();
 //		proxy.info(entityName + " has been given a GlobalUniqueEntityId of " + id + " by FML");
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
+//		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
+		EntityRegistry.registerModEntity(entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true);
 	}
 
 	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes)
