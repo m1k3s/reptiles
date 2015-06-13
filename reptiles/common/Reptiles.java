@@ -51,6 +51,7 @@ public class Reptiles {
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
 	public static final String version = "1.7.10";
+	private static int entityID = 0;
 	
 	@Mod.Instance(modid)
 	public static Reptiles instance;
@@ -186,8 +187,8 @@ public class Reptiles {
 	
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
 	{
-		int id = EntityRegistry.findGlobalUniqueEntityId();
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
+		int id = entityID++; //EntityRegistry.findGlobalUniqueEntityId();
+//		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id, bkEggColor, fgEggColor);
 		EntityRegistry.registerModEntity(entityClass, entityName, id, this, 80, 3, true);
 	}
 
