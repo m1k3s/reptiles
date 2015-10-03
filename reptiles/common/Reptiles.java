@@ -93,16 +93,16 @@ public class Reptiles {
 		BiomeDictionary.registerAllBiomesAndGenerateEvents();
 
 		proxy.info("*** Checking for monitor biomes");
-		BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.BEACH, Type.PLAINS);
+		BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
 
 		proxy.info("*** Checking for tortoise biomes");
-		BiomeGenBase[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE);
+		BiomeGenBase[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE, Type.SANDY);
 
 		proxy.info("*** Checking for turtle biomes");
-		BiomeGenBase[] jungleBiomes = getBiomes(Type.FOREST, Type.JUNGLE, Type.SWAMP);
+		BiomeGenBase[] jungleBiomes = getBiomes(Type.FOREST, Type.PLAINS, Type.SWAMP);
 
 		proxy.info("*** Checking for lizard biomes");
-		BiomeGenBase[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.JUNGLE, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
+		BiomeGenBase[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
 		proxy.info("*** Checking for crocodilian biomes");
 		BiomeGenBase[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);

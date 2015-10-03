@@ -304,7 +304,7 @@ public class EntityTurtle extends EntityTameable
 			return false;
 		} else {
 			EntityTurtle t = (EntityTurtle) entityAnimal;
-			return !t.isTamed() ? false : (t.isSitting() ? false : isInLove() && t.isInLove());
+			return t.isTamed() && (t.isSitting() ? false : isInLove() && t.isInLove());
 		}
 	}
 
@@ -326,4 +326,8 @@ public class EntityTurtle extends EntityTameable
 		}
 	}
 
+	@Override
+	public Entity getOwner() {
+		return null;
+	}
 }

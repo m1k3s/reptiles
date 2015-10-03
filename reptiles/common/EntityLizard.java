@@ -251,4 +251,8 @@ public class EntityLizard extends EntityTameable
 		}
 	}
 
+	@Override
+	public Entity getOwner() {
+		return null;
+	}
 }

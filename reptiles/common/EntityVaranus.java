@@ -141,6 +141,12 @@ public class EntityVaranus extends EntityTameable {
 			return false;
 		}
     }
+    
+    @Override
+    public int getMaxSpawnedInChunk()
+    {
+        return 8;
+    }
 
 	@Override
 	public int getTalkInterval()
@@ -317,4 +323,8 @@ public class EntityVaranus extends EntityTameable {
 		}
 	}
 
+	@Override
+	public Entity getOwner() {
+		return null;
+	}
 }
