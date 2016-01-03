@@ -19,14 +19,12 @@
 //
 package com.reptiles.common;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -41,9 +39,9 @@ import net.minecraft.world.World;
 public class EntityVaranus extends EntityTameable {
 
 	private final int maxHealth = 20;
-	protected final int targetChance = 200;
 	private final float scaleFactor;
 
+	@SuppressWarnings("unchecked")
 	public EntityVaranus(World world)
 	{
 		super(world);
@@ -55,18 +53,6 @@ public class EntityVaranus extends EntityTameable {
 		tasks.addTask(1, new EntityAIPanic(this, 0.38));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-		tasks.addTask(6, new EntityAIAvoidEntity(this, new Predicate()
-        {
-            public boolean apply(Entity entity)
-            {
-                return entity instanceof EntityCreeper;
-            }
-			@Override
-            public boolean apply(Object object)
-            {
-                return apply((Entity)object);
-            }
-        }, 6.0F, 1.0D, 1.2D));
 		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
 		tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
 		if (ConfigHandler.getFollowOwner()) {
@@ -79,19 +65,8 @@ public class EntityVaranus extends EntityTameable {
 		tasks.addTask(14, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate()
-        {
-            public boolean func_180094_a(Entity entity)
-            {
-                return entity instanceof EntityChicken || entity instanceof EntityRabbit || entity instanceof EntitySheep;
-            }
-			@Override
-            public boolean apply(Object object)
-            {
-                return this.func_180094_a((Entity)object);
-            }
-        }));
-		
+		targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityAnimal.class, false, null));
+
 		if (ConfigHandler.useRandomScaling()) {
 			float scale = rand.nextFloat();
 			scaleFactor = scale < 0.55F ? 1.0F : scale;
@@ -133,14 +108,9 @@ public class EntityVaranus extends EntityTameable {
 	}
 	
 	@Override
-	protected boolean canDespawn()
-    {
-		if (ConfigHandler.shouldDespawn()) {
-			return !isTamed() && ticksExisted > 2400;
-		} else {
-			return false;
-		}
-    }
+	protected boolean canDespawn() {
+		return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+	}
     
     @Override
     public int getMaxSpawnedInChunk()
@@ -218,7 +188,7 @@ public class EntityVaranus extends EntityTameable {
 	@Override
 	public boolean isBreedingItem(ItemStack itemStack)
 	{
-		return itemStack == null ? false : (!(itemStack.getItem() instanceof ItemFood) ? false : isFavoriteFood(itemStack));
+		return itemStack != null && (itemStack.getItem() instanceof ItemFood && isFavoriteFood(itemStack));
 	}
 
 	@Override
@@ -244,7 +214,7 @@ public class EntityVaranus extends EntityTameable {
 						heal((float) itemfood.getHealAmount(itemstack));
 
 						if (itemstack.stackSize <= 0) {
-							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
+							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 						}
 
 						return true;
@@ -256,7 +226,7 @@ public class EntityVaranus extends EntityTameable {
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				navigator.clearPathEntity();
-                setAttackTarget((EntityLivingBase)null);
+                setAttackTarget(null);
 			}
 		} else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 			if (!entityplayer.capabilities.isCreativeMode) {
@@ -264,14 +234,14 @@ public class EntityVaranus extends EntityTameable {
 			}
 
 			if (itemstack.stackSize <= 0) {
-				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
+				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 			}
 
 			if (!this.worldObj.isRemote) {
 				if (rand.nextInt(3) == 0) {
 					setTamed(true);
 					navigator.clearPathEntity();
-					setAttackTarget((EntityLivingBase)null);
+					setAttackTarget(null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
 //					setOwner(entityplayer.getCommandSenderName());
@@ -301,7 +271,7 @@ public class EntityVaranus extends EntityTameable {
 			return false;
 		} else {
 			EntityVaranus v = (EntityVaranus) entityAnimal;
-			return !v.isTamed() ? false : (v.isSitting() ? false : isInLove() && v.isInLove());
+			return v.isTamed() && (!v.isSitting() && (isInLove() && v.isInLove()));
 		}
 	}
 
@@ -324,7 +294,7 @@ public class EntityVaranus extends EntityTameable {
 	}
 
 	@Override
-	public Entity getOwner() {
+	public EntityLivingBase getOwner() {
 		return null;
 	}
 }

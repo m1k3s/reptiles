@@ -67,14 +67,9 @@ public class EntityLizard extends EntityTameable
 	}
 
 	@Override
-	protected boolean canDespawn()
-    {
-        if (ConfigHandler.shouldDespawn()) {
-			return !isTamed() && ticksExisted > 2400;
-		} else {
-			return false;
-		}
-    }
+	protected boolean canDespawn() {
+		return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+	}
 
 	@Override
 	protected void applyEntityAttributes()
@@ -140,7 +135,7 @@ public class EntityLizard extends EntityTameable
 	@Override
 	public boolean isBreedingItem(ItemStack itemStack)
 	{
-		return itemStack == null ? false : (!(itemStack.getItem() instanceof ItemFood) ? false : isFavoriteFood(itemStack));
+		return itemStack != null && (itemStack.getItem() instanceof ItemFood && isFavoriteFood(itemStack));
 	}
 
 	@Override
@@ -173,7 +168,7 @@ public class EntityLizard extends EntityTameable
 						heal((float) itemfood.getHealAmount(itemstack));
 
 						if (itemstack.stackSize <= 0) {
-							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
+							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 						}
 
 						return true;
@@ -185,7 +180,7 @@ public class EntityLizard extends EntityTameable
 				aiSit.setSitting(!isSitting());
 				isJumping = false;
 				navigator.clearPathEntity();
-                setAttackTarget((EntityLivingBase)null);
+                setAttackTarget(null);
 			}
 		} else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
 			if (!entityplayer.capabilities.isCreativeMode) {
@@ -193,14 +188,14 @@ public class EntityLizard extends EntityTameable
 			}
 
 			if (itemstack.stackSize <= 0) {
-				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, (ItemStack) null);
+				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 			}
 
 			if (!this.worldObj.isRemote) {
 				if (rand.nextInt(3) == 0) {
 					setTamed(true);
 					navigator.clearPathEntity();
-					setAttackTarget((EntityLivingBase)null);
+					setAttackTarget(null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
 					setOwnerId(entityplayer.getUniqueID().toString());
@@ -229,7 +224,7 @@ public class EntityLizard extends EntityTameable
 			return false;
 		} else {
 			EntityLizard l = (EntityLizard) entityAnimal;
-			return !l.isTamed() ? false : (l.isSitting() ? false : isInLove() && l.isInLove());
+			return l.isTamed() && (!l.isSitting() && (isInLove() && l.isInLove()));
 		}
 	}
 
@@ -252,7 +247,7 @@ public class EntityLizard extends EntityTameable
 	}
 
 	@Override
-	public Entity getOwner() {
+	public EntityLivingBase getOwner() {
 		return null;
 	}
 }
