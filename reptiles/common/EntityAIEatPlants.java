@@ -49,7 +49,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 			return false;
 		} else {
 			BlockPos blockPos = new BlockPos(creature.posX, creature.posY, creature.posZ);
-			return blockstate.apply(theWorld.getBlockState(blockPos)) ? true : isFlower(blockPos);
+			return blockstate.apply(theWorld.getBlockState(blockPos)) || isFlower(blockPos);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 			BlockPos bp0 = new BlockPos(creature.posX, creature.posY, creature.posZ);
 
 			if (blockstate.apply(theWorld.getBlockState(bp0))) {
-				if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
+				if (theWorld.getGameRules().getBoolean("mobGriefing")) {
 					theWorld.destroyBlock(bp0, false);
 				}
 
@@ -97,7 +97,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 				BlockPos bpDown = bp0.down();
 
 				if (isFlower(bpDown) || isTallgrass(bpDown)) {
-					if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
+					if (theWorld.getGameRules().getBoolean("mobGriefing")) {
 						theWorld.playAuxSFX(2001, bpDown, Block.getIdFromBlock(Blocks.grass));
 						theWorld.setBlockState(bpDown, Blocks.dirt.getDefaultState(), 2);
 					}
