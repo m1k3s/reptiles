@@ -43,8 +43,8 @@ public class Reptiles {
 
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "3.1.0";
-	public static final String mcversion = "1.8.0";
+	public static final String version = "3.2.2";
+	public static final String mcversion = "1.8.9";
 	public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
 	private static int entityID = 0;
 
