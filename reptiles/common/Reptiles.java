@@ -20,6 +20,8 @@
 package com.reptiles.common;
 
 import static com.reptiles.common.ConfigHandler.updateConfigInfo;
+
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -34,7 +36,6 @@ import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(modid = Reptiles.modid, name = Reptiles.name, version = Reptiles.version, guiFactory = Reptiles.guifactory)
@@ -43,8 +44,8 @@ public class Reptiles {
 
 	public static final String modid = "reptilemod";
 	public static final String name = "Reptile Mod";
-	public static final String version = "3.2.1";
-	public static final String mcversion = "1.8.9";
+	public static final String version = "3.4.0";
+	public static final String mcversion = "1.9";
 	public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
 	private static int entityID = 0;
 
@@ -67,7 +68,7 @@ public class Reptiles {
 	@Mod.EventHandler
 	public void Init(FMLInitializationEvent evt)
 	{
-		FMLCommonHandler.instance().bus().register(Reptiles.instance);
+		MinecraftForge.EVENT_BUS.register(Reptiles.instance);
 		proxy.registerRenderers();
 
 		registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
@@ -107,24 +108,24 @@ public class Reptiles {
 		proxy.info("*** Checking for crocodilian biomes");
 		BiomeGenBase[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
-		addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), 1, 4, desertBiomes);
-		addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), 1, 4, forestBiomes);
-		addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 1, 2, forestBiomes);
+		addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), 4, 4, forestBiomes);
+		addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), 4, 4, forestBiomes);
+		addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), 4, 4, desertBiomes);
+		addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), 4, 4, forestBiomes);
+		addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), 4, 4, forestBiomes);
+		addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), 4, 4, forestBiomes);
+		addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 2, 2, forestBiomes);
 
-		addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), 1, 2, swampyBiomes);
-		addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), 1, 2, swampyBiomes);
-		addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), 1, 2, swampyBiomes);
+		addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), 2, 2, swampyBiomes);
+		addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), 2, 2, swampyBiomes);
+		addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), 2, 2, swampyBiomes);
 
-		addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), 1, 4, desertBiomes);
-		addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), 1, 4, jungleBiomes);
-		addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), 1, 4, jungleBiomes);
+		addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), 4, 4, desertBiomes);
+		addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), 4, 4, jungleBiomes);
+		addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), 4, 4, jungleBiomes);
 
-		addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), 1, 4, variousBiomes);
-		addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 1, 4, variousBiomes);
+		addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), 4, 4, variousBiomes);
+		addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 4, 4, variousBiomes);
 	}
 
 	public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor)
@@ -148,7 +149,7 @@ public class Reptiles {
 				if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) {
 					continue;
 				}
-				if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.temperature < 0.32F) { // exclude cold climates
+				if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.getTemperature() < 0.32F) { // exclude cold climates
 //					proxy.info("  <<< Excluding " + bgb.biomeName + " for spawning");
 					continue;
 				}
@@ -158,18 +159,18 @@ public class Reptiles {
 				}
 				if (!list.contains(bgb)) {
 					list.add(bgb);
-					proxy.info("  >>> Adding " + bgb.biomeName + " for spawning");
+					proxy.info("  >>> Adding " + bgb.getBiomeName() + " for spawning");
 				}
 			}
 		}
-		return (BiomeGenBase[]) list.toArray(new BiomeGenBase[0]);
+		return list.toArray(new BiomeGenBase[0]);
 	}
 
 	// user has changed entries in the GUI config. save the results.
 	@SubscribeEvent
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
 	{
-		if (event.modID.equals(Reptiles.modid)) {
+		if (event.getModID().equals(Reptiles.modid)) {
 			Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.name);
 			updateConfigInfo();
 		}

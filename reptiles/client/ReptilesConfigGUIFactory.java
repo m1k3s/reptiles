@@ -20,34 +20,31 @@
 package com.reptiles.client;
 
 import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
 
 public class ReptilesConfigGUIFactory implements IModGuiFactory {
 
-	@Override
-	public void initialize(Minecraft minecraft)
-	{
-		
-	}
+    @Override
+    public void initialize(Minecraft minecraft) {
 
-	@Override
-	public Class<? extends GuiScreen> mainConfigGuiClass()
-	{
-		return ReptilesConfigGUI.class;
-	}
+    }
 
-	@Override
-	public Set<IModGuiFactory.RuntimeOptionCategoryElement> runtimeGuiCategories()
-	{
-		return null;
-	}
+    @Override
+    public Class<? extends GuiScreen> mainConfigGuiClass() {
+        return ReptilesConfigGUI.class;
+    }
 
-	@Override
-	public IModGuiFactory.RuntimeOptionGuiHandler getHandlerFor(IModGuiFactory.RuntimeOptionCategoryElement roce)
-	{
-		return null;
-	}
-	
+    @Override
+    public Set<IModGuiFactory.RuntimeOptionCategoryElement> runtimeGuiCategories() {
+        return null;
+    }
+
+    @Override
+    public IModGuiFactory.RuntimeOptionGuiHandler getHandlerFor(IModGuiFactory.RuntimeOptionCategoryElement roce) {
+        return null;
+    }
+
 }

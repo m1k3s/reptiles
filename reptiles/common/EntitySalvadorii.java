@@ -24,32 +24,30 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public final class EntitySalvadorii extends EntityVaranus {
 
-	public EntitySalvadorii(World world)
-	{
-		super(world);
-//		setSize(0.6F, 0.6F);
-		setTamed(false);
-	}
+    public EntitySalvadorii(World world) {
+        super(world);
+        setTamed(false);
+    }
 
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.egg;
-	}
+    @Override
+    protected Item getDropItem() {
+        return Items.egg;
+    }
 
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		EntitySalvadorii e = new EntitySalvadorii(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
-		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
-		return e;
-	}
+    @Override
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        EntitySalvadorii e = new EntitySalvadorii(worldObj);
+        UUID uuid = getOwnerId();
+        if (uuid != null) {
+            e.setOwnerId(uuid);
+            e.setTamed(true);
+        }
+        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        return e;
+    }
 
 }

@@ -20,46 +20,30 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityLace;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 
-public class RenderLace extends RenderLiving {
+public class RenderLace<T extends EntityLace> extends RenderLiving<T> {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/lace.png");
 
-	public RenderLace(RenderManager rm, ModelBase modelbase, float shadowSize)
+	public RenderLace(RenderManager rm)
 	{
-		super(rm, modelbase, shadowSize);
-	}
-
-	public void renderLace(EntityLace entityLace, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entityLace, d, d1, d2, f, f1);
+		super(rm, new ModelLace(), 0.0f);
 	}
 
 	@Override
-	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
+	protected void preRenderCallback(T entityliving, float f)
 	{
-		renderLace((EntityLace) entityliving, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		float scaleFactor = ((EntityLace) entityliving).getScaleFactor();
+		float scaleFactor = entityliving.getScaleFactor();
 		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
 		super.preRenderCallback(entityliving, f);
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(T t) {
+		return skin;
 	}
 }

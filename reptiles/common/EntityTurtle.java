@@ -31,298 +31,224 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 // base class for all turtles and tortoises
-public class EntityTurtle extends EntityTameable
-{
+public class EntityTurtle extends EntityTameable {
+    private static final DataParameter<Float> health = EntityDataManager.createKey(EntityTurtle.class, DataSerializers.FLOAT);
+    private int turtleTimer;
+    private final EntityAIEatPlants plantEating = new EntityAIEatPlants(this);
+    private final int maxHealth = 10;
 
-	private int turtleTimer;
-	private final EntityAIEatPlants plantEating = new EntityAIEatPlants(this);
-	private final int maxHealth = 10;
 
-	public EntityTurtle(World world)
-	{
-		super(world);
-		setSize(0.5F, 0.5F);
-		double moveSpeed = 0.75;
+    public EntityTurtle(World world) {
+        super(world);
+        setSize(0.5F, 0.5F);
+        double moveSpeed = 0.75;
 
-		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
-		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIPanic(this, 0.38F));
-		tasks.addTask(2, aiSit);
-		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
-		tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
-		if (ConfigHandler.getFollowOwner()) {
-			tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
-		}
-		tasks.addTask(6, plantEating);
-		tasks.addTask(7, new EntityAIWander(this, moveSpeed));
-		tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		tasks.addTask(8, new EntityAILookIdle(this));
-//		setTamed(false);
-	}
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAIPanic(this, 0.38F));
+        tasks.addTask(2, aiSit);
+        tasks.addTask(3, new EntityAIMate(this, moveSpeed));
+        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
+        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
+        if (ConfigHandler.getFollowOwner()) {
+            tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+        }
+        tasks.addTask(6, plantEating);
+        tasks.addTask(7, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        setTamed(false);
+    }
 
-	@Override
-	protected void applyEntityAttributes()
-	{
-		super.applyEntityAttributes();
-		if (isTamed()) {
-			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth); // health
-		} else {
-			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0); // health
-		}
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2); // move speed
-	}
-	
-	@Override
-	protected boolean canDespawn() {
-		return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
-	}
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        if (isTamed()) {
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
+        } else {
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0); // health
+        }
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
+    }
 
-	@Override
-	protected void entityInit()
-	{
-		super.entityInit();
-		dataWatcher.addObject(18, getHealth());
-	}
+    @Override
+    protected boolean canDespawn() {
+        return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+    }
 
-	@Override
-	protected void updateAITasks()
-	{
-		turtleTimer = plantEating.getEatPlantTick();
-		super.updateAITasks();
-	}
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        dataWatcher.register(health, getHealth());
+    }
 
-	// This MUST be overridden in the derived class
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
-		return null;
-	}
-	
-	protected boolean isHardenedClay(BlockPos bp)
-	{
-		Block block = worldObj.getBlockState(bp).getBlock();
-		return block == Blocks.hardened_clay;
-	}
+    @Override
+    protected void updateAITasks() {
+        turtleTimer = plantEating.getEatingPlantsTimer();
+        super.updateAITasks();
+    }
 
-	protected boolean isSandOrGrassBlock(BlockPos bp)
-	{
-		Block block = worldObj.getBlockState(bp).getBlock();
-		return (block == Blocks.sand || block == Blocks.grass);
-	}
-	
-	@Override
-	public boolean getCanSpawnHere()
-	{
-		if (worldObj.checkNoEntityCollision(getEntityBoundingBox())) {
-			if (worldObj.getCollidingBoundingBoxes(this, getEntityBoundingBox()).isEmpty()) {
-				if (!worldObj.isAnyLiquid(getEntityBoundingBox())) {
-					int x = MathHelper.floor_double(posX);
-					int y = MathHelper.floor_double(getEntityBoundingBox().minY);
-					int z = MathHelper.floor_double(posZ);
-					BlockPos bp = new BlockPos(x, y, z);
-					if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
-						if (worldObj.getLight(bp) > 8) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
+    // This MUST be overridden in the derived class
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
+        return null;
+    }
 
-	@Override
-	public boolean attackEntityAsMob(Entity entity)
-	{
-		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
-	}
+    protected boolean isHardenedClay(BlockPos bp) {
+        Block block = worldObj.getBlockState(bp).getBlock();
+        return block == Blocks.hardened_clay;
+    }
 
-	// ///////////////////////////////////////////////
-	// AI grass and plant eating functions
-//	@SideOnly(Side.CLIENT)
-//	public float func_44003_c(float par1)
-//	{
-//		return turtleTimer <= 0 ? 0.0F
-//				: (turtleTimer >= 4 && turtleTimer <= 36 ? 1.0F
-//				: (turtleTimer < 4 ? ((float) turtleTimer - par1) / 4.0F
-//				: -((float) (turtleTimer - 40) - par1) / 4.0F));
-//	}
-//
-////	@SideOnly(Side.CLIENT)
-//	public float func_44002_d(float par1)
-//	{
-//		if (turtleTimer > 4 && turtleTimer <= 36) {
-//			float var2 = ((float) (turtleTimer - 4) - par1) / 32.0F;
-//			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(var2 * 28.7F);
-//		} else {
-//			return turtleTimer > 0 ? ((float) Math.PI / 5F) : rotationPitch / 57.2957795131F;
-//		}
-//	}
+    protected boolean isSandOrGrassBlock(BlockPos bp) {
+        Block block = worldObj.getBlockState(bp).getBlock();
+        return (block == Blocks.sand || block == Blocks.grass);
+    }
 
-//	@Override
-//	public void eatGrassBonus()
-//	{
-//		if (isChild()) {
-//			int time = getGrowingAge() + 1200;
-//			if (time > 0) {
-//				time = 0;
-//			}
-//			setGrowingAge(time);
-//		}
-//	}
+    @Override
+    public boolean getCanSpawnHere() {
+        AxisAlignedBB entityAABB = getEntityBoundingBox();
+        if (worldObj.checkNoEntityCollision(entityAABB)) {
+            if (worldObj.getCollisionBoxes(entityAABB).isEmpty()) {
+                if (!worldObj.isAnyLiquid(entityAABB)) {
+                    int x = MathHelper.floor_double(posX);
+                    int y = MathHelper.floor_double(entityAABB.minY);
+                    int z = MathHelper.floor_double(posZ);
+                    BlockPos bp = new BlockPos(x, y, z);
+                    if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
+                        if (worldObj.getLight(bp) > 8) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-	// end AI plant eating functions
-	// ////////////////////////////////////////////////
-	@Override
-	public void onLivingUpdate()
-	{
-		if (worldObj.isRemote) {
-			turtleTimer = Math.max(0, turtleTimer - 1);
-		}
-		super.onLivingUpdate();
-	}
+    @Override
+    public boolean attackEntityAsMob(Entity entity) {
+        return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
+    }
 
-	@Override
-	protected void updateAITick()
-	{
-		dataWatcher.updateObject(18, getHealth());
-	}
+    @Override
+    public void onLivingUpdate() {
+        if (worldObj.isRemote) {
+            turtleTimer = Math.max(0, turtleTimer - 1);
+        }
+        super.onLivingUpdate();
+    }
 
-	protected boolean isFavoriteFood(ItemStack itemstack)
-	{
-		return (itemstack != null && (itemstack.getItem() == Items.carrot || itemstack.getItem() == Items.golden_carrot));
-	}
+    protected boolean isFavoriteFood(ItemStack itemstack) {
+        return (itemstack != null && (itemstack.getItem() == Items.carrot || itemstack.getItem() == Items.golden_carrot));
+    }
 
-	@Override
-	public boolean isBreedingItem(ItemStack itemStack)
-	{
-		return itemStack != null && (itemStack.getItem() instanceof ItemFood && isFavoriteFood(itemStack));
-	}
+    @Override
+    public boolean isBreedingItem(ItemStack itemStack) {
+        return itemStack != null && (itemStack.getItem() instanceof ItemFood && isFavoriteFood(itemStack));
+    }
 
-	@Override
-	protected String getLivingSound()
-	{
-		return null;
-	}
+    // taming stuff //////////////////
+    @Override
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand, ItemStack itemstack) {
+        if (isTamed()) {
+            if (itemstack != null) {
+                if (itemstack.getItem() instanceof ItemFood) {
+                    ItemFood itemfood = (ItemFood) itemstack.getItem();
+                    if (isFavoriteFood(itemstack) && dataWatcher.get(health) < maxHealth) {
+                        if (!entityplayer.capabilities.isCreativeMode) {
+                            --itemstack.stackSize;
+                        }
 
-	@Override
-	protected String getHurtSound()
-	{
-		return null;
-	}
+                        heal((float) itemfood.getHealAmount(itemstack));
 
-	@Override
-	protected String getDeathSound()
-	{
-		return null;
-	}
+                        if (itemstack.stackSize <= 0) {
+                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+                        }
 
-	// taming stuff //////////////////
-	@Override
-	public boolean interact(EntityPlayer entityplayer)
-	{
-		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+                        return true;
+                    }
+                }
+            }
 
-		if (isTamed()) {
-			if (itemstack != null) {
-				if (itemstack.getItem() instanceof ItemFood) {
-					ItemFood itemfood = (ItemFood) itemstack.getItem();
-					if (isFavoriteFood(itemstack) && dataWatcher.getWatchableObjectFloat(18) < maxHealth) {
-						if (!entityplayer.capabilities.isCreativeMode) {
-							--itemstack.stackSize;
-						}
-
-						heal((float) itemfood.getHealAmount(itemstack));
-
-						if (itemstack.stackSize <= 0) {
-							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-						}
-
-						return true;
-					}
-				}
-			}
-
-			if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
-				aiSit.setSitting(!isSitting());
-				isJumping = false;
-				navigator.clearPathEntity();
+            if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+                aiSit.setSitting(!isSitting());
+                isJumping = false;
+                navigator.clearPathEntity();
                 setAttackTarget(null);
-			}
-		} else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
-			if (!entityplayer.capabilities.isCreativeMode) {
-				--itemstack.stackSize;
-			}
+            }
+        } else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+            if (!entityplayer.capabilities.isCreativeMode) {
+                --itemstack.stackSize;
+            }
 
-			if (itemstack.stackSize <= 0) {
-				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-			}
+            if (itemstack.stackSize <= 0) {
+                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+            }
 
-			if (!this.worldObj.isRemote) {
-				if (rand.nextInt(3) == 0) {
-					setTamed(true);
-					navigator.clearPathEntity();
-					setAttackTarget(null);
-					aiSit.setSitting(true);
-					setHealth(maxHealth);
-					setOwnerId(entityplayer.getUniqueID().toString());
-					playTameEffect(true);
-					worldObj.setEntityState(this, (byte) 7);
-				} else {
-					playTameEffect(false);
-					worldObj.setEntityState(this, (byte) 6);
-				}
-			}
+            if (!this.worldObj.isRemote) {
+                if (rand.nextInt(3) == 0) {
+                    setTamed(true);
+                    navigator.clearPathEntity();
+                    setAttackTarget(null);
+                    aiSit.setSitting(true);
+                    setHealth(maxHealth);
+                    setOwnerId(entityplayer.getUniqueID());
+                    playTameEffect(true);
+                    worldObj.setEntityState(this, (byte) 7);
+                } else {
+                    playTameEffect(false);
+                    worldObj.setEntityState(this, (byte) 6);
+                }
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		return super.interact(entityplayer);
-	}
+        return super.processInteract(entityplayer, EnumHand.MAIN_HAND, itemstack);
+    }
 
-	@Override
-	public boolean canMateWith(EntityAnimal entityAnimal)
-	{
-		if (entityAnimal == this) {
-			return false;
-		} else if (!isTamed()) {
-			return false;
-		} else if (!(entityAnimal instanceof EntityTurtle)) {
-			return false;
-		} else {
-			EntityTurtle t = (EntityTurtle) entityAnimal;
-			return t.isTamed() && (!t.isSitting() && (isInLove() && t.isInLove()));
-		}
-	}
+    @Override
+    public boolean canMateWith(EntityAnimal entityAnimal) {
+        if (entityAnimal == this) {
+            return false;
+        } else if (!isTamed()) {
+            return false;
+        } else if (!(entityAnimal instanceof EntityTurtle)) {
+            return false;
+        } else {
+            EntityTurtle t = (EntityTurtle) entityAnimal;
+            return t.isTamed() && (!t.isSitting() && (isInLove() && t.isInLove()));
+        }
+    }
 
-	@Override
-	public EntityAgeable createChild(EntityAgeable var1)
-	{
-		return this.spawnBabyAnimal(var1);
-	}
+    @Override
+    public EntityAgeable createChild(EntityAgeable var1) {
+        return this.spawnBabyAnimal(var1);
+    }
 
-	@Override
-	public void setTamed(boolean tamed)
-	{
-		super.setTamed(tamed);
+    @Override
+    public void setTamed(boolean tamed) {
+        super.setTamed(tamed);
 
-		if (tamed) {
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
-		} else {
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
-		}
-	}
+        if (tamed) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth);
+        } else {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+        }
+    }
 
-	@Override
-	public EntityLivingBase getOwner() {
-		return null;
-	}
+    @Override
+    public EntityLivingBase getOwner() {
+        return null;
+    }
 }

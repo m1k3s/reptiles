@@ -19,52 +19,29 @@
 //
 package com.reptiles.client;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 import com.reptiles.common.EntityMegalania;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
-public class RenderMegalania extends RenderLiving {
+public class RenderMegalania<T extends EntityMegalania> extends RenderLiving<T> {
 
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
-	private final float scaleFactor = 2.5f; // same scalefactor used in entity ctor
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
+    private final float scaleFactor = 2.5f; // same scalefactor used in entity ctor
 
-	public RenderMegalania(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
+    public RenderMegalania(RenderManager rm) {
+        super(rm, new ModelMegalania(), 0.0f);
+    }
 
-	public void renderMegalania(EntityMegalania entitymegalania, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entitymegalania, d, d1, d2, f, f1);
-	}
+    @Override
+    protected void preRenderCallback(T entitylivingbase, float f) {
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor + 0.5F);
+        super.preRenderCallback(entitylivingbase, f);
+    }
 
-	@Override
-	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
-	{
-		renderMegalania((EntityMegalania) entityliving, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
-	protected void scaleEntity(EntityMegalania entitymegalania, float f)
-	{
-		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor + 0.5F);
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entitylivingbase, float f)
-	{
-		scaleEntity((EntityMegalania) entitylivingbase, f);
-		super.preRenderCallback(entitylivingbase, f);
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 }

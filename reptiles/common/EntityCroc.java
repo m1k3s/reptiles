@@ -18,6 +18,7 @@
 //
 package com.reptiles.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -25,13 +26,17 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityCroc extends EntityAnimal {
 
-	final float attackDistance;
+	private final float attackDistance;
 	protected int attackStrength;
 //	private int maxHealth = 20;
 
@@ -44,15 +49,9 @@ public class EntityCroc extends EntityAnimal {
 		double moveSpeed = 1.0;
 		attackDistance = 16F;
 
-//		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, moveSpeed + 0.2, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityCow.class, moveSpeed + 0.2, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntitySheep.class, moveSpeed + 0.2, true));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed + 0.2, true));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-//		tasks.addTask(4, new EntityAIRandomMating(this));
 		tasks.addTask(4, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 		tasks.addTask(5, new EntityAILookIdle(this));
@@ -64,12 +63,7 @@ public class EntityCroc extends EntityAnimal {
 		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, false));
 	}
 
-//	@Override
-//	public boolean isAIEnabled()
-//	{
-//		return true;
-//	}
-	
+
 	@Override
 	protected boolean canDespawn()
     {
@@ -84,8 +78,8 @@ public class EntityCroc extends EntityAnimal {
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0); // health
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25); // move speed
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
 	}
 
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
@@ -94,22 +88,27 @@ public class EntityCroc extends EntityAnimal {
 		return new EntityCroc(worldObj);
 	}
 
-	@Override
-	protected String getLivingSound()
-	{
-		return "reptilemod:growl";
-	}
+//	@Override
+//	protected String getLivingSound()
+//	{
+//		return "reptilemod:growl";
+//	}
+//
+//	@Override
+//	protected String getHurtSound()
+//	{
+//		return "reptilemod:growl";
+//	}
+//
+//	@Override
+//	protected String getDeathSound()
+//	{
+//		return "reptilemod:growl";
+//	}
 
 	@Override
-	protected String getHurtSound()
-	{
-		return "reptilemod:growl";
-	}
-
-	@Override
-	protected String getDeathSound()
-	{
-		return "reptilemod:growl";
+	protected void playStepSound(BlockPos blockPos, Block block) {
+		playSound(SoundEvents.entity_cow_step, 0.15F, 1.0F);
 	}
 
 	@Override
@@ -145,16 +144,16 @@ public class EntityCroc extends EntityAnimal {
 	}
 
 	@Override
-	public boolean interact(EntityPlayer entityplayer)
+	public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemStack)
 	{
 		// don't allow any interaction, especially breeding
 		return false;
 	}
 
 	@Override
-	public boolean attackEntityAsMob(Entity par1Entity)
+	public boolean attackEntityAsMob(Entity entity)
 	{
-		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
+		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
 	}
 
 	@Override

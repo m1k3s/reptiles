@@ -30,158 +30,139 @@ import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityMegalania extends EntityAnimal {
 
-//	protected final int targetChance = 0;
-	private final int maxHealth = 60;
-	private final float scaleFactor = 2.5f; // same scalefactor used in rendering
+    private final int maxHealth = 60;
+    private final float scaleFactor = 2.5f; // same scalefactor used in rendering
 
-	public EntityMegalania(World world)
-	{
-		super(world);
-		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
+    public EntityMegalania(World world) {
+        super(world);
+        setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 
-		double moveSpeed = 0.9;
+        double moveSpeed = 0.9;
 
-		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
-		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
-		tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPig.class, moveSpeed, true));
-		tasks.addTask(3, new EntityAIAttackOnCollide(this, EntityChicken.class, moveSpeed, true));
-		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntitySheep.class, moveSpeed, true));
-		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntityCow.class, moveSpeed, true));
-		tasks.addTask(6, new EntityAIAttackOnCollide(this, EntityPlayer.class, moveSpeed, true));
-		tasks.addTask(7, new EntityAIMate(this, moveSpeed));
-		tasks.addTask(8, new EntityAIWander(this, moveSpeed));
-		tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(10, new EntityAILookIdle(this));
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
+        tasks.addTask(2, new EntityAIMate(this, moveSpeed));
+        tasks.addTask(3, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(5, new EntityAILookIdle(this));
 
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChicken.class, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class,  false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
-		targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, false));
-		targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityRabbit.class, false));
-	}
-
-	@Override
-	protected void applyEntityAttributes()
-	{
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth); // health
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.3);  // move speed
-	}
-
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		return new EntityMegalania(worldObj);
-	}
-
-	@Override
-	public EntityAgeable createChild(EntityAgeable entityageable)
-	{
-		return this.spawnBabyAnimal(entityageable);
-	}
-
-	@Override
-	public int getTotalArmorValue()
-	{
-		return 4; // thick hide
-	}
-
-	@Override
-	public boolean interact(EntityPlayer entityplayer)
-	{
-		return false;
-	}
-
-	@Override
-	public int getTalkInterval()
-	{
-		return 320;
-	}
-
-	@Override
-	protected float getSoundVolume()
-	{
-		return 0.4F;
-	}
-
-	@Override
-	protected String getLivingSound()
-	{
-		return "reptilemod:purr";
-	}
-
-	@Override
-	protected String getHurtSound()
-	{
-		return "reptilemod:megagrowl";
-	}
-
-	@Override
-	protected String getDeathSound()
-	{
-		return "reptilemod:death";
-	}
-
-	@Override
-	protected void playStepSound(BlockPos blockPos, Block block)
-    {
-        playSound("mob.pig.step", 0.15F, 1.0F);
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChicken.class, false));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPig.class, false));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+        targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
+        targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
+        targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntitySkeleton.class, false));
+        targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityRabbit.class, false));
     }
 
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.leather;
-	}
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);  // move speed
+    }
 
-	@Override
-	protected void dropFewItems(boolean flag, int add)
-	{
-		int count = rand.nextInt(3) + rand.nextInt(1 + add);
-		dropItem(Items.leather, count);
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        return new EntityMegalania(worldObj);
+    }
 
-		count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
-		if (isBurning()) {
-			dropItem(Items.cooked_beef, count);
-		} else {
-			dropItem(Items.beef, count);
-		}
-	}
+    @Override
+    public EntityAgeable createChild(EntityAgeable entityageable) {
+        return this.spawnBabyAnimal(entityageable);
+    }
 
-	@Override
-	public boolean attackEntityAsMob(Entity entity)
-	{
-		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
-	}
+    @Override
+    public int getTotalArmorValue() {
+        return 4; // thick hide
+    }
 
-	@Override
-	protected int getExperiencePoints(EntityPlayer entityPlayer)
-	{
-		return 1 + worldObj.rand.nextInt(5);
-	}
+    @Override
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemStack) {
+        return false;
+    }
 
-	@Override
-	public boolean canMateWith(EntityAnimal entityAnimal)
-	{
-		if (entityAnimal == this) {
-			return false;
-		} else if (!(entityAnimal instanceof EntityMegalania)) {
-			return false;
-		} else {
-			EntityMegalania m = (EntityMegalania) entityAnimal;
-			return isInLove() && m.isInLove();
-		}
-	}
+    @Override
+    public int getTalkInterval() {
+        return 320;
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.4F;
+    }
+
+    //	@Override
+//	protected String getLivingSound()
+//	{
+//		return "reptilemod:purr";
+//	}
+//
+//	@Override
+//	protected String getHurtSound()
+//	{
+//		return "reptilemod:megagrowl";
+//	}
+//
+//	@Override
+//	protected String getDeathSound()
+//	{
+//		return "reptilemod:death";
+//	}
+//
+    @Override
+    protected void playStepSound(BlockPos blockPos, Block block) {
+        playSound(SoundEvents.entity_cow_step, 0.15F, 1.0F);
+    }
+
+    @Override
+    protected Item getDropItem() {
+        return Items.leather;
+    }
+
+    @Override
+    protected void dropFewItems(boolean flag, int add) {
+        int count = rand.nextInt(3) + rand.nextInt(1 + add);
+        dropItem(Items.leather, count);
+
+        count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
+        if (isBurning()) {
+            dropItem(Items.cooked_beef, count);
+        } else {
+            dropItem(Items.beef, count);
+        }
+    }
+
+    @Override
+    public boolean attackEntityAsMob(Entity entity) {
+        return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
+    }
+
+    @Override
+    protected int getExperiencePoints(EntityPlayer entityPlayer) {
+        return 1 + worldObj.rand.nextInt(5);
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal entityAnimal) {
+        if (entityAnimal == this) {
+            return false;
+        } else if (!(entityAnimal instanceof EntityMegalania)) {
+            return false;
+        } else {
+            EntityMegalania m = (EntityMegalania) entityAnimal;
+            return isInLove() && m.isInLove();
+        }
+    }
 
 }

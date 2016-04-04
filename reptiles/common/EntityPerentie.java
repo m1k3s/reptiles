@@ -24,12 +24,13 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public final class EntityPerentie extends EntityVaranus {
 
 	public EntityPerentie(World world)
 	{
 		super(world);
-//		setSize(0.6F, 0.6F);
 		setTamed(false);
 	}
 
@@ -43,9 +44,9 @@ public final class EntityPerentie extends EntityVaranus {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityPerentie e = new EntityPerentie(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
+		UUID uuid = getOwnerId();
+		if (uuid != null) {
+			e.setOwnerId(uuid);
 			e.setTamed(true);
 		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());

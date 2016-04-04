@@ -37,21 +37,24 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 public class EntityLizard extends EntityTameable
 {
 	private final int maxHealth = 10;
+	private static final DataParameter<Float> health = EntityDataManager.createKey(EntityLizard.class, DataSerializers.FLOAT);
 
 	public EntityLizard(World world)
 	{
 		super(world);
 		setSize(1.0F, 1.0F);
-		double moveSpeed = 1.0;
+		double moveSpeed = 0.3;
 
-		((PathNavigateGround)getNavigator()).setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, aiSit);
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
@@ -76,18 +79,18 @@ public class EntityLizard extends EntityTameable
 	{
 		super.applyEntityAttributes();
 		if (isTamed()) {
-			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth); // health
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
 		} else {
-			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0); // health
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0); // health
 		}
-		getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2); // move speed
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		dataWatcher.addObject(18, getHealth());
+		dataWatcher.register(health, getHealth());
 	}
 
 	// This MUST be overridden in the derived class
@@ -97,29 +100,23 @@ public class EntityLizard extends EntityTameable
 		return null;
 	}
 
-	@Override
-	protected float getSoundVolume()
-	{
-		return 0.4F;
-	}
-
-	@Override
-	protected String getLivingSound()
-	{
-		return null;
-	}
-
-	@Override
-	protected String getHurtSound()
-	{
-		return "reptilemod:hurt";
-	}
-
-	@Override
-	protected String getDeathSound()
-	{
-		return "reptilemod:hurt";
-	}
+//	@Override
+//	protected float getSoundVolume()
+//	{
+//		return 0.4F;
+//	}
+//
+//	@Override
+//	protected String getHurtSound()
+//	{
+//		return "reptilemod:hurt";
+//	}
+//
+//	@Override
+//	protected String getDeathSound()
+//	{
+//		return "reptilemod:hurt";
+//	}
 
 	@Override
 	protected Item getDropItem()
@@ -141,7 +138,7 @@ public class EntityLizard extends EntityTameable
 	@Override
 	protected void updateAITasks()
 	{
-		dataWatcher.updateObject(18, getHealth());
+		dataWatcher.set(health, getHealth());
 	}
 
 	@Override
@@ -152,15 +149,14 @@ public class EntityLizard extends EntityTameable
 
 	// taming stuff //////////////////
 	@Override
-	public boolean interact(EntityPlayer entityplayer)
+	public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemstack)
 	{
-		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 
 		if (isTamed()) {
 			if (itemstack != null) {
 				if (itemstack.getItem() instanceof ItemFood) {
 					ItemFood itemfood = (ItemFood) itemstack.getItem();
-					if (isFavoriteFood(itemstack) && dataWatcher.getWatchableObjectFloat(18) < maxHealth) {
+					if (isFavoriteFood(itemstack) && dataWatcher.get(health) < maxHealth) {
 						if (!entityplayer.capabilities.isCreativeMode) {
 							--itemstack.stackSize;
 						}
@@ -198,7 +194,7 @@ public class EntityLizard extends EntityTameable
 					setAttackTarget(null);
 					aiSit.setSitting(true);
 					setHealth(maxHealth);
-					setOwnerId(entityplayer.getUniqueID().toString());
+					setOwnerId(entityplayer.getUniqueID());
 					playTameEffect(true);
 					worldObj.setEntityState(this, (byte) 7);
 				} else {
@@ -210,7 +206,7 @@ public class EntityLizard extends EntityTameable
 			return true;
 		}
 
-		return super.interact(entityplayer);
+		return super.processInteract(entityplayer, enumHand, itemstack);
 	}
 
 	@Override
@@ -240,9 +236,9 @@ public class EntityLizard extends EntityTameable
 		super.setTamed(tamed);
 
 		if (tamed) {
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth);
 		} else {
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(8.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
 		}
 	}
 

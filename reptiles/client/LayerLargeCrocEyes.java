@@ -10,19 +10,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerLargeCrocEyes implements LayerRenderer {
+public class LayerLargeCrocEyes<T extends EntityLargeCroc> implements LayerRenderer<T> {
 
 	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 	private final RenderLargeCroc renderLargeCroc;
 
 	public LayerLargeCrocEyes(RenderLargeCroc render)
 	{
-		this.renderLargeCroc = render;
+		renderLargeCroc = render;
 	}
 
-	public void func_177148_a(EntityLargeCroc entityCroc, float x, float y, float z, float a, float b, float c, float f)
+	public void doRenderLayer(T entityCroc, float limbSwing, float limbSwingAmount, float partialTicks, float age, float headYaw, float headPitch, float scale)
 	{
-		this.renderLargeCroc.bindTexture(eyes);
+		renderLargeCroc.bindTexture(eyes);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.blendFunc(1, 1);
@@ -38,12 +38,12 @@ public class LayerLargeCrocEyes implements LayerRenderer {
 		int j = c0 / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.renderLargeCroc.getMainModel().render(entityCroc, x, y, a, b, c, f);
-		int k = entityCroc.getBrightnessForRender(z);
+		renderLargeCroc.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
+		int k = entityCroc.getBrightnessForRender(partialTicks);
 		i = k % 65536;
 		j = k / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
-		this.renderLargeCroc.func_177105_a(entityCroc, z);
+		renderLargeCroc.setLightmap(entityCroc, partialTicks);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
 	}
@@ -52,11 +52,5 @@ public class LayerLargeCrocEyes implements LayerRenderer {
 	public boolean shouldCombineTextures()
 	{
 		return false;
-	}
-
-	@Override
-	public void doRenderLayer(EntityLivingBase entityLivingBase, float x, float y, float z, float a, float b, float c, float f)
-	{
-		this.func_177148_a((EntityLargeCroc) entityLivingBase, x, y, z, a, b, c, f);
 	}
 }

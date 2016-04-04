@@ -19,10 +19,10 @@ package com.reptiles.client;
 import com.reptiles.common.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
-//import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-//import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 
+
+@SuppressWarnings("unused")
 public class ClientProxyReptiles extends CommonProxyReptiles {
 
 	@Override
@@ -30,28 +30,21 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 	{
 		float shadowSize = 0.0F;
 		RenderManager rm = Minecraft.getMinecraft().getRenderManager();
-		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, new RenderKomodo(rm, new ModelKomodo(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, new RenderSavanna(rm, new ModelSavanna(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPerentie.class, new RenderPerentie(rm, new ModelPerentie(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, new RenderGriseus(rm, new ModelGriseus(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, new RenderSalvadorii(rm, new ModelSalvadorii(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, new RenderLace(rm, new ModelLace(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, new RenderMegalania(rm, new ModelMegalania(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, new RenderCroc(rm, new ModelCroc(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLargeCroc.class, new RenderLargeCroc(rm, new ModelLargeCroc(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDesertTortoise.class, new RenderTurtle(rm, new ModelTurtle(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityLittleTurtle.class, new RenderLittleTurtle(rm, new ModelLittleTurtle(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityIguana.class, new RenderIguana(rm, new ModelIguana(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, new RenderTortoise(rm, new ModelTortoise(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, new RenderGator(rm, new ModelGator(), shadowSize));
-		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, new RenderChameleon(rm, new ModelChameleon(), shadowSize));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, RenderKomodo::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, RenderSavanna::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPerentie.class, RenderPerentie::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityGriseus.class, RenderGriseus::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySalvadorii.class, RenderSalvadorii::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLace.class, RenderLace::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, RenderMegalania::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCroc.class, RenderCroc::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLargeCroc.class, RenderLargeCroc::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDesertTortoise.class, RenderTurtle::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLittleTurtle.class, RenderLittleTurtle::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityIguana.class, RenderIguana::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, RenderTortoise::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, RenderGator::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, RenderChameleon::new);
 	}
 	
-	@Override
-	public void registerHandlers()
-	{
-		// allow this mod to load if there are missing mappings
-//		FMLClientHandler.instance().setDefaultMissingAction(FMLMissingMappingsEvent.Action.IGNORE);
-	}
-
 }

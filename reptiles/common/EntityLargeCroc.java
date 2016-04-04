@@ -19,7 +19,6 @@
 package com.reptiles.common;
 
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -35,9 +34,6 @@ public class EntityLargeCroc extends EntityCroc {
 		super(world);
 		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 		attackStrength = 3; // they're bigger, duh!
-
-		tasks.addTask(5, new EntityAIAttackOnCollide(this, EntitySquid.class, 1.0, true));
-		tasks.addTask(6, new EntityAIAttackOnCollide(this, EntitySpider.class, 1.0, true));
 
 		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class, false));
 		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, false));
