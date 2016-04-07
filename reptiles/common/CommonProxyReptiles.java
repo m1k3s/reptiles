@@ -18,20 +18,34 @@
 //
 package com.reptiles.common;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 public class CommonProxyReptiles {
 	
 	private static final Logger logger = FMLLog.getLogger();
+	public static SoundEvent varanus_hiss;
+	public static SoundEvent varanus_hurt;
+	public static SoundEvent croc_growl;
+	public static SoundEvent mega_growl;
+	public static SoundEvent mega_purr;
+	public static SoundEvent mega_death;
 
 	public void registerRenderers()
 	{
 	}
 	
-	public void registerHandlers()
+	public void registerSoundEvents()
 	{
-		
+		varanus_hiss = registerSoundEvent(Reptiles.modid + ":varanus.hiss");
+		varanus_hurt = registerSoundEvent(Reptiles.modid + ":varanus.hurt");
+		croc_growl = registerSoundEvent(Reptiles.modid + ":croc.growl");
+		mega_growl = registerSoundEvent(Reptiles.modid + ":mega.growl");
+		mega_purr = registerSoundEvent(Reptiles.modid + ":mega.purr");
+		mega_death = registerSoundEvent(Reptiles.modid + ":mega.death");
 	}
 
 	public void info(String s)
@@ -48,4 +62,19 @@ public class CommonProxyReptiles {
 	{
 		logger.error(s);
 	}
+
+	private SoundEvent registerSoundEvent(String sound) {
+		ResourceLocation resourceLocation = new ResourceLocation(sound);
+		SoundEvent soundEvent = new SoundEvent(resourceLocation).setRegistryName(resourceLocation);
+		GameRegistry.register(soundEvent);
+		return soundEvent;
+	}
+
+//	public SoundEvent getRegisteredSoundEvent(ResourceLocation resourceLocation) {
+//		SoundEvent sound =  SoundEvent.soundEventRegistry.getObject(resourceLocation);
+//		if (sound == null) {
+//			Reptiles.proxy.error("SoundEvent " + resourceLocation.getResourcePath() + " was NOT found!");
+//		}
+//		return sound;
+//	}
 }

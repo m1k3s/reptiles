@@ -22,14 +22,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,11 +45,12 @@ public class EntityLizard extends EntityTameable
 	public EntityLizard(World world)
 	{
 		super(world);
-		setSize(1.0F, 1.0F);
-		double moveSpeed = 0.3;
+		setSize(0.2F, 0.25F);
+		double moveSpeed = 1.0;
+		enablePersistence();
 
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, aiSit);
+		tasks.addTask(2, new EntityAISit(this));
 		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAITempt(this, 1.2, Items.carrot, false));
@@ -71,7 +65,16 @@ public class EntityLizard extends EntityTameable
 
 	@Override
 	protected boolean canDespawn() {
-		return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+		return ConfigHandler.shouldDespawn() && !isTamed();
+	}
+	
+	@Override
+    public boolean getCanSpawnHere() {
+		if (super.getCanSpawnHere()) {
+			Reptiles.proxy.info("Spawning lizard ***");
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class EntityLizard extends EntityTameable
 		if (isTamed()) {
 			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
 		} else {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0); // health
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
 		}
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
 	}

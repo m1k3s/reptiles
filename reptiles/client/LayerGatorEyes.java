@@ -22,7 +22,7 @@ public class LayerGatorEyes<T extends EntityGator> implements LayerRenderer<T> {
 
 	public void doRenderLayer(T entityCroc, float limbSwing, float limbSwingAmount, float partialTicks, float age, float headYaw, float headPitch, float scale)
 	{
-		this.renderGator.bindTexture(eyes);
+		renderGator.bindTexture(eyes);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.blendFunc(1, 1);
@@ -38,12 +38,12 @@ public class LayerGatorEyes<T extends EntityGator> implements LayerRenderer<T> {
 		int j = c0 / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.renderGator.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
+		renderGator.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
 		int k = entityCroc.getBrightnessForRender(partialTicks);
 		i = k % 65536;
 		j = k / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
-		this.renderGator.setLightmap(entityCroc, partialTicks);
+		renderGator.setLightmap(entityCroc, partialTicks);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
 	}

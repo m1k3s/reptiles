@@ -45,12 +45,12 @@ public class ConfigHandler {
 	static private boolean randomScale;
 	static private boolean followOwner;
 
-	static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
+	private static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.mcversion;
-	static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
-	static final String despawnComment = "Set to false to not despawn. default is true.";
-	static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
-	static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
+	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
+	private static final String despawnComment = "Set to false to not despawn. default is true.";
+	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
+	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
 
 	public static void startConfig(FMLPreInitializationEvent event)
 	{

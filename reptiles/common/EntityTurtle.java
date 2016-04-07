@@ -53,10 +53,11 @@ public class EntityTurtle extends EntityTameable {
         super(world);
         setSize(0.5F, 0.5F);
         double moveSpeed = 0.75;
+        enablePersistence();
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 0.38F));
-        tasks.addTask(2, aiSit);
+        tasks.addTask(2, new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
@@ -76,16 +77,16 @@ public class EntityTurtle extends EntityTameable {
         if (isTamed()) {
             getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
         } else {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0); // health
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
         }
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
     }
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+        return ConfigHandler.shouldDespawn() && !isTamed();
     }
-
+    
     @Override
     protected void entityInit() {
         super.entityInit();
@@ -126,6 +127,7 @@ public class EntityTurtle extends EntityTameable {
                     BlockPos bp = new BlockPos(x, y, z);
                     if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
                         if (worldObj.getLight(bp) > 8) {
+							Reptiles.proxy.info("Spawning turtle ***");
                             return true;
                         }
                     }

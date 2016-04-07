@@ -28,7 +28,6 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 	@Override
 	public void registerRenderers()
 	{
-		float shadowSize = 0.0F;
 		RenderManager rm = Minecraft.getMinecraft().getRenderManager();
 		RenderingRegistry.registerEntityRenderingHandler(EntityKomodo.class, RenderKomodo::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySavanna.class, RenderSavanna::new);

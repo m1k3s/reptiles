@@ -31,23 +31,22 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityCroc extends EntityAnimal {
 
-	private final float attackDistance;
 	protected int attackStrength;
-//	private int maxHealth = 20;
 
 	public EntityCroc(World world)
 	{
 		super(world);
-		setSize(2.0F, 0.6F);
+		setSize(0.9F, 1.4F);
 
 		attackStrength = 2;
 		double moveSpeed = 1.0;
-		attackDistance = 16F;
+		enablePersistence();
 
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
@@ -57,10 +56,10 @@ public class EntityCroc extends EntityAnimal {
 		tasks.addTask(5, new EntityAILookIdle(this));
 
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityCow.class, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPig.class, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
+		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityCow.class, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
+		targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPig.class, false));
 	}
 
 
@@ -68,11 +67,20 @@ public class EntityCroc extends EntityAnimal {
 	protected boolean canDespawn()
     {
         if (ConfigHandler.shouldDespawn()) {
-			return ticksExisted > 6000;
+			return true;
 		} else {
 			return false;
 		}
     }
+    
+    @Override
+    public boolean getCanSpawnHere() {
+		if (super.getCanSpawnHere()) {
+			Reptiles.proxy.info("Spawning croc ***");
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	protected void applyEntityAttributes()
@@ -88,23 +96,23 @@ public class EntityCroc extends EntityAnimal {
 		return new EntityCroc(worldObj);
 	}
 
-//	@Override
-//	protected String getLivingSound()
-//	{
-//		return "reptilemod:growl";
-//	}
-//
-//	@Override
-//	protected String getHurtSound()
-//	{
-//		return "reptilemod:growl";
-//	}
-//
-//	@Override
-//	protected String getDeathSound()
-//	{
-//		return "reptilemod:growl";
-//	}
+	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return CommonProxyReptiles.croc_growl;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound()
+	{
+		return CommonProxyReptiles.croc_growl;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return CommonProxyReptiles.croc_growl;
+	}
 
 	@Override
 	protected void playStepSound(BlockPos blockPos, Block block) {

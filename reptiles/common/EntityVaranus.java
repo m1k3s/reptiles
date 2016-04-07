@@ -37,9 +37,15 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import com.google.common.base.Predicate;
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 
 
 public class EntityVaranus extends EntityTameable {
@@ -51,14 +57,15 @@ public class EntityVaranus extends EntityTameable {
     @SuppressWarnings("unchecked")
     public EntityVaranus(World world) {
         super(world);
-        setSize(1.2F, 0.6F);
-        double moveSpeed = 0.3;
+        setSize(0.6F, 0.85F);
+        double moveSpeed = 1.0;
+        enablePersistence();
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 0.38));
-        tasks.addTask(2, aiSit);
+        tasks.addTask(2, new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
+//        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
         targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
             public boolean apply(Entity entity) {
                 return entity instanceof EntityPig || entity instanceof EntityRabbit;
@@ -74,7 +81,6 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(14, new EntityAILookIdle(this));
 
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityAnimal.class, false, null));
 
         if (ConfigHandler.useRandomScaling()) {
             float scale = rand.nextFloat();
@@ -97,7 +103,7 @@ public class EntityVaranus extends EntityTameable {
         if (this.isTamed()) {
             this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         } else {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         }
 
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
@@ -109,6 +115,11 @@ public class EntityVaranus extends EntityTameable {
         dataWatcher.register(health, getHealth());
     }
 
+    @Override
+    public void onLivingUpdate() {
+        super.onLivingUpdate();
+    }
+
     // This MUST be overridden in the derived class
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
         Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
@@ -117,7 +128,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed() && ticksExisted > 2400;
+        return ConfigHandler.shouldDespawn() && !isTamed();
     }
 
     @Override
@@ -132,27 +143,34 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected float getSoundVolume() {
-        return 0.3F;
+        return 0.4F;
     }
 
-    //	@Override
-//	protected SoundEvent getAmbientSound()
-//	{
-//		return "reptilemod:hiss";
-//	}
-//
-//	@Override
-//	protected String getHurtSound()
-//	{
-//		return "reptilemod:hurt";
-//	}
-//
-//	@Override
-//	protected String getDeathSound()
-//	{
-//		return "reptilemod:hurt";
-//	}
-//
+    @Override
+    public boolean getCanSpawnHere() {
+        if (super.getCanSpawnHere()) {
+            Reptiles.proxy.info("Spawning varanus ***");
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return CommonProxyReptiles.varanus_hiss;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound() {
+        return CommonProxyReptiles.varanus_hurt;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return CommonProxyReptiles.varanus_hurt;
+    }
+
     @Override
     protected void playStepSound(BlockPos blockPos, Block block) {
         playSound(SoundEvents.entity_pig_step, 0.15F, 1.0F);
@@ -178,7 +196,13 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     public boolean attackEntityAsMob(Entity entity) {
-        return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
+        boolean entityFrom = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+
+        if (entityFrom) {
+            this.applyEnchantments(this, entity);
+        }
+
+        return entityFrom;
     }
 
     public boolean isFavoriteFood(ItemStack itemstack) {
@@ -233,14 +257,13 @@ public class EntityVaranus extends EntityTameable {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
 
-            if (!this.worldObj.isRemote) {
+            if (!worldObj.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
                     navigator.clearPathEntity();
                     setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(maxHealth);
-//					setOwner(entityplayer.getCommandSenderName());
                     setOwnerId(entityplayer.getUniqueID());
                     playTameEffect(true);
                     worldObj.setEntityState(this, (byte) 7);
@@ -271,8 +294,8 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable var1) {
-        return this.spawnBabyAnimal(var1);
+    public EntityAgeable createChild(EntityAgeable entityAgeable) {
+        return this.spawnBabyAnimal(entityAgeable);
     }
 
     @Override
@@ -280,9 +303,9 @@ public class EntityVaranus extends EntityTameable {
         super.setTamed(tamed);
 
         if (tamed) {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth);
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth);
         } else {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         }
     }
 

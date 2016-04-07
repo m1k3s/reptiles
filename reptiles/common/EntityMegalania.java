@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -102,24 +103,24 @@ public class EntityMegalania extends EntityAnimal {
         return 0.4F;
     }
 
-    //	@Override
-//	protected String getLivingSound()
-//	{
-//		return "reptilemod:purr";
-//	}
-//
-//	@Override
-//	protected String getHurtSound()
-//	{
-//		return "reptilemod:megagrowl";
-//	}
-//
-//	@Override
-//	protected String getDeathSound()
-//	{
-//		return "reptilemod:death";
-//	}
-//
+   	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return CommonProxyReptiles.mega_purr;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound()
+	{
+        return CommonProxyReptiles.mega_growl;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+        return CommonProxyReptiles.mega_death;
+	}
+
     @Override
     protected void playStepSound(BlockPos blockPos, Block block) {
         playSound(SoundEvents.entity_cow_step, 0.15F, 1.0F);

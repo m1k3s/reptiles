@@ -35,8 +35,8 @@ public class EntityLargeCroc extends EntityCroc {
 		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 		attackStrength = 3; // they're bigger, duh!
 
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySquid.class, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySpider.class, false));
+		targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySquid.class, false));
+		targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntitySpider.class, false));
 	}
 
 	@Override
