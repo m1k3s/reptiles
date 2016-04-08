@@ -1,42 +1,42 @@
 {
 	"varanus.hiss": {
-		"category": "master",
-		"reptilemod:sounds": [
-			"hiss1"
+		"category": "neutral",
+		"sounds": [
+			"reptilemod:hiss1"
 		]
 	},
 	"varanus.hurt": {
-		"category": "master",
-		"reptilemod:sounds": [
-			"hurt1"
+		"category": "neutral",
+		"sounds": [
+			"reptilemod:hurt1"
 		]
 	},
 	"croc.growl": {
 		"category": "hostile",
-		"reptilemod:sounds": [
-			"growl1",
-			"growl2",
-			"growl3",
-			"growl4"
+		"sounds": [
+			"reptilemod:growl1",
+			"reptilemod:growl2",
+			"reptilemod:growl3",
+			"reptilemod:growl4"
 		]
 	},
 	"mega.growl": {
-		"category": "master",
-		"reptilemod:sounds": [
-			"megagrowl"
+		"category": "neutral",
+		"sounds": [
+			"reptilemod:megagrowl"
 		]
 	},
 	"mega.purr": {
 		"category": "hostile",
-		"reptilemod:sounds": [
-			"purr1",
-			"purr2"
+		"sounds": [
+			"reptilemod:purr1",
+			"reptilemod:purr2"
 		]
 	},
 	"mega.death": {
-		"category": "master",
-		"reptilemod:sounds": [
-			"death1"
+		"category": "neutral",
+		"sounds": [
+			"reptilemod:death1"
 		]
 	}
 }

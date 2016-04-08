@@ -37,15 +37,10 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import com.google.common.base.Predicate;
-import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 
 
 public class EntityVaranus extends EntityTameable {
@@ -158,17 +153,17 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return CommonProxyReptiles.varanus_hiss;
+        return ReptileSounds.varanus_hiss;
     }
 
     @Override
     protected SoundEvent getHurtSound() {
-        return CommonProxyReptiles.varanus_hurt;
+        return ReptileSounds.varanus_hurt;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return CommonProxyReptiles.varanus_hurt;
+        return ReptileSounds.varanus_hurt;
     }
 
     @Override

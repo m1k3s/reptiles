@@ -106,19 +106,19 @@ public class EntityMegalania extends EntityAnimal {
    	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		return CommonProxyReptiles.mega_purr;
+		return ReptileSounds.mega_purr;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound()
 	{
-        return CommonProxyReptiles.mega_growl;
+        return ReptileSounds.mega_growl;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-        return CommonProxyReptiles.mega_death;
+        return ReptileSounds.mega_death;
 	}
 
     @Override
