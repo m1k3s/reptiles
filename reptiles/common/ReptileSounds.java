@@ -5,14 +5,14 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ReptileSounds {
-    public static SoundEvent varanus_hiss;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":varanus.hiss")).setRegistryName("varanus.hiss");
-    public static SoundEvent varanus_hurt;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":varanus.hurt")).setRegistryName("varanus.hurt");
-    public static SoundEvent croc_growl;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":croc.growl")).setRegistryName("croc.growl");
-    public static SoundEvent mega_growl;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":mega.growl")).setRegistryName("mega.growl");
-    public static SoundEvent mega_purr;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":mega.purr")).setRegistryName("mega.purr");
-    public static SoundEvent mega_death;// = new SoundEvent(new ResourceLocation(Reptiles.modid + ":mega.death")).setRegistryName("mega.death");
+    public static SoundEvent varanus_hiss;
+    public static SoundEvent varanus_hurt;
+    public static SoundEvent croc_growl;
+    public static SoundEvent mega_growl;
+    public static SoundEvent mega_purr;
+    public static SoundEvent mega_death;
 
-    public static void init() {
+    public static void initializeSoundEvents() {
         varanus_hiss = getRegisteredSoundEvent(Reptiles.modid + ":varanus.hiss");
         varanus_hurt = getRegisteredSoundEvent(Reptiles.modid + ":varanus.hurt");
         croc_growl = getRegisteredSoundEvent(Reptiles.modid + ":croc.growl");
@@ -21,7 +21,7 @@ public class ReptileSounds {
         mega_death = getRegisteredSoundEvent(Reptiles.modid + ":mega.death");
     }
 
-    public static void registerSounds() {
+    public static void registerSoundEvents() {
         GameRegistry.register(new SoundEvent(new ResourceLocation(Reptiles.modid + ":varanus.hiss")).setRegistryName("varanus.hiss"));
         GameRegistry.register(new SoundEvent(new ResourceLocation(Reptiles.modid + ":varanus.hurt")).setRegistryName("varanus.hurt"));
         GameRegistry.register(new SoundEvent(new ResourceLocation(Reptiles.modid + ":croc.growl")).setRegistryName("croc.growl"));

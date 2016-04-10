@@ -55,7 +55,7 @@ public class ConfigHandler {
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
 		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load(); // only need to load config once during pre init
+		config.load(); // only need to load config once during pre initializeSoundEvents
 		updateConfigInfo();
 	}
 

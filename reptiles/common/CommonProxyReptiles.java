@@ -32,8 +32,8 @@ public class CommonProxyReptiles {
 	
 	public void registerSoundEvents()
 	{
-		ReptileSounds.registerSounds();
-		ReptileSounds.init();
+		ReptileSounds.registerSoundEvents();
+		ReptileSounds.initializeSoundEvents();
 	}
 
 	public void info(String s)

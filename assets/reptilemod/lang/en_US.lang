@@ -1,15 +1,21 @@
-entity.Komodo.name=Komodo
-entity.Savanna.name=Savanna
-entity.Griseus.name=Griseus
-entity.Perentie.name=Perentie
-entity.Lace.name=Lace
-entity.Iguana.name=Iguana
-entity.Chameleon.name=Chameleon
-entity.Croc.name=Crocodile
-entity.DesertTortoise.name=Desert Tortoise
-entity.LittleTurtle.name=Little Turtle
-entity.LargeCroc.name=Large Crocodile
-entity.Alligator.name=Alligator
-entity.Tortoise.name=Tortoise
-entity.CrocMonitor.name=Crocodile Monitor
-entity.Megalania.name=Megalania
+
+
+language.name=English
+language.region=US
+language.code=en_US
+
+entity.reptilemod.Komodo.name=Komodo
+entity.reptilemod.Savanna.name=Savanna
+entity.reptilemod.Griseus.name=Griseus
+entity.reptilemod.Perentie.name=Perentie
+entity.reptilemod.Lace.name=Lace
+entity.reptilemod.Iguana.name=Iguana
+entity.reptilemod.Chameleon.name=Chameleon
+entity.reptilemod.Croc.name=Crocodile
+entity.reptilemod.DesertTortoise.name=Desert Tortoise
+entity.reptilemod.LittleTurtle.name=Little Turtle
+entity.reptilemod.LargeCroc.name=Large Crocodile
+entity.reptilemod.Alligator.name=Alligator
+entity.reptilemod.Tortoise.name=Tortoise
+entity.reptilemod.CrocMonitor.name=Crocodile Monitor
+entity.reptilemod.Megalania.name=Megalania
