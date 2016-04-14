@@ -14,6 +14,9 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011-2015 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.client;
 
 import com.reptiles.common.EntityKomodo;
@@ -26,14 +29,12 @@ public class RenderKomodo<T extends EntityKomodo> extends RenderLiving<T> {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/komodo32.png");
 
-	public RenderKomodo(RenderManager rm)
-	{
+	public RenderKomodo(RenderManager rm) {
 		super(rm, new ModelKomodo(), 0.0f);
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
-	{
+	protected void preRenderCallback(T entityliving, float f) {
 		float scaleFactor = entityliving.getScaleFactor();
 		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
 		super.preRenderCallback(entityliving, f);

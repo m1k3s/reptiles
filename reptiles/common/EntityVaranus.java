@@ -138,13 +138,13 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected float getSoundVolume() {
-        return 0.4F;
+        return 0.3F;
     }
 
     @Override
     public boolean getCanSpawnHere() {
         if (super.getCanSpawnHere()) {
-            Reptiles.proxy.info("Spawning varanus ***");
+//            Reptiles.proxy.info("Spawning varanus ***");
             return true;
         }
         return false;
