@@ -35,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -53,14 +54,25 @@ public class EntityVaranus extends EntityTameable {
     public EntityVaranus(World world) {
         super(world);
         setSize(0.6F, 0.85F);
-        double moveSpeed = 1.0;
-        enablePersistence();
+        setPathPriority(PathNodeType.WATER, 0.0f); // avoid water
 
-        tasks.addTask(0, new EntityAISwimming(this));
-        tasks.addTask(1, new EntityAIPanic(this, 0.38));
-        tasks.addTask(2, new EntityAISit(this));
+        if (ConfigHandler.useRandomScaling()) {
+            float scale = rand.nextFloat();
+            scaleFactor = scale < 0.55F ? 1.0F : scale;
+        } else {
+            scaleFactor = 1.0F;
+        }
+        setTamed(false);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void initEntityAI() {
+        double moveSpeed = 1.0;
+        tasks.addTask(1, new EntityAISwimming(this));
+//        tasks.addTask(1, new EntityAIPanic(this, 0.38));
+        tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-//        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
         targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
             public boolean apply(Entity entity) {
                 return entity instanceof EntityPig || entity instanceof EntityRabbit;
@@ -76,15 +88,8 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(14, new EntityAILookIdle(this));
 
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-
-        if (ConfigHandler.useRandomScaling()) {
-            float scale = rand.nextFloat();
-            scaleFactor = scale < 0.55F ? 1.0F : scale;
-        } else {
-            scaleFactor = 1.0F;
-        }
-
     }
+
 
     public float getScaleFactor() {
         return scaleFactor;
@@ -95,10 +100,10 @@ public class EntityVaranus extends EntityTameable {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
-        if (this.isTamed()) {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        if (isTamed()) {
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         } else {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         }
 
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
@@ -194,7 +199,7 @@ public class EntityVaranus extends EntityTameable {
         boolean entityFrom = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
         if (entityFrom) {
-            this.applyEnchantments(this, entity);
+            applyEnchantments(this, entity);
         }
 
         return entityFrom;
@@ -227,11 +232,6 @@ public class EntityVaranus extends EntityTameable {
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
-
-                        if (itemstack.stackSize <= 0) {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-                        }
-
                         return true;
                     }
                 }
@@ -243,7 +243,7 @@ public class EntityVaranus extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (itemstack != null && isFavoriteFood(itemstack)) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }
@@ -267,7 +267,6 @@ public class EntityVaranus extends EntityTameable {
                     worldObj.setEntityState(this, (byte) 6);
                 }
             }
-
             return true;
         }
 
@@ -305,7 +304,8 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public EntityLivingBase getOwner() {
-        return null;
+    public boolean canBeLeashedTo(EntityPlayer player) {
+        return super.canBeLeashedTo(player);
     }
+
 }

@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -54,10 +55,11 @@ public class EntityTurtle extends EntityTameable {
         setSize(0.5F, 0.5F);
         double moveSpeed = 0.75;
         enablePersistence();
+        setPathPriority(PathNodeType.WATER, 0.0f);
 
-        tasks.addTask(0, new EntityAISwimming(this));
-        tasks.addTask(1, new EntityAIPanic(this, 0.38F));
-        tasks.addTask(2, new EntityAISit(this));
+        tasks.addTask(1, new EntityAISwimming(this));
+        //tasks.addTask(1, new EntityAIPanic(this, 0.38F));
+        tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
@@ -249,8 +251,4 @@ public class EntityTurtle extends EntityTameable {
         }
     }
 
-    @Override
-    public EntityLivingBase getOwner() {
-        return null;
-    }
 }

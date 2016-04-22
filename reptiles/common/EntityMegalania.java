@@ -33,6 +33,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -47,6 +48,7 @@ public class EntityMegalania extends EntityAnimal {
     public EntityMegalania(World world) {
         super(world);
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
+        setPathPriority(PathNodeType.WATER, 0.0f);
 
         double moveSpeed = 0.9;
 
