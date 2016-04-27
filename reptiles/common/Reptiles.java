@@ -61,6 +61,7 @@ public class Reptiles {
 
     public static CommonProxyReptiles proxy;
 
+    @SuppressWarnings("unused")
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         ConfigHandler.startConfig(event);
@@ -85,11 +86,13 @@ public class Reptiles {
         proxy.registerRenderers();
     }
 
+    @SuppressWarnings("unused")
     @Mod.EventHandler
     public void Init(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(Reptiles.instance);
     }
 
+    @SuppressWarnings("unused")
     @Mod.EventHandler
     public void PostInit(FMLPostInitializationEvent event) {
         BiomeDictionary.registerAllBiomesAndGenerateEvents();
@@ -129,17 +132,17 @@ public class Reptiles {
         addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 4, 4, variousBiomes);
     }
 
-    public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
+    private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
         EntityRegistry.registerModEntity(entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
-    public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
+    private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
         if (spawnProb > 0) {
             EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.CREATURE, biomes);
         }
     }
 
-    public BiomeGenBase[] getBiomes(Type... types) {
+    private BiomeGenBase[] getBiomes(Type... types) {
         LinkedList<BiomeGenBase> list = new LinkedList<>();
         for (Type t : types) {
             BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
@@ -165,6 +168,7 @@ public class Reptiles {
     }
 
     // user has changed entries in the GUI config. save the results.
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Reptiles.modid)) {

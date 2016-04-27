@@ -21,7 +21,6 @@ package com.reptiles.common;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -107,12 +106,12 @@ public class EntityTurtle extends EntityTameable {
         return null;
     }
 
-    protected boolean isHardenedClay(BlockPos bp) {
+    private boolean isHardenedClay(BlockPos bp) {
         Block block = worldObj.getBlockState(bp).getBlock();
         return block == Blocks.hardened_clay;
     }
 
-    protected boolean isSandOrGrassBlock(BlockPos bp) {
+    private boolean isSandOrGrassBlock(BlockPos bp) {
         Block block = worldObj.getBlockState(bp).getBlock();
         return (block == Blocks.sand || block == Blocks.grass);
     }
@@ -152,7 +151,7 @@ public class EntityTurtle extends EntityTameable {
         super.onLivingUpdate();
     }
 
-    protected boolean isFavoriteFood(ItemStack itemstack) {
+    private boolean isFavoriteFood(ItemStack itemstack) {
         return (itemstack != null && (itemstack.getItem() == Items.carrot || itemstack.getItem() == Items.golden_carrot));
     }
 
@@ -190,7 +189,7 @@ public class EntityTurtle extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && isFavoriteFood(itemstack) && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (itemstack != null && itemstack.getItem() == Items.apple && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }

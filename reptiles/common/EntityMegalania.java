@@ -42,11 +42,10 @@ import net.minecraft.world.World;
 
 public class EntityMegalania extends EntityAnimal {
 
-    private final int maxHealth = 60;
-    private final float scaleFactor = 2.5f; // same scalefactor used in rendering
-
+    @SuppressWarnings("unchecked")
     public EntityMegalania(World world) {
         super(world);
+        float scaleFactor = 2.5f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
         setPathPriority(PathNodeType.WATER, 0.0f);
 
@@ -72,10 +71,12 @@ public class EntityMegalania extends EntityAnimal {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
+        int maxHealth = 60;
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth); // health
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3);  // move speed
     }
 
+    @SuppressWarnings("unused")
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
         return new EntityMegalania(worldObj);
     }

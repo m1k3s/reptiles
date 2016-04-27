@@ -22,7 +22,6 @@ package com.reptiles.common;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
@@ -53,7 +52,7 @@ public class EntityVaranus extends EntityTameable {
     @SuppressWarnings("unchecked")
     public EntityVaranus(World world) {
         super(world);
-        setSize(0.6F, 0.85F);
+        setSize(0.4F, 0.85F);
         setPathPriority(PathNodeType.WATER, 0.0f); // avoid water
 
         if (ConfigHandler.useRandomScaling()) {
@@ -148,11 +147,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     public boolean getCanSpawnHere() {
-        if (super.getCanSpawnHere()) {
-//            Reptiles.proxy.info("Spawning varanus ***");
-            return true;
-        }
-        return false;
+        return super.getCanSpawnHere();
     }
 
 
@@ -205,8 +200,8 @@ public class EntityVaranus extends EntityTameable {
         return entityFrom;
     }
 
-    public boolean isFavoriteFood(ItemStack itemstack) {
-        return (itemstack != null && (itemstack.getItem() == Items.porkchop || itemstack.getItem() == Items.cooked_porkchop));
+    private boolean isFavoriteFood(ItemStack itemstack) {
+        return (itemstack != null && (itemstack.getItem() == Items.cooked_porkchop));
     }
 
     @Override
@@ -243,7 +238,7 @@ public class EntityVaranus extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && isFavoriteFood(itemstack)) {
+        } else if (itemstack != null && itemstack.getItem() == Items.porkchop) { // raw porkchop
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }
@@ -274,15 +269,15 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal entityAnimal) {
-        if (entityAnimal == this) {
+    public boolean canMateWith(EntityAnimal otherAnimal) {
+        if (otherAnimal == this) {
             return false;
         } else if (!isTamed()) {
             return false;
-        } else if (!(entityAnimal instanceof EntityVaranus)) {
+        } else if (!(otherAnimal instanceof EntityVaranus)) {
             return false;
         } else {
-            EntityVaranus v = (EntityVaranus) entityAnimal;
+            EntityVaranus v = (EntityVaranus) otherAnimal;
             return v.isTamed() && (!v.isSitting() && (isInLove() && v.isInLove()));
         }
     }
