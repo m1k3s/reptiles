@@ -31,7 +31,6 @@ public final class EntityPerentie extends EntityVaranus {
 	public EntityPerentie(World world)
 	{
 		super(world);
-		setTamed(false);
 	}
 
 	@Override
@@ -44,11 +43,6 @@ public final class EntityPerentie extends EntityVaranus {
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
 		EntityPerentie e = new EntityPerentie(worldObj);
-		UUID uuid = getOwnerId();
-		if (uuid != null) {
-			e.setOwnerId(uuid);
-			e.setTamed(true);
-		}
 		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
 		return e;
 	}

@@ -28,17 +28,11 @@ public final class EntitySavanna extends EntityVaranus {
 
     public EntitySavanna(World world) {
         super(world);
-        setTamed(false);
     }
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
         EntitySavanna e = new EntitySavanna(worldObj);
-        UUID uuid = getOwnerId();
-        if (uuid != null) {
-            e.setOwnerId(uuid);
-            e.setTamed(true);
-        }
         Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
         return e;
     }

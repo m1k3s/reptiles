@@ -43,13 +43,11 @@ public class ConfigHandler {
 	static private int megalaniaSpawnProb;
 	static private boolean despawn;
 	static private boolean randomScale;
-	static private boolean followOwner;
 
 	private static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.mcversion;
 	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
 	private static final String despawnComment = "Set to false to not despawn. default is true.";
-	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
 	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
 
 	public static void startConfig(FMLPreInitializationEvent event)
@@ -82,7 +80,6 @@ public class ConfigHandler {
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
-			followOwner = config.get(Configuration.CATEGORY_GENERAL, "followOwner", true, followOwnerComment).getBoolean(true);
 		} catch (Exception e) {
 			Reptiles.proxy.info("failed to load or read the config file");
 		} finally {
@@ -100,11 +97,6 @@ public class ConfigHandler {
 	public static boolean shouldDespawn()
 	{
 		return despawn;
-	}
-
-	public static boolean getFollowOwner()
-	{
-		return followOwner;
 	}
 
 	public static int getKomodoSpawnProb()

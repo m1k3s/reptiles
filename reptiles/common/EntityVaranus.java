@@ -40,10 +40,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import com.google.common.base.Predicate;
 
 
-public class EntityVaranus extends EntityTameable {
+public class EntityVaranus extends EntityAnimal {
 
     private final int maxHealth = 20;
     private final float scaleFactor;
@@ -61,7 +60,6 @@ public class EntityVaranus extends EntityTameable {
         } else {
             scaleFactor = 1.0F;
         }
-        setTamed(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,18 +67,7 @@ public class EntityVaranus extends EntityTameable {
     protected void initEntityAI() {
         double moveSpeed = 1.0;
         tasks.addTask(1, new EntityAISwimming(this));
-//        tasks.addTask(1, new EntityAIPanic(this, 0.38));
-        tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
-            public boolean apply(Entity entity) {
-                return entity instanceof EntityPig || entity instanceof EntityRabbit;
-            }
-        }));
-        if (ConfigHandler.getFollowOwner()) {
-            tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
-            targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        }
         tasks.addTask(10, new EntityAIMate(this, moveSpeed));
         tasks.addTask(12, new EntityAIWander(this, moveSpeed));
         tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
@@ -97,15 +84,9 @@ public class EntityVaranus extends EntityTameable {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-
-        if (isTamed()) {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        } else {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        }
-
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
     @Override
@@ -127,7 +108,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+        return ConfigHandler.shouldDespawn();
     }
 
     @Override
@@ -216,86 +197,12 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemstack) {
-
-        if (isTamed()) {
-            if (itemstack != null) {
-                if (itemstack.getItem() instanceof ItemFood) {
-                    ItemFood itemfood = (ItemFood) itemstack.getItem();
-                    if (isFavoriteFood(itemstack) && dataWatcher.get(health) < maxHealth) {
-                        if (!entityplayer.capabilities.isCreativeMode) {
-                            --itemstack.stackSize;
-                        }
-
-                        heal((float) itemfood.getHealAmount(itemstack));
-                        return true;
-                    }
-                }
-            }
-
-            if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
-                aiSit.setSitting(!isSitting());
-                isJumping = false;
-                navigator.clearPathEntity();
-                setAttackTarget(null);
-            }
-        } else if (itemstack != null && itemstack.getItem() == Items.porkchop) { // raw porkchop
-            if (!entityplayer.capabilities.isCreativeMode) {
-                --itemstack.stackSize;
-            }
-
-            if (itemstack.stackSize <= 0) {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-            }
-
-            if (!worldObj.isRemote) {
-                if (rand.nextInt(3) == 0) {
-                    setTamed(true);
-                    navigator.clearPathEntity();
-                    setAttackTarget(null);
-                    aiSit.setSitting(true);
-                    setHealth(maxHealth);
-                    setOwnerId(entityplayer.getUniqueID());
-                    playTameEffect(true);
-                    worldObj.setEntityState(this, (byte) 7);
-                } else {
-                    playTameEffect(false);
-                    worldObj.setEntityState(this, (byte) 6);
-                }
-            }
-            return true;
-        }
-
         return super.processInteract(entityplayer, enumHand, itemstack);
-    }
-
-    @Override
-    public boolean canMateWith(EntityAnimal otherAnimal) {
-        if (otherAnimal == this) {
-            return false;
-        } else if (!isTamed()) {
-            return false;
-        } else if (!(otherAnimal instanceof EntityVaranus)) {
-            return false;
-        } else {
-            EntityVaranus v = (EntityVaranus) otherAnimal;
-            return v.isTamed() && (!v.isSitting() && (isInLove() && v.isInLove()));
-        }
     }
 
     @Override
     public EntityAgeable createChild(EntityAgeable entityAgeable) {
         return this.spawnBabyAnimal(entityAgeable);
-    }
-
-    @Override
-    public void setTamed(boolean tamed) {
-        super.setTamed(tamed);
-
-        if (tamed) {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(maxHealth);
-        } else {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        }
     }
 
     @Override

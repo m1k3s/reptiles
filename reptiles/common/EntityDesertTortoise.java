@@ -28,17 +28,11 @@ public final class EntityDesertTortoise extends EntityTurtle {
 
     public EntityDesertTortoise(World world) {
         super(world);
-        setTamed(false);
     }
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
         EntityDesertTortoise t = new EntityDesertTortoise(worldObj);
-        UUID uuid = getOwnerId();
-        if (uuid != null) {
-            t.setOwnerId(uuid);
-            t.setTamed(true);
-        }
         Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
         return t;
     }

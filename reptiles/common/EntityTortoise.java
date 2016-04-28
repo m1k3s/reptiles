@@ -26,22 +26,15 @@ import java.util.UUID;
 
 public final class EntityTortoise extends EntityTurtle {
 
-    private final float scaleFactor = 2.0f;
-
     public EntityTortoise(World world) {
         super(world);
+        float scaleFactor = 2.0f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
-        setTamed(false);
     }
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
         EntityTortoise t = new EntityTortoise(worldObj);
-        UUID uuid = getOwnerId();
-        if (uuid != null) {
-            t.setOwnerId(uuid);
-            t.setTamed(true);
-        }
         Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
         return t;
     }
