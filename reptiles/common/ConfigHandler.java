@@ -40,7 +40,6 @@ public class ConfigHandler {
 	static private int gatorSpawnProb;
 	static private int chameleonSpawnProb;
 	static private int crocMonitorSpawnProb;
-	static private int megalaniaSpawnProb;
 	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
@@ -78,7 +77,6 @@ public class ConfigHandler {
 			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5, spawnProbComment).getInt();
 			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
 			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
-			megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12, spawnProbComment).getInt();
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
@@ -177,8 +175,4 @@ public class ConfigHandler {
 		return crocMonitorSpawnProb;
 	}
 
-	public static int getMegalaniaSpawnProb()
-	{
-		return megalaniaSpawnProb;
-	}
 }
