@@ -22,10 +22,15 @@ package com.reptiles.common;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -77,6 +82,7 @@ public class EntityVaranus extends EntityTameable {
                 return entity instanceof EntityPig || entity instanceof EntityRabbit;
             }
         }));
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, false, (Predicate<Entity>) entity -> rand.nextInt(5) == 0));
         if (ConfigHandler.getFollowOwner()) {
             tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
             targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
@@ -198,6 +204,41 @@ public class EntityVaranus extends EntityTameable {
         }
 
         return entityFrom;
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (this.isEntityInvulnerable(source)) {
+            return false;
+        } else {
+            Entity entity = source.getEntity();
+
+            if (this.aiSit != null) {
+                this.aiSit.setSitting(false);
+            }
+
+            if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
+                amount = (amount + 1.0F) / 2.0F;
+            }
+
+            return super.attackEntityFrom(source, amount);
+        }
+    }
+
+	public boolean shouldAttackEntity(EntityLivingBase entityToAttack, EntityLivingBase entityOwner) {
+        if (!(entityToAttack instanceof EntityCreeper) && !(entityToAttack instanceof EntityGhast)) {
+            if (entityToAttack instanceof EntityVaranus) {
+                EntityVaranus entityvaranus = (EntityVaranus)entityToAttack;
+
+                if (entityvaranus.isTamed() && entityvaranus.getOwner() == entityOwner) {
+                    return false;
+                }
+            }
+
+            return entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer)entityOwner).canAttackPlayer((EntityPlayer)entityToAttack) ? false : !(entityToAttack instanceof EntityHorse) || !((EntityHorse)entityToAttack).isTame();
+        } else {
+            return false;
+        }
     }
 
     private boolean isFavoriteFood(ItemStack itemstack) {
