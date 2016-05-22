@@ -47,7 +47,7 @@ public final class EntityLace extends EntityVaranus {
 
     @Override
     protected Item getDropItem() {
-        return Items.egg;
+        return Items.EGG;
     }
 
 }

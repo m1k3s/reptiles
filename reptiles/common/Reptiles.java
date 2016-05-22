@@ -46,8 +46,8 @@ public class Reptiles {
 
     public static final String modid = "reptilemod";
     public static final String name = "Reptile Mod";
-    public static final String version = "3.4.0";
-    public static final String mcversion = "1.9";
+    public static final String version = "3.4.1";
+    public static final String mcversion = "1.9.4";
     public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
@@ -97,19 +97,19 @@ public class Reptiles {
         BiomeDictionary.registerAllBiomesAndGenerateEvents();
 
         proxy.info("*** Checking for monitor biomes");
-        BiomeGenBase[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
+        Biome[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
 
         proxy.info("*** Checking for tortoise biomes");
-        BiomeGenBase[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE, Type.SANDY);
+        Biome[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE, Type.SANDY);
 
         proxy.info("*** Checking for turtle biomes");
-        BiomeGenBase[] jungleBiomes = getBiomes(Type.FOREST, Type.PLAINS, Type.SWAMP);
+        Biome[] jungleBiomes = getBiomes(Type.FOREST, Type.PLAINS, Type.SWAMP);
 
         proxy.info("*** Checking for lizard biomes");
-        BiomeGenBase[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
+        Biome[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
 
         proxy.info("*** Checking for crocodilian biomes");
-        BiomeGenBase[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
+        Biome[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
         addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), 4, 4, forestBiomes);
         addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), 4, 4, forestBiomes);
@@ -134,17 +134,17 @@ public class Reptiles {
         EntityRegistry.registerModEntity(entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
-    private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
+    private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {
         if (spawnProb > 0) {
             EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.CREATURE, biomes);
         }
     }
 
-    private BiomeGenBase[] getBiomes(Type... types) {
-        LinkedList<BiomeGenBase> list = new LinkedList<>();
+    private Biome[] getBiomes(Type... types) {
+        LinkedList<Biome> list = new LinkedList<>();
         for (Type t : types) {
-            BiomeGenBase[] biomes = BiomeDictionary.getBiomesForType(t);
-            for (BiomeGenBase bgb : biomes) {
+            Biome[] biomes = BiomeDictionary.getBiomesForType(t);
+            for (Biome bgb : biomes) {
                 if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) {
                     continue;
                 }
@@ -162,7 +162,7 @@ public class Reptiles {
                 }
             }
         }
-        return list.toArray(new BiomeGenBase[0]);
+        return list.toArray(new Biome[0]);
     }
 
     // user has changed entries in the GUI config. save the results.

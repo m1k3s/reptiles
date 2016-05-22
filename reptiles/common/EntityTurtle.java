@@ -60,8 +60,8 @@ public class EntityTurtle extends EntityTameable {
         //tasks.addTask(1, new EntityAIPanic(this, 0.38F));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.carrot, false));
-        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.golden_carrot, false));
+        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.CARROT, false));
+        tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.GOLDEN_CARROT, false));
         if (ConfigHandler.getFollowOwner()) {
             tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
         }
@@ -91,7 +91,7 @@ public class EntityTurtle extends EntityTameable {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.register(health, getHealth());
+        dataManager.register(health, getHealth());
     }
 
     @Override
@@ -108,12 +108,12 @@ public class EntityTurtle extends EntityTameable {
 
     private boolean isHardenedClay(BlockPos bp) {
         Block block = worldObj.getBlockState(bp).getBlock();
-        return block == Blocks.hardened_clay;
+        return block == Blocks.HARDENED_CLAY;
     }
 
     private boolean isSandOrGrassBlock(BlockPos bp) {
         Block block = worldObj.getBlockState(bp).getBlock();
-        return (block == Blocks.sand || block == Blocks.grass);
+        return (block == Blocks.SAND || block == Blocks.GRASS);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class EntityTurtle extends EntityTameable {
         AxisAlignedBB entityAABB = getEntityBoundingBox();
         if (worldObj.checkNoEntityCollision(entityAABB)) {
             if (worldObj.getCollisionBoxes(entityAABB).isEmpty()) {
-                if (!worldObj.isAnyLiquid(entityAABB)) {
+                if (!worldObj.containsAnyLiquid(entityAABB)) {
                     int x = MathHelper.floor_double(posX);
                     int y = MathHelper.floor_double(entityAABB.minY);
                     int z = MathHelper.floor_double(posZ);
@@ -152,7 +152,7 @@ public class EntityTurtle extends EntityTameable {
     }
 
     private boolean isFavoriteFood(ItemStack itemstack) {
-        return (itemstack != null && (itemstack.getItem() == Items.carrot || itemstack.getItem() == Items.golden_carrot));
+        return (itemstack != null && (itemstack.getItem() == Items.CARROT || itemstack.getItem() == Items.GOLDEN_CARROT));
     }
 
     @Override
@@ -167,7 +167,7 @@ public class EntityTurtle extends EntityTameable {
             if (itemstack != null) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
-                    if (isFavoriteFood(itemstack) && dataWatcher.get(health) < maxHealth) {
+                    if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
                             --itemstack.stackSize;
                         }
@@ -189,7 +189,7 @@ public class EntityTurtle extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.apple && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (itemstack != null && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }

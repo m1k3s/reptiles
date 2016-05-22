@@ -35,7 +35,7 @@ public final class EntitySalvadorii extends EntityVaranus {
 
     @Override
     protected Item getDropItem() {
-        return Items.egg;
+        return Items.EGG;
     }
 
     @Override

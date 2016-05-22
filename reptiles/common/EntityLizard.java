@@ -53,8 +53,8 @@ public class EntityLizard extends EntityTameable {
         tasks.addTask(2, aiSit = new EntityAISit(this));
 //		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.carrot, false));
-        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.golden_carrot, false));
+        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.CARROT, false));
+        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.GOLDEN_CARROT, false));
         if (ConfigHandler.getFollowOwner()) {
             tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
         }
@@ -91,7 +91,7 @@ public class EntityLizard extends EntityTameable {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.register(health, getHealth());
+        dataManager.register(health, getHealth());
     }
 
     // This MUST be overridden in the derived class
@@ -117,11 +117,11 @@ public class EntityLizard extends EntityTameable {
 
     @Override
     protected Item getDropItem() {
-        return Items.porkchop;
+        return Items.PORKCHOP;
     }
 
     private boolean isTamingFood(ItemStack itemstack) {
-        return (itemstack != null && (itemstack.getItem() == Items.carrot || itemstack.getItem() == Items.golden_carrot));
+        return (itemstack != null && (itemstack.getItem() == Items.CARROT || itemstack.getItem() == Items.GOLDEN_CARROT));
     }
 
     @Override
@@ -131,7 +131,7 @@ public class EntityLizard extends EntityTameable {
 
     @Override
     protected void updateAITasks() {
-        dataWatcher.set(health, getHealth());
+        dataManager.set(health, getHealth());
     }
 
     @Override
@@ -147,7 +147,7 @@ public class EntityLizard extends EntityTameable {
             if (itemstack != null) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
-                    if (isTamingFood(itemstack) && dataWatcher.get(health) < maxHealth) {
+                    if (isTamingFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
                             --itemstack.stackSize;
                         }
@@ -169,7 +169,7 @@ public class EntityLizard extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.apple && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (itemstack != null && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }

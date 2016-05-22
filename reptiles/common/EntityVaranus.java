@@ -117,7 +117,7 @@ public class EntityVaranus extends EntityTameable {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.register(health, getHealth());
+        dataManager.register(health, getHealth());
     }
 
     @Override
@@ -174,24 +174,24 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected void playStepSound(BlockPos blockPos, Block block) {
-        playSound(SoundEvents.entity_pig_step, 0.15F, 1.0F);
+        playSound(SoundEvents.ENTITY_PIG_STEP, 0.15F, 1.0F);
     }
 
     @Override
     protected Item getDropItem() {
-        return Items.leather;
+        return Items.LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.leather, count);
+        dropItem(Items.LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.cooked_beef, count);
+            dropItem(Items.COOKED_BEEF, count);
         } else {
-            dropItem(Items.beef, count);
+            dropItem(Items.BEEF, count);
         }
     }
 
@@ -242,7 +242,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     private boolean isFavoriteFood(ItemStack itemstack) {
-        return (itemstack != null && (itemstack.getItem() == Items.cooked_porkchop));
+        return (itemstack != null && (itemstack.getItem() == Items.COOKED_PORKCHOP));
     }
 
     @Override
@@ -252,7 +252,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected void updateAITasks() {
-        dataWatcher.set(health, getHealth());
+        dataManager.set(health, getHealth());
     }
 
     @Override
@@ -262,7 +262,7 @@ public class EntityVaranus extends EntityTameable {
             if (itemstack != null) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
-                    if (isFavoriteFood(itemstack) && dataWatcher.get(health) < maxHealth) {
+                    if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
                             --itemstack.stackSize;
                         }
@@ -279,7 +279,7 @@ public class EntityVaranus extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.porkchop) { // raw porkchop
+        } else if (itemstack != null && itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
             }

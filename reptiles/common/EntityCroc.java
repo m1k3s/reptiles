@@ -116,7 +116,7 @@ public class EntityCroc extends EntityAnimal {
 
 	@Override
 	protected void playStepSound(BlockPos blockPos, Block block) {
-		playSound(SoundEvents.entity_cow_step, 0.15F, 1.0F);
+		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
 	}
 
 	@Override
@@ -128,20 +128,20 @@ public class EntityCroc extends EntityAnimal {
 	@Override
 	protected Item getDropItem()
 	{
-		return Items.leather;
+		return Items.LEATHER;
 	}
 
 	@Override
 	protected void dropFewItems(boolean flag, int add)
 	{
 		int count = rand.nextInt(3) + rand.nextInt(1 + add);
-		dropItem(Items.leather, count);
+		dropItem(Items.LEATHER, count);
 
 		count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
 		if (isBurning()) {
-			dropItem(Items.cooked_beef, count);
+			dropItem(Items.COOKED_BEEF, count);
 		} else {
-			dropItem(Items.beef, count);
+			dropItem(Items.BEEF, count);
 		}
 	}
 

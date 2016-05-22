@@ -29,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAIEatPlants extends EntityAIBase {
-    private static final Predicate<IBlockState> plants = BlockStateMatcher.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+    private static final Predicate<IBlockState> plants = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
     private EntityLiving plantEaterEntity;
     private World entityWorld;
     int eatingPlantsTimer;
@@ -46,7 +46,7 @@ public class EntityAIEatPlants extends EntityAIBase {
             return false;
         } else {
             BlockPos blockpos = new BlockPos(plantEaterEntity.posX, plantEaterEntity.posY, plantEaterEntity.posZ);
-            return plants.apply(entityWorld.getBlockState(blockpos)) ? true : entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
+            return plants.apply(entityWorld.getBlockState(blockpos)) ? true : entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
         }
     }
 
@@ -87,10 +87,10 @@ public class EntityAIEatPlants extends EntityAIBase {
             } else {
                 BlockPos blockpos1 = blockpos.down();
 
-                if (entityWorld.getBlockState(blockpos1).getBlock() == Blocks.grass) {
+                if (entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
                     if (entityWorld.getGameRules().getBoolean("mobGriefing")) {
-                        entityWorld.playAuxSFX(2001, blockpos1, Block.getIdFromBlock(Blocks.grass));
-                        entityWorld.setBlockState(blockpos1, Blocks.dirt.getDefaultState(), 2);
+                        entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+                        entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
                     }
 
                     plantEaterEntity.eatGrassBonus();

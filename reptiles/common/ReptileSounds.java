@@ -22,7 +22,7 @@ public class ReptileSounds {
     }
 
     private static SoundEvent getRegisteredSoundEvent(String id) {
-        SoundEvent soundevent = SoundEvent.soundEventRegistry.getObject(new ResourceLocation(id));
+        SoundEvent soundevent = SoundEvent.REGISTRY.getObject(new ResourceLocation(id));
 
         if (soundevent == null) {
             throw new IllegalStateException("Invalid Sound requested: " + id);
