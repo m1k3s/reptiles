@@ -47,6 +47,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import com.google.common.base.Predicate;
 
+import javax.annotation.Nullable;
+
 
 public class EntityVaranus extends EntityTameable {
 
@@ -103,7 +105,7 @@ public class EntityVaranus extends EntityTameable {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
         if (isTamed()) {
             getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
@@ -111,7 +113,7 @@ public class EntityVaranus extends EntityTameable {
             getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         }
 
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
     @Override
@@ -119,6 +121,11 @@ public class EntityVaranus extends EntityTameable {
         super.entityInit();
         dataManager.register(health, getHealth());
     }
+    
+    @Override
+    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbase) {
+        super.setAttackTarget(entitylivingbase);
+	}
 
     @Override
     public void onLivingUpdate() {
@@ -197,24 +204,24 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     public boolean attackEntityAsMob(Entity entity) {
-        boolean entityFrom = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+        boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
-        if (entityFrom) {
+        if (flag) {
             applyEnchantments(this, entity);
         }
 
-        return entityFrom;
+        return flag;
     }
     
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
+        if (isEntityInvulnerable(source)) {
             return false;
         } else {
             Entity entity = source.getEntity();
 
-            if (this.aiSit != null) {
-                this.aiSit.setSitting(false);
+            if (aiSit != null) {
+                aiSit.setSitting(false);
             }
 
             if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {

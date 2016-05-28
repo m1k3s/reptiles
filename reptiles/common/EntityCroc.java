@@ -21,6 +21,7 @@ package com.reptiles.common;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
@@ -35,139 +36,121 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class EntityCroc extends EntityAnimal {
 
-	protected int attackStrength;
+    public EntityCroc(World world) {
+        super(world);
+        setSize(0.9F, 1.4F);
 
-	public EntityCroc(World world)
-	{
-		super(world);
-		setSize(0.9F, 1.4F);
+        double moveSpeed = 1.0;
 
-		attackStrength = 2;
-		double moveSpeed = 1.0;
-		enablePersistence();
+        tasks.addTask(0, new EntityAISwimming(this));
+        tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
+        tasks.addTask(4, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(5, new EntityAILookIdle(this));
 
-		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
-		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
-		tasks.addTask(4, new EntityAIWander(this, moveSpeed));
-		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		tasks.addTask(5, new EntityAILookIdle(this));
-
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
-		targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityCow.class, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPig.class, false));
-	}
-
-
-	@Override
-	protected boolean canDespawn()
-    {
-        if (ConfigHandler.shouldDespawn()) {
-			return true;
-		} else {
-			return false;
-		}
+        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityCow.class, true));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, true));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPig.class, true));
     }
-    
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable ageable) {
+        return null;
+    }
+
+    @Override
+    protected boolean canDespawn() {
+        if (ConfigHandler.shouldDespawn()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean getCanSpawnHere() {
-		if (super.getCanSpawnHere()) {
-			Reptiles.proxy.info("Spawning croc ***");
-			return true;
-		}
-		return false;
-	}
+        if (super.getCanSpawnHere()) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	protected void applyEntityAttributes()
-	{
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
-	}
+    @Override
+    public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+        super.setAttackTarget(entitylivingbaseIn);
+    }
 
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-//		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
-		return new EntityCroc(worldObj);
-	}
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0);
+        getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
+        getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+    }
 
-	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		return ReptileSounds.croc_growl;
-	}
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ReptileSounds.croc_growl;
+    }
 
-	@Override
-	protected SoundEvent getHurtSound()
-	{
-		return ReptileSounds.croc_growl;
-	}
+    @Override
+    protected SoundEvent getHurtSound() {
+        return ReptileSounds.croc_growl;
+    }
 
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return ReptileSounds.croc_growl;
-	}
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ReptileSounds.croc_growl;
+    }
 
-	@Override
-	protected void playStepSound(BlockPos blockPos, Block block) {
-		playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
-	}
+    @Override
+    protected void playStepSound(BlockPos blockPos, Block block) {
+        playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+    }
 
-	@Override
-	protected float getSoundVolume()
-	{
-		return 0.4F;
-	}
+    @Override
+    protected float getSoundVolume() {
+        return 0.4F;
+    }
 
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.LEATHER;
-	}
+    @Override
+    protected Item getDropItem() {
+        return Items.LEATHER;
+    }
 
-	@Override
-	protected void dropFewItems(boolean flag, int add)
-	{
-		int count = rand.nextInt(3) + rand.nextInt(1 + add);
-		dropItem(Items.LEATHER, count);
+    @Override
+    protected void dropFewItems(boolean flag, int add) {
+        int count = rand.nextInt(3) + rand.nextInt(1 + add);
+        dropItem(Items.LEATHER, count);
 
-		count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
-		if (isBurning()) {
-			dropItem(Items.COOKED_BEEF, count);
-		} else {
-			dropItem(Items.BEEF, count);
-		}
-	}
+        count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
+        if (isBurning()) {
+            dropItem(Items.COOKED_BEEF, count);
+        } else {
+            dropItem(Items.BEEF, count);
+        }
+    }
 
-	@Override
-	protected int getExperiencePoints(EntityPlayer par1EntityPlayer)
-	{
-		return 1 + worldObj.rand.nextInt(4);
-	}
+    @Override
+    protected int getExperiencePoints(EntityPlayer par1EntityPlayer) {
+        return 1 + worldObj.rand.nextInt(4);
+    }
 
-	@Override
-	public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemStack)
-	{
-		// don't allow any interaction, especially breeding
-		return false;
-	}
+    @Override
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemStack) {
+        // don't allow any interaction, especially breeding
+        return false;
+    }
 
-	@Override
-	public boolean attackEntityAsMob(Entity entity)
-	{
-		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
-	}
-
-	@Override
-	public EntityAgeable createChild(EntityAgeable var1)
-	{
-		return this.spawnBabyAnimal(var1);
-	}
+    @Override
+    public boolean attackEntityAsMob(Entity entity) {
+        return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
+    }
 
 }

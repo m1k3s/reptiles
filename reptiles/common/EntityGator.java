@@ -18,8 +18,6 @@
 //
 package com.reptiles.common;
 
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 public class EntityGator extends EntityCroc {
@@ -27,13 +25,6 @@ public class EntityGator extends EntityCroc {
 	public EntityGator(World world)
 	{
 		super(world);
-	}
-
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
-		return new EntityGator(this.worldObj);
 	}
 
 }

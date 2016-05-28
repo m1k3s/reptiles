@@ -18,32 +18,30 @@
 //
 package com.reptiles.common;
 
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.world.World;
 
 public class EntityLargeCroc extends EntityCroc {
-	
-	private final float scaleFactor = 1.5f;
 
 	public EntityLargeCroc(World world)
 	{
 		super(world);
+		float scaleFactor = 1.5f;
 		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
-		attackStrength = 3; // they're bigger, duh!
 
 		targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySquid.class, false));
 		targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntitySpider.class, false));
 	}
 
 	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
-		return new EntityLargeCroc(this.worldObj);
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
+		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
 
 }
