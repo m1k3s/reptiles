@@ -51,7 +51,7 @@ public class EntityLizard extends EntityTameable {
 
         tasks.addTask(1, new EntityAISwimming(this));
         tasks.addTask(2, aiSit = new EntityAISit(this));
-//		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
+		tasks.addTask(2, new EntityAIPanic(this, 0.38F));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.CARROT, false));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.GOLDEN_CARROT, false));

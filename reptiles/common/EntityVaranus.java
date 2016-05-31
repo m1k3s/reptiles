@@ -28,7 +28,6 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
@@ -76,23 +75,25 @@ public class EntityVaranus extends EntityTameable {
     protected void initEntityAI() {
         double moveSpeed = 1.0;
         tasks.addTask(1, new EntityAISwimming(this));
-//        tasks.addTask(1, new EntityAIPanic(this, 0.38));
+        tasks.addTask(1, new EntityAIPanic(this, 0.38));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
+        tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
+        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.PORKCHOP, false));
+        tasks.addTask(4, new EntityAITempt(this, 1.2, Items.COOKED_PORKCHOP, false));
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
             public boolean apply(Entity entity) {
                 return entity instanceof EntityPig || entity instanceof EntityRabbit;
             }
         }));
-        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, false, (Predicate<Entity>) entity -> rand.nextInt(5) == 0));
         if (ConfigHandler.getFollowOwner()) {
-            tasks.addTask(9, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
+            tasks.addTask(6, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
             targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         }
-        tasks.addTask(10, new EntityAIMate(this, moveSpeed));
-        tasks.addTask(12, new EntityAIWander(this, moveSpeed));
-        tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-        tasks.addTask(14, new EntityAILookIdle(this));
+        tasks.addTask(7, new EntityAIMate(this, moveSpeed));
+        tasks.addTask(8, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+        tasks.addTask(10, new EntityAILookIdle(this));
 
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
     }
