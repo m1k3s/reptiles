@@ -24,6 +24,9 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.world.World;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import com.google.common.base.Predicate;
 
 import java.util.UUID;
 
@@ -32,6 +35,7 @@ public final class EntityKomodo extends EntityVaranus {
     public EntityKomodo(World world) {
         super(world);
         targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, false, (Predicate<Entity>) entity -> rand.nextInt(5) == 0));
         setTamed(false);
         setSize(0.6f, 0.85f);
     }

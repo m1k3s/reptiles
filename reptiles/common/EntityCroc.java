@@ -49,7 +49,8 @@ public class EntityCroc extends EntityAnimal {
 		enablePersistence();
 
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
+		tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, true));
+		tasks.addTask(2, new EntityAILeapAtTarget(this, 0.5F));
 		tasks.addTask(3, new EntityAIMate(this, moveSpeed));
 		tasks.addTask(4, new EntityAIWander(this, moveSpeed));
 		tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
