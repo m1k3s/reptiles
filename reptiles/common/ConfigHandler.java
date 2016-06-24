@@ -40,6 +40,8 @@ public class ConfigHandler {
 	static private int gatorSpawnProb;
 	static private int chameleonSpawnProb;
 	static private int crocMonitorSpawnProb;
+	static private int minSpawn;
+	static private int maxSpawn;
 	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
@@ -50,6 +52,8 @@ public class ConfigHandler {
 	private static final String despawnComment = "Set to false to not despawn. default is true.";
 	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
 	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
+	private static final String minSpawnComment = "Minimum number of reptiles to spawn at one time";
+	private static final String maxSpawnComment = "Maximum number of reptiles to spawn at one time";
 
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
@@ -77,6 +81,8 @@ public class ConfigHandler {
 			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5, spawnProbComment).getInt();
 			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
 			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
+			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();
+			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
@@ -174,5 +180,9 @@ public class ConfigHandler {
 	{
 		return crocMonitorSpawnProb;
 	}
+
+	public static int getMinSpawn() { return minSpawn; }
+
+	public static int getMaxSpawn() { return maxSpawn; }
 
 }

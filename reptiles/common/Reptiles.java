@@ -46,7 +46,7 @@ public class Reptiles {
 
     public static final String modid = "reptilemod";
     public static final String name = "Reptile Mod";
-    public static final String version = "3.4.2";
+    public static final String version = "3.4.3";
     public static final String mcversion = "1.9.4";
     public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
@@ -111,23 +111,26 @@ public class Reptiles {
         proxy.info("*** Checking for crocodilian biomes");
         Biome[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
 
-        addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), 4, 4, forestBiomes);
-        addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), 4, 4, forestBiomes);
-        addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), 4, 4, desertBiomes);
-        addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), 4, 4, forestBiomes);
-        addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), 4, 4, forestBiomes);
-        addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), 4, 4, forestBiomes);
+        int minSpawn = ConfigHandler.getMinSpawn();
+        int maxSpawn = ConfigHandler.getMaxSpawn();
 
-        addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), 2, 2, swampyBiomes);
-        addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), 2, 2, swampyBiomes);
-        addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), 2, 2, swampyBiomes);
+        addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), minSpawn, maxSpawn, desertBiomes);
+        addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), minSpawn, maxSpawn, forestBiomes);
 
-        addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), 4, 4, desertBiomes);
-        addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), 4, 4, jungleBiomes);
-        addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), 4, 4, jungleBiomes);
+        addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
+        addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
+        addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
 
-        addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), 4, 4, variousBiomes);
-        addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), 4, 4, variousBiomes);
+        addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), minSpawn, maxSpawn, desertBiomes);
+        addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), minSpawn, maxSpawn, jungleBiomes);
+        addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), minSpawn, maxSpawn, jungleBiomes);
+
+        addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), minSpawn, maxSpawn, variousBiomes);
+        addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), minSpawn, maxSpawn, variousBiomes);
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {

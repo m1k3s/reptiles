@@ -83,7 +83,11 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.COOKED_PORKCHOP, false));
         targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
             public boolean apply(Entity entity) {
-                return entity instanceof EntityPig || entity instanceof EntityRabbit;
+				if (rand.nextInt(6) == 0) {
+					return entity instanceof EntityPig || entity instanceof EntityRabbit;
+				} else {
+					return false;
+				}
             }
         }));
         if (ConfigHandler.getFollowOwner()) {
