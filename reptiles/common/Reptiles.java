@@ -46,8 +46,8 @@ public class Reptiles {
 
     public static final String modid = "reptilemod";
     public static final String name = "Reptile Mod";
-    public static final String version = "3.4.3";
-    public static final String mcversion = "1.9.4";
+    public static final String version = "3.5.2";
+    public static final String mcversion = "1.10.2";
     public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
@@ -148,15 +148,16 @@ public class Reptiles {
         for (Type t : types) {
             Biome[] biomes = BiomeDictionary.getBiomesForType(t);
             for (Biome bgb : biomes) {
-                if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) {
+                if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) { // no spawning in END | NETHER
                     continue;
                 }
+                if (bgb.getBiomeName().contains("Void")) { // no spawning in The Void
+					continue;
+				}
                 if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.getTemperature() < 0.32F) { // exclude cold climates
-//					proxy.info("  <<< Excluding " + bgb.biomeName + " for spawning");
                     continue;
                 }
                 if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
-//					proxy.info("  <<< Excluding " + bgb.biomeName + " for spawning");
                     continue;
                 }
                 if (!list.contains(bgb)) {
