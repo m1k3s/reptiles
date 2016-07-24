@@ -44,7 +44,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import com.google.common.base.Predicate;
 
 import javax.annotation.Nullable;
 
@@ -81,13 +80,11 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.PORKCHOP, false));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.COOKED_PORKCHOP, false));
-        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, new Predicate<Entity>() {
-            public boolean apply(Entity entity) {
-				if (rand.nextInt(6) == 0) {
-					return entity instanceof EntityPig || entity instanceof EntityRabbit;
-				} else {
-					return false;
-				}
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, entity -> {
+            if (rand.nextInt(6) == 0) {
+                return entity instanceof EntityPig || entity instanceof EntityRabbit;
+            } else {
+                return false;
             }
         }));
         if (ConfigHandler.getFollowOwner()) {
@@ -136,6 +133,11 @@ public class EntityVaranus extends EntityTameable {
     public void onLivingUpdate() {
         super.onLivingUpdate();
     }
+    
+    @Override
+    public void onUpdate() {
+		super.onUpdate();
+	}
 
     // This MUST be overridden in the derived class
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
@@ -167,7 +169,6 @@ public class EntityVaranus extends EntityTameable {
     public boolean getCanSpawnHere() {
         return super.getCanSpawnHere();
     }
-
 
     @Override
     protected SoundEvent getAmbientSound() {
@@ -294,10 +295,6 @@ public class EntityVaranus extends EntityTameable {
         } else if (itemstack != null && itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
             if (!entityplayer.capabilities.isCreativeMode) {
                 --itemstack.stackSize;
-            }
-
-            if (itemstack.stackSize <= 0) {
-                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
 
             if (!worldObj.isRemote) {

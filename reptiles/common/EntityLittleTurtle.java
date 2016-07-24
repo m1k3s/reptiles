@@ -29,7 +29,6 @@ public final class EntityLittleTurtle extends EntityTurtle {
     public EntityLittleTurtle(World world) {
         super(world);
         setSize(0.2F, 0.2F);
-        setTamed(false);
     }
 
     @Override
