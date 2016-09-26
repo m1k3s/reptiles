@@ -157,12 +157,12 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     public int getTalkInterval() {
-        return 320;
+        return ConfigHandler.getTalkInterval();
     }
 
     @Override
     protected float getSoundVolume() {
-        return 0.3F;
+        return ConfigHandler.getTalkVolume();
     }
 
     @Override

@@ -42,6 +42,8 @@ public class ConfigHandler {
 	static private int crocMonitorSpawnProb;
 	static private int minSpawn;
 	static private int maxSpawn;
+	static private int talkInterval;
+	static private double talkvolume;
 	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
@@ -54,6 +56,8 @@ public class ConfigHandler {
 	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
 	private static final String minSpawnComment = "Minimum number of reptiles to spawn at one time";
 	private static final String maxSpawnComment = "Maximum number of reptiles to spawn at one time";
+	private static final String talkIntervalComment = "time interval between ambient sounds";
+	private static final String talkVolumeComment = "volume of reptile sounds";
 
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
@@ -83,6 +87,9 @@ public class ConfigHandler {
 			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
 			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();
 			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
+			talkInterval = config.get(Configuration.CATEGORY_GENERAL, "talkInterval", 320, talkIntervalComment).getInt();
+			talkvolume = config.get(Configuration.CATEGORY_GENERAL, "talkVolume", 0.3, talkVolumeComment).getDouble();
+
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
@@ -184,5 +191,13 @@ public class ConfigHandler {
 	public static int getMinSpawn() { return minSpawn; }
 
 	public static int getMaxSpawn() { return maxSpawn; }
+
+	public static int getTalkInterval() {
+		return talkInterval;
+	}
+
+	public static float getTalkVolume() {
+		return (float)talkvolume;
+	}
 
 }
