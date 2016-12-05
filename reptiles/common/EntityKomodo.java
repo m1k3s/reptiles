@@ -19,49 +19,38 @@
 //
 package com.reptiles.common;
 
+import com.google.common.base.Predicate;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntitySheep;
-//import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public final class EntityKomodo extends EntityVaranus {
 
-	public EntityKomodo(World world)
-	{
+    @SuppressWarnings("unchecked")
+    public EntityKomodo(World world) {
+        super(world);
+        targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityPlayer.class, false, (Predicate<Entity>) entity -> rand.nextInt(5) == 0));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
+        setTamed(false);
+        setSize(0.6f, 0.85f);
+    }
 
-		super(world);
-		tasks.addTask(7, new EntityAIAttackOnCollide(this, EntitySheep.class, 1.0, true));
-		targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntitySheep.class, false));
-//		targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityPlayer.class, false));
-		setTamed(false);
-//        tasks.removeTask(avoid); // komodos don't avoid humans
-	}
+    @Override
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        EntityKomodo e = new EntityKomodo(worldObj);
+        UUID uuid = getOwnerId();
+        if (uuid != null) {
+            e.setOwnerId(uuid);
+            e.setTamed(true);
+        }
+        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        return e;
+    }
 
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		EntityKomodo e = new EntityKomodo(worldObj);
-		//		if (isTamed()) {
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
-		return e;
-	}
-
-	// the idea is that if the entity is tame to remove the 
-	// targetTask entry from the list so the player
-	// is not attacked by a tame komodo
-//    @Override
-//	protected void updateAITasks() {
-//		if (playerAttack && isTamed()) { // don't attack players when tame
-//			targetTasks.taskEntries.remove(attackPlayer);
-//			playerAttack = false;
-//		}
-//		super.updateAITasks();
-//	}
 }

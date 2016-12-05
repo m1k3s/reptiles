@@ -14,50 +14,34 @@
 //  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
 //  =====================================================================
 //
+//
+// Copyright 2011-2015 Michael Sheppard (crackedEgg)
+//
 package com.reptiles.client;
 
 import com.reptiles.common.EntityKomodo;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 
-public class RenderKomodo extends RenderLiving {
+public class RenderKomodo<T extends EntityKomodo> extends RenderLiving<T> {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/komodo32.png");
 
-	public RenderKomodo(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
-
-	public void renderKomodo(EntityKomodo entitykomodo, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entitykomodo, d, d1, d2, f, f1);
+	public RenderKomodo(RenderManager rm) {
+		super(rm, new ModelKomodo(), 0.0f);
 	}
 
 	@Override
-	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
-	{
-		renderKomodo((EntityKomodo) entityliving, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		float scaleFactor = ((EntityKomodo) entityliving).getScaleFactor();
+	protected void preRenderCallback(T entityliving, float f) {
+		float scaleFactor = entityliving.getScaleFactor();
 		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
 		super.preRenderCallback(entityliving, f);
 	}
 
+	@Override
+	protected ResourceLocation getEntityTexture(T t) {
+		return skin;
+	}
 }

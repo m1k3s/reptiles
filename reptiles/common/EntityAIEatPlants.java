@@ -20,103 +20,82 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
-import net.minecraft.block.state.pattern.BlockStateHelper;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAIEatPlants extends EntityAIBase {
+    private static final Predicate<IBlockState> plants = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+    private EntityLiving plantEaterEntity;
+    private World entityWorld;
+    int eatingPlantsTimer;
 
-	private static final Predicate blockstate = BlockStateHelper.forBlock(Blocks.tallgrass).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving creature;
-	private final World theWorld;
-	int eatPlantTick = 0;
+    public EntityAIEatPlants(EntityLiving grassEaterEntityIn) {
+        plantEaterEntity = grassEaterEntityIn;
+        entityWorld = grassEaterEntityIn.worldObj;
+        setMutexBits(7);
+    }
 
-	public EntityAIEatPlants(EntityLiving entityLiving)
-	{
-		creature = entityLiving;
-		theWorld = entityLiving.worldObj;
-		setMutexBits(7);
-	}
+    @Override
+    public boolean shouldExecute() {
+        if (plantEaterEntity.getRNG().nextInt(plantEaterEntity.isChild() ? 50 : 1000) != 0) {
+            return false;
+        } else {
+            BlockPos blockpos = new BlockPos(plantEaterEntity.posX, plantEaterEntity.posY, plantEaterEntity.posZ);
+            return plants.apply(entityWorld.getBlockState(blockpos)) ? true : entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
+        }
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public boolean shouldExecute()
-	{
-		if (creature.getRNG().nextInt(creature.isChild() ? 50 : 1000) != 0) {
-			return false;
-		} else {
-			BlockPos blockPos = new BlockPos(creature.posX, creature.posY, creature.posZ);
-			return blockstate.apply(theWorld.getBlockState(blockPos)) ? true : isFlower(blockPos);
-		}
-	}
+    @Override
+    public void startExecuting() {
+        eatingPlantsTimer = 40;
+        entityWorld.setEntityState(plantEaterEntity, (byte) 10);
+        plantEaterEntity.getNavigator().clearPathEntity();
+    }
 
-	@Override
-	public void startExecuting()
-	{
-		eatPlantTick = 40;
-		theWorld.setEntityState(creature, (byte) 10);
-		creature.getNavigator().clearPathEntity();
-	}
+    @Override
+    public void resetTask() {
+        eatingPlantsTimer = 0;
+    }
 
-	@Override
-	public void resetTask()
-	{
-		eatPlantTick = 0;
-	}
+    @Override
+    public boolean continueExecuting() {
+        return eatingPlantsTimer > 0;
+    }
 
-	@Override
-	public boolean continueExecuting()
-	{
-		return eatPlantTick > 0;
-	}
+    public int getEatingPlantsTimer() {
+        return eatingPlantsTimer;
+    }
 
-	public int getEatPlantTick()
-	{
-		return eatPlantTick;
-	}
+    @Override
+    public void updateTask() {
+        eatingPlantsTimer = Math.max(0, eatingPlantsTimer - 1);
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public void updateTask()
-	{
-		eatPlantTick = Math.max(0, eatPlantTick - 1);
+        if (eatingPlantsTimer == 4) {
+            BlockPos blockpos = new BlockPos(plantEaterEntity.posX, plantEaterEntity.posY, plantEaterEntity.posZ);
 
-		if (eatPlantTick == 4) {
-			BlockPos bp0 = new BlockPos(creature.posX, creature.posY, creature.posZ);
+            if (plants.apply(entityWorld.getBlockState(blockpos))) {
+                if (entityWorld.getGameRules().getBoolean("mobGriefing")) {
+                    entityWorld.destroyBlock(blockpos, false);
+                }
 
-			if (blockstate.apply(theWorld.getBlockState(bp0))) {
-				if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
-					theWorld.destroyBlock(bp0, false);
-				}
+                plantEaterEntity.eatGrassBonus();
+            } else {
+                BlockPos blockpos1 = blockpos.down();
 
-				creature.eatGrassBonus();
-			} else {
-				BlockPos bpDown = bp0.down();
+                if (entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
+                    if (entityWorld.getGameRules().getBoolean("mobGriefing")) {
+                        entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+                        entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
+                    }
 
-				if (isFlower(bpDown) || isTallgrass(bpDown)) {
-					if (theWorld.getGameRules().getGameRuleBooleanValue("mobGriefing")) {
-						theWorld.playAuxSFX(2001, bpDown, Block.getIdFromBlock(Blocks.grass));
-						theWorld.setBlockState(bpDown, Blocks.dirt.getDefaultState(), 2);
-					}
-
-					creature.eatGrassBonus();
-				}
-			}
-		}
-	}
-	public boolean isFlower(BlockPos bp)
-	{
-		Block block = theWorld.getBlockState(bp.down()).getBlock();
-
-		return (block == Blocks.red_flower || block == Blocks.yellow_flower);
-	}
-
-	public boolean isTallgrass(BlockPos bp)
-	{
-		Block block = theWorld.getBlockState(bp.down()).getBlock();
-		return (block == Blocks.tallgrass);
-	}
+                    plantEaterEntity.eatGrassBonus();
+                }
+            }
+        }
+    }
 }

@@ -17,37 +17,20 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityTurtle;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 
-public class RenderTurtle extends RenderLiving {
+public class RenderTurtle<T extends EntityTurtle> extends RenderLiving<T> {
 
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
 
-	public RenderTurtle(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
+    public RenderTurtle(RenderManager rm) {
+        super(rm, new ModelTurtle(), 0.0f);
+    }
 
-	public void renderTurtle(EntityTurtle entityturtle, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entityturtle, d, d1, d2, f, f1);
-	}
-
-	@Override
-	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
-	{
-		renderTurtle((EntityTurtle) entity, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 }

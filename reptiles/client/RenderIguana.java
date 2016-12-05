@@ -29,37 +29,23 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
 
-public class RenderIguana extends RenderLiving {
+public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
 
-	private final float scaleFactor = 0.4F;
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
+    private final float scaleFactor = 0.4F;
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
 
-	public RenderIguana(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
+    public RenderIguana(RenderManager rm) {
+        super(rm, new ModelIguana(), 0.0f);
+    }
 
-	public void renderIguana(EntityIguana entityiguana, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entityiguana, d, d1, d2, f, f1);
-	}
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+        super.preRenderCallback(entityliving, f);
+    }
 
-	@Override
-	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
-	{
-		renderIguana((EntityIguana) entity, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-		super.preRenderCallback(entityliving, f);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 }

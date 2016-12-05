@@ -19,49 +19,30 @@
 //
 package com.reptiles.client;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import com.reptiles.common.EntityChameleon;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLiving;
 
-public class RenderChameleon extends RenderLiving {
+public class RenderChameleon<T extends EntityChameleon> extends RenderLiving<T> {
 
-	private final float scaleFactor = 0.25F;
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon.png");
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/chameleon.png");
+    float scaleFactor = 0.25f;
 
-	public RenderChameleon(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-		addLayer(new LayerChameleonSkin(this));
-	}
-	
-	@Override
-	public void doRender(EntityLiving entity, double x, double y, double z, float par8, float par9)
-	{
-		renderChameleon((EntityChameleon) entity, x, y, z, par8, par9);
-	}
+    public RenderChameleon(RenderManager rm) {
+        super(rm, new ModelChameleon(), 0.0f);
+        addLayer(new LayerChameleonSkin(this));
+    }
 
-	public void renderChameleon(EntityChameleon entitychameleon, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entitychameleon, d, d1, d2, f, f1);
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-		super.preRenderCallback(entityliving, f);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+        super.preRenderCallback(entityliving, f);
+    }
 }

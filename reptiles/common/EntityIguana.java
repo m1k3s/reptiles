@@ -22,27 +22,26 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public final class EntityIguana extends EntityLizard {
 
-	public EntityIguana(World world)
-	{
-		super(world);
-		setSize(0.4F, 0.4F);
-		setTamed(false);
-	}
+    public EntityIguana(World world) {
+        super(world);
+        setSize(0.4F, 0.4F);
+        setTamed(false);
+    }
 
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		EntityIguana i = new EntityIguana(worldObj);
-//		if (isTamed()) {
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			i.setOwnerId(s);
-			i.setTamed(true);
-		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
-		return i;
-	}
+    @Override
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        EntityIguana i = new EntityIguana(worldObj);
+        UUID uuid = getOwnerId();
+        if (uuid != null) {
+            i.setOwnerId(uuid);
+            i.setTamed(true);
+        }
+        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        return i;
+    }
 
 }

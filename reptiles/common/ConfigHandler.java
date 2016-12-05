@@ -40,22 +40,29 @@ public class ConfigHandler {
 	static private int gatorSpawnProb;
 	static private int chameleonSpawnProb;
 	static private int crocMonitorSpawnProb;
-	static private int megalaniaSpawnProb;
+	static private int minSpawn;
+	static private int maxSpawn;
+	static private int talkInterval;
+	static private double talkvolume;
 	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
 
-	static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
+	private static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.mcversion;
-	static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
-	static final String despawnComment = "Set to false to not despawn. default is true.";
-	static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
-	static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
+	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
+	private static final String despawnComment = "Set to false to not despawn. default is true.";
+	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
+	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
+	private static final String minSpawnComment = "Minimum number of reptiles to spawn at one time";
+	private static final String maxSpawnComment = "Maximum number of reptiles to spawn at one time";
+	private static final String talkIntervalComment = "time interval between ambient sounds";
+	private static final String talkVolumeComment = "volume of reptile sounds";
 
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
 		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load(); // only need to load config once during pre init
+		config.load(); // only need to load config once during pre initializeSoundEvents
 		updateConfigInfo();
 	}
 
@@ -78,7 +85,11 @@ public class ConfigHandler {
 			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5, spawnProbComment).getInt();
 			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
 			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
-			megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 12, spawnProbComment).getInt();
+			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();
+			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
+			talkInterval = config.get(Configuration.CATEGORY_GENERAL, "talkInterval", 320, talkIntervalComment).getInt();
+			talkvolume = config.get(Configuration.CATEGORY_GENERAL, "talkVolume", 0.3, talkVolumeComment).getDouble();
+
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
@@ -177,8 +188,16 @@ public class ConfigHandler {
 		return crocMonitorSpawnProb;
 	}
 
-	public static int getMegalaniaSpawnProb()
-	{
-		return megalaniaSpawnProb;
+	public static int getMinSpawn() { return minSpawn; }
+
+	public static int getMaxSpawn() { return maxSpawn; }
+
+	public static int getTalkInterval() {
+		return talkInterval;
 	}
+
+	public static float getTalkVolume() {
+		return (float)talkvolume;
+	}
+
 }

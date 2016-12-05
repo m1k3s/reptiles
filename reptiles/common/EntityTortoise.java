@@ -22,26 +22,28 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public final class EntityTortoise extends EntityTurtle {
 
-	public EntityTortoise(World world)
-	{
-		super(world);
-		setSize(1.5F, 1.5F);
-		setTamed(false);
-	}
+    private final float scaleFactor = 2.0f;
 
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		EntityTortoise t = new EntityTortoise(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			t.setOwnerId(s);
-			t.setTamed(true);
-		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
-		return t;
-	}
+    public EntityTortoise(World world) {
+        super(world);
+        setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
+        setTamed(false);
+    }
+
+    @Override
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        EntityTortoise t = new EntityTortoise(worldObj);
+        UUID uuid = getOwnerId();
+        if (uuid != null) {
+            t.setOwnerId(uuid);
+            t.setTamed(true);
+        }
+        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        return t;
+    }
 
 }

@@ -21,6 +21,7 @@ package com.reptiles.common;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Logger;
 
+
 public class CommonProxyReptiles {
 	
 	private static final Logger logger = FMLLog.getLogger();
@@ -29,9 +30,10 @@ public class CommonProxyReptiles {
 	{
 	}
 	
-	public void registerHandlers()
+	public void registerSoundEvents()
 	{
-		
+		ReptileSounds.registerSoundEvents();
+		ReptileSounds.initializeSoundEvents();
 	}
 
 	public void info(String s)
@@ -42,5 +44,10 @@ public class CommonProxyReptiles {
 	public void warn(String s)
 	{
 		logger.warn(s);
+	}
+	
+	public void error(String s)
+	{
+		logger.error(s);
 	}
 }

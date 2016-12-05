@@ -19,53 +19,29 @@
 //
 package com.reptiles.client;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 import com.reptiles.common.EntityTortoise;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
+public class RenderTortoise<T extends EntityTortoise> extends RenderLiving<T> {
 
-public class RenderTortoise extends RenderLiving {
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/gtortoise2-32.png");
 
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/gtortoise2-32.png");
-	private final float scaleFactor = 2.0F;
+    public RenderTortoise(RenderManager rm) {
+        super(rm, new ModelTortoise(), 0.0f);
+    }
 
-	public RenderTortoise(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        float scaleFactor = 2.0F;
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+        super.preRenderCallback(entityliving, f);
+    }
 
-	public void renderTortoise(EntityTortoise entitytortoise, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entitytortoise, d, d1, d2, f, f1);
-	}
-
-	@Override
-	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
-	{
-		renderTortoise((EntityTortoise) entity, d, d1, d2, f, f1);
-	}
-
-	protected void scaleEntity(EntityTortoise entityturtle, float f)
-	{
-		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		scaleEntity((EntityTortoise) entityliving, f);
-		super.preRenderCallback(entityliving, f);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 }

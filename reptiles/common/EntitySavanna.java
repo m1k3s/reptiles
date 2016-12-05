@@ -22,26 +22,25 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public final class EntitySavanna extends EntityVaranus {
 
-	public EntitySavanna(World world)
-	{
-		super(world);
-		setSize(0.6F, 0.6F);
-		setTamed(false);
-	}
+    public EntitySavanna(World world) {
+        super(world);
+        setTamed(false);
+    }
 
-	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
-		EntitySavanna e = new EntitySavanna(worldObj);
-		String s = getOwnerId();
-		if (s != null && s.trim().length() > 0) {
-			e.setOwnerId(s);
-			e.setTamed(true);
-		}
-		System.out.printf("Spawned entity of type %s", getClass().toString());
-		return e;
-	}
+    @Override
+    public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
+        EntitySavanna e = new EntitySavanna(worldObj);
+        UUID uuid = getOwnerId();
+        if (uuid != null) {
+            e.setOwnerId(uuid);
+            e.setTamed(true);
+        }
+        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        return e;
+    }
 
 }

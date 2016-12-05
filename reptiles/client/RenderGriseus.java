@@ -20,46 +20,28 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityGriseus;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 
-public class RenderGriseus extends RenderLiving {
+public class RenderGriseus<T extends EntityGriseus> extends RenderLiving<T> {
 
-	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/griseus32.png");
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/griseus32.png");
 
-	public RenderGriseus(RenderManager rm, ModelBase modelbase, float shadowSize)
-	{
-		super(rm, modelbase, shadowSize);
-	}
+    public RenderGriseus(RenderManager rm) {
+        super(rm, new ModelGriseus(), 0.0f);
+    }
 
-	public void renderGriseus(EntityGriseus entitygriseus, double d, double d1, double d2, float f, float f1)
-	{
-		super.doRender(entitygriseus, d, d1, d2, f, f1);
-	}
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        float scaleFactor = entityliving.getScaleFactor();
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+        super.preRenderCallback(entityliving, f);
+    }
 
-	@Override
-	public void doRender(EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
-	{
-		renderGriseus((EntityGriseus) entityliving, d, d1, d2, f, f1);
-	}
-
-	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
-		return skin;
-	}
-
-	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		float scaleFactor = ((EntityGriseus) entityliving).getScaleFactor();
-		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
-		super.preRenderCallback(entityliving, f);
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T t) {
+        return skin;
+    }
 }
