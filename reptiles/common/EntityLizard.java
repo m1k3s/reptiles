@@ -75,7 +75,7 @@ public class EntityLizard extends EntityTameable {
     @Override
     public boolean getCanSpawnHere() {
         if (super.getCanSpawnHere()) {
-            Reptiles.proxy.info("Spawning lizard ***");
+//            Reptiles.proxy.info("Spawning lizard ***");
             return true;
         }
         return false;
