@@ -269,15 +269,16 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemstack) {
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+        ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
-            if (itemstack != null) {
+            if (!itemstack.func_190926_b()) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
-                            --itemstack.stackSize;
+                            itemstack.func_190918_g(1);
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
@@ -292,9 +293,9 @@ public class EntityVaranus extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
+        } else if (itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
             if (!entityplayer.capabilities.isCreativeMode) {
-                --itemstack.stackSize;
+                itemstack.func_190918_g(1);
             }
 
             if (!worldObj.isRemote) {
@@ -315,7 +316,7 @@ public class EntityVaranus extends EntityTameable {
             return true;
         }
 
-        return super.processInteract(entityplayer, enumHand, itemstack);
+        return super.processInteract(entityplayer, enumHand);
     }
 
     @Override

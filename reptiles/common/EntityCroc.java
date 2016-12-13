@@ -142,7 +142,7 @@ public class EntityCroc extends EntityAnimal {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemStack) {
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
         // don't allow any interaction, especially breeding
         return false;
     }

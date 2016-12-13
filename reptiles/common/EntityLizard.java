@@ -145,7 +145,8 @@ public class EntityLizard extends EntityTameable {
 
     // taming stuff //////////////////
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand, ItemStack itemstack) {
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+        ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
             if (itemstack != null) {
@@ -153,12 +154,12 @@ public class EntityLizard extends EntityTameable {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isTamingFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
-                            --itemstack.stackSize;
+                            itemstack.func_190918_g(1);
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
 
-                        if (itemstack.stackSize <= 0) {
+                        if (itemstack.func_190916_E() <= 0) {
                             entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
                         }
 
@@ -175,10 +176,10 @@ public class EntityLizard extends EntityTameable {
             }
         } else if (itemstack != null && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
-                --itemstack.stackSize;
+                itemstack.func_190918_g(1);
             }
 
-            if (itemstack.stackSize <= 0) {
+            if (itemstack.func_190916_E() <= 0) {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
             }
 
@@ -201,7 +202,7 @@ public class EntityLizard extends EntityTameable {
             return true;
         }
 
-        return super.processInteract(entityplayer, enumHand, itemstack);
+        return super.processInteract(entityplayer, enumHand);
     }
 
     @Override

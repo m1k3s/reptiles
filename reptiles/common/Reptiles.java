@@ -21,6 +21,7 @@ package com.reptiles.common;
 
 import static com.reptiles.common.ConfigHandler.updateConfigInfo;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -30,6 +31,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.*;
 
 import java.util.LinkedList;
+import java.util.Set;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -94,7 +96,7 @@ public class Reptiles {
     @SuppressWarnings("unused")
     @Mod.EventHandler
     public void PostInit(FMLPostInitializationEvent event) {
-        BiomeDictionary.registerAllBiomesAndGenerateEvents();
+//        BiomeDictionary.registerAllBiomesAndGenerateEvents();
 
         proxy.info("*** Checking for monitor biomes");
         Biome[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
@@ -134,7 +136,7 @@ public class Reptiles {
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
-        EntityRegistry.registerModEntity(entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
+        EntityRegistry.registerModEntity(new ResourceLocation(modid + entityName, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
     private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {
@@ -146,18 +148,18 @@ public class Reptiles {
     private Biome[] getBiomes(Type... types) {
         LinkedList<Biome> list = new LinkedList<>();
         for (Type t : types) {
-            Biome[] biomes = BiomeDictionary.getBiomesForType(t);
+            Set<Biome> biomes = BiomeDictionary.getBiomes(t);
             for (Biome bgb : biomes) {
-                if (BiomeDictionary.isBiomeOfType(bgb, Type.END) || BiomeDictionary.isBiomeOfType(bgb, Type.NETHER)) { // no spawning in END | NETHER
+                if (bgb.getBiomeName().equalsIgnoreCase("end") || bgb.getBiomeName().equalsIgnoreCase("nether")) { // no spawning in END | NETHER
                     continue;
                 }
-                if (bgb.getBiomeName().contains("Void")) { // no spawning in The Void
+                if (bgb.getBiomeName().equalsIgnoreCase("void")) { // no spawning in The Void
 					continue;
 				}
-                if (BiomeDictionary.isBiomeOfType(bgb, Type.SNOWY) || bgb.getTemperature() < 0.32F) { // exclude cold climates
+                if (BiomeDictionary.hasType(bgb, Type.SNOWY) || bgb.getTemperature() < 0.32F) { // exclude cold climates
                     continue;
                 }
-                if (BiomeDictionary.isBiomeOfType(bgb, Type.WATER)) { // exclude ocean biomes
+                if (BiomeDictionary.hasType(bgb, Type.WATER)) { // exclude ocean biomes
                     continue;
                 }
                 if (!list.contains(bgb)) {
