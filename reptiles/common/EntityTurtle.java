@@ -123,7 +123,7 @@ public class EntityTurtle extends EntityTameable {
     public boolean getCanSpawnHere() {
         AxisAlignedBB entityAABB = getEntityBoundingBox();
         if (worldObj.checkNoEntityCollision(entityAABB)) {
-            if (worldObj.getCollisionBoxes(entityAABB).isEmpty()) {
+            if (worldObj.getCollisionBoxes(this, entityAABB).isEmpty()) {
                 if (!worldObj.containsAnyLiquid(entityAABB)) {
                     int x = MathHelper.floor_double(posX);
                     int y = MathHelper.floor_double(entityAABB.minY);
@@ -170,14 +170,16 @@ public class EntityTurtle extends EntityTameable {
 
     // taming stuff //////////////////
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand, ItemStack itemstack) {
+    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand) {
+        ItemStack itemstack = entityplayer.getHeldItem(hand);
+
         if (isTamed()) {
             if (itemstack != null) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
-                            --itemstack.stackSize;
+                            itemstack.func_190918_g(1);
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
@@ -196,7 +198,7 @@ public class EntityTurtle extends EntityTameable {
             }
         } else if (itemstack != null && itemstack.getItem() == Items.APPLE) {
             if (!entityplayer.capabilities.isCreativeMode) {
-                --itemstack.stackSize;
+                itemstack.func_190918_g(1);
             }
 
             if (!this.worldObj.isRemote) {
@@ -218,7 +220,7 @@ public class EntityTurtle extends EntityTameable {
             return true;
         }
 		System.out.println("passing on to super");
-        return super.processInteract(entityplayer, hand, itemstack);
+        return super.processInteract(entityplayer, hand);
     }
 
     @Override
