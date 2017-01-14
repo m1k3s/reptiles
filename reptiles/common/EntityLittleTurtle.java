@@ -33,7 +33,7 @@ public final class EntityLittleTurtle extends EntityTurtle {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityLittleTurtle t = new EntityLittleTurtle(worldObj);
+        EntityLittleTurtle t = new EntityLittleTurtle(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             t.setOwnerId(uuid);

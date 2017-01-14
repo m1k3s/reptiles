@@ -48,8 +48,8 @@ public class Reptiles {
 
     public static final String modid = "reptilemod";
     public static final String name = "Reptile Mod";
-    public static final String version = "3.5.2";
-    public static final String mcversion = "1.10.2";
+    public static final String version = "3.6.2";
+    public static final String mcversion = "1.11.2";
     public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
@@ -96,7 +96,6 @@ public class Reptiles {
     @SuppressWarnings("unused")
     @Mod.EventHandler
     public void PostInit(FMLPostInitializationEvent event) {
-//        BiomeDictionary.registerAllBiomesAndGenerateEvents();
 
         proxy.info("*** Checking for monitor biomes");
         Biome[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
@@ -136,7 +135,7 @@ public class Reptiles {
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
-        EntityRegistry.registerModEntity(new ResourceLocation(modid + entityName, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
+        EntityRegistry.registerModEntity(new ResourceLocation(modid, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
     private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {

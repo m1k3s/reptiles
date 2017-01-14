@@ -36,7 +36,7 @@ public final class EntityTortoise extends EntityTurtle {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityTortoise t = new EntityTortoise(worldObj);
+        EntityTortoise t = new EntityTortoise(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             t.setOwnerId(uuid);

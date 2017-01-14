@@ -33,7 +33,7 @@ public final class EntityDesertTortoise extends EntityTurtle {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityDesertTortoise t = new EntityDesertTortoise(worldObj);
+        EntityDesertTortoise t = new EntityDesertTortoise(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             t.setOwnerId(uuid);

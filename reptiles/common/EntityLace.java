@@ -35,7 +35,7 @@ public final class EntityLace extends EntityVaranus {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityLace e = new EntityLace(worldObj);
+        EntityLace e = new EntityLace(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             e.setOwnerId(uuid);

@@ -33,7 +33,7 @@ public final class EntityGriseus extends EntityVaranus {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityGriseus e = new EntityGriseus(worldObj);
+        EntityGriseus e = new EntityGriseus(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             e.setOwnerId(uuid);

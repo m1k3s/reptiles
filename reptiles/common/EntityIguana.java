@@ -34,7 +34,7 @@ public final class EntityIguana extends EntityLizard {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityIguana i = new EntityIguana(worldObj);
+        EntityIguana i = new EntityIguana(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             i.setOwnerId(uuid);

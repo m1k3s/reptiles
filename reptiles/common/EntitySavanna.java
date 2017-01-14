@@ -33,7 +33,7 @@ public final class EntitySavanna extends EntityVaranus {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntitySavanna e = new EntitySavanna(worldObj);
+        EntitySavanna e = new EntitySavanna(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             e.setOwnerId(uuid);

@@ -43,7 +43,7 @@ public final class EntityPerentie extends EntityVaranus {
 	@Override
 	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
 	{
-		EntityPerentie e = new EntityPerentie(worldObj);
+		EntityPerentie e = new EntityPerentie(world);
 		UUID uuid = getOwnerId();
 		if (uuid != null) {
 			e.setOwnerId(uuid);

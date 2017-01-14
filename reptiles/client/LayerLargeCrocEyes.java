@@ -25,7 +25,7 @@ public class LayerLargeCrocEyes<T extends EntityLargeCroc> implements LayerRende
 		renderLargeCroc.bindTexture(eyes);
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
-		GlStateManager.blendFunc(1, 1);
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 
 		if (entityCroc.isInvisible()) {
 			GlStateManager.depthMask(false);

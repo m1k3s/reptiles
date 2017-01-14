@@ -40,7 +40,7 @@ public final class EntitySalvadorii extends EntityVaranus {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntitySalvadorii e = new EntitySalvadorii(worldObj);
+        EntitySalvadorii e = new EntitySalvadorii(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             e.setOwnerId(uuid);

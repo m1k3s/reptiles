@@ -138,7 +138,7 @@ public class EntityCroc extends EntityAnimal {
 
     @Override
     protected int getExperiencePoints(EntityPlayer par1EntityPlayer) {
-        return 1 + worldObj.rand.nextInt(4);
+        return 1 + world.rand.nextInt(4);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class EntityAIEatPlants extends EntityAIBase {
 
     public EntityAIEatPlants(EntityLiving grassEaterEntityIn) {
         plantEaterEntity = grassEaterEntityIn;
-        entityWorld = grassEaterEntityIn.worldObj;
+        entityWorld = grassEaterEntityIn.world;
         setMutexBits(7);
     }
 

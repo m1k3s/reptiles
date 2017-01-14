@@ -273,12 +273,12 @@ public class EntityVaranus extends EntityTameable {
         ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
-            if (!itemstack.func_190926_b()) {
+            if (!itemstack.isEmpty()) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
-                            itemstack.func_190918_g(1);
+                            itemstack.shrink(1);
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
@@ -287,7 +287,7 @@ public class EntityVaranus extends EntityTameable {
                 }
             }
 
-            if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+            if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
                 navigator.clearPathEntity();
@@ -295,10 +295,10 @@ public class EntityVaranus extends EntityTameable {
             }
         } else if (itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
             if (!entityplayer.capabilities.isCreativeMode) {
-                itemstack.func_190918_g(1);
+                itemstack.shrink(1);
             }
 
-            if (!worldObj.isRemote) {
+            if (!world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
                     navigator.clearPathEntity();
@@ -307,10 +307,10 @@ public class EntityVaranus extends EntityTameable {
                     setHealth(maxHealth);
                     setOwnerId(entityplayer.getUniqueID());
                     playTameEffect(true);
-                    worldObj.setEntityState(this, (byte) 7);
+                    world.setEntityState(this, (byte) 7);
                 } else {
                     playTameEffect(false);
-                    worldObj.setEntityState(this, (byte) 6);
+                    world.setEntityState(this, (byte) 6);
                 }
             }
             return true;

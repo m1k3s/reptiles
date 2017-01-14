@@ -110,27 +110,27 @@ public class EntityTurtle extends EntityTameable {
     }
 
     private boolean isHardenedClay(BlockPos bp) {
-        Block block = worldObj.getBlockState(bp).getBlock();
+        Block block = world.getBlockState(bp).getBlock();
         return block == Blocks.HARDENED_CLAY;
     }
 
     private boolean isSandOrGrassBlock(BlockPos bp) {
-        Block block = worldObj.getBlockState(bp).getBlock();
+        Block block = world.getBlockState(bp).getBlock();
         return (block == Blocks.SAND || block == Blocks.GRASS);
     }
 
     @Override
     public boolean getCanSpawnHere() {
         AxisAlignedBB entityAABB = getEntityBoundingBox();
-        if (worldObj.checkNoEntityCollision(entityAABB)) {
-            if (worldObj.getCollisionBoxes(this, entityAABB).isEmpty()) {
-                if (!worldObj.containsAnyLiquid(entityAABB)) {
-                    int x = MathHelper.floor_double(posX);
-                    int y = MathHelper.floor_double(entityAABB.minY);
-                    int z = MathHelper.floor_double(posZ);
+        if (world.checkNoEntityCollision(entityAABB)) {
+            if (world.getCollisionBoxes(this, entityAABB).isEmpty()) {
+                if (!world.containsAnyLiquid(entityAABB)) {
+                    int x = MathHelper.floor(posX);
+                    int y = MathHelper.floor(entityAABB.minY);
+                    int z = MathHelper.floor(posZ);
                     BlockPos bp = new BlockPos(x, y, z);
                     if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
-                        if (worldObj.getLight(bp) > 8) {
+                        if (world.getLight(bp) > 8) {
 							Reptiles.proxy.info("Spawning turtle ***");
                             return true;
                         }
@@ -148,7 +148,7 @@ public class EntityTurtle extends EntityTameable {
 
     @Override
     public void onLivingUpdate() {
-        if (worldObj.isRemote) {
+        if (world.isRemote) {
             turtleTimer = Math.max(0, turtleTimer - 1);
         }
         super.onLivingUpdate();
@@ -179,7 +179,7 @@ public class EntityTurtle extends EntityTameable {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
                         if (!entityplayer.capabilities.isCreativeMode) {
-                            itemstack.func_190918_g(1);
+                            itemstack.shrink(1);
                         }
 
                         heal((float) itemfood.getHealAmount(itemstack));
@@ -190,7 +190,7 @@ public class EntityTurtle extends EntityTameable {
                 }
             }
 			System.out.println("isTamed but not isFavoriteFood");
-            if (isOwner(entityplayer) && !worldObj.isRemote && !isBreedingItem(itemstack)) {
+            if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
                 navigator.clearPathEntity();
@@ -198,10 +198,10 @@ public class EntityTurtle extends EntityTameable {
             }
         } else if (itemstack != null && itemstack.getItem() == Items.APPLE) {
             if (!entityplayer.capabilities.isCreativeMode) {
-                itemstack.func_190918_g(1);
+                itemstack.shrink(1);
             }
 
-            if (!this.worldObj.isRemote) {
+            if (!this.world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
                     navigator.clearPathEntity();
@@ -210,10 +210,10 @@ public class EntityTurtle extends EntityTameable {
                     setHealth(maxHealth);
                     setOwnerId(entityplayer.getUniqueID());
                     playTameEffect(true);
-                    worldObj.setEntityState(this, (byte) 7);
+                    world.setEntityState(this, (byte) 7);
                 } else {
                     playTameEffect(false);
-                    worldObj.setEntityState(this, (byte) 6);
+                    world.setEntityState(this, (byte) 6);
                 }
             }
 			System.out.println("taming a turtle");

@@ -34,7 +34,7 @@ public final class EntityChameleon extends EntityLizard {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityChameleon c = new EntityChameleon(worldObj);
+        EntityChameleon c = new EntityChameleon(world);
         UUID uuid = this.getOwnerId();
 
         if (uuid != null) {

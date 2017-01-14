@@ -43,7 +43,7 @@ public final class EntityKomodo extends EntityVaranus {
 
     @Override
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        EntityKomodo e = new EntityKomodo(worldObj);
+        EntityKomodo e = new EntityKomodo(world);
         UUID uuid = getOwnerId();
         if (uuid != null) {
             e.setOwnerId(uuid);
