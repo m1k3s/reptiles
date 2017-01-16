@@ -101,13 +101,13 @@ public class Reptiles {
         Biome[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
 
         proxy.info("*** Checking for tortoise biomes");
-        Biome[] desertBiomes = getBiomes(Type.HOT, Type.SPARSE, Type.SANDY);
+        Biome[] desertBiomes = getBiomes(Type.HOT, Type.DRY, Type.SANDY, Type.HILLS, Type.MESA);
 
         proxy.info("*** Checking for turtle biomes");
         Biome[] jungleBiomes = getBiomes(Type.FOREST, Type.PLAINS, Type.SWAMP);
 
         proxy.info("*** Checking for lizard biomes");
-        Biome[] variousBiomes = getBiomes(Type.FOREST, Type.HILLS, Type.MUSHROOM, Type.PLAINS, Type.MOUNTAIN);
+        Biome[] variousBiomes = getBiomes(Type.FOREST, Type.MUSHROOM, Type.HILLS, Type.PLAINS, Type.MOUNTAIN);
 
         proxy.info("*** Checking for crocodilian biomes");
         Biome[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
@@ -149,13 +149,13 @@ public class Reptiles {
         for (Type t : types) {
             Set<Biome> biomes = BiomeDictionary.getBiomes(t);
             for (Biome bgb : biomes) {
-                if (bgb.getBiomeName().equalsIgnoreCase("end") || bgb.getBiomeName().equalsIgnoreCase("nether")) { // no spawning in END | NETHER
+                if (BiomeDictionary.hasType(bgb, Type.END) || BiomeDictionary.hasType(bgb, Type.NETHER)) { // no spawning in END | NETHER
                     continue;
                 }
-                if (bgb.getBiomeName().equalsIgnoreCase("void")) { // no spawning in The Void
+                if (BiomeDictionary.hasType(bgb, Type.VOID)) { // no spawning in The Void
 					continue;
 				}
-                if (BiomeDictionary.hasType(bgb, Type.SNOWY) || bgb.getTemperature() < 0.32F) { // exclude cold climates
+                if (BiomeDictionary.hasType(bgb, Type.COLD)) { // exclude cold climates
                     continue;
                 }
                 if (BiomeDictionary.hasType(bgb, Type.WATER)) { // exclude ocean biomes
