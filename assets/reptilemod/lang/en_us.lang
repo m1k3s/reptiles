@@ -1,0 +1,19 @@
+
+language.name=English
+language.region=US
+language.code=en_US
+
+entity.komodo.name=Komodo
+entity.savanna.name=Savanna
+entity.griseus.name=Griseus
+entity.perentie.name=Perentie
+entity.lace.name=Lace
+entity.iguana.name=Iguana
+entity.chameleon.name=Chameleon
+entity.croc.name=Crocodile
+entity.deserttortoise.name=Desert Tortoise
+entity.littleturtle.name=Little Turtle
+entity.largecroc.name=Large Crocodile
+entity.alligator.name=Alligator
+entity.tortoise.name=Tortoise
+entity.crocmonitor.name=Crocodile Monitor

@@ -68,20 +68,20 @@ public class Reptiles {
     public void preInit(FMLPreInitializationEvent event) {
         ConfigHandler.startConfig(event);
 
-        registerEntity(EntityKomodo.class, "Komodo", 0x006400, 0x98FB98);
-        registerEntity(EntitySavanna.class, "Savanna", 0x8B8989, 0xCDC5BF);
-        registerEntity(EntityGriseus.class, "Griseus", 0xCD853F, 0xDEB887);
-        registerEntity(EntityPerentie.class, "Perentie", 0x363636, 0x7F7F7F);
-        registerEntity(EntityLace.class, "Lace", 0x0A0A0A, 0xABABAB);
-        registerEntity(EntityCroc.class, "Croc", 0x008B00, 0xA2CD5A);
-        registerEntity(EntityDesertTortoise.class, "DesertTortoise", 0x8B4513, 0x8B4C39);
-        registerEntity(EntityLittleTurtle.class, "LittleTurtle", 0xFF7F24, 0xFF8C69);
-        registerEntity(EntityLargeCroc.class, "LargeCroc", 0x8B4513, 0x8B5A2B);
-        registerEntity(EntityIguana.class, "Iguana", 0x00CD00, 0xC0FF3E);
-        registerEntity(EntityTortoise.class, "Tortoise", 0x008B45, 0xC0FF3E);
-        registerEntity(EntityGator.class, "Alligator", 0x008B45, 0xC0FF3E);
-        registerEntity(EntityChameleon.class, "Chameleon", 0xB22222, 0x228B22);
-        registerEntity(EntitySalvadorii.class, "CrocMonitor", 0x008BCC, 0xA2CD5A);
+        registerEntity(EntityKomodo.class, "komodo", 0x006400, 0x98FB98);
+        registerEntity(EntitySavanna.class, "savanna", 0x8B8989, 0xCDC5BF);
+        registerEntity(EntityGriseus.class, "griseus", 0xCD853F, 0xDEB887);
+        registerEntity(EntityPerentie.class, "perentie", 0x363636, 0x7F7F7F);
+        registerEntity(EntityLace.class, "lace", 0x0A0A0A, 0xABABAB);
+        registerEntity(EntityCroc.class, "croc", 0x008B00, 0xA2CD5A);
+        registerEntity(EntityDesertTortoise.class, "deserttortoise", 0x8B4513, 0x8B4C39);
+        registerEntity(EntityLittleTurtle.class, "littleturtle", 0xFF7F24, 0xFF8C69);
+        registerEntity(EntityLargeCroc.class, "largecroc", 0x8B4513, 0x8B5A2B);
+        registerEntity(EntityIguana.class, "iguana", 0x00CD00, 0xC0FF3E);
+        registerEntity(EntityTortoise.class, "tortoise", 0x008B45, 0xC0FF3E);
+        registerEntity(EntityGator.class, "alligator", 0x008B45, 0xC0FF3E);
+        registerEntity(EntityChameleon.class, "chameleon", 0xB22222, 0x228B22);
+        registerEntity(EntitySalvadorii.class, "crocmonitor", 0x008BCC, 0xA2CD5A);
 
         proxy.registerSoundEvents();
         proxy.registerRenderers();
@@ -136,6 +136,7 @@ public class Reptiles {
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
         EntityRegistry.registerModEntity(new ResourceLocation(modid, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
+        
     }
 
     private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {

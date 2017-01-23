@@ -39,12 +39,12 @@ public class RenderCroc<T extends EntityCroc> extends RenderLiving<T> {
 
 
     @Override
-    protected float getDeathMaxRotation(T entitycroc) {
+    protected float getDeathMaxRotation(T entityLivingBase) {
         return 180.0F;
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(T t) {
+    protected ResourceLocation getEntityTexture(T entity) {
         return skin;
     }
 }

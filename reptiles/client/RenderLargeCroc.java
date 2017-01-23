@@ -27,7 +27,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 
 public class RenderLargeCroc<T extends EntityLargeCroc> extends RenderLiving<T> {
 
-    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/largeCroc32.png");
+    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/largecroc32.png");
     //	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
     private final float scaleFactor = 1.5F;
 

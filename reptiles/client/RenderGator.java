@@ -44,7 +44,7 @@ public class RenderGator<T extends EntityGator> extends RenderLiving<T> {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(T t) {
+	protected ResourceLocation getEntityTexture(T entity) {
 		return skin;
 	}
 }

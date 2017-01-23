@@ -27,15 +27,15 @@ import net.minecraft.util.math.MathHelper;
 
 public class ModelCroc extends ModelBase {
 
-	public ModelRenderer crocBody;
-	public ModelRenderer crocHead;
-	public ModelRenderer crocLeg1;
-	public ModelRenderer crocLeg2;
-	public ModelRenderer crocLeg3;
-	public ModelRenderer crocLeg4;
-	public ModelRenderer rfin;
-	public ModelRenderer lfin;
-	public ModelRenderer cfin;
+	private ModelRenderer crocBody;
+	private ModelRenderer crocHead;
+	private ModelRenderer crocLeg1;
+	private ModelRenderer crocLeg2;
+	private ModelRenderer crocLeg3;
+	private ModelRenderer crocLeg4;
+	private ModelRenderer rfin;
+	private ModelRenderer lfin;
+	private ModelRenderer cfin;
 	// public ModelRenderer leyefin;
 	// public ModelRenderer reyefin;
 	ModelRenderer crocTail1;

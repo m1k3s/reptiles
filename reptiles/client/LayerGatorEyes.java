@@ -1,6 +1,7 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityGator;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class LayerGatorEyes<T extends EntityGator> implements LayerRenderer<T> {
 
 	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
-	private final RenderGator renderGator;
+	private final RenderGator<T> renderGator;
 
 	public LayerGatorEyes(RenderGator render)
 	{
@@ -36,13 +37,14 @@ public class LayerGatorEyes<T extends EntityGator> implements LayerRenderer<T> {
 		char c0 = 61680;
 		int i = c0 % 65536;
 		int j = c0 / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		renderGator.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
+		Minecraft.getMinecraft().entityRenderer.func_191514_d(false);
 		int k = entityCroc.getBrightnessForRender(partialTicks);
 		i = k % 65536;
 		j = k / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i / 1.0F, (float) j / 1.0F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
 		renderGator.setLightmap(entityCroc, partialTicks);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
