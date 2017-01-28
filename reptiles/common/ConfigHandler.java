@@ -47,6 +47,7 @@ public class ConfigHandler {
 	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
+	static private int megalaniaSpawnProb;
 
 	private static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.mcversion;
@@ -89,6 +90,7 @@ public class ConfigHandler {
 			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
 			talkInterval = config.get(Configuration.CATEGORY_GENERAL, "talkInterval", 320, talkIntervalComment).getInt();
 			talkvolume = config.get(Configuration.CATEGORY_GENERAL, "talkVolume", 0.3, talkVolumeComment).getDouble();
+			megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 0, spawnProbComment).getInt();
 
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
@@ -200,4 +202,8 @@ public class ConfigHandler {
 		return (float)talkvolume;
 	}
 
+	public static int getMegalaniaSpawnProb()
+	{
+		return megalaniaSpawnProb;
+	}
 }

@@ -43,6 +43,7 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTortoise.class, RenderTortoise::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, RenderGator::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, RenderChameleon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, RenderMegalania::new);
 	}
 	
 }

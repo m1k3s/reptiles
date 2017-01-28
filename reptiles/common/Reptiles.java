@@ -82,6 +82,7 @@ public class Reptiles {
         registerEntity(EntityGator.class, "alligator", 0x008B45, 0xC0FF3E);
         registerEntity(EntityChameleon.class, "chameleon", 0xB22222, 0x228B22);
         registerEntity(EntitySalvadorii.class, "crocmonitor", 0x008BCC, 0xA2CD5A);
+        registerEntity(EntityMegalania.class, "megalania", 0x050505, 0x05c505);
 
         proxy.registerSoundEvents();
         proxy.registerRenderers();
@@ -121,6 +122,7 @@ public class Reptiles {
         addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 1, 2, forestBiomes);
 
         addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
         addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
@@ -136,7 +138,6 @@ public class Reptiles {
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
         EntityRegistry.registerModEntity(new ResourceLocation(modid, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
-        
     }
 
     private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {
