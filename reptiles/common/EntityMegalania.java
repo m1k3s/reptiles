@@ -46,25 +46,22 @@ public class EntityMegalania extends EntityAnimal {
         float scaleFactor = 2.5f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
         setPathPriority(PathNodeType.WATER, 0.0f);
-    }
 
-    @Override
-    protected void initEntityAI() {
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
-        tasks.addTask(7, new EntityAIMate(this, 0.9));
-        tasks.addTask(8, new EntityAIWander(this, 0.9));
-        tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        tasks.addTask(10, new EntityAILookIdle(this));
+        tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
+        tasks.addTask(3, new EntityAIWander(this, 0.9));
+        tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        tasks.addTask(5, new EntityAILookIdle(this));
 
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityChicken.class, false));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityPig.class, false));
-        targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
-        targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
-        targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityCow.class, false));
-        targetTasks.addTask(7, new EntityAINearestAttackableTarget<>(this, EntitySkeleton.class, false));
-        targetTasks.addTask(8, new EntityAINearestAttackableTarget<>(this, EntityRabbit.class, false));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityChicken.class, true));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityPig.class, true));
+        targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, true));
+        targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityCow.class, true));
+        targetTasks.addTask(7, new EntityAINearestAttackableTarget<>(this, EntitySkeleton.class, true));
+        targetTasks.addTask(8, new EntityAINearestAttackableTarget<>(this, EntityRabbit.class, true));
     }
 
     @Override

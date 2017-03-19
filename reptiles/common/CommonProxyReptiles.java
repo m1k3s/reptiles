@@ -39,6 +39,7 @@ public class CommonProxyReptiles {
 	public void info(String s)
 	{
 		logger.info(s);
+//		System.out.println(s);
 	}
 	
 	public void warn(String s)
@@ -49,5 +50,6 @@ public class CommonProxyReptiles {
 	public void error(String s)
 	{
 		logger.error(s);
+//		System.out.println(s);
 	}
 }

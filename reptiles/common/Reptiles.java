@@ -148,10 +148,17 @@ public class Reptiles {
 
     private Biome[] getBiomes(Type... types) {
         LinkedList<Biome> list = new LinkedList<>();
-        for (Type t : types) {
-            Set<Biome> biomes = BiomeDictionary.getBiomes(t);
+//        for (Type t : types) {
+//            proxy.info("Checking Type " + t.getName());
+//            Set<Biome> biomes = BiomeDictionary.getBiomes(t);
+            Set<Biome> biomes = Biome.EXPLORATION_BIOMES_LIST;
+//            proxy.info("Size of biome set is " + biomes.size());
             for (Biome bgb : biomes) {
-                if (BiomeDictionary.hasType(bgb, Type.END) || BiomeDictionary.hasType(bgb, Type.NETHER)) { // no spawning in END | NETHER
+//                proxy.info("Checking Biome " + bgb.getBiomeName());
+                if (BiomeDictionary.hasType(bgb, Type.END)) { // no spawning in END
+                    continue;
+                }
+                if (BiomeDictionary.hasType(bgb, Type.NETHER)) { // no spawning in NETHER
                     continue;
                 }
                 if (BiomeDictionary.hasType(bgb, Type.VOID)) { // no spawning in The Void
@@ -160,15 +167,23 @@ public class Reptiles {
                 if (BiomeDictionary.hasType(bgb, Type.COLD)) { // exclude cold climates
                     continue;
                 }
-                if (BiomeDictionary.hasType(bgb, Type.WATER)) { // exclude ocean biomes
+                if (BiomeDictionary.hasType(bgb, Type.OCEAN)) { // exclude ocean biomes
                     continue;
                 }
-                if (!list.contains(bgb)) {
-                    list.add(bgb);
-                    proxy.info("  >>> Adding " + bgb.getBiomeName() + " for spawning");
+                if (BiomeDictionary.hasType(bgb, Type.CONIFEROUS)) { // exclude coniferous biomes
+                    continue;
+                }
+                for (Type t : types) {
+                    if (BiomeDictionary.hasType(bgb, t)) {
+//                        proxy.info("Checking Biome " + bgb.getBiomeName() + " for Type " + t.getName());
+                        if (!list.contains(bgb)) {
+                            list.add(bgb);
+                            proxy.info("  >>> Adding " + bgb.getBiomeName() + " for spawning");
+                        }
+                    }
                 }
             }
-        }
+//        }
         return list.toArray(new Biome[0]);
     }
 
