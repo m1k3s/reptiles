@@ -33,7 +33,7 @@ public class RenderCroc<T extends EntityCroc> extends RenderLiving<T> {
 //	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 
     public RenderCroc(RenderManager rm) {
-        super(rm, new ModelCroc(), 1.0f);
+        super(rm, new ModelCroc(), 0.0f);
         addLayer(new LayerCrocEyes(this));
     }
 
