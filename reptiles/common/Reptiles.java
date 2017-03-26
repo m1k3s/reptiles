@@ -30,8 +30,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.*;
 
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -42,7 +41,14 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod(modid = Reptiles.modid, name = Reptiles.name, version = Reptiles.version, guiFactory = Reptiles.guifactory)
+@Mod(
+        modid = Reptiles.modid,
+        name = Reptiles.name,
+        version = Reptiles.version,
+        acceptedMinecraftVersions = Reptiles.mcversion,
+        guiFactory = Reptiles.guifactory,
+        dependencies = "required-after:FML"
+)
 
 public class Reptiles {
 
@@ -52,6 +58,19 @@ public class Reptiles {
     public static final String mcversion = "1.11.2";
     public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
+
+    @SuppressWarnings("unchecked")
+    // List of always excluded biome types
+    private static final List<Type> excludedBiomeTypes = new ArrayList(Arrays.asList(
+            Type.END,
+            Type.NETHER,
+            Type.VOID,
+            Type.COLD,
+            Type.OCEAN,
+            Type.CONIFEROUS,
+            Type.MOUNTAIN,
+            Type.MUSHROOM
+    ));
 
     @Mod.Instance(modid)
     public static Reptiles instance;
@@ -97,32 +116,24 @@ public class Reptiles {
     @SuppressWarnings("unused")
     @Mod.EventHandler
     public void PostInit(FMLPostInitializationEvent event) {
-
-        proxy.info("*** Checking for monitor biomes");
-        Biome[] forestBiomes = getBiomes(Type.FOREST, Type.BEACH, Type.SWAMP, Type.PLAINS);
-
-        proxy.info("*** Checking for tortoise biomes");
-        Biome[] desertBiomes = getBiomes(Type.HOT, Type.DRY, Type.SANDY, Type.HILLS, Type.MESA);
-
-        proxy.info("*** Checking for turtle biomes");
-        Biome[] jungleBiomes = getBiomes(Type.FOREST, Type.PLAINS, Type.SWAMP);
-
-        proxy.info("*** Checking for lizard biomes");
-        Biome[] variousBiomes = getBiomes(Type.FOREST, Type.MUSHROOM, Type.HILLS, Type.PLAINS, Type.MOUNTAIN);
-
-        proxy.info("*** Checking for crocodilian biomes");
-        Biome[] swampyBiomes = getBiomes(Type.BEACH, Type.SWAMP, Type.MUSHROOM);
+        Biome[] forestBiomes = getBiomes("forest", true, Type.FOREST);
+        Biome[] jungleBiomes = getBiomes("jungle", false, Type.HOT, Type.WET);
+        Biome[] plainsBiomes = getBiomes("plains", true, Type.PLAINS);
+        Biome[] swampyBiomes = getBiomes("swampy", false, Type.WET, Type.SWAMP);
+        Biome[] savannaBiomes = getBiomes("savanna", false, Type.SAVANNA);
+        Biome[] desertBiomes = getBiomes("desert", false, Type.HOT, Type.DRY, Type.SANDY);
+//        listBiomes(Type.FOREST, Type.SANDY);
 
         int minSpawn = ConfigHandler.getMinSpawn();
         int maxSpawn = ConfigHandler.getMaxSpawn();
 
         addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), minSpawn, maxSpawn, forestBiomes);
-        addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), minSpawn, maxSpawn, savannaBiomes);
         addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), minSpawn, maxSpawn, desertBiomes);
         addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntityLace.class, ConfigHandler.getLaceSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), minSpawn, maxSpawn, forestBiomes);
-        addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), 1, 2, forestBiomes);
+        addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), minSpawn, maxSpawn, forestBiomes);
 
         addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
         addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
@@ -132,58 +143,75 @@ public class Reptiles {
         addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), minSpawn, maxSpawn, jungleBiomes);
         addSpawn(EntityTortoise.class, ConfigHandler.getTortoiseSpawnProb(), minSpawn, maxSpawn, jungleBiomes);
 
-        addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), minSpawn, maxSpawn, variousBiomes);
-        addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), minSpawn, maxSpawn, variousBiomes);
+        addSpawn(EntityIguana.class, ConfigHandler.getIguanaSpawnProb(), minSpawn, maxSpawn, plainsBiomes);
+        addSpawn(EntityChameleon.class, ConfigHandler.getChameleonSpawnProb(), minSpawn, maxSpawn, plainsBiomes);
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
         EntityRegistry.registerModEntity(new ResourceLocation(modid, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
-    private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {
+    private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome... biomes) {
         if (spawnProb > 0) {
             EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.CREATURE, biomes);
         }
     }
 
-    private Biome[] getBiomes(Type... types) {
-        LinkedList<Biome> list = new LinkedList<>();
+    // For some reason BiomeDictionary.getBiomes(type) does not return any biomes for any type
+//    private void listBiomes(Type... types) {
 //        for (Type t : types) {
-//            proxy.info("Checking Type " + t.getName());
 //            Set<Biome> biomes = BiomeDictionary.getBiomes(t);
-            Set<Biome> biomes = Biome.EXPLORATION_BIOMES_LIST;
-//            proxy.info("Size of biome set is " + biomes.size());
-            for (Biome bgb : biomes) {
-//                proxy.info("Checking Biome " + bgb.getBiomeName());
-                if (BiomeDictionary.hasType(bgb, Type.END)) { // no spawning in END
-                    continue;
-                }
-                if (BiomeDictionary.hasType(bgb, Type.NETHER)) { // no spawning in NETHER
-                    continue;
-                }
-                if (BiomeDictionary.hasType(bgb, Type.VOID)) { // no spawning in The Void
-					continue;
-				}
-                if (BiomeDictionary.hasType(bgb, Type.COLD)) { // exclude cold climates
-                    continue;
-                }
-                if (BiomeDictionary.hasType(bgb, Type.OCEAN)) { // exclude ocean biomes
-                    continue;
-                }
-                if (BiomeDictionary.hasType(bgb, Type.CONIFEROUS)) { // exclude coniferous biomes
-                    continue;
-                }
+//            proxy.info(t.getName() + ": " + biomes.toString());
+//        }
+//    }
+
+    private boolean excludeThisBiome(Set<Type> types) {
+        boolean excludeBiome = false;
+        for (Type ex : excludedBiomeTypes) {
+            if (types.contains(ex)) {
+                excludeBiome = true;
+                break;
+            }
+        }
+        return excludeBiome;
+    }
+
+    private Biome[] getBiomes(String str, boolean orTypes, Type... types) {
+        proxy.info("*** Creating a list of " + str + " biomes");
+        LinkedList<Biome> list = new LinkedList<>();
+        List<Biome> biomes = ForgeRegistries.BIOMES.getValues();
+        for (Biome biome : biomes) {
+            Set<Type> bTypes = BiomeDictionary.getTypes(biome);
+
+            // we exclude certain biomes, i.e., reptiles are ectothermic, no cold biomes
+            if (excludeThisBiome(bTypes)) {
+//                proxy.info("  >>> Excluding " + biome.getBiomeName() + " biome");
+                continue;
+            }
+            // process remaining biomes
+            if (orTypes) { // add any biome that contains any of the listed types (logical OR)
                 for (Type t : types) {
-                    if (BiomeDictionary.hasType(bgb, t)) {
-//                        proxy.info("Checking Biome " + bgb.getBiomeName() + " for Type " + t.getName());
-                        if (!list.contains(bgb)) {
-                            list.add(bgb);
-                            proxy.info("  >>> Adding " + bgb.getBiomeName() + " for spawning");
+                    if (BiomeDictionary.hasType(biome, t)) {
+                        if (!list.contains(biome)) {
+                            list.add(biome);
+                            proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
                         }
                     }
                 }
+            } else { // add any biome that contains all the types listed (logical AND)
+                int count = types.length;
+                int shouldAdd = 0;
+                for (Type t : types) {
+                    if (BiomeDictionary.hasType(biome, t)) {
+                        shouldAdd++;
+                    }
+                }
+                if (!list.contains(biome) && shouldAdd == count) {
+                    list.add(biome);
+                    proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
+                }
             }
-//        }
+        }
         return list.toArray(new Biome[0]);
     }
 

@@ -45,6 +45,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
@@ -80,13 +81,7 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.PORKCHOP, false));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.COOKED_PORKCHOP, false));
-        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, entity -> {
-            if (rand.nextInt(6) == 0) {
-                return entity instanceof EntityPig || entity instanceof EntityRabbit;
-            } else {
-                return false;
-            }
-        }));
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, entity -> rand.nextInt(6) == 0 && (entity instanceof EntityPig || entity instanceof EntityRabbit)));
         if (ConfigHandler.getFollowOwner()) {
             tasks.addTask(6, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
             targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
@@ -209,7 +204,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
         if (flag) {
@@ -220,7 +215,7 @@ public class EntityVaranus extends EntityTameable {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
         if (isEntityInvulnerable(source)) {
             return false;
         } else {
@@ -247,8 +242,8 @@ public class EntityVaranus extends EntityTameable {
                     return false;
                 }
             }
-
-            return entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer)entityOwner).canAttackPlayer((EntityPlayer)entityToAttack) ? false : !(entityToAttack instanceof EntityHorse) || !((EntityHorse)entityToAttack).isTame();
+//            return entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer)entityOwner).canAttackPlayer((EntityPlayer)entityToAttack) ? false : !(entityToAttack instanceof EntityHorse) || !((EntityHorse)entityToAttack).isTame();
+            return !(entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer) entityOwner).canAttackPlayer((EntityPlayer) entityToAttack)) && (!(entityToAttack instanceof EntityHorse) || !((EntityHorse) entityToAttack).isTame());
         } else {
             return false;
         }
@@ -269,7 +264,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand enumHand) {
         ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
@@ -320,7 +315,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal otherAnimal) {
+    public boolean canMateWith(@Nonnull EntityAnimal otherAnimal) {
         if (otherAnimal == this) {
             return false;
         } else if (!isTamed()) {
@@ -334,7 +329,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable entityAgeable) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable entityAgeable) {
         return this.spawnBabyAnimal(entityAgeable);
     }
 

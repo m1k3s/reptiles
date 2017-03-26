@@ -19,8 +19,6 @@
 //
 package com.reptiles.common;
 
-import com.google.common.base.Predicate;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -35,7 +33,7 @@ public final class EntityKomodo extends EntityVaranus {
     @SuppressWarnings("unchecked")
     public EntityKomodo(World world) {
         super(world);
-        targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityPlayer.class, false, (Predicate<Entity>) entity -> rand.nextInt(5) == 0));
+        targetTasks.addTask(3, new EntityAITargetNonTamed(this, EntityPlayer.class, false, entity -> rand.nextInt(15) == 0));
         targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntitySheep.class, false));
         setTamed(false);
         setSize(0.6f, 0.85f);
