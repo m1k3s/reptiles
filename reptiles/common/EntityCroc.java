@@ -35,6 +35,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class EntityCroc extends EntityAnimal {
@@ -58,25 +59,18 @@ public class EntityCroc extends EntityAnimal {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable ageable) {
         return null;
     }
 
     @Override
     protected boolean canDespawn() {
-        if (ConfigHandler.shouldDespawn()) {
-            return true;
-        } else {
-            return false;
-        }
+        return ConfigHandler.shouldDespawn();
     }
 
     @Override
     public boolean getCanSpawnHere() {
-        if (super.getCanSpawnHere()) {
-            return true;
-        }
-        return false;
+        return super.getCanSpawnHere();
     }
 
     @Override
@@ -141,13 +135,13 @@ public class EntityCroc extends EntityAnimal {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand enumHand) {
         // don't allow any interaction, especially breeding
         return false;
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
     }
 

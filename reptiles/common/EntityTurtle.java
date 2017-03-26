@@ -41,6 +41,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 // base class for all turtles and tortoises
 public class EntityTurtle extends EntityTameable {
 
@@ -142,7 +144,7 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
     }
 
@@ -170,11 +172,11 @@ public class EntityTurtle extends EntityTameable {
 
     // taming stuff //////////////////
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand hand) {
         ItemStack itemstack = entityplayer.getHeldItem(hand);
 
         if (isTamed()) {
-            if (itemstack != null) {
+            if (!itemstack.isEmpty()) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
@@ -196,7 +198,7 @@ public class EntityTurtle extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.APPLE) {
+        } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
@@ -224,7 +226,7 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal entityAnimal) {
+    public boolean canMateWith(@Nonnull EntityAnimal entityAnimal) {
         if (entityAnimal == this) {
             return false;
         } else if (!isTamed()) {
@@ -238,7 +240,7 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable var1) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable var1) {
         return this.spawnBabyAnimal(var1);
     }
 

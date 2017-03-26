@@ -38,6 +38,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class EntityLizard extends EntityTameable {
     private final int maxHealth = 10;
     private static final DataParameter<Float> health = EntityDataManager.createKey(EntityLizard.class, DataSerializers.FLOAT);
@@ -74,11 +76,7 @@ public class EntityLizard extends EntityTameable {
 
     @Override
     public boolean getCanSpawnHere() {
-        if (super.getCanSpawnHere()) {
-//            Reptiles.proxy.info("Spawning lizard ***");
-            return true;
-        }
-        return false;
+        return super.getCanSpawnHere();
     }
 
     @Override
@@ -139,17 +137,17 @@ public class EntityLizard extends EntityTameable {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
     }
 
     // taming stuff //////////////////
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand enumHand) {
         ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
-            if (itemstack != null) {
+            if (!itemstack.isEmpty()) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isTamingFood(itemstack) && dataManager.get(health) < maxHealth) {
@@ -174,7 +172,7 @@ public class EntityLizard extends EntityTameable {
                 navigator.clearPathEntity();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
@@ -206,7 +204,7 @@ public class EntityLizard extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal entityAnimal) {
+    public boolean canMateWith(@Nonnull EntityAnimal entityAnimal) {
         if (entityAnimal == this) {
             return false;
         } else if (!isTamed()) {
@@ -220,7 +218,7 @@ public class EntityLizard extends EntityTameable {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable var1) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable var1) {
         return this.spawnBabyAnimal(var1);
     }
 
