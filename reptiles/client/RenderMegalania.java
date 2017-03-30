@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,8 @@ import com.reptiles.common.EntityMegalania;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
+import javax.annotation.Nonnull;
+
 public class RenderMegalania<T extends EntityMegalania> extends RenderLiving<T> {
 
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/megalania32.png");
@@ -40,12 +42,12 @@ public class RenderMegalania<T extends EntityMegalania> extends RenderLiving<T> 
     }
 
     @Override
-    public void doRender(T entityliving, double d, double d1, double d2, float f, float f1) {
+    public void doRender(@Nonnull T entityliving, double d, double d1, double d2, float f, float f1) {
         renderMegalania(entityliving, d, d1, d2, f, f1);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(T t) {
+    protected ResourceLocation getEntityTexture(@Nonnull T t) {
         return skin;
     }
 

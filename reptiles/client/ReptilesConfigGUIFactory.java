@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
 
+@SuppressWarnings("unused")
 public class ReptilesConfigGUIFactory implements IModGuiFactory {
 
     @Override

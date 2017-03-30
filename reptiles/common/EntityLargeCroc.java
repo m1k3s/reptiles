@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -29,23 +29,22 @@ import net.minecraft.world.World;
 
 public class EntityLargeCroc extends EntityCroc {
 
-	public EntityLargeCroc(World world)
-	{
-		super(world);
-		float scaleFactor = 1.5f;
-		setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
+    public EntityLargeCroc(World world) {
+        super(world);
+        float scaleFactor = 1.5f;
+        setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
 
-		targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySquid.class, false));
-		targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntitySpider.class, false));
-	}
+        targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySquid.class, false));
+        targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntitySpider.class, false));
+    }
 
-	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		// getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
-		// getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
-		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-		// getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-	}
+    @Override
+    protected void applyEntityAttributes() {
+        super.applyEntityAttributes();
+        // getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
+        // getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
+        getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+        // getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+    }
 
 }

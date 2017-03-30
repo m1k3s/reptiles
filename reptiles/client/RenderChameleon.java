@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -142,7 +142,8 @@ public class RenderChameleon<T extends EntityChameleon> extends RenderLiving<T> 
             }
         }
 
-        // Default to Grey color if the Chameleon is falling from the air (without any blocks near it)
+        // default to grey color if the Chameleon is falling through the air (without any blocks near it)
+        // also has the benefit of avoiding a divide by zero
         if (blockCount == 0) {
             return new int[] { 135, 135, 135 };
         }

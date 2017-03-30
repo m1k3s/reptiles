@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -26,10 +26,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 @SideOnly(Side.CLIENT)
 public class LayerLargeCrocEyes<T extends EntityLargeCroc> implements LayerRenderer<T> {
@@ -42,7 +43,8 @@ public class LayerLargeCrocEyes<T extends EntityLargeCroc> implements LayerRende
 		renderLargeCroc = render;
 	}
 
-	public void doRenderLayer(T entityCroc, float limbSwing, float limbSwingAmount, float partialTicks, float age, float headYaw, float headPitch, float scale)
+	@SuppressWarnings("unchecked")
+	public void doRenderLayer(@Nonnull T entityCroc, float limbSwing, float limbSwingAmount, float partialTicks, float age, float headYaw, float headPitch, float scale)
 	{
 		renderLargeCroc.bindTexture(eyes);
 		GlStateManager.enableBlend();

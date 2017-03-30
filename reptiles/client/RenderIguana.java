@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -22,18 +22,15 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityIguana;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLiving;
+
+import javax.annotation.Nonnull;
 
 public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
 
-    private final float scaleFactor = 0.4F;
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
 
     public RenderIguana(RenderManager rm) {
@@ -42,12 +39,13 @@ public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
 
     @Override
     protected void preRenderCallback(T entityliving, float f) {
+        float scaleFactor = 0.4F;
         GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         super.preRenderCallback(entityliving, f);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(T t) {
+    protected ResourceLocation getEntityTexture(@Nonnull T t) {
         return skin;
     }
 }

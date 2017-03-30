@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -28,12 +28,15 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public class RenderCroc<T extends EntityCroc> extends RenderLiving<T> {
 
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc32.png");
 //	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 
+    @SuppressWarnings("unchecked")
     public RenderCroc(RenderManager rm) {
         super(rm, new ModelCroc(), 0.0f);
         addLayer(new LayerCrocEyes(this));
@@ -46,7 +49,7 @@ public class RenderCroc<T extends EntityCroc> extends RenderLiving<T> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(T entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull T entity) {
         return skin;
     }
 }

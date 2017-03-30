@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,12 +27,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
+import javax.annotation.Nonnull;
+
 public class RenderLargeCroc<T extends EntityLargeCroc> extends RenderLiving<T> {
 
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/largecroc32.png");
-    //	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
-    private final float scaleFactor = 1.5F;
 
+    @SuppressWarnings("unchecked")
     public RenderLargeCroc(RenderManager rm) {
         super(rm, new ModelLargeCroc(), 0.0f);
         addLayer(new LayerLargeCrocEyes(this));
@@ -40,13 +41,14 @@ public class RenderLargeCroc<T extends EntityLargeCroc> extends RenderLiving<T> 
 
     @Override
     protected void preRenderCallback(T entityliving, float f) {
+        float scaleFactor = 1.5F;
         GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         super.preRenderCallback(entityliving, f);
     }
 
 
     @Override
-    protected ResourceLocation getEntityTexture(T t) {
+    protected ResourceLocation getEntityTexture(@Nonnull T t) {
         return skin;
     }
 }

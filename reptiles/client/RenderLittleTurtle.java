@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -24,42 +24,42 @@ package com.reptiles.client;
 import com.reptiles.common.EntityLittleTurtle;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
-public class RenderLittleTurtle extends RenderLiving {
+import javax.annotation.Nonnull;
+
+public class RenderLittleTurtle<T extends EntityLittleTurtle> extends RenderLiving<T> {
 
 	private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/littleturtle.png");
-	private final float scaleFactor = 0.5F;
 
 	public RenderLittleTurtle(RenderManager rm)
 	{
 		super(rm, new ModelLittleTurtle(), 0.0f);
 	}
 
-	public void renderLittleTurtle(EntityLittleTurtle entitytortoise, double d, double d1, double d2, float f, float f1)
+	@SuppressWarnings("unchecked")
+	public void renderLittleTurtle(T entitytortoise, double d, double d1, double d2, float f, float f1)
 	{
 		super.doRender(entitytortoise, d, d1, d2, f, f1);
 	}
 
 	@Override
-	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
+	public void doRender(@Nonnull T entity, double d, double d1, double d2, float f, float f1)
 	{
-		renderLittleTurtle((EntityLittleTurtle) entity, d, d1, d2, f, f1);
+		renderLittleTurtle(entity, d, d1, d2, f, f1);
 	}
 
 	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
+	protected void preRenderCallback(T entityliving, float f)
 	{
+		float scaleFactor = 0.5F;
 		GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
 		super.preRenderCallback(entityliving, f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
+	protected ResourceLocation getEntityTexture(@Nonnull T entity)
 	{
 		return skin;
 	}

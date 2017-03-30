@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2017 Michael Sheppard
  *
- * =====GPL=============================================================
+ * =====GPLv3===========================================================
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -27,6 +27,8 @@ import com.reptiles.common.EntityTortoise;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 
+import javax.annotation.Nonnull;
+
 public class RenderTortoise<T extends EntityTortoise> extends RenderLiving<T> {
 
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/gtortoise2-32.png");
@@ -43,7 +45,7 @@ public class RenderTortoise<T extends EntityTortoise> extends RenderLiving<T> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(T t) {
+    protected ResourceLocation getEntityTexture(@Nonnull T t) {
         return skin;
     }
 }
