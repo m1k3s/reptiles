@@ -31,6 +31,7 @@ public final class EntitySavanna extends EntityVaranus {
 
     public EntitySavanna(World world) {
         super(world);
+        setSize(0.35f, 0.30f);
         setTamed(false);
     }
 

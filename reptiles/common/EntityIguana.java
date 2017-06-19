@@ -31,7 +31,7 @@ public final class EntityIguana extends EntityLizard {
 
     public EntityIguana(World world) {
         super(world);
-        setSize(0.4F, 0.4F);
+        setSize(0.2F, 0.1F);
         setTamed(false);
     }
 

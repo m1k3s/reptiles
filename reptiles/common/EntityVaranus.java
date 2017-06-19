@@ -60,7 +60,7 @@ public class EntityVaranus extends EntityTameable {
     @SuppressWarnings("unchecked")
     public EntityVaranus(World world) {
         super(world);
-        setSize(0.4F, 0.85F);
+//        setSize(0.4F, 0.85F);
         setPathPriority(PathNodeType.WATER, 0.0f); // avoid water
 
         if (ConfigHandler.useRandomScaling()) {
@@ -120,7 +120,7 @@ public class EntityVaranus extends EntityTameable {
         super.entityInit();
         dataManager.register(health, getHealth());
     }
-    
+
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbase) {
         super.setAttackTarget(entitylivingbase);
@@ -144,7 +144,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+        return false;
     }
 
     @Override

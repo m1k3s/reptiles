@@ -31,9 +31,9 @@ import java.util.UUID;
 
 public final class EntityPerentie extends EntityVaranus {
 
-	public EntityPerentie(World world)
-	{
+	public EntityPerentie(World world) {
 		super(world);
+		setSize(0.35f, 0.25f);
 		setTamed(false);
 	}
 
@@ -44,8 +44,7 @@ public final class EntityPerentie extends EntityVaranus {
 	}
 
 	@Override
-	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable)
-	{
+	public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
 		EntityPerentie e = new EntityPerentie(world);
 		UUID uuid = getOwnerId();
 		if (uuid != null) {

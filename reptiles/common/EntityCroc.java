@@ -45,7 +45,7 @@ public class EntityCroc extends EntityAnimal {
 
     public EntityCroc(World world) {
         super(world);
-        setSize(0.9F, 1.4F);
+        setSize(0.9F, 0.6F);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
@@ -68,7 +68,7 @@ public class EntityCroc extends EntityAnimal {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn();
+        return false;
     }
 
     @Override

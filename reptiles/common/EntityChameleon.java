@@ -31,7 +31,7 @@ public final class EntityChameleon extends EntityLizard {
 
     public EntityChameleon(World world) {
         super(world);
-        setSize(0.25F, 0.25F);
+        setSize(0.1F, 0.1F);
         setTamed(false);
     }
 

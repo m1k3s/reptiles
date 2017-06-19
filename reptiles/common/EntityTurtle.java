@@ -56,7 +56,7 @@ public class EntityTurtle extends EntityTameable {
 
     public EntityTurtle(World world) {
         super(world);
-        setSize(0.5F, 0.5F);
+        setSize(0.35F, 0.30F);
         setPathPriority(PathNodeType.WATER, 0.0f);
         setTamed(false);
     }
@@ -92,7 +92,7 @@ public class EntityTurtle extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+        return false;
     }
     
     @Override

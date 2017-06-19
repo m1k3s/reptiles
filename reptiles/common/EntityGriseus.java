@@ -31,6 +31,7 @@ public final class EntityGriseus extends EntityVaranus {
 
     public EntityGriseus(World world) {
         super(world);
+        setSize(0.25f, 0.25f);
         setTamed(false);
     }
 

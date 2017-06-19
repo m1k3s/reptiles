@@ -33,6 +33,7 @@ public final class EntityLace extends EntityVaranus {
 
     public EntityLace(World world) {
         super(world);
+        setSize(0.35f, 0.25f);
         setTamed(false);
     }
 

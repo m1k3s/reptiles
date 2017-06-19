@@ -49,7 +49,7 @@ public class EntityLizard extends EntityTameable {
 
     public EntityLizard(World world) {
         super(world);
-        setSize(0.2F, 0.25F);
+//        setSize(0.2F, 0.25F);
         setPathPriority(PathNodeType.WATER, 0.0f);
         setTamed(false);
     }
@@ -74,7 +74,7 @@ public class EntityLizard extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+        return false;
     }
 
     @Override
