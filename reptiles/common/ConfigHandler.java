@@ -53,7 +53,6 @@ public class ConfigHandler {
 	private static final String comments = Reptiles.NAME + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.MCVERSION;
 	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
-	private static final String despawnComment = "Set to true to despawn. default is false.";
 	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
 	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
 	private static final String minSpawnComment = "Minimum number of reptiles to spawn at one time";

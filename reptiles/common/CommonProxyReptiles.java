@@ -21,13 +21,13 @@
 
 package com.reptiles.common;
 
-import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
 public class CommonProxyReptiles {
 	
-	private static final Logger logger = FMLLog.getLogger();
+	private static final Logger logger = LogManager.getLogger(Reptiles.MODID);
 
 	public void registerRenderers()	{}
 	
