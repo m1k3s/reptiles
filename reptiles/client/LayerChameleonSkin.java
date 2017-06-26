@@ -39,7 +39,7 @@ public class LayerChameleonSkin  implements LayerRenderer {
 	protected void setChameleonSkin(EntityChameleon entitychameleon, float x, float y, float z, float a, float b, float c, float f)
 	{
 		renderChameleon.bindTexture(pattern);
-		float alpha = entitychameleon.getBrightness(1.0F) * 0.5F;
+		float alpha = entitychameleon.getBrightness() * 0.5F;
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

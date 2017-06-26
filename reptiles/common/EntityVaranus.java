@@ -172,10 +172,10 @@ public class EntityVaranus extends EntityTameable {
         return ReptileSounds.varanus_hiss;
     }
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.varanus_hurt;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound() {
+//        return ReptileSounds.varanus_hurt;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {
@@ -221,7 +221,7 @@ public class EntityVaranus extends EntityTameable {
         if (isEntityInvulnerable(source)) {
             return false;
         } else {
-            Entity entity = source.getEntity();
+            Entity entity = source.getTrueSource();
 
             if (aiSit != null) {
                 aiSit.setSitting(false);

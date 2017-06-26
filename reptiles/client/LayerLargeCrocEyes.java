@@ -62,13 +62,14 @@ public class LayerLargeCrocEyes<T extends EntityLargeCroc> implements LayerRende
 		int j = c0 / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 		renderLargeCroc.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
-		Minecraft.getMinecraft().entityRenderer.func_191514_d(false);
-		int k = entityCroc.getBrightnessForRender(partialTicks);
+		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
+		int k = entityCroc.getBrightnessForRender();
 		i = k % 65536;
 		j = k / 65536;
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
-		renderLargeCroc.setLightmap(entityCroc, partialTicks);
+		renderLargeCroc.setLightmap(entityCroc);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
 	}

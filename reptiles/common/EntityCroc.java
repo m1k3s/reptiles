@@ -94,10 +94,10 @@ public class EntityCroc extends EntityAnimal {
         return ReptileSounds.croc_growl;
     }
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.croc_growl;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound() {
+//        return ReptileSounds.croc_growl;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {

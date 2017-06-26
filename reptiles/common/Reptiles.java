@@ -44,21 +44,21 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(
-        modid = Reptiles.modid,
-        name = Reptiles.name,
-        version = Reptiles.version,
-        acceptedMinecraftVersions = Reptiles.mcversion,
-        guiFactory = Reptiles.guifactory,
+        modid = Reptiles.MODID,
+        name = Reptiles.NAME,
+        version = Reptiles.VERSION,
+        acceptedMinecraftVersions = Reptiles.MCVERSION,
+        guiFactory = Reptiles.GUIFACTORY,
         dependencies = "required-after:FML"
 )
 
 public class Reptiles {
 
-    public static final String modid = "reptilemod";
-    public static final String name = "Reptile Mod";
-    public static final String version = "3.6.2";
-    public static final String mcversion = "1.11.2";
-    public static final String guifactory = "com.reptiles.client.ReptilesConfigGUIFactory";
+    public static final String MODID = "reptilemod";
+    public static final String NAME = "Reptile Mod";
+    public static final String VERSION = "3.8.0";
+    public static final String MCVERSION = "1.12";
+    public static final String GUIFACTORY = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
     @SuppressWarnings("unchecked")
@@ -74,7 +74,7 @@ public class Reptiles {
             Type.MUSHROOM
     ));
 
-    @Mod.Instance(modid)
+    @Mod.Instance(MODID)
     public static Reptiles instance;
 
     @SidedProxy(
@@ -105,7 +105,6 @@ public class Reptiles {
         registerEntity(EntitySalvadorii.class, "crocmonitor", 0x008BCC, 0xA2CD5A);
         registerEntity(EntityMegalania.class, "megalania", 0x050505, 0x05c505);
 
-        proxy.registerSoundEvents();
         proxy.registerRenderers();
     }
 
@@ -150,7 +149,7 @@ public class Reptiles {
     }
 
     private void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
-        EntityRegistry.registerModEntity(new ResourceLocation(modid, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, entityName), entityClass, entityName, entityID++, Reptiles.instance, 80, 3, true, bkEggColor, fgEggColor);
     }
 
     private void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome... biomes) {
@@ -221,8 +220,8 @@ public class Reptiles {
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Reptiles.modid)) {
-            Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.name);
+        if (event.getModID().equals(Reptiles.MODID)) {
+            Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.NAME);
             updateConfigInfo();
         }
     }

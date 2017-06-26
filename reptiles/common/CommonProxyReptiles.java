@@ -29,16 +29,8 @@ public class CommonProxyReptiles {
 	
 	private static final Logger logger = FMLLog.getLogger();
 
-	public void registerRenderers()
-	{
-	}
+	public void registerRenderers()	{}
 	
-	public void registerSoundEvents()
-	{
-		ReptileSounds.registerSoundEvents();
-		ReptileSounds.initializeSoundEvents();
-	}
-
 	public void info(String s)
 	{
 		logger.info(s);

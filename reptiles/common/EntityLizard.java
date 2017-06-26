@@ -110,10 +110,10 @@ public class EntityLizard extends EntityTameable {
         return 0.4F;
     }
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.varanus_hurt;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound() {
+//        return ReptileSounds.varanus_hurt;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {

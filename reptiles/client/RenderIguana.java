@@ -127,7 +127,7 @@ public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
                     } else if (block instanceof BlockLeaves) {
                         currColor = BiomeColorHelper.getFoliageColorAtPos(iguana.world, new BlockPos(entityX + x, entityY + y, entityZ + z));
                     } else {
-                        currColor = iBlockState.getMapColor().colorValue;
+                        currColor = iBlockState.getMapColor(iguana.world, new BlockPos(entityX + x, entityY + y, entityZ + z)).colorValue;
                     }
                     red += (currColor & 0xFF0000) >> 16;
                     green += (currColor & 0xFF00) >> 8;
