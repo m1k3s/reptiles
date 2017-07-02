@@ -40,7 +40,6 @@ import java.nio.FloatBuffer;
 
 public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
 
-//    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/iguana.png");
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/greyscale_iguana.png");
     private FloatBuffer currentGLColor = BufferUtils.createFloatBuffer(16);
 

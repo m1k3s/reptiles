@@ -77,13 +77,13 @@ public class ConfigHandler {
 			laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", 12, spawnProbComment).getInt();
 			perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", 12, spawnProbComment).getInt();
 			savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", 12, spawnProbComment).getInt();
-			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 5, spawnProbComment).getInt();
-			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 4, spawnProbComment).getInt();
+			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 10, spawnProbComment).getInt();
+			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 8, spawnProbComment).getInt();
 			desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", 12, spawnProbComment).getInt();
 			littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", 10, spawnProbComment).getInt();
 			iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", 12, spawnProbComment).getInt();
 			tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12, spawnProbComment).getInt();
-			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5, spawnProbComment).getInt();
+			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 10, spawnProbComment).getInt();
 			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
 			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
 			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();

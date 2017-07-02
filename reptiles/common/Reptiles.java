@@ -48,8 +48,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
         name = Reptiles.NAME,
         version = Reptiles.VERSION,
         acceptedMinecraftVersions = Reptiles.MCVERSION,
-        guiFactory = Reptiles.GUIFACTORY,
-        dependencies = "required-after:FML"
+        guiFactory = Reptiles.GUIFACTORY
 )
 
 public class Reptiles {
@@ -123,7 +122,6 @@ public class Reptiles {
         Biome[] swampyBiomes = getBiomes("swampy", false, Type.WET, Type.SWAMP);
         Biome[] savannaBiomes = getBiomes("savanna", false, Type.SAVANNA);
         Biome[] desertBiomes = getBiomes("desert", false, Type.HOT, Type.DRY, Type.SANDY);
-//        listBiomes(Type.FOREST, Type.SANDY);
 
         int minSpawn = ConfigHandler.getMinSpawn();
         int maxSpawn = ConfigHandler.getMaxSpawn();
