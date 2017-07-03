@@ -34,7 +34,7 @@ public class ReptilesConfigGUI extends GuiConfig {
 	{
 		super(parentScreen,
 				new ConfigElement(ConfigHandler.config.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(),
-				Reptiles.MODID, true, true, GuiConfig.getAbridgedConfigPath(ConfigHandler.config.toString()),
+				Reptiles.MODID, true, false, GuiConfig.getAbridgedConfigPath(ConfigHandler.config.toString()),
 				"Changes here require a restart before they take effect!");
 	}
 	

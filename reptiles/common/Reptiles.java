@@ -193,7 +193,7 @@ public class Reptiles {
                     if (BiomeDictionary.hasType(biome, t)) {
                         if (!list.contains(biome)) {
                             list.add(biome);
-                            proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
+//                            proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
                         }
                     }
                 }
@@ -207,7 +207,7 @@ public class Reptiles {
                 }
                 if (!list.contains(biome) && shouldAdd == count) {
                     list.add(biome);
-                    proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
+                    //proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
                 }
             }
         }
