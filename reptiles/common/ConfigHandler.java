@@ -22,7 +22,9 @@
 package com.reptiles.common;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class ConfigHandler {
 
@@ -98,7 +100,7 @@ public class ConfigHandler {
 		} catch (Exception e) {
 			Reptiles.proxy.info("failed to load or read the config file");
 		} finally {
-			if (config.hasChanged()) {
+			if (config.hasChanged() && FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				config.save();
 			}
 		}

@@ -21,7 +21,7 @@
 
 package com.reptiles.common;
 
-import static com.reptiles.common.ConfigHandler.updateConfigInfo;
+//import static com.reptiles.common.ConfigHandler.updateConfigInfo;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,15 +40,15 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+//import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+//import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(
         modid = Reptiles.MODID,
         name = Reptiles.NAME,
         version = Reptiles.VERSION,
-        acceptedMinecraftVersions = Reptiles.MCVERSION,
-        guiFactory = Reptiles.GUIFACTORY
+        acceptedMinecraftVersions = Reptiles.MCVERSION//,
+//        guiFactory = Reptiles.GUIFACTORY
 )
 
 public class Reptiles {
@@ -57,7 +57,7 @@ public class Reptiles {
     public static final String NAME = "Reptile Mod";
     public static final String VERSION = "3.8.0";
     public static final String MCVERSION = "1.12";
-    public static final String GUIFACTORY = "com.reptiles.client.ReptilesConfigGUIFactory";
+//    public static final String GUIFACTORY = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
     @SuppressWarnings("unchecked")
@@ -215,13 +215,13 @@ public class Reptiles {
     }
 
     // user has changed entries in the GUI config. save the results.
-    @SuppressWarnings("unused")
-    @SubscribeEvent
-    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Reptiles.MODID)) {
-            Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.NAME);
-            updateConfigInfo();
-        }
-    }
+//    @SuppressWarnings("unused")
+//    @SubscribeEvent
+//    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+//        if (event.getModID().equals(Reptiles.MODID)) {
+//            Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.NAME);
+//            updateConfigInfo();
+//        }
+//    }
 
 }
