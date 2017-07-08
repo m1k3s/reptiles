@@ -46,6 +46,7 @@ public class EntityCroc extends EntityAnimal {
     public EntityCroc(World world) {
         super(world);
         setSize(0.9F, 0.6F);
+        setHealth(20);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
@@ -84,7 +85,7 @@ public class EntityCroc extends EntityAnimal {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0);
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
         getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
     }

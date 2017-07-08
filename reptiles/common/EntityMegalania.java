@@ -51,6 +51,7 @@ public class EntityMegalania extends EntityAnimal {
         float scaleFactor = 2.5f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
         setPathPriority(PathNodeType.WATER, 0.0f);
+        setHealth(60.0f);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));

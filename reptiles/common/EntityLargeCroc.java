@@ -33,6 +33,7 @@ public class EntityLargeCroc extends EntityCroc {
         super(world);
         float scaleFactor = 1.5f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
+        setHealth(25);
 
         targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntitySquid.class, false));
         targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntitySpider.class, false));
@@ -41,7 +42,7 @@ public class EntityLargeCroc extends EntityCroc {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        // getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0); // health
+         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0); // health
         // getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25); // move speed
         getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         // getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
