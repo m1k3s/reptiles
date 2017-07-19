@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityChameleon extends EntityLizard {
+public final class EntityChameleon extends EntityLizardBase {
 
     public EntityChameleon(World world) {
         super(world);

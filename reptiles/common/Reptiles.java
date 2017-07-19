@@ -21,10 +21,9 @@
 
 package com.reptiles.common;
 
-//import static com.reptiles.common.ConfigHandler.updateConfigInfo;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -40,15 +39,13 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-//import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-//import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(
         modid = Reptiles.MODID,
         name = Reptiles.NAME,
         version = Reptiles.VERSION,
         acceptedMinecraftVersions = Reptiles.MCVERSION//,
-//        guiFactory = Reptiles.GUIFACTORY
 )
 
 public class Reptiles {
@@ -57,7 +54,6 @@ public class Reptiles {
     public static final String NAME = "Reptile Mod";
     public static final String VERSION = "3.8.0";
     public static final String MCVERSION = "1.12";
-//    public static final String GUIFACTORY = "com.reptiles.client.ReptilesConfigGUIFactory";
     private static int entityID = 0;
 
     @SuppressWarnings("unchecked")
@@ -70,7 +66,8 @@ public class Reptiles {
             Type.OCEAN,
             Type.CONIFEROUS,
             Type.MOUNTAIN,
-            Type.MUSHROOM
+            Type.MUSHROOM,
+            Type.SNOWY
     ));
 
     @Mod.Instance(MODID)
@@ -93,7 +90,7 @@ public class Reptiles {
         registerEntity(EntityGriseus.class, "griseus", 0xCD853F, 0xDEB887);
         registerEntity(EntityPerentie.class, "perentie", 0x363636, 0x7F7F7F);
         registerEntity(EntityLace.class, "lace", 0x0A0A0A, 0xABABAB);
-        registerEntity(EntityCroc.class, "croc", 0x008B00, 0xA2CD5A);
+        registerEntity(EntityCrocBase.class, "croc", 0x008B00, 0xA2CD5A);
         registerEntity(EntityDesertTortoise.class, "deserttortoise", 0x8B4513, 0x8B4C39);
         registerEntity(EntityLittleTurtle.class, "littleturtle", 0xFF7F24, 0xFF8C69);
         registerEntity(EntityLargeCroc.class, "largecroc", 0x8B4513, 0x8B5A2B);
@@ -111,6 +108,7 @@ public class Reptiles {
     @Mod.EventHandler
     public void Init(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(Reptiles.instance);
+//        MinecraftForge.EVENT_BUS.register(new CheckSpawnEvent());
     }
 
     @SuppressWarnings("unused")
@@ -122,11 +120,12 @@ public class Reptiles {
         Biome[] swampyBiomes = getBiomes("swampy", false, Type.WET, Type.SWAMP);
         Biome[] savannaBiomes = getBiomes("savanna", false, Type.SAVANNA);
         Biome[] desertBiomes = getBiomes("desert", false, Type.HOT, Type.DRY, Type.SANDY);
+        Biome[] combinedBiomes = getBiomes("combined", true, Type.FOREST, Type.SAVANNA);
 
         int minSpawn = ConfigHandler.getMinSpawn();
         int maxSpawn = ConfigHandler.getMaxSpawn();
 
-        addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), minSpawn, maxSpawn, forestBiomes);
+        addSpawn(EntityKomodo.class, ConfigHandler.getKomodoSpawnProb(), minSpawn, maxSpawn, combinedBiomes);
         addSpawn(EntitySavanna.class, ConfigHandler.getSavannaSpawnProb(), minSpawn, maxSpawn, savannaBiomes);
         addSpawn(EntityGriseus.class, ConfigHandler.getGriseusSpawnProb(), minSpawn, maxSpawn, desertBiomes);
         addSpawn(EntityPerentie.class, ConfigHandler.getPerentieSpawnProb(), minSpawn, maxSpawn, forestBiomes);
@@ -134,7 +133,7 @@ public class Reptiles {
         addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), minSpawn, maxSpawn, forestBiomes);
 
-        addSpawn(EntityCroc.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
+        addSpawn(EntityCrocBase.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
         addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
         addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
 
@@ -184,7 +183,6 @@ public class Reptiles {
 
             // we exclude certain biomes, i.e., reptiles are ectothermic, no cold biomes
             if (excludeThisBiome(bTypes)) {
-//                proxy.info("  >>> Excluding " + biome.getBiomeName() + " biome");
                 continue;
             }
             // process remaining biomes
@@ -193,7 +191,7 @@ public class Reptiles {
                     if (BiomeDictionary.hasType(biome, t)) {
                         if (!list.contains(biome)) {
                             list.add(biome);
-//                            proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
+                            biomeDebugMsg(biome);
                         }
                     }
                 }
@@ -207,21 +205,17 @@ public class Reptiles {
                 }
                 if (!list.contains(biome) && shouldAdd == count) {
                     list.add(biome);
-                    //proxy.info("  >>> Adding " + biome.getBiomeName() + " for spawning");
+                    biomeDebugMsg(biome);
                 }
             }
         }
         return list.toArray(new Biome[0]);
     }
 
-    // user has changed entries in the GUI config. save the results.
-//    @SuppressWarnings("unused")
-//    @SubscribeEvent
-//    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-//        if (event.getModID().equals(Reptiles.MODID)) {
-//            Reptiles.proxy.info("Configuration changes have been updated for the " + Reptiles.NAME);
-//            updateConfigInfo();
-//        }
-//    }
+    public void biomeDebugMsg(Biome b) {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            proxy.info("  >>> Including " + b.getBiomeName() + " for spawning");
+        }
+    }
 
 }

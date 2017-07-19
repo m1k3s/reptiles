@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntitySalvadorii extends EntityVaranus {
+public final class EntitySalvadorii extends EntityVaranusBase {
 
     public EntitySalvadorii(World world) {
         super(world);

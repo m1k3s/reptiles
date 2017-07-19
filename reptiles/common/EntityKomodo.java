@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityKomodo extends EntityVaranus {
+public final class EntityKomodo extends EntityVaranusBase {
 
     @SuppressWarnings("unchecked")
     public EntityKomodo(World world) {

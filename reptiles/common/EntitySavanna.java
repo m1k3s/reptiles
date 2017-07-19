@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntitySavanna extends EntityVaranus {
+public final class EntitySavanna extends EntityVaranusBase {
 
     public EntitySavanna(World world) {
         super(world);

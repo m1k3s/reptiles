@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityTortoise extends EntityTurtle {
+public final class EntityTortoise extends EntityTurtleBase {
 
     private final float scaleFactor = 2.0f;
 

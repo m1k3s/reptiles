@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityLittleTurtle extends EntityTurtle {
+public final class EntityLittleTurtle extends EntityTurtleBase {
 
     public EntityLittleTurtle(World world) {
         super(world);

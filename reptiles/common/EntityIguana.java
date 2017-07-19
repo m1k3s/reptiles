@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityIguana extends EntityLizard {
+public final class EntityIguana extends EntityLizardBase {
 
     public EntityIguana(World world) {
         super(world);

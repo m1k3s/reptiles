@@ -23,7 +23,7 @@ package com.reptiles.common;
 
 import net.minecraft.world.World;
 
-public class EntityGator extends EntityCroc {
+public class EntityGator extends EntityCrocBase {
 
 	public EntityGator(World world)
 	{

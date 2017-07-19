@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityDesertTortoise extends EntityTurtle {
+public final class EntityDesertTortoise extends EntityTurtleBase {
 
     public EntityDesertTortoise(World world) {
         super(world);

@@ -26,7 +26,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
-import com.reptiles.common.EntityTurtle;
+import com.reptiles.common.EntityTurtleBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
 
@@ -115,25 +115,25 @@ public class ModelTurtle extends ModelBase {
 	}
 
 	@Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entity);
 
-		head.rotateAngleX = f4 / 57.29578F;
-		head.rotateAngleY = f3 / 57.29578F;
+		head.rotateAngleX = headPitch / 57.29578F;
+		head.rotateAngleY = netHeadYaw / 57.29578F;
 
-		leg1.rotateAngleX = MathHelper.cos(f * 0.8F) * 1.4F * f1;
-		leg2.rotateAngleX = MathHelper.cos(f * 0.8F + (float) Math.PI) * 1.4F * f1;
-		leg3.rotateAngleX = MathHelper.cos(f * 0.8F + (float) Math.PI) * 1.4F * f1;
-		leg4.rotateAngleX = MathHelper.cos(f * 0.8F) * 1.4F * f1;
+		leg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		leg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		leg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 
-		tail.rotateAngleY = MathHelper.cos(f * 0.6662F) * 0.4F * f1;
+		tail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 0.4F * limbSwingAmount;
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2)
+	public void setLivingAnimations(EntityLivingBase entityliving, float limbSwing, float limbSwingAmount, float partialTicks)
 	{
-		EntityTurtle entitytortoise = (EntityTurtle) entityliving;
+		EntityTurtleBase entitytortoise = (EntityTurtleBase) entityliving;
 
 		if (entitytortoise.isSitting()) {
 			float yPos = 24F;

@@ -52,6 +52,8 @@ public class ConfigHandler {
 	static private boolean followOwner;
 	static private int megalaniaSpawnProb;
 
+	static private final int defaultSpawnProb = 100;
+
 	private static final String comments = Reptiles.NAME + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.MCVERSION;
 	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
@@ -65,7 +67,7 @@ public class ConfigHandler {
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
 		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load(); // only need to load config once during pre initializeSoundEvents
+		config.load(); // only need to load config once during preinit
 		updateConfigInfo();
 	}
 
@@ -74,20 +76,20 @@ public class ConfigHandler {
 		try {
 			config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
 
-			komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", 10, spawnProbComment).getInt();
-			griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", 12, spawnProbComment).getInt();
-			laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", 12, spawnProbComment).getInt();
-			perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", 12, spawnProbComment).getInt();
-			savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", 12, spawnProbComment).getInt();
-			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 10, spawnProbComment).getInt();
-			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 8, spawnProbComment).getInt();
-			desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", 12, spawnProbComment).getInt();
-			littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", 10, spawnProbComment).getInt();
-			iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", 12, spawnProbComment).getInt();
-			tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12, spawnProbComment).getInt();
-			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 10, spawnProbComment).getInt();
-			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
-			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
+			komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
 			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();
 			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
 			talkInterval = config.get(Configuration.CATEGORY_GENERAL, "talkInterval", 320, talkIntervalComment).getInt();

@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityLace extends EntityVaranus {
+public final class EntityLace extends EntityVaranusBase {
 
     public EntityLace(World world) {
         super(world);

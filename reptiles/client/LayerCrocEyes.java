@@ -21,7 +21,7 @@
 
 package com.reptiles.client;
 
-import com.reptiles.common.EntityCroc;
+import com.reptiles.common.EntityCrocBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -33,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 @SideOnly(Side.CLIENT)
-public class LayerCrocEyes<T extends EntityCroc> implements LayerRenderer<T> {
+public class LayerCrocEyes<T extends EntityCrocBase> implements LayerRenderer<T> {
 
 	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
 	private final RenderCroc renderCroc;

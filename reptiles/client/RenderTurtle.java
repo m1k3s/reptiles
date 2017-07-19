@@ -21,14 +21,14 @@
 
 package com.reptiles.client;
 
-import com.reptiles.common.EntityTurtle;
+import com.reptiles.common.EntityTurtleBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class RenderTurtle<T extends EntityTurtle> extends RenderLiving<T> {
+public class RenderTurtle<T extends EntityTurtleBase> extends RenderLiving<T> {
 
     private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/tortoise.png");
 

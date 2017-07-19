@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public final class EntityGriseus extends EntityVaranus {
+public final class EntityGriseus extends EntityVaranusBase {
 
     public EntityGriseus(World world) {
         super(world);

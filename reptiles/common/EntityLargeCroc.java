@@ -27,7 +27,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.world.World;
 
-public class EntityLargeCroc extends EntityCroc {
+public class EntityLargeCroc extends EntityCrocBase {
 
     public EntityLargeCroc(World world) {
         super(world);
