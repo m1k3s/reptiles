@@ -31,6 +31,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -90,11 +91,29 @@ public class EntityTurtleBase extends EntityTameable {
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
     }
 
+//    @Override
+//    protected boolean canDespawn() {
+//        return false;
+//    }
+
     @Override
-    protected boolean canDespawn() {
-        return false;
+    protected Item getDropItem() {
+        return Reptiles.reptileLeather;
     }
-    
+
+    @Override
+    protected void dropFewItems(boolean flag, int add) {
+        int count = rand.nextInt(3) + rand.nextInt(1 + add);
+        dropItem(Reptiles.reptileLeather, count);
+
+        count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
+        if (isBurning()) {
+            dropItem(Reptiles.reptileMeat_cooked, count);
+        } else {
+            dropItem(Reptiles.reptileMeat_raw, count);
+        }
+    }
+
     @Override
     protected void entityInit() {
         super.entityInit();

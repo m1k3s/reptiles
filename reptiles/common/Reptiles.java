@@ -21,6 +21,8 @@
 
 package com.reptiles.common;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -70,6 +72,13 @@ public class Reptiles {
             Type.SNOWY
     ));
 
+    public static final Item reptileMeat_cooked = new ItemReptileMeat(8, 0.8f, true).setUnlocalizedName("Cooked Reptile Meat");
+    public static final Item reptileMeat_raw = new ItemReptileMeat(3, 0.3f, true).setUnlocalizedName("Raw Reptile Meat");
+    public static final Item reptileLeather = new Item().setUnlocalizedName("Reptile Hide");
+    public static final String reptileCookedName = "reptile_cooked";
+    public static final String reptileRawName = "reptile_raw";
+    public static final String reptileHideName = "reptile_hide";
+
     @Mod.Instance(MODID)
     public static Reptiles instance;
 
@@ -101,6 +110,14 @@ public class Reptiles {
         registerEntity(EntitySalvadorii.class, "crocmonitor", 0x008BCC, 0xA2CD5A);
         registerEntity(EntityMegalania.class, "megalania", 0x050505, 0x05c505);
 
+        reptileMeat_cooked.setRegistryName(reptileCookedName);
+        reptileMeat_raw.setRegistryName(reptileRawName);
+        reptileLeather.setRegistryName(reptileHideName);
+
+        ((ItemFood)reptileMeat_cooked).setAlwaysEdible();
+
+        GameRegistry.findRegistry(Item.class).registerAll(reptileMeat_cooked, reptileMeat_raw, reptileLeather);
+
         proxy.registerRenderers();
     }
 
@@ -108,7 +125,6 @@ public class Reptiles {
     @Mod.EventHandler
     public void Init(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(Reptiles.instance);
-//        MinecraftForge.EVENT_BUS.register(new CheckSpawnEvent());
     }
 
     @SuppressWarnings("unused")

@@ -22,7 +22,9 @@ package com.reptiles.client;
 
 import com.reptiles.common.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 
@@ -48,6 +50,15 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGator.class, RenderGator::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityChameleon.class, RenderChameleon::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, RenderMegalania::new);
+
+		ModelResourceLocation cookedMeatResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileCookedName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileMeat_cooked, 0, cookedMeatResource);
+
+		ModelResourceLocation rawMeatResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileRawName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileMeat_raw, 0, rawMeatResource);
+
+		ModelResourceLocation reptileHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileHideName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileLeather, 0, reptileHideResource);
 	}
 	
 }

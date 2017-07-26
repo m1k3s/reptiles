@@ -72,10 +72,10 @@ public class EntityLizardBase extends EntityTameable {
         tasks.addTask(7, new EntityAILookIdle(this));
     }
 
-    @Override
-    protected boolean canDespawn() {
-        return false;
-    }
+//    @Override
+//    protected boolean canDespawn() {
+//        return false;
+//    }
 
     @Override
     public boolean getCanSpawnHere() {
@@ -122,7 +122,20 @@ public class EntityLizardBase extends EntityTameable {
 
     @Override
     protected Item getDropItem() {
-        return Items.PORKCHOP;
+        return Reptiles.reptileLeather;
+    }
+
+    @Override
+    protected void dropFewItems(boolean flag, int add) {
+        int count = rand.nextInt(3) + rand.nextInt(1 + add);
+        dropItem(Reptiles.reptileLeather, count);
+
+        count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
+        if (isBurning()) {
+            dropItem(Reptiles.reptileMeat_cooked, count);
+        } else {
+            dropItem(Reptiles.reptileMeat_raw, count);
+        }
     }
 
     private boolean isTamingFood(ItemStack itemstack) {

@@ -189,19 +189,19 @@ public class EntityVaranusBase extends EntityTameable {
 
     @Override
     protected Item getDropItem() {
-        return Items.LEATHER;
+        return Reptiles.reptileLeather;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.LEATHER, count);
+        dropItem(Reptiles.reptileLeather, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.COOKED_BEEF, count);
+            dropItem(Reptiles.reptileMeat_cooked, count);
         } else {
-            dropItem(Items.BEEF, count);
+            dropItem(Reptiles.reptileMeat_raw, count);
         }
     }
 
