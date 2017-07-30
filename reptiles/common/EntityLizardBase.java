@@ -110,11 +110,6 @@ public class EntityLizardBase extends EntityTameable {
         return 0.4F;
     }
 
-//    @Override
-//    protected SoundEvent getHurtSound() {
-//        return ReptileSounds.varanus_hurt;
-//    }
-
     @Override
     protected SoundEvent getDeathSound() {
         return ReptileSounds.varanus_hurt;
@@ -122,19 +117,19 @@ public class EntityLizardBase extends EntityTameable {
 
     @Override
     protected Item getDropItem() {
-        return Reptiles.reptileLeather;
+        return Reptiles.REPTILE_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Reptiles.reptileLeather, count);
+        dropItem(Reptiles.REPTILE_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Reptiles.reptileMeat_cooked, count);
+            dropItem(Reptiles.REPTILE_MEAT_COOKED, count);
         } else {
-            dropItem(Reptiles.reptileMeat_raw, count);
+            dropItem(Reptiles.REPTILE_MEAT_RAW, count);
         }
     }
 

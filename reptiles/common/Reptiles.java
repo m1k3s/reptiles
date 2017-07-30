@@ -21,6 +21,7 @@
 
 package com.reptiles.common;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.util.ResourceLocation;
@@ -47,14 +48,14 @@ import net.minecraftforge.fml.relauncher.Side;
         modid = Reptiles.MODID,
         name = Reptiles.NAME,
         version = Reptiles.VERSION,
-        acceptedMinecraftVersions = Reptiles.MCVERSION//,
+        acceptedMinecraftVersions = Reptiles.MCVERSION
 )
 
 public class Reptiles {
 
     public static final String MODID = "reptilemod";
     public static final String NAME = "Reptile Mod";
-    public static final String VERSION = "3.8.0";
+    public static final String VERSION = "3.8.2";
     public static final String MCVERSION = "1.12";
     private static int entityID = 0;
 
@@ -72,12 +73,29 @@ public class Reptiles {
             Type.SNOWY
     ));
 
-    public static final Item reptileMeat_cooked = new ItemReptileMeat(8, 0.8f, true).setUnlocalizedName("Cooked Reptile Meat");
-    public static final Item reptileMeat_raw = new ItemReptileMeat(3, 0.3f, true).setUnlocalizedName("Raw Reptile Meat");
-    public static final Item reptileLeather = new Item().setUnlocalizedName("Reptile Hide");
     public static final String reptileCookedName = "reptile_cooked";
     public static final String reptileRawName = "reptile_raw";
     public static final String reptileHideName = "reptile_hide";
+
+    public static final String turtleCookedName = "turtle_cooked";
+    public static final String turtleRawName = "turtle_raw";
+    public static final String turtleHideName = "turtle_hide";
+
+    public static final String crocCookedName = "croc_cooked";
+    public static final String crocRawName = "croc_raw";
+    public static final String crocHideName = "croc_hide";
+
+    public static final Item REPTILE_MEAT_COOKED = new ItemVaranusMeat(8, 0.8f, true, reptileCookedName);
+    public static final Item REPTILE_MEAT_RAW = new ItemVaranusMeat(3, 0.3f, true, reptileRawName);
+    public static final Item REPTILE_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + reptileHideName);
+
+    public static final Item TURTLE_MEAT_COOKED = new ItemTurtleMeat(8, 0.8f, true, turtleCookedName);
+    public static final Item TURTLE_MEAT_RAW = new ItemTurtleMeat(8, 0.8f, true, turtleRawName);
+    public static final Item TURTLE_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + turtleHideName);
+
+    public static final Item CROC_MEAT_COOKED = new ItemCrocMeat(8, 0.8f, true, crocCookedName);
+    public static final Item CROC_MEAT_RAW = new ItemCrocMeat(8, 0.8f, true, crocRawName);
+    public static final Item CROC_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + crocHideName);
 
     @Mod.Instance(MODID)
     public static Reptiles instance;
@@ -110,13 +128,28 @@ public class Reptiles {
         registerEntity(EntitySalvadorii.class, "crocmonitor", 0x008BCC, 0xA2CD5A);
         registerEntity(EntityMegalania.class, "megalania", 0x050505, 0x05c505);
 
-        reptileMeat_cooked.setRegistryName(reptileCookedName);
-        reptileMeat_raw.setRegistryName(reptileRawName);
-        reptileLeather.setRegistryName(reptileHideName);
+        REPTILE_MEAT_COOKED.setRegistryName(new ResourceLocation(Reptiles.MODID, reptileCookedName));
+        REPTILE_MEAT_RAW.setRegistryName(new ResourceLocation(Reptiles.MODID, reptileRawName));
+        REPTILE_LEATHER.setRegistryName(new ResourceLocation(Reptiles.MODID, reptileHideName));
+        REPTILE_LEATHER.setCreativeTab(CreativeTabs.MISC);
 
-        ((ItemFood)reptileMeat_cooked).setAlwaysEdible();
+        TURTLE_MEAT_COOKED.setRegistryName(new ResourceLocation(Reptiles.MODID, turtleCookedName));
+        TURTLE_MEAT_RAW.setRegistryName(new ResourceLocation(Reptiles.MODID, turtleRawName));
+        TURTLE_LEATHER.setRegistryName(new ResourceLocation(Reptiles.MODID, turtleHideName));
+        TURTLE_LEATHER.setCreativeTab(CreativeTabs.MISC);
 
-        GameRegistry.findRegistry(Item.class).registerAll(reptileMeat_cooked, reptileMeat_raw, reptileLeather);
+        CROC_MEAT_COOKED.setRegistryName(new ResourceLocation(Reptiles.MODID, crocCookedName));
+        CROC_MEAT_RAW.setRegistryName(new ResourceLocation(Reptiles.MODID, crocRawName));
+        CROC_LEATHER.setRegistryName(new ResourceLocation(Reptiles.MODID, crocHideName));
+        CROC_LEATHER.setCreativeTab(CreativeTabs.MISC);
+
+        ((ItemFood) REPTILE_MEAT_COOKED).setAlwaysEdible();
+        ((ItemFood) TURTLE_MEAT_COOKED).setAlwaysEdible();
+        ((ItemFood) CROC_MEAT_COOKED).setAlwaysEdible();
+
+        GameRegistry.findRegistry(Item.class).registerAll(REPTILE_MEAT_COOKED, REPTILE_MEAT_RAW, REPTILE_LEATHER);
+        GameRegistry.findRegistry(Item.class).registerAll(TURTLE_MEAT_COOKED, TURTLE_MEAT_RAW, TURTLE_LEATHER);
+        GameRegistry.findRegistry(Item.class).registerAll(CROC_MEAT_COOKED, CROC_MEAT_RAW, CROC_LEATHER);
 
         proxy.registerRenderers();
     }

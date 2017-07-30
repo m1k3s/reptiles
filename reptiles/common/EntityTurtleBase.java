@@ -91,26 +91,21 @@ public class EntityTurtleBase extends EntityTameable {
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2); // move speed
     }
 
-//    @Override
-//    protected boolean canDespawn() {
-//        return false;
-//    }
-
     @Override
     protected Item getDropItem() {
-        return Reptiles.reptileLeather;
+        return Reptiles.TURTLE_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Reptiles.reptileLeather, count);
+        dropItem(Reptiles.TURTLE_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Reptiles.reptileMeat_cooked, count);
+            dropItem(Reptiles.TURTLE_MEAT_COOKED, count);
         } else {
-            dropItem(Reptiles.reptileMeat_raw, count);
+            dropItem(Reptiles.TURTLE_MEAT_RAW, count);
         }
     }
 

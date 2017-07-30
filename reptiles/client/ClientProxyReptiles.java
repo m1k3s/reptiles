@@ -52,13 +52,31 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMegalania.class, RenderMegalania::new);
 
 		ModelResourceLocation cookedMeatResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileCookedName);
-		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileMeat_cooked, 0, cookedMeatResource);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.REPTILE_MEAT_COOKED, 0, cookedMeatResource);
 
 		ModelResourceLocation rawMeatResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileRawName);
-		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileMeat_raw, 0, rawMeatResource);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.REPTILE_MEAT_RAW, 0, rawMeatResource);
 
 		ModelResourceLocation reptileHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.reptileHideName);
-		ModelLoader.setCustomModelResourceLocation(Reptiles.reptileLeather, 0, reptileHideResource);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.REPTILE_LEATHER, 0, reptileHideResource);
+
+		ModelResourceLocation cookedTurtleResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.turtleCookedName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.TURTLE_MEAT_COOKED, 0, cookedTurtleResource);
+
+		ModelResourceLocation rawTurtleResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.turtleRawName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.TURTLE_MEAT_RAW, 0, rawTurtleResource);
+
+		ModelResourceLocation turtleHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.turtleHideName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.TURTLE_LEATHER, 0, turtleHideResource);
+
+		ModelResourceLocation cookedCrocResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.crocCookedName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.CROC_MEAT_COOKED, 0, cookedCrocResource);
+
+		ModelResourceLocation rawCrocResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.crocRawName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.CROC_MEAT_RAW, 0, rawCrocResource);
+
+		ModelResourceLocation crocHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.crocHideName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.CROC_LEATHER, 0, crocHideResource);
 	}
 	
 }

@@ -111,11 +111,6 @@ public class EntityMegalania extends EntityAnimal {
         return ReptileSounds.mega_purr;
     }
 
-//    @Override
-//    protected SoundEvent getHurtSound() {
-//        return ReptileSounds.mega_growl;
-//    }
-
     @Override
     protected SoundEvent getDeathSound() {
         return ReptileSounds.mega_death;
@@ -128,19 +123,19 @@ public class EntityMegalania extends EntityAnimal {
 
     @Override
     protected Item getDropItem() {
-        return Items.LEATHER;
+        return Reptiles.CROC_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.LEATHER, count);
+        dropItem(Reptiles.REPTILE_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.COOKED_BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_COOKED, count);
         } else {
-            dropItem(Items.BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_RAW, count);
         }
     }
 

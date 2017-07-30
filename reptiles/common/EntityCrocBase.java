@@ -29,7 +29,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
@@ -117,19 +116,19 @@ public class EntityCrocBase extends EntityAnimal {
 
     @Override
     protected Item getDropItem() {
-        return Reptiles.reptileLeather;
+        return Reptiles.CROC_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Reptiles.reptileLeather, count);
+        dropItem(Reptiles.CROC_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Reptiles.reptileMeat_cooked, count);
+            dropItem(Reptiles.CROC_MEAT_COOKED, count);
         } else {
-            dropItem(Reptiles.reptileMeat_raw, count);
+            dropItem(Reptiles.CROC_MEAT_RAW, count);
         }
     }
 

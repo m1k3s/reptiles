@@ -81,7 +81,6 @@ public class RenderChameleon<T extends EntityChameleon> extends RenderLiving<T> 
                 GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
             }
             if (entity.hurtTime <= 0 || entity.deathTime > 0) {
-
                 // Save the current OpenGL color to re-set it later
                 GL11.glGetFloat(GL11.GL_CURRENT_COLOR, currentGLColor);
 
