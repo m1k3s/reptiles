@@ -24,6 +24,7 @@ package com.reptiles.common;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -55,8 +56,8 @@ public class Reptiles {
 
     public static final String MODID = "reptilemod";
     public static final String NAME = "Reptile Mod";
-    public static final String VERSION = "3.8.2";
-    public static final String MCVERSION = "1.12";
+    public static final String VERSION = "3.8.4";
+    public static final String MCVERSION = "1.12.1";
     private static int entityID = 0;
 
     @SuppressWarnings("unchecked")
@@ -150,6 +151,10 @@ public class Reptiles {
         GameRegistry.findRegistry(Item.class).registerAll(REPTILE_MEAT_COOKED, REPTILE_MEAT_RAW, REPTILE_LEATHER);
         GameRegistry.findRegistry(Item.class).registerAll(TURTLE_MEAT_COOKED, TURTLE_MEAT_RAW, TURTLE_LEATHER);
         GameRegistry.findRegistry(Item.class).registerAll(CROC_MEAT_COOKED, CROC_MEAT_RAW, CROC_LEATHER);
+
+        GameRegistry.addSmelting(REPTILE_MEAT_RAW, new ItemStack(REPTILE_MEAT_COOKED), 0.1f);
+        GameRegistry.addSmelting(TURTLE_MEAT_RAW, new ItemStack(TURTLE_MEAT_COOKED), 0.1f);
+        GameRegistry.addSmelting(CROC_MEAT_RAW, new ItemStack(CROC_MEAT_COOKED), 0.1f);
 
         proxy.registerRenderers();
     }
