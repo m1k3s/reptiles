@@ -1,0 +1,16 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "reptilemod:megalania_hide"
+    }
+  },
+  "result": {
+    "item": "reptilemod:megalania_chestplate"
+  }
+}

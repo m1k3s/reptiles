@@ -45,6 +45,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -60,7 +61,6 @@ public class EntityVaranusBase extends EntityTameable {
     @SuppressWarnings("unchecked")
     public EntityVaranusBase(World world) {
         super(world);
-//        setSize(0.4F, 0.85F);
         setPathPriority(PathNodeType.WATER, 0.0f); // avoid water
 
         if (ConfigHandler.useRandomScaling()) {
@@ -243,8 +243,10 @@ public class EntityVaranusBase extends EntityTameable {
                 if (entityvaranus.isTamed() && entityvaranus.getOwner() == entityOwner) {
                     return false;
                 }
+                if (world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+                    return false;
+                }
             }
-//            return entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer)entityOwner).canAttackPlayer((EntityPlayer)entityToAttack) ? false : !(entityToAttack instanceof EntityHorse) || !((EntityHorse)entityToAttack).isTame();
             return !(entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer) entityOwner).canAttackPlayer((EntityPlayer) entityToAttack)) && (!(entityToAttack instanceof EntityHorse) || !((EntityHorse) entityToAttack).isTame());
         } else {
             return false;
