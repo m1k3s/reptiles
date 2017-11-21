@@ -44,6 +44,7 @@ import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         modid = Reptiles.MODID,
@@ -155,6 +156,11 @@ public class Reptiles {
         GameRegistry.addSmelting(REPTILE_MEAT_RAW, new ItemStack(REPTILE_MEAT_COOKED), 0.1f);
         GameRegistry.addSmelting(TURTLE_MEAT_RAW, new ItemStack(TURTLE_MEAT_COOKED), 0.1f);
         GameRegistry.addSmelting(CROC_MEAT_RAW, new ItemStack(CROC_MEAT_COOKED), 0.1f);
+
+        // allow the reptile hide to be used as regular leather
+        OreDictionary.registerOre("leather", REPTILE_LEATHER);
+        OreDictionary.registerOre("leather", TURTLE_LEATHER);
+        OreDictionary.registerOre("leather", CROC_LEATHER);
 
         proxy.registerRenderers();
     }

@@ -180,10 +180,10 @@ public class EntityLizardBase extends EntityTameable {
             if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
-                navigator.clearPathEntity();
+                navigator.clearPath();
                 setAttackTarget(null);
             }
-        } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSqToEntity(this) < 9.0D) {
+        } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE && entityplayer.getDistanceSq(this) < 9.0D) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
@@ -195,7 +195,7 @@ public class EntityLizardBase extends EntityTameable {
             if (!this.world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
-                    navigator.clearPathEntity();
+                    navigator.clearPath();
                     setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(maxHealth);

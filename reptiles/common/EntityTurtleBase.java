@@ -212,7 +212,7 @@ public class EntityTurtleBase extends EntityTameable {
             if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
-                navigator.clearPathEntity();
+                navigator.clearPath();
                 setAttackTarget(null);
             }
         } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE) {
@@ -223,7 +223,7 @@ public class EntityTurtleBase extends EntityTameable {
             if (!this.world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
-                    navigator.clearPathEntity();
+                    navigator.clearPath();
                     setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(maxHealth);
