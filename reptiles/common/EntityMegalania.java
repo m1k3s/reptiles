@@ -1,19 +1,24 @@
-//  
-//  =====GPL=============================================================
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; version 2 dated June, 1991.
-// 
-//  This program is distributed in the hope that it will be useful, 
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License
-//  along with this program;  if not, write to the Free Software
-//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
-//  =====================================================================
-//
+/*
+ * EntityMegalania.java
+ *
+ *  Copyright (c) 2017 Michael Sheppard
+ *
+ * =====GPLv3===========================================================
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ * =====================================================================
+ */
+
 package com.reptiles.common;
 
 import net.minecraft.block.Block;
@@ -46,6 +51,7 @@ public class EntityMegalania extends EntityAnimal {
         float scaleFactor = 2.5f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
         setPathPriority(PathNodeType.WATER, 0.0f);
+        setHealth(60.0f);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
@@ -106,11 +112,6 @@ public class EntityMegalania extends EntityAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.mega_growl;
-    }
-
-    @Override
     protected SoundEvent getDeathSound() {
         return ReptileSounds.mega_death;
     }
@@ -122,19 +123,19 @@ public class EntityMegalania extends EntityAnimal {
 
     @Override
     protected Item getDropItem() {
-        return Items.LEATHER;
+        return Reptiles.CROC_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.LEATHER, count);
+        dropItem(Reptiles.REPTILE_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.COOKED_BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_COOKED, count);
         } else {
-            dropItem(Items.BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_RAW, count);
         }
     }
 

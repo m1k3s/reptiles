@@ -1,15 +1,31 @@
-entity.Komodo.name=Комодский варан
-entity.Savanna.name=Степной варан
-entity.Griseus.name=Пустынный варан
-entity.Perentie.name=Гигантский варан
-entity.Lace.name=Пёстрый варан
-entity.Iguana.name=Игуана
-entity.Chameleon.name=Хамелеон
-entity.Croc.name=Крокодил
-entity.DesertTortoise.name=Пустынный гофер
-entity.LittleTurtle.name=Маленькая черепаха
-entity.LargeCroc.name=Большой крокодил
-entity.Alligator.name=Аллигатор
-entity.Tortoise.name=Сухопутная черепаха
-entity.CrocMonitor.name=Крокодиловый варан
-entity.Megalania.name=Мегалания
+language.name=Russian by kellixon
+language.region=RU
+language.code=ru_RU
+
+entity.komodo.name=Комодский варан
+entity.savanna.name=Степной варан
+entity.griseus.name=Пустынный варан
+entity.perentie.name=Гигантский варан
+entity.lace.name=Пёстрый варан
+entity.iguana.name=Игуана
+entity.chameleon.name=Хамелеон
+entity.croc.name=Крокодил
+entity.deserttortoise.name=Пустынный гофер
+entity.littleturtle.name=Маленькая черепаха
+entity.largecroc.name=Большой крокодил
+entity.alligator.name=Аллигатор
+entity.tortoise.name=Сухопутная черепаха
+entity.crocmonitor.name=Крокодиловый варан
+entity.megalania.name=Мегалания
+
+item.reptilemod:reptile_cooked.name=Приготовленное мясо рептилии
+item.reptilemod:reptile_raw.name=Сырое мясо рептилии
+item.reptilemod:reptile_hide.name=Шкура рептилии
+
+item.reptilemod:turtle_cooked.name=Приготовленное мясо черепахи
+item.reptilemod:turtle_raw.name=Сырое мясо черепахи
+item.reptilemod:turtle_hide.name=Шкура черепахи
+
+item.reptilemod:croc_cooked.name=Приготовленное мясо крокодила
+item.reptilemod:croc_raw.name=Сырое мясо крокодила
+item.reptilemod:croc_hide.name=Шкура крокодила

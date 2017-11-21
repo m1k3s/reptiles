@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "reptilemod:reptile_hide"
+    }
+  },
+  "result": {
+    "item": "minecraft:leather_leggings"
+  }
+}

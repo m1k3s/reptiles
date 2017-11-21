@@ -1,21 +1,24 @@
-//  
-//  =====GPL=============================================================
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; version 2 dated June, 1991.
-// 
-//  This program is distributed in the hope that it will be useful, 
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License
-//  along with this program;  if not, write to the Free Software
-//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
-//  =====================================================================
-//
-//
-//
+/*
+ * EntityTurtle.java
+ *
+ *  Copyright (c) 2017 Michael Sheppard
+ *
+ * =====GPLv3===========================================================
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ * =====================================================================
+ */
+
 package com.reptiles.common;
 
 import net.minecraft.block.Block;
@@ -28,6 +31,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -41,17 +45,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-// base class for all turtles and tortoises
-public class EntityTurtle extends EntityTameable {
+import javax.annotation.Nonnull;
 
-    private static final DataParameter<Float> health = EntityDataManager.createKey(EntityTurtle.class, DataSerializers.FLOAT);
+// base class for all turtles and tortoises
+public class EntityTurtleBase extends EntityTameable {
+
+    private static final DataParameter<Float> health = EntityDataManager.createKey(EntityTurtleBase.class, DataSerializers.FLOAT);
     private int turtleTimer;
     private EntityAIEatGrass plantEating;
     private final int maxHealth = 10;
 
-    public EntityTurtle(World world) {
+    public EntityTurtleBase(World world) {
         super(world);
-        setSize(0.5F, 0.5F);
+        setSize(0.35F, 0.30F);
         setPathPriority(PathNodeType.WATER, 0.0f);
         setTamed(false);
     }
@@ -86,10 +92,23 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+    protected Item getDropItem() {
+        return Reptiles.TURTLE_LEATHER;
     }
-    
+
+    @Override
+    protected void dropFewItems(boolean flag, int add) {
+        int count = rand.nextInt(3) + rand.nextInt(1 + add);
+        dropItem(Reptiles.TURTLE_LEATHER, count);
+
+        count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
+        if (isBurning()) {
+            dropItem(Reptiles.TURTLE_MEAT_COOKED, count);
+        } else {
+            dropItem(Reptiles.TURTLE_MEAT_RAW, count);
+        }
+    }
+
     @Override
     protected void entityInit() {
         super.entityInit();
@@ -142,7 +161,7 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 2);
     }
 
@@ -170,11 +189,11 @@ public class EntityTurtle extends EntityTameable {
 
     // taming stuff //////////////////
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand hand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand hand) {
         ItemStack itemstack = entityplayer.getHeldItem(hand);
 
         if (isTamed()) {
-            if (itemstack != null) {
+            if (!itemstack.isEmpty()) {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
                     if (isFavoriteFood(itemstack) && dataManager.get(health) < maxHealth) {
@@ -193,10 +212,10 @@ public class EntityTurtle extends EntityTameable {
             if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
-                navigator.clearPathEntity();
+                navigator.clearPath();
                 setAttackTarget(null);
             }
-        } else if (itemstack != null && itemstack.getItem() == Items.APPLE) {
+        } else if (!itemstack.isEmpty() && itemstack.getItem() == Items.APPLE) {
             if (!entityplayer.capabilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
@@ -204,7 +223,7 @@ public class EntityTurtle extends EntityTameable {
             if (!this.world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
-                    navigator.clearPathEntity();
+                    navigator.clearPath();
                     setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(maxHealth);
@@ -224,21 +243,21 @@ public class EntityTurtle extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal entityAnimal) {
+    public boolean canMateWith(@Nonnull EntityAnimal entityAnimal) {
         if (entityAnimal == this) {
             return false;
         } else if (!isTamed()) {
             return false;
-        } else if (!(entityAnimal instanceof EntityTurtle)) {
+        } else if (!(entityAnimal instanceof EntityTurtleBase)) {
             return false;
         } else {
-            EntityTurtle t = (EntityTurtle) entityAnimal;
+            EntityTurtleBase t = (EntityTurtleBase) entityAnimal;
             return t.isTamed() && (!t.isSitting() && (isInLove() && t.isInLove()));
         }
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable var1) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable var1) {
         return this.spawnBabyAnimal(var1);
     }
 

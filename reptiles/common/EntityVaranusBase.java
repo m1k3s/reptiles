@@ -1,22 +1,24 @@
-//  
-//  =====GPL=============================================================
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; version 2 dated June, 1991.
-// 
-//  This program is distributed in the hope that it will be useful, 
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License
-//  along with this program;  if not, write to the Free Software
-//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
-//  =====================================================================
-//
-//
-// Copyright 2011 Michael Sheppard (crackedEgg)
-//
+/*
+ * EntityVaranus.java
+ *
+ *  Copyright (c) 2017 Michael Sheppard
+ *
+ * =====GPLv3===========================================================
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ * =====================================================================
+ */
+
 package com.reptiles.common;
 
 import net.minecraft.block.Block;
@@ -43,21 +45,22 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EntityVaranus extends EntityTameable {
+public class EntityVaranusBase extends EntityTameable {
 
     private final int maxHealth = 20;
     private final float scaleFactor;
-    private static final DataParameter<Float> health = EntityDataManager.createKey(EntityVaranus.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> health = EntityDataManager.createKey(EntityVaranusBase.class, DataSerializers.FLOAT);
 
     @SuppressWarnings("unchecked")
-    public EntityVaranus(World world) {
+    public EntityVaranusBase(World world) {
         super(world);
-        setSize(0.4F, 0.85F);
         setPathPriority(PathNodeType.WATER, 0.0f); // avoid water
 
         if (ConfigHandler.useRandomScaling()) {
@@ -80,13 +83,7 @@ public class EntityVaranus extends EntityTameable {
         tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.PORKCHOP, false));
         tasks.addTask(4, new EntityAITempt(this, 1.2, Items.COOKED_PORKCHOP, false));
-        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, entity -> {
-            if (rand.nextInt(6) == 0) {
-                return entity instanceof EntityPig || entity instanceof EntityRabbit;
-            } else {
-                return false;
-            }
-        }));
+        targetTasks.addTask(5, new EntityAITargetNonTamed(this, EntityAnimal.class, false, entity -> rand.nextInt(6) == 0 && (entity instanceof EntityPig || entity instanceof EntityRabbit)));
         if (ConfigHandler.getFollowOwner()) {
             tasks.addTask(6, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
             targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
@@ -123,7 +120,7 @@ public class EntityVaranus extends EntityTameable {
         super.entityInit();
         dataManager.register(health, getHealth());
     }
-    
+
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbase) {
         super.setAttackTarget(entitylivingbase);
@@ -147,7 +144,7 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected boolean canDespawn() {
-        return ConfigHandler.shouldDespawn() && !isTamed();
+        return false;
     }
 
     @Override
@@ -175,10 +172,10 @@ public class EntityVaranus extends EntityTameable {
         return ReptileSounds.varanus_hiss;
     }
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.varanus_hurt;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound() {
+//        return ReptileSounds.varanus_hurt;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {
@@ -192,24 +189,24 @@ public class EntityVaranus extends EntityTameable {
 
     @Override
     protected Item getDropItem() {
-        return Items.LEATHER;
+        return Reptiles.REPTILE_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.LEATHER, count);
+        dropItem(Reptiles.REPTILE_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.COOKED_BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_COOKED, count);
         } else {
-            dropItem(Items.BEEF, count);
+            dropItem(Reptiles.REPTILE_MEAT_RAW, count);
         }
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
         if (flag) {
@@ -220,11 +217,11 @@ public class EntityVaranus extends EntityTameable {
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
         if (isEntityInvulnerable(source)) {
             return false;
         } else {
-            Entity entity = source.getEntity();
+            Entity entity = source.getTrueSource();
 
             if (aiSit != null) {
                 aiSit.setSitting(false);
@@ -240,15 +237,17 @@ public class EntityVaranus extends EntityTameable {
 
 	public boolean shouldAttackEntity(EntityLivingBase entityToAttack, EntityLivingBase entityOwner) {
         if (!(entityToAttack instanceof EntityCreeper) && !(entityToAttack instanceof EntityGhast)) {
-            if (entityToAttack instanceof EntityVaranus) {
-                EntityVaranus entityvaranus = (EntityVaranus)entityToAttack;
+            if (entityToAttack instanceof EntityVaranusBase) {
+                EntityVaranusBase entityvaranus = (EntityVaranusBase)entityToAttack;
 
                 if (entityvaranus.isTamed() && entityvaranus.getOwner() == entityOwner) {
                     return false;
                 }
+                if (world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+                    return false;
+                }
             }
-
-            return entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer)entityOwner).canAttackPlayer((EntityPlayer)entityToAttack) ? false : !(entityToAttack instanceof EntityHorse) || !((EntityHorse)entityToAttack).isTame();
+            return !(entityToAttack instanceof EntityPlayer && entityOwner instanceof EntityPlayer && !((EntityPlayer) entityOwner).canAttackPlayer((EntityPlayer) entityToAttack)) && (!(entityToAttack instanceof EntityHorse) || !((EntityHorse) entityToAttack).isTame());
         } else {
             return false;
         }
@@ -269,7 +268,7 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand enumHand) {
         ItemStack itemstack = entityplayer.getHeldItem(enumHand);
 
         if (isTamed()) {
@@ -290,7 +289,7 @@ public class EntityVaranus extends EntityTameable {
             if (isOwner(entityplayer) && !world.isRemote && !isBreedingItem(itemstack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
-                navigator.clearPathEntity();
+                navigator.clearPath();
                 setAttackTarget(null);
             }
         } else if (itemstack.getItem() == Items.PORKCHOP) { // raw porkchop
@@ -301,7 +300,7 @@ public class EntityVaranus extends EntityTameable {
             if (!world.isRemote) {
                 if (rand.nextInt(3) == 0) {
                     setTamed(true);
-                    navigator.clearPathEntity();
+                    navigator.clearPath();
                     setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(maxHealth);
@@ -320,21 +319,21 @@ public class EntityVaranus extends EntityTameable {
     }
 
     @Override
-    public boolean canMateWith(EntityAnimal otherAnimal) {
+    public boolean canMateWith(@Nonnull EntityAnimal otherAnimal) {
         if (otherAnimal == this) {
             return false;
         } else if (!isTamed()) {
             return false;
-        } else if (!(otherAnimal instanceof EntityVaranus)) {
+        } else if (!(otherAnimal instanceof EntityVaranusBase)) {
             return false;
         } else {
-            EntityVaranus v = (EntityVaranus) otherAnimal;
+            EntityVaranusBase v = (EntityVaranusBase) otherAnimal;
             return v.isTamed() && (!v.isSitting() && (isInLove() && v.isInLove()));
         }
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable entityAgeable) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable entityAgeable) {
         return this.spawnBabyAnimal(entityAgeable);
     }
 

@@ -1,26 +1,30 @@
-//  
-//  =====GPL=============================================================
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; version 2 dated June, 1991.
-// 
-//  This program is distributed in the hope that it will be useful, 
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License
-//  along with this program;  if not, write to the Free Software
-//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
-//  =====================================================================
-//
-//
-// Copyright 2011-2015 Michael Sheppard (crackedEgg)
-//
+/*
+ * ConfigHandler.java
+ *
+ *  Copyright (c) 2017 Michael Sheppard
+ *
+ * =====GPLv3===========================================================
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ * =====================================================================
+ */
+
 package com.reptiles.common;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class ConfigHandler {
 
@@ -44,15 +48,15 @@ public class ConfigHandler {
 	static private int maxSpawn;
 	static private int talkInterval;
 	static private double talkvolume;
-	static private boolean despawn;
 	static private boolean randomScale;
 	static private boolean followOwner;
 	static private int megalaniaSpawnProb;
 
-	private static final String comments = Reptiles.name + " Config\n Michael Sheppard (crackedEgg)\n"
-			+ " For Minecraft Version " + Reptiles.mcversion;
+	static private final int defaultSpawnProb = 100;
+
+	private static final String comments = Reptiles.NAME + " Config\n Michael Sheppard (crackedEgg)\n"
+			+ " For Minecraft Version " + Reptiles.MCVERSION;
 	private static final String randomScaleComment = "Set to false to disable random scaling of monitors, default is true.";
-	private static final String despawnComment = "Set to false to not despawn. default is true.";
 	private static final String followOwnerComment = "Set to false to have tamed monitors not follow owner, default is true.";
 	private static final String spawnProbComment = "Spawn Probability\nSet to zero to disable spawning of this entity";
 	private static final String minSpawnComment = "Minimum number of reptiles to spawn at one time";
@@ -63,7 +67,7 @@ public class ConfigHandler {
 	public static void startConfig(FMLPreInitializationEvent event)
 	{
 		config = new Configuration(event.getSuggestedConfigurationFile());
-		config.load(); // only need to load config once during pre initializeSoundEvents
+		config.load(); // only need to load config once during preinit
 		updateConfigInfo();
 	}
 
@@ -72,20 +76,20 @@ public class ConfigHandler {
 		try {
 			config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, comments);
 
-			komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", 10, spawnProbComment).getInt();
-			griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", 12, spawnProbComment).getInt();
-			laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", 12, spawnProbComment).getInt();
-			perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", 12, spawnProbComment).getInt();
-			savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", 12, spawnProbComment).getInt();
-			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", 5, spawnProbComment).getInt();
-			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", 4, spawnProbComment).getInt();
-			desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", 12, spawnProbComment).getInt();
-			littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", 10, spawnProbComment).getInt();
-			iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", 12, spawnProbComment).getInt();
-			tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", 12, spawnProbComment).getInt();
-			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", 5, spawnProbComment).getInt();
-			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", 12, spawnProbComment).getInt();
-			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", 12, spawnProbComment).getInt();
+			komodoSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "komodoSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			griseusSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "griseusSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			laceSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "laceSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			perentieSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "perentieSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			savannaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "savannaSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			crocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			largeCrocSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "largeCrocSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			desertTortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "desertTortoiseSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			littleTurtleSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "littleTurtleSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			iguanaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "iguanaSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			tortoiseSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "tortoiseSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			gatorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "gatorSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			chameleonSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "chameleonSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
+			crocMonitorSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "crocMonitorSpawnProb", defaultSpawnProb, spawnProbComment).getInt();
 			minSpawn = config.get(Configuration.CATEGORY_GENERAL, "minSpawn", 1, minSpawnComment).getInt();
 			maxSpawn = config.get(Configuration.CATEGORY_GENERAL, "maxSpawn", 4, maxSpawnComment).getInt();
 			talkInterval = config.get(Configuration.CATEGORY_GENERAL, "talkInterval", 320, talkIntervalComment).getInt();
@@ -94,12 +98,11 @@ public class ConfigHandler {
 
 
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
-			despawn = config.get(Configuration.CATEGORY_GENERAL, "despawn", true, despawnComment).getBoolean(true);
 			followOwner = config.get(Configuration.CATEGORY_GENERAL, "followOwner", true, followOwnerComment).getBoolean(true);
 		} catch (Exception e) {
 			Reptiles.proxy.info("failed to load or read the config file");
 		} finally {
-			if (config.hasChanged()) {
+			if (config.hasChanged() && FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				config.save();
 			}
 		}
@@ -108,11 +111,6 @@ public class ConfigHandler {
 	public static boolean useRandomScaling()
 	{
 		return randomScale;
-	}
-
-	public static boolean shouldDespawn()
-	{
-		return despawn;
 	}
 
 	public static boolean getFollowOwner()

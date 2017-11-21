@@ -1,21 +1,24 @@
-//  
-//  =====GPL=============================================================
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; version 2 dated June, 1991.
-// 
-//  This program is distributed in the hope that it will be useful, 
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  GNU General Public License for more details.
-// 
-//  You should have received a copy of the GNU General Public License
-//  along with this program;  if not, write to the Free Software
-//  Foundation, Inc., 675 Mass Ave., Cambridge, MA 02139, USA.
-//  =====================================================================
-//
-//
-//
+/*
+ * EntityCroc.java
+ *
+ *  Copyright (c) 2017 Michael Sheppard
+ *
+ * =====GPLv3===========================================================
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ * =====================================================================
+ */
+
 package com.reptiles.common;
 
 import net.minecraft.block.Block;
@@ -26,7 +29,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
@@ -35,13 +37,15 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class EntityCroc extends EntityAnimal {
+public class EntityCrocBase extends EntityAnimal {
 
-    public EntityCroc(World world) {
+    public EntityCrocBase(World world) {
         super(world);
-        setSize(0.9F, 1.4F);
+        setSize(0.9F, 0.6F);
+        setHealth(20);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
@@ -58,25 +62,18 @@ public class EntityCroc extends EntityAnimal {
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityAgeable createChild(@Nonnull EntityAgeable ageable) {
         return null;
     }
 
     @Override
     protected boolean canDespawn() {
-        if (ConfigHandler.shouldDespawn()) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
     public boolean getCanSpawnHere() {
-        if (super.getCanSpawnHere()) {
-            return true;
-        }
-        return false;
+        return super.getCanSpawnHere();
     }
 
     @Override
@@ -87,7 +84,7 @@ public class EntityCroc extends EntityAnimal {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0);
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
         getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
     }
@@ -97,10 +94,10 @@ public class EntityCroc extends EntityAnimal {
         return ReptileSounds.croc_growl;
     }
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return ReptileSounds.croc_growl;
-    }
+//    @Override
+//    protected SoundEvent getHurtSound() {
+//        return ReptileSounds.croc_growl;
+//    }
 
     @Override
     protected SoundEvent getDeathSound() {
@@ -119,19 +116,19 @@ public class EntityCroc extends EntityAnimal {
 
     @Override
     protected Item getDropItem() {
-        return Items.LEATHER;
+        return Reptiles.CROC_LEATHER;
     }
 
     @Override
     protected void dropFewItems(boolean flag, int add) {
         int count = rand.nextInt(3) + rand.nextInt(1 + add);
-        dropItem(Items.LEATHER, count);
+        dropItem(Reptiles.CROC_LEATHER, count);
 
         count = rand.nextInt(3) + 1 + rand.nextInt(1 + add);
         if (isBurning()) {
-            dropItem(Items.COOKED_BEEF, count);
+            dropItem(Reptiles.CROC_MEAT_COOKED, count);
         } else {
-            dropItem(Items.BEEF, count);
+            dropItem(Reptiles.CROC_MEAT_RAW, count);
         }
     }
 
@@ -141,13 +138,13 @@ public class EntityCroc extends EntityAnimal {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer entityplayer, EnumHand enumHand) {
+    public boolean processInteract(EntityPlayer entityplayer, @Nonnull EnumHand enumHand) {
         // don't allow any interaction, especially breeding
         return false;
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entity) {
+    public boolean attackEntityAsMob(@Nonnull Entity entity) {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
     }
 
