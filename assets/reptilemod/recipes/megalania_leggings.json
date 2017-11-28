@@ -1,5 +1,5 @@
 {
-  "type": "crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "XXX",
     "X X",
@@ -11,6 +11,6 @@
     }
   },
   "result": {
-    "item": "reptilemod:megalania_leggings"
+    "item": "minecraft:iron_leggings"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "type": "crafting_shaped",
+  "type": "minecraft:crafting_shaped",
   "pattern": [
     "X X",
     "XXX",
@@ -11,6 +11,6 @@
     }
   },
   "result": {
-    "item": "reptilemod:megalania_chestplate"
+    "item": "minecraft:iron_chestplate"
   }
 }

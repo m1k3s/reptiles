@@ -1,4 +1,3 @@
-
 language.name=English
 language.region=US
 language.code=en_US
@@ -30,3 +29,7 @@ item.reptilemod:turtle_hide.name=Turtle Hide
 item.reptilemod:croc_cooked.name=Cooked Croc Meat
 item.reptilemod:croc_raw.name=Raw Croc Meat
 item.reptilemod:croc_hide.name=Croc Hide
+
+item.reptilemod:megalania_cooked.name=Cooked Megalania Meat
+item.reptilemod:megalania_raw.name=Raw Megalania Meat
+item.reptilemod:megalania_hide.name=Megalania Hide

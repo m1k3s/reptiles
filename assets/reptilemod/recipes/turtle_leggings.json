@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "XXX",
     "X X",
     "X X"
   ],
   "key": {
     "X": {
-      "item": "reptilemod:megalania_hide"
+      "item": "reptilemod:turtle_hide"
     }
   },
   "result": {
-    "item": "minecraft:iron_boots"
+    "item": "minecraft:golden_leggings"
   }
 }
