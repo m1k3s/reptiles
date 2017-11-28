@@ -148,4 +148,10 @@ public class EntityCrocBase extends EntityAnimal {
         return entity.attackEntityFrom(DamageSource.causeMobDamage(this), 4);
     }
 
+    // this makes the crocs move fast in water. Surprise!!
+    @Override
+    protected float getWaterSlowDown() {
+        return 1.0F;
+    }
+
 }
