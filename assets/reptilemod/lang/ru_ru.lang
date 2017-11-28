@@ -29,3 +29,7 @@ item.reptilemod:turtle_hide.name=Шкура черепахи
 item.reptilemod:croc_cooked.name=Приготовленное мясо крокодила
 item.reptilemod:croc_raw.name=Сырое мясо крокодила
 item.reptilemod:croc_hide.name=Шкура крокодила
+
+item.reptilemod:megalania_cooked.name=Cooked Megalania Meat
+item.reptilemod:megalania_raw.name=Raw Megalania Meat
+item.reptilemod:megalania_hide.name=Megalania Hide

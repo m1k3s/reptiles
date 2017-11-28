@@ -44,7 +44,6 @@ import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(
         modid = Reptiles.MODID,
@@ -58,7 +57,7 @@ public class Reptiles {
     public static final String MODID = "reptilemod";
     public static final String NAME = "Reptile Mod";
     public static final String VERSION = "3.8.4";
-    public static final String MCVERSION = "1.12.1";
+    public static final String MCVERSION = "1.12.2";
     private static int entityID = 0;
 
     @SuppressWarnings("unchecked")
@@ -87,6 +86,10 @@ public class Reptiles {
     public static final String crocRawName = "croc_raw";
     public static final String crocHideName = "croc_hide";
 
+    public static final String megaCookedName = "megalania_cooked";
+    public static final String megaRawName = "megalania_raw";
+    public static final String megaHideName = "megalania_hide";
+
     public static final Item REPTILE_MEAT_COOKED = new ItemVaranusMeat(8, 0.8f, true, reptileCookedName);
     public static final Item REPTILE_MEAT_RAW = new ItemVaranusMeat(3, 0.3f, true, reptileRawName);
     public static final Item REPTILE_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + reptileHideName);
@@ -98,6 +101,10 @@ public class Reptiles {
     public static final Item CROC_MEAT_COOKED = new ItemCrocMeat(8, 0.8f, true, crocCookedName);
     public static final Item CROC_MEAT_RAW = new ItemCrocMeat(8, 0.8f, true, crocRawName);
     public static final Item CROC_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + crocHideName);
+
+    public static final Item MEGA_MEAT_COOKED = new ItemMegaMeat(8, 0.8f, true, megaCookedName);
+    public static final Item MEGA_MEAT_RAW = new ItemMegaMeat(8, 0.8f, true, megaRawName);
+    public static final Item MEGA_LEATHER = new Item().setUnlocalizedName(Reptiles.MODID + ":" + megaHideName);
 
     @Mod.Instance(MODID)
     public static Reptiles instance;
@@ -145,22 +152,25 @@ public class Reptiles {
         CROC_LEATHER.setRegistryName(new ResourceLocation(Reptiles.MODID, crocHideName));
         CROC_LEATHER.setCreativeTab(CreativeTabs.MISC);
 
+        MEGA_MEAT_COOKED.setRegistryName(new ResourceLocation(Reptiles.MODID, megaCookedName));
+        MEGA_MEAT_RAW.setRegistryName(new ResourceLocation(Reptiles.MODID, megaRawName));
+        MEGA_LEATHER.setRegistryName(new ResourceLocation(Reptiles.MODID, megaHideName));
+        MEGA_LEATHER.setCreativeTab(CreativeTabs.MISC);
+
         ((ItemFood) REPTILE_MEAT_COOKED).setAlwaysEdible();
         ((ItemFood) TURTLE_MEAT_COOKED).setAlwaysEdible();
         ((ItemFood) CROC_MEAT_COOKED).setAlwaysEdible();
+        ((ItemFood) MEGA_MEAT_COOKED).setAlwaysEdible();
 
         GameRegistry.findRegistry(Item.class).registerAll(REPTILE_MEAT_COOKED, REPTILE_MEAT_RAW, REPTILE_LEATHER);
         GameRegistry.findRegistry(Item.class).registerAll(TURTLE_MEAT_COOKED, TURTLE_MEAT_RAW, TURTLE_LEATHER);
         GameRegistry.findRegistry(Item.class).registerAll(CROC_MEAT_COOKED, CROC_MEAT_RAW, CROC_LEATHER);
+        GameRegistry.findRegistry(Item.class).registerAll(MEGA_MEAT_COOKED, MEGA_MEAT_RAW, MEGA_LEATHER);
 
         GameRegistry.addSmelting(REPTILE_MEAT_RAW, new ItemStack(REPTILE_MEAT_COOKED), 0.1f);
         GameRegistry.addSmelting(TURTLE_MEAT_RAW, new ItemStack(TURTLE_MEAT_COOKED), 0.1f);
         GameRegistry.addSmelting(CROC_MEAT_RAW, new ItemStack(CROC_MEAT_COOKED), 0.1f);
-
-        // allow the reptile hide to be used as regular leather
-        OreDictionary.registerOre("leather", REPTILE_LEATHER);
-        OreDictionary.registerOre("leather", TURTLE_LEATHER);
-        OreDictionary.registerOre("leather", CROC_LEATHER);
+        GameRegistry.addSmelting(MEGA_MEAT_RAW, new ItemStack(MEGA_MEAT_COOKED), 0.1f);
 
         proxy.registerRenderers();
     }
@@ -177,7 +187,7 @@ public class Reptiles {
         Biome[] forestBiomes = getBiomes("forest", true, Type.FOREST);
         Biome[] jungleBiomes = getBiomes("jungle", false, Type.HOT, Type.WET);
         Biome[] plainsBiomes = getBiomes("plains", true, Type.PLAINS);
-        Biome[] swampyBiomes = getBiomes("swampy", false, Type.WET, Type.SWAMP);
+        Biome[] crocBiomes = getBiomes("crocs", true, Type.WET, Type.SWAMP, Type.RIVER, Type.BEACH);
         Biome[] savannaBiomes = getBiomes("savanna", false, Type.SAVANNA);
         Biome[] desertBiomes = getBiomes("desert", false, Type.HOT, Type.DRY, Type.SANDY);
         Biome[] combinedBiomes = getBiomes("combined", true, Type.FOREST, Type.SAVANNA);
@@ -193,9 +203,9 @@ public class Reptiles {
         addSpawn(EntitySalvadorii.class, ConfigHandler.getCrocMonitorSpawnProb(), minSpawn, maxSpawn, forestBiomes);
         addSpawn(EntityMegalania.class, ConfigHandler.getMegalaniaSpawnProb(), minSpawn, maxSpawn, forestBiomes);
 
-        addSpawn(EntityCrocBase.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
-        addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
-        addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), minSpawn, maxSpawn, swampyBiomes);
+        addSpawn(EntityCrocBase.class, ConfigHandler.getCrocSpawnProb(), minSpawn, maxSpawn, crocBiomes);
+        addSpawn(EntityLargeCroc.class, ConfigHandler.getLargeCrocSpawnProb(), minSpawn, maxSpawn, crocBiomes);
+        addSpawn(EntityGator.class, ConfigHandler.getGatorSpawnProb(), minSpawn, maxSpawn, crocBiomes);
 
         addSpawn(EntityDesertTortoise.class, ConfigHandler.getDesertTortoiseSpawnProb(), minSpawn, maxSpawn, desertBiomes);
         addSpawn(EntityLittleTurtle.class, ConfigHandler.getLittleTurtleSpawnProb(), minSpawn, maxSpawn, jungleBiomes);

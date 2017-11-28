@@ -77,6 +77,15 @@ public class ClientProxyReptiles extends CommonProxyReptiles {
 
 		ModelResourceLocation crocHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.crocHideName);
 		ModelLoader.setCustomModelResourceLocation(Reptiles.CROC_LEATHER, 0, crocHideResource);
+
+		ModelResourceLocation cookedMegaResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.megaCookedName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.MEGA_MEAT_COOKED, 0, cookedMegaResource);
+
+		ModelResourceLocation rawMegaResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.megaRawName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.MEGA_MEAT_RAW, 0, rawMegaResource);
+
+		ModelResourceLocation megaHideResource = new ModelResourceLocation(Reptiles.MODID + ":" + Reptiles.megaHideName);
+		ModelLoader.setCustomModelResourceLocation(Reptiles.MEGA_LEATHER, 0, megaHideResource);
 	}
 	
 }

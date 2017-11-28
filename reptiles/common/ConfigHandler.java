@@ -96,7 +96,6 @@ public class ConfigHandler {
 			talkvolume = config.get(Configuration.CATEGORY_GENERAL, "talkVolume", 0.3, talkVolumeComment).getDouble();
 			megalaniaSpawnProb = config.get(Configuration.CATEGORY_GENERAL, "megalaniaSpawnProb", 0, spawnProbComment).getInt();
 
-
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			followOwner = config.get(Configuration.CATEGORY_GENERAL, "followOwner", true, followOwnerComment).getBoolean(true);
 		} catch (Exception e) {

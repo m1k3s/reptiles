@@ -6,10 +6,10 @@
   ],
   "key": {
     "X": {
-      "item": "reptilemod:megalania_hide"
+      "item": "reptilemod:turtle_hide"
     }
   },
   "result": {
-    "item": "minecraft:iron_boots"
+    "item": "minecraft:golden_boots"
   }
 }

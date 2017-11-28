@@ -6,10 +6,10 @@
   ],
   "key": {
     "X": {
-      "item": "reptilemod:megalania_hide"
+      "item": "reptilemod:croc_hide"
     }
   },
   "result": {
-    "item": "minecraft:iron_boots"
+    "item": "minecraft:chainmail_boots"
   }
 }
