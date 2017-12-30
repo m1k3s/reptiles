@@ -47,6 +47,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,6 +79,7 @@ public class EntityVaranusBase extends EntityTameable {
         double moveSpeed = 1.0;
         tasks.addTask(1, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 0.38));
+        tasks.addTask(1, new EntityAIAvoidCold(this, 1.0));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
@@ -90,6 +92,7 @@ public class EntityVaranusBase extends EntityTameable {
         }
         tasks.addTask(7, new EntityAIMate(this, moveSpeed));
         tasks.addTask(8, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(8, new EntityAIWander(this, 1.0));
         tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
         tasks.addTask(10, new EntityAILookIdle(this));
 
@@ -164,7 +167,12 @@ public class EntityVaranusBase extends EntityTameable {
 
     @Override
     public boolean getCanSpawnHere() {
+//        BlockPos bp = new BlockPos(posX, posY, posZ);
+//        Biome biome = world.getBiome(bp);
+//        Biome.TempCategory tempCat = biome.getTempCategory();
+//        return tempCat != Biome.TempCategory.COLD && super.getCanSpawnHere();
         return super.getCanSpawnHere();
+
     }
 
     @Override
