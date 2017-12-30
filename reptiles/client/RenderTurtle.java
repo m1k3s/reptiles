@@ -22,6 +22,7 @@
 package com.reptiles.client;
 
 import com.reptiles.common.EntityTurtleBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
@@ -34,6 +35,13 @@ public class RenderTurtle<T extends EntityTurtleBase> extends RenderLiving<T> {
 
     public RenderTurtle(RenderManager rm) {
         super(rm, new ModelTurtle(), 0.0f);
+    }
+
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        float scaleFactor = entityliving.getScaleFactor();
+        GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
+        super.preRenderCallback(entityliving, f);
     }
 
     @Override

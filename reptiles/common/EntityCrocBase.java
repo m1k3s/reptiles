@@ -36,6 +36,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,6 +52,7 @@ public class EntityCrocBase extends EntityAnimal {
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
         tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(3, new EntityAIWander(this, 1.0));
+        tasks.addTask(3, new EntityAIAvoidCold(this, 1.0));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(5, new EntityAILookIdle(this));
 
@@ -65,6 +67,13 @@ public class EntityCrocBase extends EntityAnimal {
     public EntityAgeable createChild(@Nonnull EntityAgeable ageable) {
         return null;
     }
+    
+    @Override
+    public void onUpdate() {
+        // test temperature here.
+        // maybe make crocs move to hotter biome?
+		super.onUpdate();
+	}
 
     @Override
     protected boolean canDespawn() {
@@ -73,7 +82,12 @@ public class EntityCrocBase extends EntityAnimal {
 
     @Override
     public boolean getCanSpawnHere() {
+//        BlockPos bp = new BlockPos(posX, posY, posZ);
+//        Biome biome = world.getBiome(bp);
+//        Biome.TempCategory tempCat = biome.getTempCategory();
+//        return tempCat != Biome.TempCategory.COLD && super.getCanSpawnHere();
         return super.getCanSpawnHere();
+
     }
 
     @Override

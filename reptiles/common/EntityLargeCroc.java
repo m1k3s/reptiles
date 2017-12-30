@@ -31,7 +31,7 @@ public class EntityLargeCroc extends EntityCrocBase {
 
     public EntityLargeCroc(World world) {
         super(world);
-        float scaleFactor = 1.5f;
+        float scaleFactor = 1.6f;
         setSize(1.0F * scaleFactor, 0.6F * scaleFactor);
         setHealth(25);
 

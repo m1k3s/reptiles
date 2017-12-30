@@ -44,6 +44,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nonnull;
 
@@ -54,11 +55,20 @@ public class EntityTurtleBase extends EntityTameable {
     private int turtleTimer;
     private EntityAIEatGrass plantEating;
     private final int maxHealth = 10;
+    private final float scaleFactor;
 
     public EntityTurtleBase(World world) {
         super(world);
         setSize(0.35F, 0.30F);
         setPathPriority(PathNodeType.WATER, 0.0f);
+
+        if (ConfigHandler.useRandomScaling()) {
+            float scale = rand.nextFloat();
+            scaleFactor = scale < 0.55F ? 1.0F : scale;
+        } else {
+            scaleFactor = 1.0F;
+        }
+
         setTamed(false);
     }
     
@@ -67,7 +77,7 @@ public class EntityTurtleBase extends EntityTameable {
 		double moveSpeed = 0.75;
 		plantEating = new EntityAIEatGrass(this);
         tasks.addTask(1, new EntityAISwimming(this));
-        //tasks.addTask(1, new EntityAIPanic(this, 0.38F));
+        tasks.addTask(1, new EntityAIAvoidCold(this, 0.38F));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.CARROT, false));
@@ -76,9 +86,14 @@ public class EntityTurtleBase extends EntityTameable {
         }
         tasks.addTask(6, plantEating);
         tasks.addTask(7, new EntityAIWander(this, moveSpeed));
+        tasks.addTask(7, new EntityAIWander(this, 1.0));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
 	}
+
+    public float getScaleFactor() {
+        return scaleFactor;
+    }
 
     @Override
     protected void applyEntityAttributes() {
@@ -148,7 +163,9 @@ public class EntityTurtleBase extends EntityTameable {
                     int y = MathHelper.floor(entityAABB.minY);
                     int z = MathHelper.floor(posZ);
                     BlockPos bp = new BlockPos(x, y, z);
-                    if (isHardenedClay(bp) || isSandOrGrassBlock(bp)) {
+//                    Biome biome = world.getBiome(bp);
+//                    Biome.TempCategory tempCat = biome.getTempCategory();
+                    if ((isHardenedClay(bp) || isSandOrGrassBlock(bp))) { // && (tempCat != Biome.TempCategory.COLD)) {
                         if (world.getLight(bp) > 8) {
 							Reptiles.proxy.info("Spawning turtle ***");
                             return true;
