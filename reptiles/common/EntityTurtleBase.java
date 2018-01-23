@@ -77,7 +77,7 @@ public class EntityTurtleBase extends EntityTameable {
 		double moveSpeed = 0.75;
 		plantEating = new EntityAIEatGrass(this);
         tasks.addTask(1, new EntityAISwimming(this));
-        tasks.addTask(1, new EntityAIAvoidCold(this, 0.38F));
+        tasks.addTask(1, new EntityAIFleeCold(this, 0.38F));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.CARROT, false));
@@ -85,8 +85,7 @@ public class EntityTurtleBase extends EntityTameable {
             tasks.addTask(5, new EntityAIFollowOwner(this, moveSpeed, 10.0F, 2.0F));
         }
         tasks.addTask(6, plantEating);
-        tasks.addTask(7, new EntityAIWander(this, moveSpeed));
-        tasks.addTask(7, new EntityAIWander(this, 1.0));
+        tasks.addTask(7, new EntityAIWanderAvoidWater(this, moveSpeed));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
 	}
@@ -163,12 +162,13 @@ public class EntityTurtleBase extends EntityTameable {
                     int y = MathHelper.floor(entityAABB.minY);
                     int z = MathHelper.floor(posZ);
                     BlockPos bp = new BlockPos(x, y, z);
-//                    Biome biome = world.getBiome(bp);
-//                    Biome.TempCategory tempCat = biome.getTempCategory();
-                    if ((isHardenedClay(bp) || isSandOrGrassBlock(bp))) { // && (tempCat != Biome.TempCategory.COLD)) {
-                        if (world.getLight(bp) > 8) {
-							Reptiles.proxy.info("Spawning turtle ***");
-                            return true;
+                    Biome.TempCategory tc = world.getBiome(bp).getTempCategory();
+                    if (tc.compareTo(Biome.TempCategory.WARM) == 0) {
+                        if ((isHardenedClay(bp) || isSandOrGrassBlock(bp))) { // && (tempCat != Biome.TempCategory.COLD)) {
+                            if (world.getLight(bp) > 8) {
+                                Reptiles.proxy.info("Spawning turtle ***");
+                                return true;
+                            }
                         }
                     }
                 }

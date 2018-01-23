@@ -101,7 +101,7 @@ public class ConfigHandler {
 		} catch (Exception e) {
 			Reptiles.proxy.info("failed to load or read the config file");
 		} finally {
-			if (config.hasChanged() && FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			if (config.hasChanged()) {
 				config.save();
 			}
 		}

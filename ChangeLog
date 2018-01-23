@@ -1,0 +1,798 @@
+commit d4dc5974071cda40ff830458f301b90aee5539ad
+Merge: bc56ead 77ead5d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Dec 30 08:31:18 2017 -0500
+
+    Merge branch '1.12.2a'
+
+commit 77ead5de3d3eb17c0a219fc8e124fc4d2e7e2d0b
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Dec 30 08:30:02 2017 -0500
+
+    added scaling to turtles.
+    added cold biome avoidance AI. still testing and tweaking
+    made largecrocs slightly larger
+
+commit bc56eadf0de14b74504ec262ea4ab3c947e46b09
+Merge: b9c1342 ddcf997
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 28 13:15:38 2017 -0500
+
+    Merge branch '1.12.2a'
+
+commit ddcf997c3176861029aac37cd9e64b6eca3f6189
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 28 13:14:28 2017 -0500
+
+    override the in water speed modifier on crocs. They move a lot faster
+    in water.
+
+commit b9c1342a29989278d057f07616aec3926e1991ae
+Merge: 534ddbd c23f1df
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 28 10:39:32 2017 -0500
+
+    Merge branch '1.12.2a'
+
+commit c23f1df6665c0e81dc0617024c332e7cff77ff59
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 28 10:38:22 2017 -0500
+
+    adding reptile recipes and meat/leather items
+
+commit 534ddbd51629eaf1826bab5b67cd61bdabef901c
+Merge: 2644fe2 9774d19
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 21 08:08:45 2017 -0500
+
+    Merge branch '1.12.2'
+
+commit 2644fe24ce105c18e5c0c9462449a81590335389
+Merge: 24529ac 43daa55
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 21 08:06:35 2017 -0500
+
+    Merge branch 'master' of github.com:m1k3s/reptiles
+
+commit 9774d19535d5138371bd8280eeb42f379e4a3739
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Nov 21 08:02:32 2017 -0500
+
+    cleaned up code, added updated Russian lang file, added reptile hide
+    to oredictionary
+
+commit 94bc87ca612e8d42ab8a92ad7bbdce771176b4ab
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Sep 20 11:31:03 2017 -0400
+
+    adding recipes for reptile hides
+
+commit 0328631006b81234d5fa429fbe9c1db6c86be3f5
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Aug 18 12:41:30 2017 -0400
+
+    update to 1.12.1
+
+commit 75a858932501fba4221df9e3e83aa27b13349b6f
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Jul 30 11:10:26 2017 -0400
+
+    using default spawning mechanism. added reptile meat and hide items.
+
+commit 6165ef13e3c975a71f5b158a2820066eefbbdd6b
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Jul 26 13:04:25 2017 -0400
+
+    trying to add custom reptile drops, like meat and leather
+
+commit 5a60e57b18c4407cfce447a132c0481a82f99535
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Jul 19 17:34:30 2017 -0400
+
+    deleted old base classes
+
+commit d2f591afdc0e57e242ec84ab9e522eb4140f2072
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Jul 19 17:33:05 2017 -0400
+
+    reworked the base classes, added a checkspawn class
+
+commit 11194dfca79c6adf3ba8b9fdd34f72d2e1d3c4fe
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Jul 8 09:00:26 2017 -0400
+
+    removed config gui
+
+commit a8a3e82d9fd141959ad184b738158f270564eb04
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Jul 8 08:37:58 2017 -0400
+
+    initialized health value
+
+commit a6266287971f6db8a4e12e4f54956eaa285a902f
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jul 3 14:57:04 2017 -0400
+
+    fixed bug that caused server crash.
+
+commit 14d395a8ce3f1e94d50416a25befb3a5e8f75f4e
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Jul 2 08:04:41 2017 -0400
+
+    changed spawnprob on some reptiles. some general code cleanup.
+
+commit f5ef844dcf233ad53a3fd45f67305f3debaf7275
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Jun 30 07:43:06 2017 -0400
+
+    removed logo image from mcmod.info
+
+commit 2bb6a6958940e0485fe4ec0d378b92eb67260dd6
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jun 26 17:17:11 2017 -0400
+
+    code cleanup.
+
+commit 36e75a8396f73b1c2b8398c37ca1eeec4b479d26
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jun 26 16:58:56 2017 -0400
+
+    updated to minecraft 1.12. Forge still in beta.
+
+commit 2cf36500b93e84f0ff886cb06e0fa88a4043e333
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jun 19 19:43:31 2017 -0400
+
+    added chameleon color changing. removed despawn config variable.
+
+commit 01d271af67d5cfe7960e5274140dcb5eee63d6ef
+Merge: 54a44b4 e7366fd
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Mar 30 17:34:38 2017 -0400
+
+    Merge branch '1.11.2' of github.com:m1k3s/reptiles into 1.11.2
+
+commit 54a44b4c4733608214f13b21b129ea41711b592a
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Mar 30 16:56:19 2017 -0400
+
+    updated license to GPLv3
+
+commit e7366fdfeea4137db7adb4edfeeebac9b450bedd
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Mar 28 20:31:54 2017 -0400
+
+    Delete LICENSE
+
+commit 43daa551fe7d0a537b5433418b3ef148edd5d836
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Mar 28 20:30:48 2017 -0400
+
+    Delete LICENSE
+
+commit 75d4aa6f52905b9b7b4650bf8fac58e8d7f50973
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Mar 28 16:11:37 2017 -0400
+
+    changed GPLv3 copyright notice style
+
+commit 3f861807f528e6f9c22407050a9165410b4c0153
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Mar 28 15:31:38 2017 -0400
+
+    updated to GPLv3
+
+commit d12db690c07348e91dd23df10613e2980a8f89ec
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Mar 27 18:21:00 2017 -0400
+
+    The chameleon now changes color based on the biome or block
+    material. I got the
+    idea (and some code) from Nikos (Vel0cityX), creator of the
+    ChameleonCreeper mod.
+
+commit 5c65b1d7d28fbe81351c1c6a2584b2181e27dd57
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 26 11:21:12 2017 -0400
+
+    removed large shadow from croc render
+
+commit b516768f1826b043018c27f4a156de8029d9df76
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 26 08:26:47 2017 -0400
+
+    code cleanup, removed unused EntityAIEatsFlowers class
+
+commit 4135dc5d44359de466ca84b4a9aa2d5de8dfe12c
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 26 08:13:26 2017 -0400
+
+    BiomeDictionary.getBiomes is not returning any biomes for any
+    type. This appears
+    to be a Forge bug. Maybe not but I can't get any help with this,
+    so for now I use
+    the ForgeRegistries.BIOMES list.
+
+commit 24529ac8f9f4e4b8c732b792d5c6fc5e56f345f7
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 19 16:47:34 2017 -0400
+
+    fixed spawn bug. BiomeDictionary#getBiomes(Type t) does NOT return
+    any biomes.
+
+commit f63d1091e11d10f4f89f5a8835aeda1e6f0e8ed3
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Jan 28 09:26:26 2017 -0500
+
+    added Megalania back in. set default spawn probability to zero.
+
+commit 2ec5b49c11cc5466a71a59d13daad1556cadbf85
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jan 23 15:02:05 2017 -0500
+
+    fixed localization and changed resources to lower case
+
+commit b8397127ca5a4cdecf2bccf18af6675904c54c2d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jan 16 09:18:10 2017 -0500
+
+    changed biome checking in spawn code
+
+commit 83cb6298ec024c0d632c57c494fab2417d2a0439
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Jan 14 11:05:07 2017 -0500
+
+    update to 1.11.2
+
+commit 6707800df00f5e0aded9f4b2a26f0154e71f1d64
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Dec 13 15:33:42 2016 -0500
+
+    Update to 1.11
+
+commit 8b49c6a5fa33af38d9a87379b5ceb1d24cd66d49
+Merge: 8b35f75 e91b452
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Dec 5 16:03:18 2016 -0500
+
+    Merge branch '1.10'
+
+commit e91b452e8532a0165d66f26588d09db227f26745
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Dec 5 16:03:00 2016 -0500
+
+    comment out debug code
+
+commit 03cd264b8fdc84caabdbfea125a1ebf72a613e92
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Sep 26 13:02:00 2016 -0400
+
+    added reptile talk volume and interval to config options.
+
+commit 2300d3e98d64e3423fca3b05c5aef2a8ca6dd705
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Jul 24 08:20:13 2016 -0400
+
+    fix breeding and NPE caused by plant eating AI.
+
+commit f24d45ac2d4bbeed33a2abad6d131c200a047721
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jul 4 15:16:01 2016 -0400
+
+    minor code cleanup
+
+commit 52169a90c7e14b2ff2b2aa6ae9735a2cd856d83a
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Jun 23 20:46:48 2016 -0400
+
+    added min/max spawn to config
+
+commit 92930403457fde5f284c991060b63e01841793cf
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue May 31 16:10:35 2016 -0400
+
+    fixed the retiles not harming when attacking bug.
+
+commit ecdc9e0dde752c810d917906d5d7a1bfb4a8d891
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat May 28 15:51:13 2016 -0400
+
+    crocs don't cause damage when they attack a player.
+
+commit 5709656c9c6201b515d0432e3326ceea72f1210d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun May 22 08:16:14 2016 -0400
+
+    updated to 1.9.4
+
+commit 684553794eb3350853d0bfc674263b392d234175
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun May 22 07:59:41 2016 -0400
+
+    minor changes.
+
+commit 368ad2ea1ac04a5be8c00acb7d7c412033d5a39b
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun May 1 07:44:59 2016 -0400
+
+    removed megalania. too many complaints. doesn't add value to the
+    mod, isn't an accurate representation. of course neither are cubic
+    reptiles.
+
+commit 4546827e01da4059e1d800bffb8509f2a7df6c4e
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Apr 27 16:12:52 2016 -0400
+
+    fixed taming and breeding
+
+commit 73a4cfa226a7e01991c70a43591c0c9ebff8b851
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Apr 21 20:01:32 2016 -0400
+
+    fixed the sitting bug. reptiles will now release from the sitting
+    position.
+
+commit fa5590b7dd0fadfc4d2aff7087cb369916edcde9
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Apr 14 07:56:03 2016 -0400
+
+    tried something that didn't work, bailed.
+
+commit 6f02346e40de479c9d807bbf7008d604bdfa8cfa
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Apr 10 11:43:51 2016 -0400
+
+    fixed language file, names display correctly now.
+
+commit 2c59edf5d0f0d5a50687023b3412f5ce5260835c
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Apr 8 10:11:00 2016 -0400
+
+    Finally got sounds to work. Finally!
+
+commit 7d5d06de5a7b940ee6543720330ab2c3b447c59e
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Apr 7 12:58:40 2016 -0400
+
+    working on the new sound stuff.
+
+commit edbbe1bcd11d88a4fabffea7a616762d2cf74890
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Apr 4 17:27:37 2016 -0400
+
+    updated to 1.9, whew! that's a lot of files to change.
+
+commit 8eceaa3430ade4de1d4c07bd901d8ad4b8652d29
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jan 4 11:57:26 2016 -0500
+
+    updated to correct version string.
+
+commit 17c546cdb1c42792c543d18e83eb171f31e8d60c
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Jan 4 11:54:01 2016 -0500
+
+    updated the version string. oops.
+
+commit 36ed3ec1f8cfad58bb36ae6a0352423dd47a89e9
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Jan 3 16:36:08 2016 -0500
+
+    updated to 1.8.9
+
+commit 96c64d2c95fa17aa5d1697521ff2a3707d66a0da
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Jan 3 16:23:15 2016 -0500
+
+    updated to 1.8.8
+
+commit f1b67391c09890f8eeb32be679324a18024fa6ab
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Oct 3 12:31:51 2015 -0400
+
+    update to MCP mappings
+
+commit 0b5b3bc3c1cd66df7d80bb2b4b6ddd3af84f7db9
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Jun 19 18:59:53 2015 -0400
+
+    updated to forge 1468 and added spawn eggs to entity registration.
+
+commit e989909f619a13e1a3c9ef9506af16040963b9a2
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Jun 13 10:41:02 2015 -0400
+
+    Start using mod level IDs in the entity registry system
+
+commit b0e1132829d9843b1bd01f7f91e01eece42b6dec
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri May 1 17:56:48 2015 -0400
+
+    added German lang file
+
+commit c722bea917292d139335afec381ed58636062d8d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Jan 14 19:56:46 2015 -0500
+
+    removed unneccessary call to registerModEntity
+
+commit 066ee643918863e28e0790271e893ea0ce3298be
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 13 17:42:10 2015 -0500
+
+    Added the layer files!?! Can't believe I left those untracked all
+    this time.
+    Also cleaned up the entity files.
+
+commit 8b35f7507b44ff62d6b2c166f68709d1024d6d2b
+Merge: 859273a b49a808
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 13 13:14:40 2015 -0500
+
+    Merge branch '1.8.0' again.
+
+commit b49a808fa16b2146ed68e36a0527c55a24953b50
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 13 13:14:12 2015 -0500
+
+    Added the new files.
+
+commit 859273a6d48310e08870cfd5dc755cb17b24f486
+Merge: cea0f03 a59179d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 13 13:13:08 2015 -0500
+
+    Merge branch '1.8.0'
+
+commit a59179d896fcf185aff70a5909e20a9e1d545abc
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 13 13:09:59 2015 -0500
+
+    Re-structured config, added config handler class and FML mod
+    config GUI
+
+commit 552a0c696979ebb7bbb8487fe7ec53a1d44e39e1
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Dec 10 16:26:43 2014 -0500
+
+    Updated the README file
+
+commit 6918d6ad600b574b0425044fbf581dedca51f2fd
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Dec 10 16:23:18 2014 -0500
+
+    More porting to 1.8. Cleaned up rendering code and moved the rendering
+    registry to the Init function.
+
+commit dae047494732ec45c5f593132f3dee33de4b20d9
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Nov 28 11:33:32 2014 -0500
+
+    initial 1.8 update commit
+
+commit aba8b6dc150067e60f518823fdc362b3ea1061dc
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jul 22 21:49:43 2014 -0400
+
+    un-commented the registerModEntity function line in the registerEntity
+    function. This seems to be necessary to avoid conflicts with other
+    mods.
+
+commit 6114a22d39314a382877d1356b288d5d31b59a1d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Jun 25 16:38:55 2014 -0400
+
+    Updated to 1.7.10-pre4 and branched
+
+commit 69ce938ff2df97aa0c96fcd117459f153166cd57
+Merge: 644b292 9e4c12b
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sun Jun 1 14:11:56 2014 -0400
+
+    Merge pull request #1 from Adaptivity/patch-1
+
+    Create ru_RU.lang
+
+commit 9e4c12b5c49e692ccfbff8e7366c895a913a9355
+Author: Anton <verybigbro@gmail.com>
+Date:   Sun Jun 1 14:18:24 2014 +0000
+
+    Create ru_RU.lang
+
+commit 644b2924448df754bc34b55118d87b2a8d00df40
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat May 3 06:39:13 2014 -0400
+
+    added options for despawn control and owner following to config file.
+
+commit b08ab32f13ee8b6ba54768c2cc06549818b063ea
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Apr 19 08:45:03 2014 -0400
+
+    fix possible rendering bug. Wrapped all GL call blocks with
+    push/popmatrix.
+
+commit cea0f032e8fcbc3f04d2bbad959b897eb37cbc55
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Apr 14 05:52:24 2014 -0700
+
+    Initial commit
+
+commit 10b62d01f6b316773efb6c4eab26577cc1d936aa
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Mar 29 14:27:56 2014 -0400
+
+    added an option to allow user to turn off monitor scaling.
+
+commit 930df3d943e41f858e1bba28b03b80587b2ce185
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Mar 5 16:48:06 2014 -0500
+
+    added:
+                    FMLClientHandler.instance().setDefaultMissingAction(FMLMissingMappingsEvent.Action.IGNORE);
+    to FMLInitializationEvent handler. This allows the mod to load when
+    there are missing item|block mappings.
+
+commit 385323effc9fffaaa3fc963718d0742e024fde19
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 2 14:25:09 2014 -0500
+
+    Added "exclude" logging to biome selection.
+
+commit 4baf07aed49bab051692a4ceff5f036521ce0e60
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 2 12:18:01 2014 -0500
+
+    Improved spawning in biomes. Realized that the Forge registerAllBiomes
+    has been replaced with registerAllBiomesAndGenerateEvents.
+
+commit d83a0255610388282af5265500d3d09bd4462285
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Mar 2 07:55:40 2014 -0500
+
+    Had to register the new 1.7 biomes that are not being picked up by
+    Forge BiomeDictionary.
+
+commit 987e700e83d62ddef0d4960d0edf2ae0ef756735
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Mar 1 14:36:50 2014 -0500
+
+    Re-added logging capabilities
+
+commit 7669c56e9ac80c0897ae64f4a47475246e1f1190
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Mar 1 11:48:48 2014 -0500
+
+    Changes to mcmod.info
+
+commit fd6d61ea90b89c03f5f95761838ddf8f95d6843d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sat Mar 1 10:48:03 2014 -0500
+
+    Added correct mcmod.info file and pack files.
+
+commit f48dfa4c089ea3334fd281f54be57b6bd1a5acca
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Wed Feb 26 09:53:36 2014 -0500
+
+    Re-format source code. I didn't like the original java formatting
+    style anyway.
+
+commit 8db07a082a7f132a0d4bc2e399fc02d5a2ffb6e9
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Feb 25 18:19:12 2014 -0500
+
+    update to MC 1.7.2, new directory structure and some new files.
+
+commit 899c506f07b8ab23ed97628a0c2535e2fa24748d
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Feb 17 18:14:16 2014 -0500
+
+    fixed taming and breeding issues. monitors now tame and breed with
+    pork (cooked or raw). turtles and lizards tame and breed with carrots
+    (normal or golden).
+
+commit 17138baf075dd0e06aebd70147c406c19bfe87bc
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sun Aug 11 07:21:36 2013 -0400
+
+    fixed monitors moving too slow. added Megalania, and changed savannah
+    monitor skin to be more brown.
+
+commit 3d854ef8ab2a076f1b4eb63e85735a683bbda93b
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Jul 23 11:46:32 2013 -0400
+
+    Changed biome scanning to use BiomeDictionary
+
+commit 94db05bfa75536dcd909bded246bb6c10c11af9c
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Mon Jul 22 18:12:55 2013 -0400
+
+    more code cleanup, remove unused imports etc.
+
+commit 9f72b76675f86ec4c75b1da82001f7248c0e968c
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Wed Jul 17 09:48:50 2013 -0400
+
+    added assets directory
+
+commit 362fb037cd497e7930b08fb32acc712fbca60c7f
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Wed Jul 17 09:44:53 2013 -0400
+
+    updated to 1.6.2
+
+commit c52da05430c45ecf6d50fb0b22480d247d2062f7
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Mon Jun 10 17:02:30 2013 -0400
+
+    forgot to add new mob texture files
+
+commit 8ae9585b140facee32c948380a917077bd2a3dea
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Jun 8 17:39:05 2013 -0400
+
+    added the croc monitor files
+
+commit d9d870ed9e5d1bf3338c704c4dd72558929ce809
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Jun 8 17:36:35 2013 -0400
+
+    added new monitor, croc monitor
+
+commit a70e58f62d13d91fd8959cd82f95475726918325
+Merge: b95e169 3a1365e
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sun Jan 6 07:57:58 2013 -0500
+
+    Merge branch 'master' of https://github.com/m1k3s/reptiles
+
+commit b95e169b897ed2ecf988cd30da7537ff7200714a
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sun Jan 6 07:57:28 2013 -0500
+
+    mkjar.sh edit
+
+commit 3a1365efe6caaf39017e565878dfcee813c2b228
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sun Jan 6 07:53:02 2013 -0500
+
+    Update mkjar.sh
+
+commit dc1a595cbb6e7d02e2e0c4bfca455416e9024699
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Jan 5 16:08:48 2013 -0500
+
+    added creative commons license text and removed my copyright info
+    from java files.
+
+commit 5138dbf57036fde5d145e1546ad549d7e58f95d0
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Jan 5 10:50:59 2013 -0500
+
+    now scans for all biomes that are descendants of BiomeGenBase. this
+    will allow reptiles to spawn in custom biomes that appear to be
+    suitable for that type of reptile.
+
+commit b491d2bd5143e86c621f5655cb9660749049895e
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Jan 4 13:55:59 2013 -0500
+
+    added entity network registration
+
+commit ba8408669abaef7f6b85dfe4dddf083d936f7fa0
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Jan 1 20:21:27 2013 -0500
+
+    moved client side files to client directory
+
+commit cc24fbbb14141ac6c5edfb98a7ea6154735eaae8
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Dec 29 16:41:22 2012 -0500
+
+    updated to MC version 1.4.7. Minor code changes.
+
+commit d9db86217adde5ebb526bec43bddf6e876a9c795
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Dec 21 12:05:35 2012 -0500
+
+    updated for minecraft version 1.4.6
+
+commit b1eb1ea221355a4c032843d3250b696ad917e102
+Merge: 4710244 ddf1061
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Dec 15 12:44:55 2012 -0500
+
+    Merge branch 'master' of https://github.com/m1k3s/reptiles
+
+commit 4710244d15ee75a4d1dca788262cb1060ed060cc
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Dec 15 12:44:41 2012 -0500
+
+    updated imports for forge-6.4.2-445
+
+commit ddf10611368ffb60b2e780286429d30aed71ef75
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Fri Nov 30 10:29:51 2012 -0500
+
+    Update README
+
+commit 2a84d44bdcf42982a03a8be1623acb63001c6b97
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Wed Nov 21 15:15:45 2012 -0500
+
+    updated for Minecraft 1.4.5
+
+commit 8ccb495a795e6c4c8d1539e72439147e3390a95e
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Mon Nov 12 19:30:16 2012 -0500
+
+    updated for minecraft 1.4.4
+
+commit 02701de048178ebaf21b921ea4af3b78d9508294
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Sat Oct 27 15:03:48 2012 -0400
+
+    updated for Minecraft 1.4.2
+
+commit 077466582523036b255822ff199b21b3eaad4054
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Oct 5 11:21:02 2012 -0400
+
+    updated scripts
+
+commit 74898843aac88ccc1d352a70724c7b3f7df6356d
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 13:00:48 2012 -0400
+
+    modified script files
+
+commit d8859822faa079bd81d5be5a09cfe532e492ac2a
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 12:33:01 2012 -0400
+
+    added the src directory back in
+
+commit cbeb7e993b00206ec04f7ff4f6796b8c688dfc12
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 12:31:03 2012 -0400
+
+    more directory pruning and scripts update
+
+commit 8d112dc6c520217dd2ff5d94189cc17d418769f5
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 11:56:57 2012 -0400
+
+    removed directories common and client, they were added to
+    sub-directory on previous commit
+
+commit 45d9fae49e7f61ea76a3bae50ea342e855b81e9f
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 11:52:13 2012 -0400
+
+    Added supporting files
+
+commit f1431e27e7ba7d129553b1b998834de28c914cb7
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Fri Sep 28 11:39:30 2012 -0400
+
+    modified to work with FML-4.1.1-251
+
+commit 41b1292b00acf51dd58feb6fcf372e3e8bae6f89
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Sep 25 09:17:30 2012 -0400
+
+    removed weird retiles directory
+
+commit 5140855abbec199e1cf09a8833c0083661a42a25
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Sep 25 08:23:48 2012 -0400
+
+    add README file
+
+commit 7d21a41ec87c96de7ade5077e141ca99e7a90914
+Author: Michael Sheppard <pbrane0@gmail.com>
+Date:   Tue Sep 25 08:11:57 2012 -0400
+
+    initial commit

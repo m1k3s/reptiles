@@ -52,7 +52,7 @@ public class EntityCrocBase extends EntityAnimal {
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
         tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(3, new EntityAIWander(this, 1.0));
-        tasks.addTask(3, new EntityAIAvoidCold(this, 1.0));
+        tasks.addTask(1, new EntityAIFleeCold(this, 1.0));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(5, new EntityAILookIdle(this));
 
@@ -82,12 +82,9 @@ public class EntityCrocBase extends EntityAnimal {
 
     @Override
     public boolean getCanSpawnHere() {
-//        BlockPos bp = new BlockPos(posX, posY, posZ);
-//        Biome biome = world.getBiome(bp);
-//        Biome.TempCategory tempCat = biome.getTempCategory();
-//        return tempCat != Biome.TempCategory.COLD && super.getCanSpawnHere();
-        return super.getCanSpawnHere();
-
+        BlockPos bp = new BlockPos(posX, posY, posZ);
+        Biome.TempCategory tc = world.getBiome(bp).getTempCategory();
+        return tc.compareTo(Biome.TempCategory.WARM) == 0 && super.getCanSpawnHere();
     }
 
     @Override
