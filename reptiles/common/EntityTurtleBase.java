@@ -77,7 +77,6 @@ public class EntityTurtleBase extends EntityTameable {
 		double moveSpeed = 0.75;
 		plantEating = new EntityAIEatGrass(this);
         tasks.addTask(1, new EntityAISwimming(this));
-        tasks.addTask(1, new EntityAIFleeCold(this, 0.38F));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAIMate(this, moveSpeed));
         tasks.addTask(4, new EntityAITempt(this, moveSpeed, Items.CARROT, false));

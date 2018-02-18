@@ -52,7 +52,6 @@ public class EntityCrocBase extends EntityAnimal {
         tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
         tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         tasks.addTask(3, new EntityAIWander(this, 1.0));
-        tasks.addTask(1, new EntityAIFleeCold(this, 1.0));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(5, new EntityAILookIdle(this));
 
@@ -72,6 +71,10 @@ public class EntityCrocBase extends EntityAnimal {
     public void onUpdate() {
         // test temperature here.
         // maybe make crocs move to hotter biome?
+//        BlockPos bp = new BlockPos(posX, posY, posZ);
+//        if (world.getBiome(bp).getTempCategory() != Biome.TempCategory.WARM) {
+//            // do something
+//        }
 		super.onUpdate();
 	}
 
@@ -104,11 +107,6 @@ public class EntityCrocBase extends EntityAnimal {
     protected SoundEvent getAmbientSound() {
         return ReptileSounds.croc_growl;
     }
-
-//    @Override
-//    protected SoundEvent getHurtSound() {
-//        return ReptileSounds.croc_growl;
-//    }
 
     @Override
     protected SoundEvent getDeathSound() {

@@ -247,7 +247,7 @@ public class Reptiles {
     private Biome[] getBiomes(String str, boolean orTypes, Type... types) {
         proxy.info("*** Creating a list of " + str + " biomes");
         LinkedList<Biome> list = new LinkedList<>();
-        List<Biome> biomes = ForgeRegistries.BIOMES.getValues();
+        Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
         for (Biome biome : biomes) {
             Set<Type> bTypes = BiomeDictionary.getTypes(biome);
 
@@ -279,7 +279,7 @@ public class Reptiles {
                 }
             }
         }
-        return list.toArray(new Biome[0]);
+        return list.toArray(new Biome[list.size()]);
     }
 
     public void biomeDebugMsg(Biome b) {

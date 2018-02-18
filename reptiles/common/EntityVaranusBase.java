@@ -45,6 +45,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -79,7 +80,6 @@ public class EntityVaranusBase extends EntityTameable {
         double moveSpeed = 1.0;
         tasks.addTask(1, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 0.38));
-        tasks.addTask(1, new EntityAIFleeCold(this, 1.0));
         tasks.addTask(2, aiSit = new EntityAISit(this));
         tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
@@ -126,17 +126,17 @@ public class EntityVaranusBase extends EntityTameable {
     @Override
     public void setAttackTarget(@Nullable EntityLivingBase entitylivingbase) {
         super.setAttackTarget(entitylivingbase);
-	}
+    }
 
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
     }
-    
+
     @Override
     public void onUpdate() {
-		super.onUpdate();
-	}
+        super.onUpdate();
+    }
 
     // This MUST be overridden in the derived class
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
@@ -166,9 +166,34 @@ public class EntityVaranusBase extends EntityTameable {
 
     @Override
     public boolean getCanSpawnHere() {
-        BlockPos bp = new BlockPos(posX, posY, posZ);
-        Biome.TempCategory tc = world.getBiome(bp).getTempCategory();
-        return tc.compareTo(Biome.TempCategory.WARM) == 0 && super.getCanSpawnHere();
+        BlockPos bp = new BlockPos(posX, getEntityBoundingBox().minY, posZ);
+//        Biome.TempCategory tc = world.getBiome(bp).getTempCategory();
+//        return tc.compareTo(Biome.TempCategory.WARM) == 0 && super.getCanSpawnHere();
+        return isWarmClimate(bp) && super.getCanSpawnHere();
+    }
+
+    private boolean isWarmClimate(BlockPos bp) {
+        boolean result = false;
+        int noSpawnRadius = 8;
+
+        int xMin = MathHelper.floor(bp.getX() - noSpawnRadius);
+        int xMax = MathHelper.floor(bp.getX() + noSpawnRadius);
+        int yMin = MathHelper.floor(bp.getY() - noSpawnRadius);
+        int yMax = MathHelper.floor(bp.getY() + noSpawnRadius);
+        int zMin = MathHelper.floor(bp.getZ() - noSpawnRadius);
+        int zMax = MathHelper.floor(bp.getZ() + noSpawnRadius);
+
+        for (int x = xMin; x <= xMax; x++) {
+            for (int y = yMin; y <= yMax; y++) {
+                for (int z = zMin; z <= zMax; z++) {
+                    BlockPos bp2 = new BlockPos(x, y, z);
+                    if (world.getBiome(bp2).getTempCategory() == Biome.TempCategory.WARM) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -211,7 +236,7 @@ public class EntityVaranusBase extends EntityTameable {
 
     @Override
     public boolean attackEntityAsMob(@Nonnull Entity entity) {
-        boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((int)getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+        boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), (float) ((int) getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 
         if (flag) {
             applyEnchantments(this, entity);
@@ -219,7 +244,7 @@ public class EntityVaranusBase extends EntityTameable {
 
         return flag;
     }
-    
+
     @Override
     public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
         if (isEntityInvulnerable(source)) {
@@ -239,10 +264,10 @@ public class EntityVaranusBase extends EntityTameable {
         }
     }
 
-	public boolean shouldAttackEntity(EntityLivingBase entityToAttack, EntityLivingBase entityOwner) {
+    public boolean shouldAttackEntity(EntityLivingBase entityToAttack, EntityLivingBase entityOwner) {
         if (!(entityToAttack instanceof EntityCreeper) && !(entityToAttack instanceof EntityGhast)) {
             if (entityToAttack instanceof EntityVaranusBase) {
-                EntityVaranusBase entityvaranus = (EntityVaranusBase)entityToAttack;
+                EntityVaranusBase entityvaranus = (EntityVaranusBase) entityToAttack;
 
                 if (entityvaranus.isTamed() && entityvaranus.getOwner() == entityOwner) {
                     return false;
