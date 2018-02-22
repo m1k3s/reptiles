@@ -33,15 +33,13 @@ import javax.annotation.Nonnull;
 @SideOnly(Side.CLIENT)
 public class RenderCroc<T extends EntityCrocBase> extends RenderLiving<T> {
 
-    private static final ResourceLocation skin = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc32.png");
-//	private static final ResourceLocation eyes = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc_eyes32.png");
+    private static final ResourceLocation SKIN = new ResourceLocation("reptilemod", "textures/entity/reptiles/croc32.png");
 
     @SuppressWarnings("unchecked")
     public RenderCroc(RenderManager rm) {
-        super(rm, new ModelCroc(), 0.0f);
+        super(rm, new ModelCroc(), 1.0f);
         addLayer(new LayerCrocEyes(this));
     }
-
 
     @Override
     protected float getDeathMaxRotation(T entityLivingBase) {
@@ -50,6 +48,6 @@ public class RenderCroc<T extends EntityCrocBase> extends RenderLiving<T> {
 
     @Override
     protected ResourceLocation getEntityTexture(@Nonnull T entity) {
-        return skin;
+        return SKIN;
     }
 }

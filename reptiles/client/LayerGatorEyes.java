@@ -57,18 +57,18 @@ public class LayerGatorEyes<T extends EntityGator> implements LayerRenderer<T> {
 			GlStateManager.depthMask(true);
 		}
 
-		char c0 = 61680;
-		int i = c0 % 65536;
-		int j = c0 / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
+		int i = 61680;
+		int j = i % 65536;
+		int k = i / 65536;
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 		renderGator.getMainModel().render(entityCroc, limbSwing, limbSwingAmount, age, headYaw, headPitch, scale);
 		Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-		int k = entityCroc.getBrightnessForRender();
-		i = k % 65536;
-		j = k / 65536;
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
+		i = entityCroc.getBrightnessForRender();
+		j = i % 65536;
+		k = i / 65536;
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 		renderGator.setLightmap(entityCroc);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
