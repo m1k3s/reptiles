@@ -69,12 +69,6 @@ public class EntityCrocBase extends EntityAnimal {
     
     @Override
     public void onUpdate() {
-        // test temperature here.
-        // maybe make crocs move to hotter biome?
-//        BlockPos bp = new BlockPos(posX, posY, posZ);
-//        if (world.getBiome(bp).getTempCategory() != Biome.TempCategory.WARM) {
-//            // do something
-//        }
 		super.onUpdate();
 	}
 
