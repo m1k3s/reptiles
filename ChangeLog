@@ -1,3 +1,34 @@
+commit 5264d3d94c614d9f86f395838be98a2016f30453
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Feb 22 10:51:07 2018 -0500
+
+    fixed render bug causing crocs to bloom out with shaders
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
+commit 1641858a7b7d37a34a8721da128172fc949ea0c5
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Sun Feb 18 11:06:58 2018 -0500
+
+    removed EntityAIFleeCold class
+    made changes to getCanSpawnHere method in base classes,
+            test for warm climate don't spawn in or near cold biomes
+    Changed forgeRegisties deprecated method getValues to
+    getValuesCollection
+
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
+commit f6fa999a004f989660dc328eeae4302a4be441fc
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Tue Jan 23 07:56:46 2018 -0500
+
+    Updated Changelog
+    fixed config not saving on server
+    adding cold avoidance AI, WIP
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
 commit d4dc5974071cda40ff830458f301b90aee5539ad
 Merge: bc56ead 77ead5d
 Author: m1k3s <pbrane0@gmail.com>
