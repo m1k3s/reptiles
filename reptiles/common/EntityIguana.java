@@ -43,7 +43,7 @@ public final class EntityIguana extends EntityLizardBase {
             i.setOwnerId(uuid);
             i.setTamed(true);
         }
-        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        Reptiles.instance.info("Spawned entity of type " + getClass().toString());
         return i;
     }
 

@@ -42,7 +42,7 @@ public final class EntityDesertTortoise extends EntityTurtleBase {
             t.setOwnerId(uuid);
             t.setTamed(true);
         }
-        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        Reptiles.instance.info("Spawned entity of type " + getClass().toString());
         return t;
     }
 

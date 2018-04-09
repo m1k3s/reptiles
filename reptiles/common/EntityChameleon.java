@@ -44,7 +44,7 @@ public final class EntityChameleon extends EntityLizardBase {
             c.setOwnerId(uuid);
             c.setTamed(true);
         }
-        Reptiles.proxy.info("Spawned entity of type " + getClass().toString());
+        Reptiles.instance.info("Spawned entity of type " + getClass().toString());
         return c;
     }
 

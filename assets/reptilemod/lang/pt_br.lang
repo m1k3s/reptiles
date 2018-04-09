@@ -1,0 +1,35 @@
+language.name=Portuguese
+language.region=BR
+language.code=pt_BR
+
+entity.komodo.name=Dragão de Komodo
+entity.savanna.name=Varano-Terreste
+entity.griseus.name=Varano-do-Deserto
+entity.perentie.name=Varano-Gigante
+entity.lace.name=Varano Listrado
+entity.iguana.name=Iguana
+entity.chameleon.name=Camaleão
+entity.croc.name=Crocodilo
+entity.deserttortoise.name=Tartaruga do Deserto
+entity.littleturtle.name=Pequena Tartaruga
+entity.largecroc.name=Crocodilo Largo
+entity.alligator.name=Jacaré
+entity.tortoise.name=Tartaruga
+entity.crocmonitor.name=Crocodilo das Árvores
+entity.megalania.name=Megalania
+
+item.reptilemod:reptile_cooked.name=Carne de Réptil Cozida
+item.reptilemod:reptile_raw.name=Carne de Réptil Cru
+item.reptilemod:reptile_hide.name=Pele de Réptil
+
+item.reptilemod:turtle_cooked.name=Carne de Tartaruga Cozida
+item.reptilemod:turtle_raw.name=Carne de Tartaruga Cru
+item.reptilemod:turtle_hide.name=Pele de Tartaruga
+
+item.reptilemod:croc_cooked.name=Carne de Croc. Cozida
+item.reptilemod:croc_raw.name=Carne de Croc. Cru
+item.reptilemod:croc_hide.name=Pele de Crocodilo
+
+item.reptilemod:megalania_cooked.name=Carne de Megalania Cozida
+item.reptilemod:megalania_raw.name=Carne de Megalania Cru
+item.reptilemod:megalania_hide.name=Pele de Megalania

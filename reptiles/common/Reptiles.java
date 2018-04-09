@@ -44,6 +44,8 @@ import net.minecraft.world.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(
         modid = Reptiles.MODID,
@@ -59,6 +61,8 @@ public class Reptiles {
     public static final String VERSION = "3.8.4";
     public static final String MCVERSION = "1.12.2";
     private static int entityID = 0;
+
+    private static final Logger logger = LogManager.getLogger(Reptiles.MODID);
 
     @SuppressWarnings("unchecked")
     // List of always excluded biome types
@@ -114,7 +118,7 @@ public class Reptiles {
             serverSide = "com.reptiles.common.CommonProxyReptiles"
     )
 
-    public static CommonProxyReptiles proxy;
+    public static IProxy proxy;
 
     @SuppressWarnings("unused")
     @Mod.EventHandler
@@ -172,7 +176,7 @@ public class Reptiles {
         GameRegistry.addSmelting(CROC_MEAT_RAW, new ItemStack(CROC_MEAT_COOKED), 0.1f);
         GameRegistry.addSmelting(MEGA_MEAT_RAW, new ItemStack(MEGA_MEAT_COOKED), 0.1f);
 
-        proxy.registerRenderers();
+        proxy.preInit();
     }
 
     @SuppressWarnings("unused")
@@ -245,7 +249,7 @@ public class Reptiles {
     }
 
     private Biome[] getBiomes(String str, boolean orTypes, Type... types) {
-        proxy.info("*** Creating a list of " + str + " biomes");
+        info("*** Creating a list of " + str + " biomes");
         LinkedList<Biome> list = new LinkedList<>();
         Collection<Biome> biomes = ForgeRegistries.BIOMES.getValuesCollection();
         for (Biome biome : biomes) {
@@ -284,8 +288,16 @@ public class Reptiles {
 
     public void biomeDebugMsg(Biome b) {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-            proxy.info("  >>> Including " + b.getBiomeName() + " for spawning");
+            info("  >>> Including " + b.getBiomeName() + " for spawning");
         }
+    }
+
+    public void info(String s) {
+        logger.info(s);
+    }
+
+    public void error(String s) {
+        logger.error(s);
     }
 
 }

@@ -22,9 +22,7 @@
 package com.reptiles.common;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 public class ConfigHandler {
 
@@ -99,7 +97,7 @@ public class ConfigHandler {
 			randomScale = config.get(Configuration.CATEGORY_GENERAL, "randomScale", true, randomScaleComment).getBoolean(true);
 			followOwner = config.get(Configuration.CATEGORY_GENERAL, "followOwner", true, followOwnerComment).getBoolean(true);
 		} catch (Exception e) {
-			Reptiles.proxy.info("failed to load or read the config file");
+			Reptiles.instance.info("failed to load or read the config file");
 		} finally {
 			if (config.hasChanged()) {
 				config.save();

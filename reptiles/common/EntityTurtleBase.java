@@ -137,7 +137,7 @@ public class EntityTurtleBase extends EntityTameable {
 
     // This MUST be overridden in the derived class
     public EntityAnimal spawnBabyAnimal(EntityAgeable entityageable) {
-        Reptiles.proxy.error("[ERROR] Do NOT call this base class method directly!");
+        Reptiles.instance.error("[ERROR] Do NOT call this base class method directly!");
         return null;
     }
 
@@ -165,7 +165,7 @@ public class EntityTurtleBase extends EntityTameable {
                     if (tc.compareTo(Biome.TempCategory.WARM) == 0) {
                         if ((isHardenedClay(bp) || isSandOrGrassBlock(bp))) { // && (tempCat != Biome.TempCategory.COLD)) {
                             if (world.getLight(bp) > 8) {
-                                Reptiles.proxy.info("Spawning turtle ***");
+                                Reptiles.instance.info("Spawning turtle ***");
                                 return true;
                             }
                         }

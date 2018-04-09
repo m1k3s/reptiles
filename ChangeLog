@@ -1,3 +1,19 @@
+commit 7b588594f74aba9caf325ed9b7895bff46e7800c
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Mar 1 13:07:11 2018 -0500
+
+    update Changelog
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
+commit ba9514ed287383ea0c86c3ecb11de2566780b602
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Thu Mar 1 13:06:16 2018 -0500
+
+    fixed crocs blooming out woth shaders
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
 commit 5264d3d94c614d9f86f395838be98a2016f30453
 Author: m1k3s <pbrane0@gmail.com>
 Date:   Thu Feb 22 10:51:07 2018 -0500
