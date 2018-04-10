@@ -1,3 +1,14 @@
+commit 806ca86237a289fe62836701525f11b89ed08200
+Author: m1k3s <pbrane0@gmail.com>
+Date:   Mon Apr 9 07:56:32 2018 -0400
+
+    removed common proxy class, moved code to main mod class
+    fixed leaking GL state in LayerChameleonSkin
+    changed raw GL11 calls to GlStateManager
+    added pt_br.lang
+
+    Signed-off-by: m1k3s <pbrane0@gmail.com>
+
 commit 7b588594f74aba9caf325ed9b7895bff46e7800c
 Author: m1k3s <pbrane0@gmail.com>
 Date:   Thu Mar 1 13:07:11 2018 -0500

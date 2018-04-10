@@ -115,7 +115,7 @@ public class Reptiles {
 
     @SidedProxy(
             clientSide = "com.reptiles.client.ClientProxyReptiles",
-            serverSide = "com.reptiles.common.CommonProxyReptiles"
+            serverSide = "com.reptiles.common.ReptileServerProxy"
     )
 
     public static IProxy proxy;
@@ -195,6 +195,8 @@ public class Reptiles {
         Biome[] savannaBiomes = getBiomes("savanna", false, Type.SAVANNA);
         Biome[] desertBiomes = getBiomes("desert", false, Type.HOT, Type.DRY, Type.SANDY);
         Biome[] combinedBiomes = getBiomes("combined", true, Type.FOREST, Type.SAVANNA);
+
+        System.out.println(crocBiomes);
 
         int minSpawn = ConfigHandler.getMinSpawn();
         int maxSpawn = ConfigHandler.getMaxSpawn();
@@ -283,7 +285,7 @@ public class Reptiles {
                 }
             }
         }
-        return list.toArray(new Biome[list.size()]);
+        return list.toArray(new Biome[0]);
     }
 
     public void biomeDebugMsg(Biome b) {

@@ -76,16 +76,16 @@ public class RenderIguana<T extends EntityIguana> extends RenderLiving<T> {
             if (entity.hurtTime <= 0 || entity.deathTime > 0) {
 
                 // Save the current OpenGL color to re-set it later
-                GL11.glGetFloat(GL11.GL_CURRENT_COLOR, currentGLColor);
+                GlStateManager.getFloat(GL11.GL_CURRENT_COLOR, currentGLColor);
 
                 int[] colorTint = getBlockBiomeColors(entity);
-                GL11.glColor4f(colorTint[0] / 255.f, colorTint[1] / 255.f, colorTint[2] / 255.f, 1.0F);
+                GlStateManager.color(colorTint[0] / 255.f, colorTint[1] / 255.f, colorTint[2] / 255.f, 1.0F);
             }
 
             mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
             // Re-set the GL color
-            GL11.glColor4f(currentGLColor.get(0), currentGLColor.get(1), currentGLColor.get(2), currentGLColor.get(3));
+            GlStateManager.color(currentGLColor.get(0), currentGLColor.get(1), currentGLColor.get(2), currentGLColor.get(3));
 
             if (isNotInvisibleToPlayer) {
                 GlStateManager.disableBlend();
