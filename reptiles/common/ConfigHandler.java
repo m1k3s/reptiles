@@ -50,7 +50,7 @@ public class ConfigHandler {
 	static private boolean followOwner;
 	static private int megalaniaSpawnProb;
 
-	static private final int defaultSpawnProb = 100;
+	static private final int defaultSpawnProb = 10;
 
 	private static final String comments = Reptiles.NAME + " Config\n Michael Sheppard (crackedEgg)\n"
 			+ " For Minecraft Version " + Reptiles.MCVERSION;
